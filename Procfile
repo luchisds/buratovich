@@ -1,1 +1,1 @@
-web: gunicorn diputados.wsgi
+web: gunicorn buratovich.wsgi
