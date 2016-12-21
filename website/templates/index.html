@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "js/flickity/flickity.min.css" %}">
+{% endblock %}
+
+{% block content %}
+<section class="home">
+	<section class="business-units">
+		<article class="carousel">
+			<div class="carousel-cell cell1">
+				<img src="{% static "img/acopio.jpg" %}" alt="">
+				<div>
+					<p>Tres plantas de silos altamente calificadas para el <span class="highlight">acopio</span> y <span class="highlight">acondicionamiento</span> de granos al servicio de nuestros clientes.</p>
+				</div>
+			</div>
+			<div class="carousel-cell cell2">
+				<img src="{% static "img/office.jpg" %}" alt="">
+				<div>
+					<p>Mas de <span class="highlight">100 años</span> de experiencia en la comercializacion de granos y oleaginosas para ofrecerle diferentes alternativas de <span class="highlight">negocios</span>: corretaje, asesoramiento, canjes, contratos forward y disponible.</p>
+				</div>
+			</div>
+			<div class="carousel-cell cell3">
+				<img src="{% static "img/agro.jpg" %}" alt="">
+				<div>
+					<p>Desarrollamos la produccion agricola en distintas regiones de las provincias de Buenos Aires y Chaco. Nuestros principales cultivos son el <span class="highlight">Trigo</span>, <span class="highlight">Maiz</span>, <span class="highlight">Soja</span> y <span class="highlight">Sorgo</span>.</p>
+				</div>
+			</div>
+			<div class="carousel-cell cell4">
+				<img src="{% static "img/cows.jpg" %}" alt="">
+				<div>
+					<p>Desde hace años practicamos la actividad ganadera en la localidad de Pila, en el centro este de la provincia de <span class="highlight">Buenos Aires</span> y en distintas zonas de la provincia de <span class="highlight">Chaco</span>.</p>
+				</div>
+			</div>
+			<div class="carousel-cell cell5">
+				<img src="{% static "img/ruta51.jpg" %}" alt="">
+				<div>
+					<p>Una actividad en constante crecimiento que nos ha permitido conformar una fuerte red de contactos <span class="highlight">internacionales</span> a traves de la exportacion de <span class="highlight">granos</span>, <span class="highlight">oleaginosas</span> y <span class="highlight">productos derivados</span>.</p>
+				</div>
+			</div>
+		</article>
+		<article class="units">
+			<ul class="h-list">
+				<li><a href="#" class="slide current" data-selector=".cell1"><!--<img src="{% static "img/acopio.png" %}" alt=""> -->ACOPIO</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell2"><!--<img src="{% static "img/comercializacion.png" %}" alt=""> -->COMERCIALIZACION</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell3"><!--<img src="{% static "img/agro.png" %}" alt=""> -->AGRICULTURA</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell4"><!--<img src="{% static "img/ganaderia.png" %}" alt=""> -->GANADERIA</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell5"><!--<img src="{% static "img/exportacion.png" %}" alt=""> -->EXPORTACION</a></li>
+			</ul>
+		</article>
+	</section>
+	<section class="services">
+		<div class="maxwidth">
+			<article class="module">
+				<img src="{% static "img/centenaria.jpg" %}" alt="">
+				<h3>Una empresa centenaria</h3>
+				<p>Conocé los valores que nos mantiene en constante crecimiento luego de un siglo de actividad.</p>
+				<a href="/empresa"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+			</article>
+			<article class="center module">
+				<img src="{% static "img/zonas.jpg" %}" alt="">
+				<h3>Zonas de Influencia</h3>
+				<p>Nuestras operaciones se extienden a las provincias de Buenos Aires y Chaco. Conocé más al respecto.</p>
+				<a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+			</article>
+			<article class="module">
+				<img src="{% static "img/unidades.jpg" %}" alt="">
+				<h3>Unidades de Negocio</h3>
+				<p>Acopio y Acondicionamiento, Comercializacion, Producción Agricola, Exportacion, entre otros.</p>
+				<a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+			</article>
+		</div>
+	</section>
+	<section class="quote">
+		<p class="maxwidth module">"Nuestro primer <span>objetivo</span> es la realización de un negocio y nuestro mejor resultado, <span>un buen cliente por muchos años.</span>"</p>
+	</section>
+	<section class="utils">
+		<div class="maxwidth">
+			<article class="pizarras module">
+				<h3 class="utils-title">
+					<span class="title">
+						<span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+						<span>Pizarra</span>
+					</span>
+				</h3>
+				<div class="container">
+					<table>
+						<thead>
+							<tr>
+								<th>29/11/2016</th>
+								<th>ROS.</th>
+								<th>BS. AS.</th>
+								<th>QQ.</th>
+								<th>B.B.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Trigo</td>
+								<td>2200</td>
+								<td></td>
+								<td>2234</td>
+								<td>2250</td>
+							</tr>
+							<tr>
+								<td>Trigo Art. 12</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Maíz</td>
+								<td>2590</td>
+								<td></td>
+								<td>2396</td>
+								<td>2500</td>
+							</tr>
+							<tr>
+								<td>Girasol</td>
+								<td></td>
+								<td></td>
+								<td>4520</td>
+								<td>4530</td>
+							</tr>
+							<tr>
+								<td>Soja</td>
+								<td>4100</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Sorgo</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<span class="data">+ Precios del día <span>29/11/2016</span></span>
+					<form action="">
+						<fieldset>
+							<legend>Ver pizarra del: </legend>
+							<div class="input">
+								<input id="date" name="date" type="date">
+								<span>
+									<i class="fa fa-calendar-o" aria-hidden="true"></i>
+								</span>
+							</div>
+							<button type="submit" class="submit">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</fieldset>
+					</form>
+				</div>
+			</article>
+			<article class="currencies module">
+				<h3 class="utils-title">
+					<span class="title">
+						<span><i class="fa fa-database" aria-hidden="true"></i></span>
+						<span>Monedas</span>
+					</span>
+				</h3>
+				<div class="container">
+					<table>
+						<tr>
+							<th>29/11/2016</th>
+							<th>Compra</th>
+							<th>Venta</th>
+						</tr>
+						<tr>
+							<td>DOLAR NACION</td>
+							<td>15,44</td>
+							<td>15,54</td>
+						</tr>
+						<tr>
+							<td>DOLAR LIBRE</td>
+							<td>15,20</td>
+							<td>15,70</td>
+						</tr>
+					</table>
+					<span class="data">+ Cotización del día <span>29/11/2016</span></span>
+					<form action="">
+						<fieldset>
+							<legend>Ver dolar del: </legend>
+							<div class="input">
+								<input id="usd" name="usd" type="date">
+								<span>
+									<i class="fa fa-calendar-o" aria-hidden="true"></i>
+								</span>
+							</div>
+							<button type="submit" class="submit">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</fieldset>
+					</form>
+				</div>
+			</article>
+			<article class="weather module">
+				<h3 class="utils-title">
+					<span class="title">
+						<span><i class="fa fa-cloud" aria-hidden="true"></i></span>
+						<span>Clima</span>
+					</span>
+				</h3>
+				<div class="container">
+					<ul class="tab h-list">
+						<li><a href="#" class="tablinks arrecifes active">Arrecifes</a></li><!--
+						--><li><a href="#" class="tablinks pinedo">Gral. Pinedo</a></li><!--
+						--><li><a href="#" class="tablinks lobos">Lobos</a></li>
+					</ul>
+					<div id="arrecifes" class="tabcontent">
+						<div id="cont_6a42ac026df37ca04fe779cb2f1def70"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/6a42ac026df37ca04fe779cb2f1def70"></script></div>
+					</div>
+					<div id="pinedo" class="tabcontent">
+						<div id="cont_203f9864594f9f354d6242dbad7b366f"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/203f9864594f9f354d6242dbad7b366f"></script></div>
+					</div>
+					<div id="lobos" class="tabcontent">
+						<div id="cont_32c73aacee8cd6cb959ca93018134fbc"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/32c73aacee8cd6cb959ca93018134fbc"></script></div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+</section>
+{% endblock %}
+
+{% block scriptjs %}
+<script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>
+<script>
+	var flkty = new Flickity( '.carousel', {
+		cellSelector: '.carousel-cell',
+		contain: true,
+		autoPlay: 8000,
+		pageDots: false,
+		imagesLoaded: true
+	});
+</script>
+{% endblock %}

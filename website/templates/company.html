@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Buratovich Hnos. S.A. - Empresa{% endblock %}
+
+{% block content %}
+<section class="company">
+	<div class="path"><a href="/">Home</a> > <span class="current">Institucional</span></div>
+	<div class="imgs maxwidth">
+		<img src="{% static "img/mini_ruta8.jpg" %}" alt="">
+		<img src="{% static "img/mini_ruta51.jpg" %}" alt="">
+		<img src="{% static "img/mini_silos.jpg" %}" alt="">
+		<img src="{% static "img/mini_chaco.jpg" %}" alt="">
+	</div>
+	<div class="first-col">
+		<article class="featured maxwidth">
+			<h2>Nuestra empresa</h2>
+			<ul>
+				<li>Buratovich Hnos. S.A. desarrolla su actividad comercial principalmente en las provincias de Buenos Aires y Chaco.</li>
+				<li>Contamos con dos plantas de acopio en la localidad de Arrecifes (Bs. As.) y una tercera en la localidad de General Pinedo (Chaco) para la recepcion y acondicionamiento de la mercaderia.</li>
+				<li>Satisfacemos las necesidades comerciales de mas de 400 clientes desde nuestra casa central en Arrecifes, y atendemos a nuestros clientes de la zona centro este de la provincia de Bs. As. desde una oficina comercial ubicada en la localidad de Lobos.</li>
+				<li>La producción agricola ganadera en la provincia de Chaco se extiende desde el sudoeste hacia la region norte. En Charata se encuentran las oficinas que administra esta actividad en esa provincia. En Bs. As. la producción se encuentra centralizada en las localidades de Salto, Chacabuco y Pila.</li>
+				<li>Actualmente nos encontramos desarrollando nuevas alternativas comerciales que nos permitan continuar ampliando nuestros horizontes, como la exportacion de cereales y productos derivados, y la importacion de insumos agropecuarios.</li>
+			</ul>
+		</article>
+		<article class="history maxwidth">
+			<h2>Una empresa centenaria</h2>
+			<p>La empresa fue fundada en el año 1915 por Esteban Buratovich, inmigrante de origen croata, que se radicó en el país a principio de siglo. Hombre de un espíritu innovador, fue precursor del acarreo y acondicionamiento de cereal a granel.</p>
+			<p>Sus hijos continuaron la tarea y actualmente, después de 10 años, miembros de la tercera y cuarta generación de una rama de la familia, seguimos identificados con la línea de trabajo y responsabilidades que nos legaron.</p>
+			<p>Hoy atendemos a más de 400 clientes de muy variadas características en una amplia región, privilegiando el trato personalizado y las diferentes necesidades individuales.</p>
+			<p>El personal técnico y administrativo debidamente capacitado y los modernos equipamientos, hacen posible un trato y un servicio eficiente. Gracias a ello podemos brindar, por ejemplo entre otros servicios, una información oportuna y on-line de las entregas de cereal, lo cual contribuye a la claridad y transparencia de nuestras operaciones.</p>
+		</article>
+	</div>
+	<div class="second-col">
+		<div class="infography">
+			<div class="row">
+				<div class="first-col">
+					<span>Buratovich Hnos. S.A. es fundada en 1915 en Todd, provincia de Buenos Aires, mudando años mas tarde su casa central a la vecina localidad de Arrecifes.</span>
+					<i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+				</div>
+				<div class="second-col empty"></div>
+			</div>
+			<div class="row">
+				<div class="first-col empty">&nbsp;</div>
+				<div class="second-col">
+					<span>La empresa se establecio en diferentes zonas de las provincias de Buenos Aires y Chaco, explotando principalmente el acopio y acondicionamiento de granos y la produccion agropecuaria.</span>
+					<i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div class="row">
+				<div class="first-col">
+					<span>En esta ultima decada, la empresa se ha abierto a incorporar nuevos negocios como la exportacion de cereales y productos derivados, y la importacion de insumos para el agro.</span>
+					<i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+				</div>
+				<div class="second-col empty"></div>
+			</div>
+			<div class="row">
+				<div class="first-col empty">&nbsp;</div>
+				<div class="second-col">
+					<span>En 2015 cumplimos 100 años de actividad comercial.</span>
+					<i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+	<article class="video-company">
+		<div>
+			<p>Conocé la historia de la empresa a traves de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generacion de la familia Buratovich:</p>
+			<video width="720" controls poster="{% static "img/video_poster.jpg" %}">
+				<source src="{% static "video/bh_100_institucional.mp4" %}" type="video/mp4">
+				Your browser does not support HTML5 video.
+			</video>
+		</div>
+	</article>
+</section>
+{% endblock %}

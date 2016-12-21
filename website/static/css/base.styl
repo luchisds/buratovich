@@ -1,0 +1,88 @@
+//Iinit styles
+
+body, html
+	margin 0
+	padding 0
+
+body
+	//max-width 1280px
+	min-width 320px
+
+html
+	box-sizing border-box
+	color $darkGreyGreen
+	font-family $textFont
+	font-size unit($fontSize, 'px')
+	text-rendering optimizeLegibility
+
+*
+:before
+:after
+	// box-sizing se define en el html, y se hereda en el resto de elementos.
+	// http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+	box-sizing inherit
+
+a
+	text-decoration none
+
+h1, h2, h3, h4, h5, h6
+	margin 0
+
+p
+	margin 0
+
+ul
+	margin 0
+	padding 0
+	li
+		list-style none
+
+fieldset
+	border none
+
+
+//Jeet layout styles
+
+header
+	.logo
+		column(3/10, gutter: 0)
+	nav
+		column(7/10, gutter:0)
+
+footer
+	.logo, .contact
+		column(2.5/10, gutter:0)
+	.nav
+		column(5/10, gutter:0)
+	.foot
+		stack()
+
+.customer
+	stack()
+
+.home
+	.services
+		stack()
+		article
+			column(1/3, gutter:3)
+	.utils
+		stack()
+		article
+			column(1/3, gutter:4)
+
+.company
+	.first-col
+		column(6/10, gutter:0)
+	.second-col
+		column(4/10, gutter:0)
+	.infography
+		.first-col, .second-col
+			column(1/2, gutter:0)
+
+.contact
+	.offices
+		div
+			column(1/4, gutter:2)
+	.areas
+		.column
+			column(1/3, gutter:2)

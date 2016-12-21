@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<title>
+		{% block title %}Buratovich Hnos. S.A.{% endblock %}
+	</title>
+
+	<!--<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">-->
+	<!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400i" rel="stylesheet">-->
+	<link rel="stylesheet" href="{% static "css/styles.css" %}">
+	<link rel="stylesheet" href="{% static "css/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+
+	<!--<script src="https://use.fontawesome.com/f345cc1188.js"></script>-->
+	{% block head %}{% endblock %}
+</head>
+<body>
+	<header>
+		<div class="maxwidth">
+			<a href="/">
+				<div class="logo">
+					<img src="{% static "img/logo_bh_2.png" %}" alt="Buratovich Hnos. S.A.">
+					<h1>
+						<span>buratovich</span>
+						<span>hnos. s.a.</span>
+					</h1>
+				</div>
+			</a>
+			<nav>
+				<ul class="h-list">
+					<!--<li>
+						<a href="" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+					</li>-->
+					<li>
+						<a href="/empresa"><span>Institucional</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href=""><span>Unidades de Negocio</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href=""><span>Zonas de Influencia</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href="/contacto"><span>Contacto</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+					</li>
+					<li>
+						<a href="" class="login"><i class="fa fa-user" aria-hidden="true"></i> Clientes</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="customer maxwidth">
+		<form action="" class="extranet">
+			<i class="fa fa-caret-up" aria-hidden="true"></i>
+			<fieldset>
+				<!--<legend>Acceso a Clientes</legend>-->
+				<div class="input">
+					<input type="text" id="user" placeholder="Usuario">
+					<span>
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</span>
+				</div>
+				<div class="input">
+					<input type="password" id="pass" placeholder="Contraseña">
+					<span>
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+				</div>
+				<button type="submit" class="submit">
+					<i class="fa fa-sign-in" aria-hidden="true"></i>
+				</button>
+			</fieldset>
+		</form>
+		<div style="clear:both;"></div>
+	</div>
+	{% block content %}{% endblock %}
+	{% block scriptjs %}{% endblock %}
+	<script src="{% static "js/js.js" %}" type="text/javascript"></script>
+	<script src="{% static "js/velocity.min.js" %}"></script>
+	<footer>
+		<div class="maxwidth">
+			<div class="logo">
+				<img src="{% static "img/logo_grey.png" %}" alt="Buratovich Hnos. S.A.">
+				<p class="name">buratovich hnos. s.a.</p>
+			</div>
+			<div class="contact">
+				<p><a href="tel:542478451500"><i class="fa fa-phone" aria-hidden="true"></i>+54 02478 451500</a></p>
+				<p><a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i>buratovich@buratovich.com</a></p>
+				<p><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>Ruta 8 Km 176.5 - Arrecifes, Bs. As.</a></p>
+			</div>
+			<div class="nav">
+				<nav>
+					<ul class="h-list">
+						<li><a href="/empresa">Institucional</a></li>
+						<li><a href="">Unidades de Negocio</a></li>
+						<li><a href="">Zonas de Influencia</a></li>
+						<li><a href="/contacto">Contacto</a></li>
+					</ul>
+				</nav>
+				<div class="cv">
+					<div>
+						<i class="fa fa-cogs" aria-hidden="true"></i>
+						<span>
+								<a href="" class="work">Trabajá con nosotros</a>
+								<a href="" class="send-cv">Envianos tu CV</a>
+							</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="foot">
+			<p class="maxwidth"><span>OFICINA CENTRAL:</span> Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)</p>
+		</div>
+	</footer>
+</body>
+</html>
