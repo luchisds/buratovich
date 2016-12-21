@@ -1,0 +1,85 @@
+/* Triangles */
+triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
+	border-bottom bottom solid transparent
+	border-left left solid transparent
+	border-right right solid transparent
+	border-top top solid transparent
+	content ""
+	display inline-block
+	if type == 'top'
+		border-top-color color
+	if type == 'right'
+		border-right-color color
+	if type == 'bottom'
+		border-bottom-color color
+	if type == 'left'
+		border-left-color color
+
+.h-list
+	li
+		display inline-block
+
+.maxwidth
+	max-width 1280px
+	margin 0 auto
+
+.input
+	display inline-block
+	position relative
+	input
+		border 1px solid $midGrey
+		border-radius 4px
+		display block
+		outline 0
+		padding 5px 10px 8px 35px
+		transition 0.2s ease-out
+		width 100%
+		&.focused
+			padding 5px 10px 8px 10px
+	span
+		color $midGrey
+		display block
+		font-size 15px
+		left 10px
+		opacity 1
+		position absolute
+		top 8px
+
+.path
+	border-bottom 1px solid $midGrey
+	margin 1em 1.5em
+	padding 0 0 .3em .5em
+	a
+		color $darkGreyGreen
+	.current
+		color $baseColor
+
+/////////////////////////////// scroll down fadein
+
+.come-in
+	transform translateY(100px)
+	animation come-in 0.8s ease forwards
+
+.come-in:nth-child(odd)
+	animation-duration 0.6s /* So they look staggered */
+
+.already-visible
+	transform translateY(0)
+	animation none
+
+.module
+	opacity 0
+
+@keyframes come-in {
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/////////////////////////////// weather tabs
+
+@keyframes fadeEffect {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
