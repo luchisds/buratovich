@@ -1,1 +1,1 @@
-web: gunicorn buratovich.wsgi
+web: gunicorn bh.wsgi
