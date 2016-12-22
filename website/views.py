@@ -1,4 +1,10 @@
+import os
+import re
+
+from django.conf import settings
 from django.shortcuts import render
+from models import CtaCte
+
 
 def index(request):
 	return render(request, 'index.html')
@@ -13,8 +19,18 @@ def contact(request):
 
 
 def ctacte(request):
-	f = open('CtaCteP.TXT', 'r')
-	file = f.read()
-	print file
+	file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
+	#Chequea que el txt CtaCteP.txt existe, para evitar borrar los objetos del modelo y que no tenga contenido para cargar
+	if os.path.isfile(file):
+		
+		#Si existen objetos en el modelo los borra
+		if CtaCte.objects.count() > 0:
+			CtaCte.objects.all().delete()
 
-	return render(request, 'ctacte.html', {'file':file})
+		with open(file, 'r') as f:
+			# for line in f:
+			# 	print re.split('\t+', line)
+			line = f.readline()
+			line = re.split('\t+', line)
+
+	return render(request, 'ctacte.html', {'line': line})
