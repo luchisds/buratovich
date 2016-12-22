@@ -27,7 +27,6 @@ class CtaCte(models.Model):
 	initial_balance_countable = models.FloatField(verbose_name='Saldo Inicial Contable')
 	number_movements = models.IntegerField(verbose_name='Cantidad de Movimientos')
 	balance = models.FloatField(verbose_name='Saldo')
-	initial_balance_countable = models.FloatField(verbose_name='Saldo Inicial Contable')
 	voucher = models.CharField(max_length=16, verbose_name='Comprobante')
 	afected_voucher = models.CharField(max_length=16, verbose_name='Comprobante Afectado')
 	voucher_date = models.DateField(verbose_name='Fecha Comprobante')
