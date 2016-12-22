@@ -33,7 +33,6 @@ class CtaCte(models.Model):
 	afected_date = models.DateField(verbose_name='Fecha Afectado')
 	concept = models.CharField(max_length=200, verbose_name='Concepto')
 	currency = models.CharField(max_length=1, verbose_name='Moneda')
-	concept = models.CharField(max_length=200, verbose_name='Concepto')
 	amount = models.FloatField(verbose_name='Importe Comprobante')
 	amount_tax = models.FloatField(verbose_name='Importe Sujeto Retencion')
 	movement_type = models.CharField(max_length=7, verbose_name='Tipo Movimiento')
