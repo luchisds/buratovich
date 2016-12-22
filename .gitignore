@@ -1,4 +1,10 @@
-#Mac
+# Sqlite
+*.sqlite3
+
+# Secret Key
+secret_key.txt
+
+# Mac
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
