@@ -24,11 +24,11 @@ def contact(request):
 def ctacte(request):
 
 	def evalDate(date):
-		#Catch format error in date
+		# Catch format error in date
 		try:
 			return datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
 		except ValueError:
-			return ''
+			return None
 
 	def evalFloat(num):
 		try:
@@ -43,26 +43,27 @@ def ctacte(request):
 			return 0
 
 	def evalText(text):
+		# Decode text in latin iso-8859-1 like (0xd1 --> ñ)
 		return unicode(text.strip(' ').decode('iso-8859-1'))
 
 	file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
-	#Chequea que el txt CtaCteP.txt existe, para evitar borrar los objetos del modelo y que no tenga contenido para cargar
+	# Check if the file exists before deleteing all objects
 	if os.path.isfile(file):
 		
-		#Si existen objetos en el modelo los borra
+		# Delete all objects if there is 1 or more model objects
 		if CtaCte.objects.count() > 0:
 			CtaCte.objects.all().delete()
 
 		with open(file, 'r') as f:
-			reg = []
-			i = 0
+			record = []
+			r = 0
 			for line in f:
+				# Delete new line character
 				line = line.replace('\n', '')
 				if len(line) > 0:
 					data = re.split('\t+', line)
-					print i
-					#CtaCte.objects.create(
-					reg.append(
+					print r
+					record.append(
 						CtaCte(
 							algoritmo_code = evalInt(data[0]),
 							name = evalText(data[1]),
@@ -84,7 +85,7 @@ def ctacte(request):
 							voucher = evalText(data[17]),
 							afected_voucher = evalText(data[18]),
 							voucher_date = evalDate(data[19]),
-							#afected_date = evalDate(data[20]),
+							afected_date = evalDate(data[20]),
 							concept = evalText(data[21]),
 							currency = evalText(data[22]),
 							amount = evalFloat(data[23]),
@@ -138,8 +139,12 @@ def ctacte(request):
 							voucher_order = evalText(data[71])
 						)
 					)
-				i = i + 1
-				#reg.append(i)
-			CtaCte.objects.bulk_create(reg)
+				r = r + 1
 
-	return render(request, 'ctacte.html', {'reg':reg})
+			# bulk_create have a limit of 999 objects per batch for SQLite
+			BULK_SIZE = 999
+			# break batch in small batches of 999 objects
+			for j in range(0, len(record), BULK_SIZE):
+				CtaCte.objects.bulk_create(record[j:j+BULK_SIZE])
+
+	return render(request, 'ctacte.html')
