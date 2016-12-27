@@ -5,7 +5,11 @@ import re
 from datetime import datetime
 
 from django.conf import settings
+from django.contrib.auth import views
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.shortcuts import redirect
+
 from models import CtaCte
 
 
@@ -21,7 +25,29 @@ def contact(request):
 	return render(request, 'contact.html')
 
 
+def login(request):
+	template_response = views.login(request)
+
+	print settings.LOGIN_URL
+	print request.path
+
+	if not request.user.is_authenticated:
+		return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+	else:
+		return template_response
+
+@login_required
+def extranet(request):
+	return render(request, 'extranet.html')
+
+
+@login_required
 def ctacte(request):
+	print request.user
+	return render(request, 'ctacte.html')
+
+
+def importcc(request):
 
 	def evalDate(date):
 		# Catch format error in date
@@ -147,4 +173,4 @@ def ctacte(request):
 			for j in range(0, len(record), BULK_SIZE):
 				CtaCte.objects.bulk_create(record[j:j+BULK_SIZE])
 
-	return render(request, 'ctacte.html')
+	return render(request, '__ctacte.html')
