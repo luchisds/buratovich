@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
 	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
 
+
 class CtaCte(models.Model):
 	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
 	name = models.CharField(max_length=100, verbose_name='Razón Social')
