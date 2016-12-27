@@ -5,7 +5,8 @@ import re
 from datetime import datetime
 
 from django.conf import settings
-from django.contrib.auth import views
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -25,16 +26,21 @@ def contact(request):
 	return render(request, 'contact.html')
 
 
-def login(request):
-	template_response = views.login(request)
-
-	print settings.LOGIN_URL
-	print request.path
-
-	if not request.user.is_authenticated:
-		return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+def auth_login(request):
+	if request.POST:
+		username = request.POST['username']
+		password = request.POST['password']
+		
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			login(request, user)
+			return redirect(settings.LOGIN_REDIRECT_URL)
 	else:
-		return template_response
+		if request.user.is_authenticated:
+			return redirect(settings.LOGIN_REDIRECT_URL)
+
+	return render(request, 'login.html')
+
 
 @login_required
 def extranet(request):
