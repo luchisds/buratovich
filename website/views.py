@@ -27,16 +27,23 @@ def contact(request):
 
 
 def auth_login(request):
-	if request.POST:
+	# If receive data via POST (login form)
+	#if request.POST:
+	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
+		print username, password
 		
 		user = authenticate(username=username, password=password)
+		print user
 		if user is not None:
 			login(request, user)
 			return redirect(settings.LOGIN_REDIRECT_URL)
+		else:
+			print "No existe el usuario"
 	else:
-		if request.user.is_authenticated:
+		# If data is receive via GET and user is already authenticated redirect to /extranet/
+		if request.user.is_authenticated():
 			return redirect(settings.LOGIN_REDIRECT_URL)
 
 	return render(request, 'login.html')
