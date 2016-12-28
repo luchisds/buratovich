@@ -2,11 +2,12 @@
 
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
-# Custom User model
-class User(AbstractUser):
+# User related info
+class UserInfo(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
 
 
