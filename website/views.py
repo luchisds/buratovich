@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import math
 import os
 import re
 from datetime import datetime
@@ -32,17 +33,12 @@ def contact(request):
 def auth_login(request):
 	# If receive data via POST (login form)
 	if request.POST:
-		print "REQUEST IS POST"
 		username = request.POST['username']
 		password = request.POST['password']
-		print "USER AND PASS READ"
 
 		user = authenticate(username=username, password=password)
-		print "AUTHENTICATION READY"
 		if user is not None:
-			print "USER EXISTTTTTTSSSS"
 			login(request, user)
-			print "LOGINNNNNNNNNNNNNNN"
 
 			user_code = User.objects.get(username=request.POST['username'])
 			algoritmo_code = UserInfo.objects.get(user=user_code.id)
@@ -72,8 +68,14 @@ def extranet(request):
 
 @login_required
 def ctacte(request):
-	print request
-	return render(request, 'ctacte.html')
+	LIMIT = 50
+	if 'algoritmo_code' in request.session:
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'])
+		# Round up to have the number of pages
+		pages = int(math.ceil(float(len(data)) / LIMIT))
+		
+
+	return render(request, 'ctacte.html', {'data':data, 'pages':pages})
 
 
 def importcc(request):
