@@ -121,7 +121,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
 # Custom User model
-AUTH_USER_MODEL = 'website.User'
+# AUTH_USER_MODEL = 'website.User'
 
 
 # Redirect to this URL when try to access unauthorized user to extranet URL
