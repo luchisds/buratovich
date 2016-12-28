@@ -7,11 +7,14 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.shortcuts import redirect
 
 from models import CtaCte
+from models import UserInfo
 
 
 def index(request):
@@ -28,16 +31,24 @@ def contact(request):
 
 def auth_login(request):
 	# If receive data via POST (login form)
-	#if request.POST:
-	if request.method == 'POST':
+	if request.POST:
+		print "REQUEST IS POST"
 		username = request.POST['username']
 		password = request.POST['password']
-		print username, password
-		
+		print "USER AND PASS READ"
+
 		user = authenticate(username=username, password=password)
-		print user
+		print "AUTHENTICATION READY"
 		if user is not None:
+			print "USER EXISTTTTTTSSSS"
 			login(request, user)
+			print "LOGINNNNNNNNNNNNNNN"
+
+			user_code = User.objects.get(username=request.POST['username'])
+			algoritmo_code = UserInfo.objects.get(user=user_code.id)
+			# Save algoritmo_code on session
+			request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
+
 			return redirect(settings.LOGIN_REDIRECT_URL)
 		else:
 			print "No existe el usuario"
@@ -48,6 +59,11 @@ def auth_login(request):
 
 	return render(request, 'login.html')
 
+@login_required
+def auth_logout(request):
+	logout(request)
+	return redirect(settings.LOGIN_URL)
+
 
 @login_required
 def extranet(request):
@@ -56,7 +72,7 @@ def extranet(request):
 
 @login_required
 def ctacte(request):
-	print request.user
+	print request
 	return render(request, 'ctacte.html')
 
 

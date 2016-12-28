@@ -4,7 +4,7 @@
 {% block content %}
 <section class="login">
 
-	{% if form.errors %}
+	<!-- {% if form.errors %}
 		<p>Your username and password didn't match. Please try again.</p>
 	{% endif %}
 
@@ -14,7 +14,7 @@
 		{% else %}
 			<p>Please login to see this page.</p>
 		{% endif %}
-	{% endif %}
+	{% endif %} -->
 
 	<form method="post" action="{% url 'login' %}">
 	{% csrf_token %}
