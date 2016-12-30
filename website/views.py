@@ -70,11 +70,10 @@ def extranet(request):
 def ctacte(request):
 	LIMIT = 50
 	if 'algoritmo_code' in request.session:
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'])
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
 		# Round up to have the number of pages
 		pages = int(math.ceil(float(len(data)) / LIMIT))
 		
-
 	return render(request, 'ctacte.html', {'data':data, 'pages':pages})
 
 

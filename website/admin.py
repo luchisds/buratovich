@@ -10,7 +10,7 @@ from website.models import CtaCte
 class UserInline(admin.StackedInline):
 	model = UserInfo
 	can_delete = False
-	verbose_name = 'Cuenta Algoritmo'
+	verbose_name = 'Informacion Algoritmo'
 	verbose_name_plural = 'Informacion Algoritmo'
 
 class UserAdmin(BaseUserAdmin):
