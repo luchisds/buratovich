@@ -9,6 +9,7 @@ from django.db import models
 class UserInfo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
+	company_name = models.CharField(max_length=150, verbose_name='Razón Social')
 
 
 class CtaCte(models.Model):
@@ -41,8 +42,8 @@ class CtaCte(models.Model):
 	exchange_rate = models.FloatField(verbose_name='Tipo de Cambio Emisión')
 	exchange_rate_adjustment = models.FloatField(verbose_name='Tipo de Cambio Ajuste')
 	exchange_rate_adjustment_date = models.DateField(null=True, verbose_name='Fecha Ajuste de Cambio')
-	date_1 = models.DateField(null=True, verbose_name='Fecha 1')
-	date_2 = models.DateField(null=True, verbose_name='Fecha 2')
+	date_1 = models.DateField(null=True, verbose_name='Fecha Emision')
+	date_2 = models.DateField(null=True, verbose_name='Fecha Vencimiento')
 	amount_usd = models.FloatField(verbose_name='Importe Dolar')
 	balance_mod = models.CharField(max_length=2, verbose_name='Modifica Saldo')
 	link = models.CharField(max_length=80, verbose_name='Link')

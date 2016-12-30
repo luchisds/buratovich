@@ -1,2 +1,26 @@
-<p>cuentaaaaaaaa corrienteeeeee</p>
-<p>{{data}}</p>
+<p>CUENTA CORRIENTE</p>
+
+<p>Cantidad de paginas: {{pages}}</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Fecha Vencimiento</th>
+			<th>Comprobante</th>
+			<th>Observaciones</th>
+			<th>Fecha Emision</th>
+			<th>D/H</th>
+			<th>Importe</th>
+		</tr>
+	</thead>
+	{% for i in data %}
+		<tr>
+			<td>{{i.date_2}}</td>
+			<td>{{i.voucher}}</td>
+			<td>{{i.concept}}</td>
+			<td>{{i.date_1}}</td>
+			<td>{{i.movement_type}}</td>
+			<td>{{i.amount_sign}}</td>
+		</tr>
+	{% endfor %}
+</table>
