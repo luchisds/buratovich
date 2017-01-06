@@ -16,6 +16,8 @@ urlpatterns = [
 	url(r'^contacto/$', views.contact, name='contact'),
 
 	url(r'^login/$', views.auth_login, name='login'),
+	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),
+	url(r'^login/required/$', views.auth_login_required, name='login_required'),
 	url(r'^logout/$', views.auth_logout, name='logout'),
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/ctacte/$', views.ctacte, name='ctacte'),

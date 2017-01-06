@@ -171,24 +171,53 @@ footer
 		fieldset
 			padding 0
 		.input
+			display inline-block
 			margin-right .8em
 			width 190px
 		.submit
-			background white
-			border none
-			border-radius 3px
-			color $baseColor
-			cursor pointer
-			display block
-			font-size 1.3em
 			position absolute
 			right 10px
 			top 14px
-			transition 0.2s ease-out
-			&:hover
-				background $accentColor
-				color white
-				outline 0
+
+.login
+	.state
+		margin 2em 0
+		padding 0 2em
+		text-align center
+		p
+			font-size 2em
+		span
+			display block
+			font-size 1.1em
+			margin-top 2em
+			a
+				border 1px solid transparent
+				border-radius 3px
+				color $baseColor
+				padding .1em .3em
+				&:hover
+					border 1px solid $baseColor
+	.extranet, .input, .submit
+		margin 0 auto
+	.extranet
+		// border 1px solid $accentColor
+		background-color $midGrey
+		border-radius 3px
+		margin-bottom 3em
+		max-width 500px
+		padding 1em 0
+		text-align center
+		.input
+			margin-top .8em
+			width 300px
+		.submit
+			font-size 1.2em
+			margin-top 1em
+			padding .3em 1em
+			i
+				font-size 1.2em
+				margin-left .3em
+				// padding .3em 1em
 
 
 /*#### HOME ################################################################*/
