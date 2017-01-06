@@ -228,7 +228,6 @@ template {
   margin: 0 auto;
 }
 .input {
-  display: inline-block;
   position: relative;
 }
 .input input {
@@ -252,6 +251,22 @@ template {
   opacity: 1;
   position: absolute;
   top: 8px;
+}
+.submit {
+  background: #fff;
+  border: none;
+  border-radius: 3px;
+  color: #018d34;
+  cursor: pointer;
+  display: block;
+  font-size: 1.3em;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+.submit:hover {
+  background: #065a7a;
+  color: #fff;
+  outline: 0;
 }
 .path {
   border-bottom: 1px solid #ccc;
@@ -935,27 +950,62 @@ footer .cv div span:hover .work {
   padding: 0;
 }
 .customer .extranet .input {
+  display: inline-block;
   margin-right: 0.8em;
   width: 190px;
 }
 .customer .extranet .submit {
-  background: #fff;
-  border: none;
-  border-radius: 3px;
-  color: #018d34;
-  cursor: pointer;
-  display: block;
-  font-size: 1.3em;
   position: absolute;
   right: 10px;
   top: 14px;
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out;
 }
-.customer .extranet .submit:hover {
-  background: #065a7a;
-  color: #fff;
-  outline: 0;
+.login .state {
+  margin: 2em 0;
+  padding: 0 2em;
+  text-align: center;
+}
+.login .state p {
+  font-size: 2em;
+}
+.login .state span {
+  display: block;
+  font-size: 1.1em;
+  margin-top: 2em;
+}
+.login .state span a {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #018d34;
+  padding: 0.1em 0.3em;
+}
+.login .state span a:hover {
+  border: 1px solid #018d34;
+}
+.login .extranet,
+.login .input,
+.login .submit {
+  margin: 0 auto;
+}
+.login .extranet {
+  background-color: #ccc;
+  border-radius: 3px;
+  margin-bottom: 3em;
+  max-width: 500px;
+  padding: 1em 0;
+  text-align: center;
+}
+.login .extranet .input {
+  margin-top: 0.8em;
+  width: 300px;
+}
+.login .extranet .submit {
+  font-size: 1.2em;
+  margin-top: 1em;
+  padding: 0.3em 1em;
+}
+.login .extranet .submit i {
+  font-size: 1.2em;
+  margin-left: 0.3em;
 }
 .home .business-units {
   height: 480px;

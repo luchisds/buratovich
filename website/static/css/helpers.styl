@@ -24,7 +24,6 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 	margin 0 auto
 
 .input
-	display inline-block
 	position relative
 	input
 		border 1px solid $midGrey
@@ -44,6 +43,20 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 		opacity 1
 		position absolute
 		top 8px
+
+.submit
+	background white
+	border none
+	border-radius 3px
+	color $baseColor
+	cursor pointer
+	display block
+	font-size 1.3em
+	transition 0.2s ease-out
+	&:hover
+		background $accentColor
+		color white
+		outline 0
 
 .path
 	border-bottom 1px solid $midGrey

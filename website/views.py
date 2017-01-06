@@ -47,18 +47,27 @@ def auth_login(request):
 
 			return redirect(settings.LOGIN_REDIRECT_URL)
 		else:
-			print "No existe el usuario"
+			return redirect('/login/invalid/')
 	else:
-		# If data is receive via GET and user is already authenticated redirect to /extranet/
+		# If data is received via GET and user is already authenticated redirect to /extranet/
 		if request.user.is_authenticated():
 			return redirect(settings.LOGIN_REDIRECT_URL)
+		else:
+			return render(request, 'login.html', {'login': 'login'})
 
-	return render(request, 'login.html')
+
+def auth_login_invalid(request):
+	return render(request, 'login.html', {'login_invalid': 'login invalid'})
+
+
+def auth_login_required(request):
+	return render(request, 'login.html', {'login_required': 'login required'})
+
 
 @login_required
 def auth_logout(request):
 	logout(request)
-	return redirect(settings.LOGIN_URL)
+	return redirect('/')
 
 
 @login_required

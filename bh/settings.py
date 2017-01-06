@@ -125,7 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
 # Redirect to this URL when try to access unauthorized user to extranet URL
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login/required/'
 
 # Redirect this URL on login
 LOGIN_REDIRECT_URL = '/extranet/'
