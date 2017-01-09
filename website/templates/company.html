@@ -3,9 +3,17 @@
 
 {% block title %}Buratovich Hnos. S.A. - Empresa{% endblock %}
 
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Institucional</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
 <section class="company">
-	<div class="path"><a href="/">Home</a> > <span class="current">Institucional</span></div>
 	<div class="imgs maxwidth">
 		<img src="{% static "img/mini_ruta8.jpg" %}" alt="">
 		<img src="{% static "img/mini_ruta51.jpg" %}" alt="">
