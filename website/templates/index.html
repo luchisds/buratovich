@@ -7,6 +7,14 @@
 <link rel="stylesheet" href="{% static "js/flickity/flickity.min.css" %}">
 {% endblock %}
 
+{% block path %}
+{% if user.is_authenticated %}
+	<div class="path maxwidth">
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	</div>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <section class="home">
 	<section class="business-units">

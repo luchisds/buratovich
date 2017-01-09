@@ -61,11 +61,22 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 .path
 	border-bottom 1px solid $midGrey
 	margin 1em 1.5em
-	padding 0 0 .3em .5em
-	a
-		color $darkGreyGreen
-	.current
-		color $baseColor
+	overflow hidden
+	padding 0 .5em .3em .5em
+	.route
+		display inline-block
+		float left
+		a
+			color $darkGreyGreen
+		.current
+			color $baseColor
+	.hi
+		display inline-block
+		float right
+		.customer-name
+			color $baseColor
+			font-weight bold
+			text-transform uppercase
 
 /////////////////////////////// scroll down fadein
 

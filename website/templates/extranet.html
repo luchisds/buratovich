@@ -1,13 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Extranet</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
-<section class="extranet">
-	<ul>
-		<li>
-			<a href="/extranet/ctacte">Cuenta Corriente</a>
-		</li>
+<section class="extranet maxwidth">
+	<ul class="h-list">
+		<div class="row">
+			<li>
+				<a href="/extranet/ctacte/">
+					<div>
+						<span>Cuenta Corriente</span>
+						<span>$</span>
+					</div>
+				</a>
+			</li><!--
+			--><li>
+				<a href="/extranet/ctactekg/">
+					<div>
+						<span>Cuenta Corriente</span>
+						<span>Kg</span>
+					</div>
+				</a>
+			</li>
+		</div>
+		<div class="row">
+			<li>
+				<a href="/extranet/user/">
+					<div>
+						<span>Usuario</span>
+						<span><i class="fa fa-user" aria-hidden="true"></i></span>
+					</div>
+				</a>
+			</li><!--
+			--><li>
+				<a href="/logout/">
+					<div>
+						<span>Salir</span>
+						<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+					</div>
+				</a>
+			</li>
+		</div>
 	</ul>
-	<div><a href="/logout">Salir</a></div>
 </section>
 {% endblock %}

@@ -3,9 +3,17 @@
 
 {% block title %}Buratovich Hnos. S.A. - Contacto{% endblock %}
 
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Contacto</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
 <section class="contact">
-	<div class="path"><a href="/">Home</a> > <span class="current">Contacto</span></div>
 	<p class="data-contact">Ante cualquier consulta o sugerencia puede comunicarse via correo electronico a la dirección: <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a></p>
 	<article class="offices">
 		<h2>OFICINAS COMERCIALES</h2>

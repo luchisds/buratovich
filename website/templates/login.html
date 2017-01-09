@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Login</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
 {% block content %}
 <section class="login maxwidth">
-	<div class="path"><a href="/">Home</a> > <span class="current">Login</span></div>
-
 	<div class="state">
 		{% if login %}
 			<p>Acceso para clientes</p>
@@ -20,7 +27,7 @@
 		<span>Si no recuerda sus datos de ingreso puede comunicarse via correo electrónico a  <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a> y recibira nuevamente su usuario y contraseña.</span>
 	</div>
 
-	<form action="{% url 'login' %}" class="extranet" method="post">
+	<form action="{% url 'login' %}" class="login-extranet" method="post">
 	{% csrf_token %}
 		<fieldset>
 			<!--<legend>Acceso a Clientes</legend>-->

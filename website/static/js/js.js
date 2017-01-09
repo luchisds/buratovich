@@ -4,7 +4,7 @@ document.onreadystatechange = function () {
 		/// Login Form ////////////////////////////////////////////////////////////////////////////////
 
 		var nav = document.getElementsByTagName('nav')[0];
-		login = nav.getElementsByClassName('login')[0];
+		login = nav.getElementsByClassName('login-btn')[0];
 		login.addEventListener('click', function(event) {
 			event.preventDefault();
 			toggleClass(this, 'active');
