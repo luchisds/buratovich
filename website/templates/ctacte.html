@@ -1,6 +1,7 @@
-<p>CUENTA CORRIENTE</p>
+{% load el_pagination_tags %}
+{% paginate data %}
 
-<p>Cantidad de paginas: {{pages}}</p>
+<p>CUENTA CORRIENTE</p>
 
 <table>
 	<thead>
@@ -24,3 +25,5 @@
 		</tr>
 	{% endfor %}
 </table>
+
+{% show_pages %}

@@ -11,6 +11,9 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 from django.shortcuts import render
 from django.shortcuts import redirect
 
@@ -77,13 +80,23 @@ def extranet(request):
 
 @login_required
 def ctacte(request):
-	LIMIT = 50
+	# LIMIT = 50
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
-		# Round up to have the number of pages
-		pages = int(math.ceil(float(len(data)) / LIMIT))
-		
-	return render(request, 'ctacte.html', {'data':data, 'pages':pages})
+	# 	paginator = Paginator(data, LIMIT)
+
+	# page = request.GET.get('page')
+	# try:
+	# 	datos = paginator.page(page)
+	# except PageNotAnInteger:
+	# 	# If page is not an integer, deliver first page.
+	# 	datos = paginator.page(1)
+	# except EmptyPage:
+	# 	# If page is out of range, deliver last page of results.
+	# 	datos = paginator.page(paginator.num_pages)
+
+	return render(request, 'ctacte.html', {'data':data})
+
 
 
 def importcc(request):
