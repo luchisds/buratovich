@@ -1,29 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Cuenta Corriente</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+
 {% load el_pagination_tags %}
 {% paginate data %}
 
-<p>CUENTA CORRIENTE</p>
-
-<table>
-	<thead>
-		<tr>
-			<th>Fecha Vencimiento</th>
-			<th>Comprobante</th>
-			<th>Observaciones</th>
-			<th>Fecha Emision</th>
-			<th>D/H</th>
-			<th>Importe</th>
-		</tr>
-	</thead>
-	{% for i in data %}
-		<tr>
-			<td>{{i.date_2}}</td>
-			<td>{{i.voucher}}</td>
-			<td>{{i.concept}}</td>
-			<td>{{i.date_1}}</td>
-			<td>{{i.movement_type}}</td>
-			<td>{{i.amount_sign}}</td>
-		</tr>
-	{% endfor %}
-</table>
+<section class="ctacte maxwidth">
+	<table>
+		<thead>
+			<tr>
+				<th>Fecha Vencimiento</th>
+				<th>Comprobante</th>
+				<th>Observaciones</th>
+				<th>Fecha Emision</th>
+				<th>Debe</th>
+				<th>Haber</th>
+				<th>Saldo</th>
+			</tr>
+		</thead>
+		{% for i in data %}
+			<tr>
+				<td class="date">{{i.obj.date_2|date:"d-m-Y"}}</td>
+				<td>{{i.obj.voucher}}</td>
+				<td>{{i.obj.concept}}</td>
+				<td class="date">{{i.obj.date_1|date:"d-m-Y"}}</td>
+				{% if i.obj.movement_type == "Debito" %}
+					<td class="number">{{i.obj.amount_sign|floatformat:2|intcomma|unlocalize}}</td>
+					<td></td>
+				{% else %}
+					<td></td>
+					<td class="number">{{i.obj.amount_sign|abs|floatformat:2|intcomma|unlocalize}}</td>
+				{% endif %}
+				<td class="number">{{i.balance|floatformat:2|intcomma|unlocalize}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</section>
 
 {% show_pages %}
+
+{% endblock %}

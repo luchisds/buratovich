@@ -1607,3 +1607,19 @@ footer .cv div span:hover .work {
   font-size: 2em;
   margin-top: 0.2em;
 }
+.ctacte {
+  font-size: 0.9em;
+}
+.ctacte table {
+  margin: 0 auto;
+}
+.ctacte table th,
+.ctacte table td {
+  padding: 0.2em;
+}
+.ctacte table td.date {
+  text-align: center;
+}
+.ctacte table td.numer {
+  text-align: right;
+}
