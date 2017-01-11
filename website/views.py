@@ -11,9 +11,6 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
-from django.core.paginator import EmptyPage
-from django.core.paginator import PageNotAnInteger
 from django.shortcuts import render
 from django.shortcuts import redirect
 
@@ -80,22 +77,39 @@ def extranet(request):
 
 @login_required
 def ctacte(request):
-	# LIMIT = 50
+	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
-	# 	paginator = Paginator(data, LIMIT)
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+		
+		balance = 0
+		tmp_list = []
+		for d in data:
+			balance += d['amount_sign']
+			tmp_dict = {}
+			tmp_dict['obj'] = d
+			tmp_dict['balance'] = balance
+			tmp_list.append(tmp_dict)
 
-	# page = request.GET.get('page')
-	# try:
-	# 	datos = paginator.page(page)
-	# except PageNotAnInteger:
-	# 	# If page is not an integer, deliver first page.
-	# 	datos = paginator.page(1)
-	# except EmptyPage:
-	# 	# If page is out of range, deliver last page of results.
-	# 	datos = paginator.page(paginator.num_pages)
+		# Create a new ordered queryset/list
+		limit = settings.EL_PAGINATION_PER_PAGE
+		# total = len(data)
+		total = len(tmp_list)
+		new_data = []
 
-	return render(request, 'ctacte.html', {'data':data})
+		while total >= 0:
+			if total - limit < 0:
+				# tmp = data[0:total]
+				tmp = tmp_list[0:total]
+			else:
+				# tmp = data[total-limit:total]
+				tmp = tmp_list[total-limit:total]
+
+			for obj in tmp:
+				new_data.append(obj)
+
+			total = total-limit
+
+	return render(request, 'ctacte.html', {'data': new_data})
 
 
 
