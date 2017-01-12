@@ -20,13 +20,14 @@
 {% paginate data %}
 
 <section class="ctacte maxwidth">
+	<h3>Cuenta Corriente en Pesos</h3>
 	<table>
 		<thead>
 			<tr>
-				<th>Fecha Vencimiento</th>
+				<th>Fecha Vto.</th>
 				<th>Comprobante</th>
 				<th>Observaciones</th>
-				<th>Fecha Emision</th>
+				<th>Fecha Emi.</th>
 				<th>Debe</th>
 				<th>Haber</th>
 				<th>Saldo</th>
@@ -48,9 +49,20 @@
 				<td class="number">{{i.balance|floatformat:2|intcomma|unlocalize}}</td>
 			</tr>
 		{% endfor %}
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Total Gral.:</td>
+				<td>{{total_sum}}</td>
+			</tr>
 	</table>
-</section>
 
-{% show_pages %}
+	<div class="pagination">
+		<span class="wrapper">{% show_pages %}</span>
+	</div>
+</section>
 
 {% endblock %}

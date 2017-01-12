@@ -1608,18 +1608,69 @@ footer .cv div span:hover .work {
   margin-top: 0.2em;
 }
 .ctacte {
-  font-size: 0.9em;
+  padding: 0 1.5em;
+}
+.ctacte h3 {
+  font-size: 1.5em;
+  margin: 1.2em 0 0.5em 0;
 }
 .ctacte table {
+  font-size: 0.8em;
   margin: 0 auto;
+  width: 100%;
 }
-.ctacte table th,
 .ctacte table td {
-  padding: 0.2em;
+  border-bottom: 1px solid #ccc;
+  padding: 0.2em 0;
 }
 .ctacte table td.date {
   text-align: center;
 }
-.ctacte table td.numer {
+.ctacte table td.number {
   text-align: right;
+}
+.ctacte table thead th {
+  background-color: #018d34;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 0.4em 0;
+}
+.ctacte .pagination {
+  font-size: 0.9em;
+  margin: 2.5em 0 5em 0;
+  text-align: center;
+}
+.ctacte .pagination .wrapper {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+/* Fix distance between inline-block childrens */
+  font-size: 0;
+}
+.ctacte .pagination .wrapper .endless_page_current,
+.ctacte .pagination .wrapper .endless_page_link,
+.ctacte .pagination .wrapper .endless_separator {
+  border-left: 1px solid #ccc;
+  color: #3c433e;
+  display: inline-block;
+/* Restore font-size before assign 0 value on parent */
+  font-size: 16px;
+  padding: 0.5em 0;
+  width: 50px;
+}
+.ctacte .pagination .wrapper .endless_page_current:first-child,
+.ctacte .pagination .wrapper .endless_page_link:first-child,
+.ctacte .pagination .wrapper .endless_separator:first-child {
+  border-left: none;
+}
+.ctacte .pagination .wrapper .endless_page_current {
+  background-color: #ccc;
+}
+.ctacte .pagination .wrapper .endless_page_link:hover {
+  background-color: #065a7a;
+  color: #fff;
+}
+.ctacte .pagination .wrapper .endless_separator {
+  background-color: #fafafa;
+  color: #ccc;
 }
