@@ -11,6 +11,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.shortcuts import render
 from django.shortcuts import redirect
 
@@ -80,7 +81,8 @@ def ctacte(request):
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		
+		total_sum = CtaCte.objects.aggregate(Sum('amount_sign'))
+
 		balance = 0
 		tmp_list = []
 		for d in data:
@@ -92,16 +94,13 @@ def ctacte(request):
 
 		# Create a new ordered queryset/list
 		limit = settings.EL_PAGINATION_PER_PAGE
-		# total = len(data)
 		total = len(tmp_list)
 		new_data = []
 
 		while total >= 0:
 			if total - limit < 0:
-				# tmp = data[0:total]
 				tmp = tmp_list[0:total]
 			else:
-				# tmp = data[total-limit:total]
 				tmp = tmp_list[total-limit:total]
 
 			for obj in tmp:
@@ -109,7 +108,7 @@ def ctacte(request):
 
 			total = total-limit
 
-	return render(request, 'ctacte.html', {'data': new_data})
+	return render(request, 'ctacte.html', {'data': new_data, 'total_sum': total_sum})
 
 
 

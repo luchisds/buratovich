@@ -723,13 +723,53 @@ footer
 /*#### CTA CTE ################################################################*/
 
 .ctacte
-	font-size .9em
+	padding 0 1.5em
+	h3
+		font-size 1.5em
+		margin 1.2em 0 .5em 0
 	table
+		// border-spacing 0
+		font-size .8em
 		margin 0 auto
-		th, td
-			padding .2em
+		width 100%
 		td
+			border-bottom 1px solid $midGrey
+			padding .2em 0
 			&.date
 				text-align center
-			&.numer
+			&.number
 				text-align right
+		thead
+			th
+				background-color $baseColor
+				color white
+				font-size 1.2em
+				padding .4em 0
+	.pagination
+		font-size .9em
+		margin 2.5em 0 5em 0
+		text-align center
+		.wrapper
+			border 1px solid $midGrey
+			border-radius 3px
+			display inline-block
+			/* Fix distance between inline-block childrens */
+			font-size 0
+			.endless_page_current, .endless_page_link, .endless_separator
+				border-left 1px solid $midGrey
+				color $darkGreyGreen
+				display inline-block
+				/* Restore font-size before assign 0 value on parent */
+				font-size unit($fontSize, 'px')
+				padding .5em 0
+				width 50px
+				&:first-child
+					border-left none
+			.endless_page_current
+				background-color $midGrey
+			.endless_page_link:hover
+				background-color $accentColor
+				color white
+			.endless_separator
+				background-color $lightGrey
+				color $midGrey
