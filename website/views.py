@@ -4,6 +4,7 @@ import math
 import os
 import re
 from datetime import datetime
+from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib.auth import authenticate
@@ -14,6 +15,8 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.shortcuts import render
 from django.shortcuts import redirect
+
+import django_excel as excel
 
 from models import CtaCte
 from models import UserInfo
@@ -80,38 +83,120 @@ def extranet(request):
 def ctacte(request):
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
+		# Queryset with cta cte data
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		total_sum = CtaCte.objects.aggregate(Sum('amount_sign'))
+		# Total amount
+		total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
+		#### Add balance for every record in "data" queryset
 		balance = 0
-		tmp_list = []
+		records = []
 		for d in data:
 			balance += d['amount_sign']
 			tmp_dict = {}
 			tmp_dict['obj'] = d
 			tmp_dict['balance'] = balance
-			tmp_list.append(tmp_dict)
+			records.append(tmp_dict)
 
-		# Create a new ordered queryset/list
+		#### Create a new sorted queryset/list
 		limit = settings.EL_PAGINATION_PER_PAGE
-		total = len(tmp_list)
-		new_data = []
+		total_records = len(records)
+		ctacte = []
 
-		while total >= 0:
-			if total - limit < 0:
-				tmp = tmp_list[0:total]
+		page_records = total_records
+		while page_records >= 0:
+			if page_records - limit < 0:
+				tmp = records[0:page_records]
 			else:
-				tmp = tmp_list[total-limit:total]
+				tmp = records[page_records-limit:page_records]
 
 			for obj in tmp:
-				new_data.append(obj)
+				ctacte.append(obj)
 
-			total = total-limit
+			page_records -= limit
 
-	return render(request, 'ctacte.html', {'data': new_data, 'total_sum': total_sum})
+		#### Initial balance
+		ib_records = 0
+		remainder = total_records % limit
+		initial_balance = []
+		page_balance = []
+		while ib_records < total_records:
+			if ib_records == 0:
+				tmp = records[0:remainder]
+				ib_records += remainder
+			else:
+				tmp = records[0:ib_records+limit]
+				ib_records += limit
+
+			partial_balance = 0
+			for obj in tmp:
+				partial_balance += obj['obj']['amount_sign']
+
+			initial_balance.append(partial_balance)
+
+		# Scroll the list from first item to last-1 (is the cta cte total amount)
+		for n in range(0,len(initial_balance)-1):
+			tmp_dict = {}
+			tmp_dict['page'] = len(initial_balance)-1-n
+			tmp_dict['balance'] = initial_balance[n]
+			page_balance.append(tmp_dict)
+
+	return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
 
 
+@login_required
+def downloadexcel(request):
+	if 'algoritmo_code' in request.session:
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+		
+		balance = 0
+		records = []
+		for d in data:
+			balance += d['amount_sign']
+			tmp_dict = OrderedDict()
+			tmp_dict['Fecha Vencimiento'] = d['date_1']
+			tmp_dict['Comprobante'] = d['voucher']
+			tmp_dict['Observaciones'] = d['concept']
+			tmp_dict['Fecha Emision'] = d['date_2']
+			if d['movement_type'] == 'Debito':
+				tmp_dict['Debe'] = d['amount_sign']
+				tmp_dict['Haber'] = 0
+			else:
+				tmp_dict['Debe'] = 0
+				tmp_dict['Haber'] = abs(d['amount_sign'])
+			tmp_dict['Saldo'] = float(format(balance, '.2f'))
+			records.append(tmp_dict)
 
+		return excel.make_response_from_records(records, 'xlsx', file_name='CtaCte')
+
+
+@login_required
+def downloadtxt(request):
+	if 'algoritmo_code' in request.session:
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+		
+		balance = 0
+		records = []
+		for d in data:
+			balance += d['amount_sign']
+			tmp_dict = OrderedDict()
+			tmp_dict['Fecha Vencimiento'] = d['date_1']
+			tmp_dict['Comprobante'] = d['voucher']
+			tmp_dict['Observaciones'] = d['concept']
+			tmp_dict['Fecha Emision'] = d['date_2']
+			if d['movement_type'] == 'Debito':
+				tmp_dict['Debe'] = d['amount_sign']
+				tmp_dict['Haber'] = 0
+			else:
+				tmp_dict['Debe'] = 0
+				tmp_dict['Haber'] = abs(d['amount_sign'])
+			tmp_dict['Saldo'] = float(format(balance, '.2f'))
+			records.append(tmp_dict)
+
+		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
+
+
+@login_required
 def importcc(request):
 
 	def evalDate(date):
