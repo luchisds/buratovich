@@ -22,5 +22,8 @@ urlpatterns = [
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/ctacte/$', views.ctacte, name='ctacte'),
 
+	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
+	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
+
 	url(r'^ctacte/$', views.importcc, name='importcc'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

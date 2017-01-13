@@ -1635,6 +1635,33 @@ footer .cv div span:hover .work {
   font-size: 1.2em;
   padding: 0.4em 0;
 }
+.ctacte table tr.total,
+.ctacte table tr.initial-balance {
+  font-weight: bold;
+}
+.ctacte .export {
+  font-size: 0.9em;
+  padding: 1em;
+  text-align: right;
+}
+.ctacte .export button {
+  background-color: #ccc;
+  border: none;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  padding: 0;
+}
+.ctacte .export button:hover {
+  background-color: #065a7a;
+}
+.ctacte .export button a {
+  color: #3c433e;
+  display: block;
+  padding: 0.3em 0.5em;
+}
+.ctacte .export button a:hover {
+  color: #fff;
+}
 .ctacte .pagination {
   font-size: 0.9em;
   margin: 2.5em 0 5em 0;

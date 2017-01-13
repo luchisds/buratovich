@@ -140,3 +140,7 @@ LOGIN_REDIRECT_URL = '/extranet/'
 
 # Django El Pagination
 EL_PAGINATION_PER_PAGE = 50
+
+# Django-excel
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+						"django_excel.TemporaryExcelFileUploadHandler")
