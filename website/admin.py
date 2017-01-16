@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 
 from website.models import UserInfo
 from website.models import CtaCte
+from website.models import Notifications
+from website.models import NotificationByUser
 
 
 class UserInline(admin.StackedInline):
@@ -24,4 +26,5 @@ admin.site.unregister(Group)
 # Register models
 admin.site.register(User, UserAdmin)
 admin.site.register(CtaCte)
-
+admin.site.register(Notifications)
+admin.site.register(NotificationByUser)
