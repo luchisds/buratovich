@@ -89,3 +89,24 @@ class CtaCte(models.Model):
 	class Meta:
 		verbose_name = 'Cuenta Corriente'
 		verbose_name_plural = 'Cuentas Corrientes'
+
+
+class Notifications(models.Model):
+	date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha')
+	title = models.CharField(max_length=200, verbose_name='Titulo')
+	notification = models.TextField(verbose_name='Notificación')
+	active = models.BooleanField(verbose_name='Activa/Inactiva', default=True)
+
+	class Meta:
+		verbose_name = 'Notificación'
+		verbose_name_plural = 'Notificaciones'
+
+
+class NotificationByUser(models.Model):
+	notification = models.ForeignKey(Notifications, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	viewed = models.BooleanField(verbose_name='Notificación vista', default=False)
+
+	class Meta:
+		verbose_name = 'Notificación por Usuario'
+		verbose_name_plural = 'Notificaciones por Usuario'
