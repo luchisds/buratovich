@@ -5,15 +5,17 @@ document.onreadystatechange = function () {
 
 		var nav = document.getElementsByTagName('nav')[0];
 		login = nav.getElementsByClassName('login-btn')[0];
-		login.addEventListener('click', function(event) {
-			event.preventDefault();
-			toggleClass(this, 'active');
-			if(hasClass(this, 'active')) {
-				Velocity(document.getElementsByClassName('customer')[0], 'slideDown', { duration: 500 });
-			} else {
-				Velocity(document.getElementsByClassName('customer')[0], 'slideUp', { duration: 500 });
-			}
-		});
+		if(login) {
+			login.addEventListener('click', function(event) {
+				event.preventDefault();
+				toggleClass(this, 'active');
+				if(hasClass(this, 'active')) {
+					Velocity(document.getElementsByClassName('customer')[0], 'slideDown', { duration: 500 });
+				} else {
+					Velocity(document.getElementsByClassName('customer')[0], 'slideUp', { duration: 500 });
+				}
+			});
+		}
 
 		var inputClass = document.getElementsByClassName('input');
 		for (var i = 0; i < inputClass.length; i++) {
@@ -123,10 +125,10 @@ document.onreadystatechange = function () {
 
 		function visibleEl(element) {
 			var rect = element.getBoundingClientRect();
-			console.log(rect);
+			//console.log(rect);
 			var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
-			console.log(document.scrollingElement.scrollTop + rect.top);
-			console.log(totalScroll);
+			//console.log(document.scrollingElement.scrollTop + rect.top);
+			//console.log(totalScroll);
 			return (
 				//rect.top >= 0 &&
 				//rect.left >= 0 &&
