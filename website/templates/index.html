@@ -10,13 +10,13 @@
 {% block path %}
 {% if user.is_authenticated %}
 	<div class="path maxwidth">
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	</div>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<section class="home">
+<section id="home">
 	<section class="business-units">
 		<article class="carousel">
 			<div class="carousel-cell cell1">
