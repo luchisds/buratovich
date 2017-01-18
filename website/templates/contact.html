@@ -7,13 +7,13 @@
 <div class="path maxwidth">
 	<div class="route"><a href="/">Home</a> > <span class="current">Contacto</span></div>
 	{% if user.is_authenticated %}
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
 </div>
 {% endblock %}
 
 {% block content %}
-<section class="contact">
+<section id="contact">
 	<p class="data-contact">Ante cualquier consulta o sugerencia puede comunicarse via correo electronico a la dirección: <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a></p>
 	<article class="offices">
 		<h2>OFICINAS COMERCIALES</h2>
@@ -74,7 +74,7 @@
 				<h3>Comercializacion de cereales</h3>
 				<h4>Area Comercial</h4>
 				<h5><i class="fa fa-map-marker" aria-hidden="true"></i> Arrecifes</h5>
-				<div>
+				<!--<div>
 					<p>José Antonio Buratovich</p>
 					<p><a href="mailto:joseantonio@buratovich.com">joseantonio@buratovich.com</a></p>
 				</div>
@@ -85,7 +85,7 @@
 				<div>
 					<p>Ana Inés Buratovich</p>
 					<p><a href="mailto:ana@buratovich.com">ana@buratovich.com</a></p>
-				</div>
+				</div>-->
 				<div>
 					<p>Enrique Figueroa</p>
 					<p><a href="mailto:comercial@buratovich.com">comercial@buratovich.com</a></p>

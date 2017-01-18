@@ -102,7 +102,7 @@ class Notifications(models.Model):
 		verbose_name_plural = 'Notificaciones'
 
 
-class NotificationByUser(models.Model):
+class ViewedNotifications(models.Model):
 	notification = models.ForeignKey(Notifications, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	viewed = models.BooleanField(verbose_name='Notificación vista', default=False)

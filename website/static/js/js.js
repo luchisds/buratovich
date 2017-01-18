@@ -33,7 +33,8 @@ document.onreadystatechange = function () {
 
 
 		//## INDEX ##################################################################################
-		if (hasClass(document.getElementsByTagName('body'), 'index')) {
+		var home = document.getElementById('home');
+		if (home) {
 
 			/// Carousel ////////////////////////////////////////////////////////////////////////////////
 			var currentSlide = '';

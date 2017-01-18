@@ -5,13 +5,24 @@
 <div class="path maxwidth">
 	<div class="route"><a href="/">Home</a> > <span class="current">Extranet</span></div>
 	{% if user.is_authenticated %}
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
 </div>
 {% endblock %}
 
 {% block content %}
-<section class="extranet maxwidth">
+<section id="extranet" class="maxwidth">
+
+	{% if notifications|length > 0 %}
+		{% for n in notifications %}
+			<div>
+				<p>Fecha: {{n.date}}</p>
+				<p>{{n.title}}</p>
+				<p>{{n.notification}}</p>
+			</div>
+		{% endfor %}
+	{% endif %}
+
 	<ul class="h-list">
 		<div class="row">
 			<li>

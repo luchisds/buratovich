@@ -5,13 +5,13 @@
 <div class="path maxwidth">
 	<div class="route"><a href="/">Home</a> > <span class="current">Login</span></div>
 	{% if user.is_authenticated %}
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.username}}</span></div>
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
 </div>
 {% endblock %}
 
 {% block content %}
-<section class="login maxwidth">
+<section id="login" class="maxwidth">
 	<div class="state">
 		{% if login %}
 			<p>Acceso para clientes</p>

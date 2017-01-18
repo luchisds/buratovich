@@ -20,6 +20,8 @@ import django_excel as excel
 
 from models import CtaCte
 from models import UserInfo
+from models import Notifications
+from models import ViewedNotifications
 
 
 def index(request):
@@ -76,7 +78,15 @@ def auth_logout(request):
 
 @login_required
 def extranet(request):
-	return render(request, 'extranet.html')
+	notifications = Notifications.objects.filter(active=True)
+	notifications_list = []
+	for n in notifications:
+		if ViewedNotifications.objects.filter(notification=n.id, user=request.user).exists():
+			pass
+		else:
+			notifications_list.append(n)
+	
+	return render(request, 'extranet.html', {'notifications': notifications_list})
 
 
 @login_required

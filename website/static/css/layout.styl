@@ -32,8 +32,8 @@ header
 						color $lightGrey
 						background-color $baseColor
 						i
-							bottom -10px
-							opacity 1
+							bottom -10px !important
+							opacity 1 !important
 					a.login-btn
 						background-color $accentColor
 				a
@@ -60,8 +60,6 @@ header
 							margin-right .3em
 						&.active
 							background-color $accentColor
-				// span.user-authenticated
-				// 	text-transform uppercase
 
 footer
 	border-top 10px solid $accentColor
@@ -183,7 +181,7 @@ footer
 
 /*#### HOME ################################################################*/
 
-.home
+#home
 	.business-units
 		height 480px
 		overflow hidden
@@ -374,18 +372,21 @@ footer
 		form
 			margin-top .2em
 			text-align center
-			legend
-				display inline-block
-				margin-right 1em
-			.input
-				font-size .9em
-				width 180px
-			button
-				background-color transparent
-				border none
-				color $baseColor
-				cursor pointer
-				font-size 1.1em
+			fieldset
+				margin-top .7em
+				legend
+					display inline-block
+				.input
+					display inline-block
+					font-size .9em
+					width 180px
+				button
+					background-color transparent
+					border none
+					color $baseColor
+					cursor pointer
+					display inline-block
+					font-size 1.1em
 		table
 			animation float 5s infinite
 			background white
@@ -450,7 +451,7 @@ footer
 
 /*#### COMPANY ################################################################*/
 
-.company
+#company
 	overflow hidden
 	position relative
 	.featured
@@ -566,7 +567,7 @@ footer
 
 /*#### CONTACT ################################################################*/
 
-.contact
+#contact
 	.offices, .data-contact, .areas
 		font-weight 300
 		padding 0 2em
@@ -640,7 +641,7 @@ footer
 
 /*#### LOGIN ################################################################*/
 
-.login
+#login
 	.state
 		margin 2em 0
 		padding 0 2em
@@ -681,7 +682,7 @@ footer
 
 /*#### EXTRANET ################################################################*/
 
-.extranet
+#extranet
 	padding 2em 0 8em 0
 	.row
 		margin-top 1em
@@ -721,7 +722,7 @@ footer
 
 /*#### CTA CTE ################################################################*/
 
-.ctacte
+#ctacte
 	padding 0 1.5em
 	h3
 		font-size 1.5em
