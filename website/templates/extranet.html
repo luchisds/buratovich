@@ -15,51 +15,55 @@
 
 	{% if notifications|length > 0 %}
 		{% for n in notifications %}
-			<div>
-				<p>Fecha: {{n.date}}</p>
-				<p>{{n.title}}</p>
-				<p>{{n.notification}}</p>
-			</div>
+			<article class="notification">
+				<p class="date">{{n.date|date:"l, d F Y"}}</p>
+				<div class="notification-content">
+					<p class="title">{{n.title}}</p>
+					<p class="text">{{n.notification}}</p>
+				</div>
+			</article>
 		{% endfor %}
+		<p class="viewed"><a href="/extranet/notifications/">He leido las notificaciones</a></p>
+	{% else %}
+		<ul class="h-list">
+			<div class="row">
+				<li>
+					<a href="/extranet/ctacte/">
+						<div>
+							<span>Cuenta Corriente</span>
+							<span>$</span>
+						</div>
+					</a>
+				</li><!--
+				--><li>
+					<a href="/extranet/ctactekg/">
+						<div>
+							<span>Cuenta Corriente</span>
+							<span>Kg</span>
+						</div>
+					</a>
+				</li>
+			</div>
+			<div class="row">
+				<li>
+					<a href="/extranet/user/">
+						<div>
+							<span>Usuario</span>
+							<span><i class="fa fa-user" aria-hidden="true"></i></span>
+						</div>
+					</a>
+				</li><!--
+				--><li>
+					<a href="/logout/">
+						<div>
+							<span>Salir</span>
+							<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+						</div>
+					</a>
+				</li>
+			</div>
+		</ul>
 	{% endif %}
-
-	<ul class="h-list">
-		<div class="row">
-			<li>
-				<a href="/extranet/ctacte/">
-					<div>
-						<span>Cuenta Corriente</span>
-						<span>$</span>
-					</div>
-				</a>
-			</li><!--
-			--><li>
-				<a href="/extranet/ctactekg/">
-					<div>
-						<span>Cuenta Corriente</span>
-						<span>Kg</span>
-					</div>
-				</a>
-			</li>
-		</div>
-		<div class="row">
-			<li>
-				<a href="/extranet/user/">
-					<div>
-						<span>Usuario</span>
-						<span><i class="fa fa-user" aria-hidden="true"></i></span>
-					</div>
-				</a>
-			</li><!--
-			--><li>
-				<a href="/logout/">
-					<div>
-						<span>Salir</span>
-						<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-					</div>
-				</a>
-			</li>
-		</div>
-	</ul>
+	
 </section>
 {% endblock %}

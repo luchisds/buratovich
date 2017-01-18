@@ -20,6 +20,7 @@ urlpatterns = [
 	url(r'^login/required/$', views.auth_login_required, name='login_required'),
 	url(r'^logout/$', views.auth_logout, name='logout'),
 	url(r'^extranet/$', views.extranet, name='extranet'),
+	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
 	url(r'^extranet/ctacte/$', views.ctacte, name='ctacte'),
 
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
