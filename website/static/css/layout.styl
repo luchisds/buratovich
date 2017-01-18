@@ -683,7 +683,7 @@ footer
 /*#### EXTRANET ################################################################*/
 
 #extranet
-	padding 2em 0 8em 0
+	padding 2em 1.5em 8em 1.5em
 	.notification
 		position relative
 		&:not(:nth-child(1))
@@ -715,9 +715,15 @@ footer
 		margin-top 2em
 		text-align center
 		a
-			background-color $baseColor
-			color white
-			padding 
+			// background-color $baseColor
+			border 1px solid $baseColor
+			border-radius 3px
+			// color white
+			color $darkGreyGreen
+			padding .3em .5em
+			&:hover
+				background-color $baseColor
+				color white
 	.row
 		margin-top 1em
 	ul

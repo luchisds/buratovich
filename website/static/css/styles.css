@@ -1565,7 +1565,7 @@ footer .cv div span:hover .work {
   margin-left: 0.3em;
 }
 #extranet {
-  padding: 2em 0 8em 0;
+  padding: 2em 1.5em 8em 1.5em;
 }
 #extranet .notification {
   position: relative;
@@ -1607,6 +1607,12 @@ footer .cv div span:hover .work {
   text-align: center;
 }
 #extranet .viewed a {
+  border: 1px solid #018d34;
+  border-radius: 3px;
+  color: #3c433e;
+  padding: 0.3em 0.5em;
+}
+#extranet .viewed a:hover {
   background-color: #018d34;
   color: #fff;
 }
