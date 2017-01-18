@@ -101,7 +101,7 @@ def notifications(request):
 		for n in notifications:
 			not_obj = Notifications.objects.get(id=n)
 			ViewedNotifications.objects.create(notification=not_obj, user=request.user, viewed=True)
-			del request.session['notifications']
+		del request.session['notifications']
 		return redirect('/extranet/')
 	else:
 		return redirect('/')
