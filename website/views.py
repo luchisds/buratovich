@@ -80,13 +80,31 @@ def auth_logout(request):
 def extranet(request):
 	notifications = Notifications.objects.filter(active=True)
 	notifications_list = []
+	notifications_id = []
 	for n in notifications:
 		if ViewedNotifications.objects.filter(notification=n.id, user=request.user).exists():
 			pass
 		else:
 			notifications_list.append(n)
+			notifications_id.append(n.id)
+
+	if len(notifications_id) > 0:
+		request.session['notifications'] = notifications_id
 	
 	return render(request, 'extranet.html', {'notifications': notifications_list})
+
+
+@login_required
+def notifications(request):
+	if 'notifications' in request.session:
+		notifications = request.session['notifications']
+		for n in notifications:
+			not_obj = Notifications.objects.get(id=n)
+			ViewedNotifications.objects.create(notification=not_obj, user=request.user, viewed=True)
+			del request.session['notifications']
+		return redirect('/extranet/')
+	else:
+		return redirect('/')
 
 
 @login_required

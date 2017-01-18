@@ -684,6 +684,40 @@ footer
 
 #extranet
 	padding 2em 0 8em 0
+	.notification
+		position relative
+		&:not(:nth-child(1))
+			margin-top 2em
+		.notification-content
+			padding-top .8em
+			&:after
+				content "\f05a"
+				font-family FontAwesome
+				font-style normal
+				font-weight normal
+				text-decoration inherit
+				position absolute
+				font-size 1.5em
+				color $midGrey
+				opacity .5
+				top 50%
+				z-index 1
+			.title, .text
+				padding-left 2em
+			.title
+				font-weight bold
+				margin-bottom .5em
+				text-transform uppercase
+		.date
+			color $baseColor
+			font-weight bold
+	.viewed
+		margin-top 2em
+		text-align center
+		a
+			background-color $baseColor
+			color white
+			padding 
 	.row
 		margin-top 1em
 	ul

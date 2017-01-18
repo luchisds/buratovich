@@ -1567,6 +1567,49 @@ footer .cv div span:hover .work {
 #extranet {
   padding: 2em 0 8em 0;
 }
+#extranet .notification {
+  position: relative;
+}
+#extranet .notification:not(:nth-child(1)) {
+  margin-top: 2em;
+}
+#extranet .notification .notification-content {
+  padding-top: 0.8em;
+}
+#extranet .notification .notification-content:after {
+  content: "\f05a";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  position: absolute;
+  font-size: 1.5em;
+  color: #ccc;
+  opacity: 0.5;
+  top: 50%;
+  z-index: 1;
+}
+#extranet .notification .notification-content .title,
+#extranet .notification .notification-content .text {
+  padding-left: 2em;
+}
+#extranet .notification .notification-content .title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+#extranet .notification .date {
+  color: #018d34;
+  font-weight: bold;
+}
+#extranet .viewed {
+  margin-top: 2em;
+  text-align: center;
+}
+#extranet .viewed a {
+  background-color: #018d34;
+  color: #fff;
+}
 #extranet .row {
   margin-top: 1em;
 }
