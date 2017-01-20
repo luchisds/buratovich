@@ -3,6 +3,7 @@ django-el-pagination==3.0.1
 django-excel==0.0.6
 django-mathfilters==0.4.0
 gunicorn==19.6.0
+psycopg2==2.6.2
 pyexcel==0.4.2
 pyexcel-io==0.3.0
 pyexcel-text==0.2.5
