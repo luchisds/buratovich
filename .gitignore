@@ -1,8 +1,11 @@
+# Fixtures
+data.json
+
 # Sqlite
-#*.sqlite3
+*.sqlite3
 
 # Secret Key
-#secret_key.txt
+secret_key.txt
 
 # Mac
 .DS_Store
