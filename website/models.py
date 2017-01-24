@@ -74,7 +74,7 @@ class CtaCteKilos(models.Model):
 	blank_4 = models.CharField(max_length=1, verbose_name='Blanco 4')
 	allotment = models.CharField(max_length=10, verbose_name='Lote')
 	allotment_description = models.CharField(max_length=100, verbose_name='Descripcion Lote')
-	blank_5 = models.IntegerField(max_length=1, verbose_name='Blanco 5')
+	blank_5 = models.IntegerField(verbose_name='Blanco 5')
 	blank_6 = models.CharField(max_length=2, verbose_name='Blanco 6')
 	kg_cnv = models.IntegerField(verbose_name='Kilos Conf. de Venta')
 	kg_cnv_2 = models.IntegerField(verbose_name='Kilos Conf. de Venta 2')
