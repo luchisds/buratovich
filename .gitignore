@@ -1,3 +1,6 @@
+# Staticfiles
+staticfiles/
+
 # Fixtures
 data.json
 
