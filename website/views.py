@@ -260,7 +260,7 @@ def importcc(request, typecc):
 		r = 0
 		for line in file:
 			# Delete new line character
-			line = line.replace('\n', '')
+			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
 				data = re.split('\t+', line)
 				print r
@@ -352,7 +352,7 @@ def importcc(request, typecc):
 		r = 0
 		for line in file:
 			# Delete new line character
-			line = line.replace('\n', '')
+			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
 				data = re.split('\t+', line)
 				print r
@@ -446,7 +446,7 @@ def importcc(request, typecc):
 
 		# break batch in small batches of 999 objects
 		for j in range(0, len(record), BULK_SIZE):
-			CtaCte.objects.bulk_create(record[j:j+BULK_SIZE])
+			CtaCteKilos.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
 	if typecc <> 'pesos' and typecc <> 'kilos':
@@ -454,6 +454,7 @@ def importcc(request, typecc):
 	else:
 		# Read file and delete existing objects
 		if typecc == 'pesos':
+			print "pesos"
 			file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
 			# Check if the file exists before deleteing all objects
 			if os.path.isfile(file):
@@ -461,16 +462,19 @@ def importcc(request, typecc):
 				if CtaCte.objects.count() > 0:
 					CtaCte.objects.all().delete()
 		else:
+			print "kilos"
 			file = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
 			if os.path.isfile(file):
 				if CtaCteKilos.objects.count() > 0:
-					CtaCte.objects.all().delete()
+					CtaCteKilos.objects.all().delete()
 
 		with open(file, 'r') as f:
 
 			if typecc == 'pesos':
+				print "pesos"
 				importCtaCteP(f)
 			else:
+				print "kilos"
 				importCtaCteKg(f)
 
 	return render(request, '__ctacte.html')

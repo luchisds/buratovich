@@ -1617,7 +1617,7 @@ footer .cv div span:hover .work {
   color: #fff;
 }
 #extranet .row {
-  margin-top: 1em;
+  margin-top: 2em;
 }
 #extranet ul {
   text-align: center;
@@ -1634,7 +1634,7 @@ footer .cv div span:hover .work {
 #extranet ul li:hover {
   background-color: #065a7a;
 }
-#extranet ul li:nth-child(2) {
+#extranet ul li:not(:nth-child(1)) {
   margin-left: 2em;
 }
 #extranet ul li a {
