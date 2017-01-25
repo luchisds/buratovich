@@ -23,7 +23,7 @@ class CtaCteKilos(models.Model):
 	field_description = models.CharField(max_length=100, verbose_name='Nombre de Campo')
 	date = models.DateField(null=True, verbose_name='Fecha')
 	voucher = models.CharField(max_length=16, verbose_name='Comprobante')
-	gross_kg = models.IntegerField(verbose_name='Kilos Brutos')
+	gross_kg = models.IntegerField(verbose_name='Peso Bruto')
 	humidity_percentage = models.FloatField(verbose_name='Humedad (%)')
 	humidity_reduction = models.FloatField(verbose_name='Merma de Humedad')
 	humidity_kg = models.IntegerField(verbose_name='Kilos de Humedad')
