@@ -175,6 +175,15 @@ def ctacte(request):
 
 
 @login_required
+def ctactekg(request):
+	if 'algoritmo_code' in request.session:
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').distinct('species_description')
+		print species
+
+	return render(request, '__ctacte.html')
+
+
+@login_required
 def downloadexcel(request):
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
@@ -224,6 +233,9 @@ def downloadtxt(request):
 			records.append(tmp_dict)
 
 		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
+
+
+
 
 
 @login_required
