@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 
@@ -7,8 +8,12 @@ from website import views
 
 
 urlpatterns = [
-	#static.serve debe ser usado solo en dev environment Fuck!
-	#url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
+	# static.serve debe ser usado solo en dev environment Fuck!
+	# url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
+
+	# Django-admin-tools URL's
+	url(r'^admin_tools/', include('admin_tools.urls')),
+
 	url(r'^admin/', admin.site.urls),
 	
 	url(r'^$', views.index, name='home'),
@@ -26,5 +31,5 @@ urlpatterns = [
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
 
-	url(r'^ctacte/$', views.importcc, name='importcc'),
+	url(r'^ctacte/(?P<typecc>[a-z]+)/$', views.importcc, name='importcc'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
