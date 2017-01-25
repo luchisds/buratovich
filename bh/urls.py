@@ -26,7 +26,8 @@ urlpatterns = [
 	url(r'^logout/$', views.auth_logout, name='logout'),
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
-	url(r'^extranet/ctacte/$', views.ctacte, name='ctacte'),
+	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
+	url(r'^extranet/ctacte/kilos/$', views.ctactekg, name='ctactekg'),
 
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
