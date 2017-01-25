@@ -258,7 +258,7 @@ def importcc(request, typecc):
 	def importCtaCteP(file):
 		record = []
 		r = 0
-		for line in f:
+		for line in file:
 			# Delete new line character
 			line = line.replace('\n', '')
 			if len(line) > 0:
@@ -350,7 +350,7 @@ def importcc(request, typecc):
 	def importCtaCteKg(file):
 		record = []
 		r = 0
-		for line in f:
+		for line in file:
 			# Delete new line character
 			line = line.replace('\n', '')
 			if len(line) > 0:
@@ -364,82 +364,82 @@ def importcc(request, typecc):
 						species = evalText(data[3]),
 						harvest = evalText(data[4]),
 						species_description = evalText(data[5]),
-						field = evalText(data[6]),
+						field = evalInt(data[6]),
 						field_description = evalText(data[7]),
-						date = evalText(data[8]),
+						date = evalDate(data[8]),
 						voucher = evalText(data[9]),
-						gross_kg = evalText(data[10]),
-						humidity_percentage = evalText(data[11]),
+						gross_kg = evalInt(data[10]),
+						humidity_percentage = evalFloat(data[11]),
 						humidity_reduction = evalFloat(data[12]),
-						humidity_kg = evalFloat(data[13]),
+						humidity_kg = evalInt(data[13]),
 						shaking_reduction = evalFloat(data[14]),
 						shaking_kg = evalInt(data[15]),
 						volatile_reduction = evalFloat(data[16]),
-						volatile_kg = evalText(data[17]),
-						price_per_yard = evalText(data[18]),
-						driver_code = evalDate(data[19]),
-						driver_name = evalDate(data[20]),
-						factor = evalText(data[21]),
-						grade = evalText(data[22]),
-						gluten = evalFloat(data[23]),
-						number_1116A = evalFloat(data[24]),
-						km = evalText(data[25]),
-						charge_carry = evalFloat(data[26]),
-						external_voucher_code = evalFloat(data[27]),
-						external_voucher_branch = evalDate(data[28]),
-						external_voucher_number = evalDate(data[29]),
-						aeration_reduction = evalDate(data[30]),
-						aeration_kg = evalFloat(data[31]),
-						quality_reduction = evalText(data[32]),
-						quality_kg = evalText(data[33]),
+						volatile_kg = evalInt(data[17]),
+						price_per_yard = evalFloat(data[18]),
+						driver_code = evalInt(data[19]),
+						driver_name = evalText(data[20]),
+						factor = evalFloat(data[21]),
+						grade = evalInt(data[22]),
+						gluten = evalInt(data[23]),
+						number_1116A = evalInt(data[24]),
+						km = evalInt(data[25]),
+						charge_carry = evalText(data[26]),
+						external_voucher_code = evalText(data[27]),
+						external_voucher_branch = evalInt(data[28]),
+						external_voucher_number = evalInt(data[29]),
+						aeration_reduction = evalFloat(data[30]),
+						aeration_kg = evalInt(data[31]),
+						quality_reduction = evalFloat(data[32]),
+						quality_kg = evalInt(data[33]),
 						zone = evalText(data[34]),
 						zone_description = evalText(data[35]),
-						plant_code = evalText(data[36]),
+						plant_code = evalInt(data[36]),
 						service_billing_code = evalText(data[37]),
-						service_billing_branch = evalText(data[38]),
-						service_billing_number = evalText(data[39]),
-						service_billing_date = evalText(data[40]),
+						service_billing_branch = evalInt(data[38]),
+						service_billing_number = evalInt(data[39]),
+						service_billing_date = evalDate(data[40]),
 						service_billing = evalText(data[41]),
-						carrier_code = evalText(data[42]),
+						carrier_code = evalInt(data[42]),
 						carrier_name = evalText(data[43]),
 						exclude_charge_expenses = evalText(data[44]),
-						to_date = evalFloat(data[45]),
+						to_date = evalDate(data[45]),
 						observations = evalText(data[46]),
 						follow_destination = evalText(data[47]),
 						destination_code = evalText(data[48]),
 						net_weight = evalInt(data[49]),
-						tare = evalText(data[50]),
+						tare = evalInt(data[50]),
 						gross_weight_recognized = evalInt(data[51]),
 						plant_description = evalText(data[52]),
 						gross_kg_var = evalInt(data[53]),
-						gross_kg_2 = evalText(data[54]),
+						gross_kg_2 = evalInt(data[54]),
 						blank_1 = evalText(data[55]),
 						blank_2 = evalText(data[56]),
-						blank_3 = evalInt(data[57]),
-						blank_4 = evalInt(data[58]),
-						allotment = evalInt(data[59]),
+						blank_3 = evalText(data[57]),
+						blank_4 = evalText(data[58]),
+						allotment = evalText(data[59]),
 						allotment_description = evalText(data[60]),
 						blank_5 = evalInt(data[61]),
 						blank_6 = evalText(data[62]),
-						kg_cnv = evalText(data[63]),
-						kg_cnv_2 = evalFloat(data[64]),
-						kg_cnv_3 = evalFloat(data[65]),
-						blank_7 = evalFloat(data[66]),
-						blank_8 = evalFloat(data[67]),
-						blank_9 = evalFloat(data[68]),
-						blank_10 = evalFloat(data[69]),
-						gross_kg_3 = evalText(data[70]),
-						unknown_1 = evalText(data[71]),
-						unknown_2,
-						gross_kg_4,
-						rate,
-						net_weight_2,
-						humidity_kg_2,
-						blank_11,
-						blank_12,
-						blank_13,
-						blank_14,
-						ctg
+						kg_cnv = evalInt(data[63]),
+						kg_cnv_2 = evalInt(data[64]),
+						kg_cnv_3 = evalInt(data[65]),
+						blank_7 = evalText(data[66]),
+						blank_8 = evalText(data[67]),
+						blank_9 = evalText(data[68]),
+						blank_10 = evalText(data[69]),
+						gross_kg_3 = evalInt(data[70]),
+						unknown_1 = evalInt(data[71]),
+						unknown_2 = evalInt(data[72]),
+						gross_kg_4 = evalInt(data[73]),
+						rate = evalFloat(data[74]),
+						net_weight_2 = evalInt(data[75]),
+						humidity_kg_2 = evalInt(data[76]),
+						blank_11 = evalText(data[77]),
+						blank_12 = evalText(data[78]),
+						blank_13 = evalText(data[79]),
+						blank_14 = evalText(data[80]),
+						ctg = evalInt(data[81])
 					)
 				)
 			r = r + 1
@@ -466,12 +466,11 @@ def importcc(request, typecc):
 				if CtaCteKilos.objects.count() > 0:
 					CtaCte.objects.all().delete()
 
-
 		with open(file, 'r') as f:
 
 			if typecc == 'pesos':
-
-
-				
+				importCtaCteP(f)
+			else:
+				importCtaCteKg(f)
 
 	return render(request, '__ctacte.html')
