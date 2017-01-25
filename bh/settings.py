@@ -21,9 +21,9 @@ ALLOWED_HOSTS = ['*','127.0.0.1', 'buratovich.herokuapp.com']
 
 INSTALLED_APPS = [
 	'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
+	'admin_tools.theming',
+	'admin_tools.menu',
+	'admin_tools.dashboard',
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'bh.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# DATABASES = {
-# 	'default': {
-# 		'ENGINE': 'django.db.backends.sqlite3',
-# 		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-# 	}
-# }
-
 DATABASES = {
 	'default': {
-		'ENGINE': 'django.db.backends.postgresql',
-		'NAME': 'buratovich',
-		'USER': 'postgres',
-		'PASSWORD': 'luciano',
-		'HOST': 'localhost',
-		'PORT': '5432',
+		'ENGINE': 'django.db.backends.sqlite3',
+		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 	}
 }
+
+# DATABASES = {
+# 	'default': {
+# 		'ENGINE': 'django.db.backends.postgresql',
+# 		'NAME': 'buratovich',
+# 		'USER': 'postgres',
+# 		'PASSWORD': 'luciano',
+# 		'HOST': 'localhost',
+# 		'PORT': '5432',
+# 	}
+# }
 
 
 # Password validation
