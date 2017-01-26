@@ -178,9 +178,22 @@ def ctacte(request):
 def ctactekg(request):
 	if 'algoritmo_code' in request.session:
 		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').distinct()
-		data = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field', 'field_description')
+		fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('field', 'field_description').distinct()
+		# indicator 1 (entrega) / 2 (venta)
+		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field').order_by('date')
 
-	return render(request, '__ctacte.html')
+		tickets_by_field = {}
+		for f in fields:
+			if tickets_by_field.get(f['field'],None) is None:
+				tickets_by_field[f['field']] = {}
+				tickets_by_field[f['field']]['number'] = f['field']
+				tickets_by_field[f['field']]['name'] = f['field_description']
+			for t in tickets:
+				if t['field'] == f['field']:
+					tickets_by_field[f['field']]['tickets'] = {}
+					tickets_by_field[f['field']]['tickets'][t['voucher']] = t
+
+	return render(request, '__ctacte.html', {'tickets':tickets_by_field, 'species':species})
 
 
 @login_required
