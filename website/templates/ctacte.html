@@ -5,7 +5,7 @@
 
 {% block path %}
 <div class="path maxwidth">
-	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Cuenta Corriente</span></div>
+	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Cuenta Corriente en Pesos</span></div>
 	{% if user.is_authenticated %}
 		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
