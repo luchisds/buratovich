@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Cuenta Corriente en Kilos</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+	<section id="ctacte" class="maxwidth">
+		<h3>Cuenta Corriente en Kilos</h3>
+		<!--<div class="export">
+			<button>
+				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+			</button>
+			<button>
+				<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 	Exportar a TXT</a>
+			</button>
+		</div>-->
+		<!--<table>
+			<thead>
+				<tr>
+					<th>Fecha</th>
+					<th>Comprobante</th>
+					<th>Kg. Brutos</th>
+					<th>Hum. %</th>
+					<th>Hum. Kg.</th>
+					<th>Zar. %</th>
+					<th>Zar. Kg.</th>
+					<th>Vol. %</th>
+					<th>Vol. Kg.</th>
+					<th>Kg. Netos</th>
+					<th>Factor</th>
+					<th>Grado</th>
+					<th>Nº 1116A</th>
+					<th>CP</th>
+					<th>Transportista</th>
+				</tr>-->
+				{% for key, value in tickets.items %}
+					<p>Key: {{key}} / Value: {{value.name}}</p>
+				{% endfor %}
+			<!--</thead>
+			
+		</table>-->
+
+	</section>
+
+{% endblock %}

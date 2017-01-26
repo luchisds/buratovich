@@ -193,7 +193,7 @@ def ctactekg(request):
 					tickets_by_field[f['field']]['tickets'] = {}
 					tickets_by_field[f['field']]['tickets'][t['voucher']] = t
 
-	return render(request, '__ctacte.html', {'tickets':tickets_by_field, 'species':species})
+	return render(request, 'ctactekg.html', {'tickets':tickets_by_field, 'species':species})
 
 
 @login_required
