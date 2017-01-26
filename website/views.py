@@ -177,8 +177,8 @@ def ctacte(request):
 @login_required
 def ctactekg(request):
 	if 'algoritmo_code' in request.session:
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').distinct('species_description')
-		print species
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').distinct()
+		data = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field', 'field_description')
 
 	return render(request, '__ctacte.html')
 
