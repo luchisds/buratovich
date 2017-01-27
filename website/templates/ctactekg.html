@@ -16,6 +16,28 @@
 
 	<section id="ctacte" class="maxwidth">
 		<h3>Cuenta Corriente en Kilos</h3>
+
+		<form action="">
+			{% for k, v in species.items %}
+				<h2>{{k}}</h2>
+				{% for i, j in v.items %}
+					<input type="checkbox" value="{{i}}{{k}}"> {{j}}
+				{% endfor %}
+			{% endfor %}
+		</form>
+		<hr>
+		<br>
+		{% for k, v in tickets.items  %}
+			<h2>{{k}}</h2>
+			{% for i, j in v.items %}
+				<h4>{{i}} - {{j.name}}</h4>
+				{% for a, b in j.tickets.items %}
+					<p>{{a}}</p>
+					<p>{{b}}</p>
+				{% endfor %}
+			{% endfor %}
+		{% endfor %}
+
 		<!--<div class="export">
 			<button>
 				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
@@ -43,9 +65,9 @@
 					<th>CP</th>
 					<th>Transportista</th>
 				</tr>-->
-				{% for key, value in tickets.items %}
+				<!--{% for key, value in tickets.items %}
 					<p>Key: {{key}} / Value: {{value.name}}</p>
-				{% endfor %}
+				{% endfor %}-->
 			<!--</thead>
 			
 		</table>-->

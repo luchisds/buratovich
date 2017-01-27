@@ -177,23 +177,41 @@ def ctacte(request):
 @login_required
 def ctactekg(request):
 	if 'algoritmo_code' in request.session:
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').distinct()
-		fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('field', 'field_description').distinct()
-		# indicator 1 (entrega) / 2 (venta)
-		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field').order_by('date')
+
+		# Dict with [harvest]-->[species]-->[species description]
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'species_description').order_by('-harvest','species').distinct()
+
+		species_description = []
+		species_by_harvest = OrderedDict()
+		for s in species:
+			if species_by_harvest.get(s['harvest'], None) is None:
+				species_by_harvest[s['harvest']] = OrderedDict()
+			species_by_harvest[s['harvest']][s['species']] = s['species_description']
+			species_description.append(s['species_description'])
+
+		## Total kg for selected species_description
+		total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('net_weight'))
+
+		# Dict with [species description]-->[field]-->[tickets]
+		fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('field', 'field_description', 'species_description').distinct()
+		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field', 'species_description').order_by('date')
 
 		tickets_by_field = {}
-		for f in fields:
-			if tickets_by_field.get(f['field'],None) is None:
-				tickets_by_field[f['field']] = {}
-				tickets_by_field[f['field']]['number'] = f['field']
-				tickets_by_field[f['field']]['name'] = f['field_description']
-			for t in tickets:
-				if t['field'] == f['field']:
-					tickets_by_field[f['field']]['tickets'] = {}
-					tickets_by_field[f['field']]['tickets'][t['voucher']] = t
+		for s in species_description:
+			if tickets_by_field.get(s, None) is None:
+				tickets_by_field[s] = OrderedDict()
+			for f in fields:
+				if f['species_description'] == s:
+					if tickets_by_field[s].get(f['field'], None) is None:
+						tickets_by_field[s][f['field']] = OrderedDict()
+						tickets_by_field[s][f['field']]['number'] = f['field']
+						tickets_by_field[s][f['field']]['name'] = f['field_description']
+					for t in tickets:
+						if t['species_description'] == s and t['field'] == f['field']:
+							tickets_by_field[s][f['field']]['tickets'] = OrderedDict()
+							tickets_by_field[s][f['field']]['tickets'][t['voucher']] = t
 
-	return render(request, 'ctactekg.html', {'tickets':tickets_by_field, 'species':species})
+		return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field})
 
 
 @login_required
