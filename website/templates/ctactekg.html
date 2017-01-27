@@ -17,6 +17,15 @@
 	<section id="ctacte" class="maxwidth">
 		<h3>Cuenta Corriente en Kilos</h3>
 
+		<!--<div class="export">
+			<button>
+				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+			</button>
+			<button>
+				<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 	Exportar a TXT</a>
+			</button>
+		</div>-->
+
 		<form action="">
 			{% for k, v in species.items %}
 				<h2>{{k}}</h2>
@@ -31,46 +40,50 @@
 			<h2>{{k}}</h2>
 			{% for i, j in v.items %}
 				<h4>{{i}} - {{j.name}}</h4>
-				{% for a, b in j.tickets.items %}
-					<p>{{a}}</p>
-					<p>{{b}}</p>
-				{% endfor %}
+				<table>
+					<thead>
+						<tr>
+							<th>Fecha</th>
+							<th>Comprobante</th>
+							<th>Kg. Brutos</th>
+							<th>Hum. %</th>
+							<th>Hum. Kg.</th>
+							<th>Zar. %</th>
+							<th>Zar. Kg.</th>
+							<th>Vol. %</th>
+							<th>Vol. Kg.</th>
+							<th>Kg. Netos</th>
+							<th>Factor</th>
+							<th>Grado</th>
+							<th>Nº 1116A</th>
+							<th>CP</th>
+							<th>Transportista</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for a, b in j.tickets.items %}
+							<tr>
+								<td>{{b.date}}</td>
+								<td>{{b.voucher}}</td>
+								<td>{{b.gross_kg}}</td>
+								<td>{{b.humidity_percentage}}</td>
+								<td>{{b.humidity_kg}}</td>
+								<td>Ver</td>
+								<td>{{b.shaking_kg}}</td>
+								<td>Ver</td>
+								<td>{{b.shaking_reduction}}</td>
+								<td>{{b.net_weight}}</td>
+								<td>{{b.factor}}</td>
+								<td>{{b.grade}}</td>
+								<td>{{b.number_1116A}}</td>
+								<td>{{b.external_voucher_number}}</td>
+								<td>{{b.carrier_name}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 			{% endfor %}
 		{% endfor %}
-
-		<!--<div class="export">
-			<button>
-				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
-			</button>
-			<button>
-				<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 	Exportar a TXT</a>
-			</button>
-		</div>-->
-		<!--<table>
-			<thead>
-				<tr>
-					<th>Fecha</th>
-					<th>Comprobante</th>
-					<th>Kg. Brutos</th>
-					<th>Hum. %</th>
-					<th>Hum. Kg.</th>
-					<th>Zar. %</th>
-					<th>Zar. Kg.</th>
-					<th>Vol. %</th>
-					<th>Vol. Kg.</th>
-					<th>Kg. Netos</th>
-					<th>Factor</th>
-					<th>Grado</th>
-					<th>Nº 1116A</th>
-					<th>CP</th>
-					<th>Transportista</th>
-				</tr>-->
-				<!--{% for key, value in tickets.items %}
-					<p>Key: {{key}} / Value: {{value.name}}</p>
-				{% endfor %}-->
-			<!--</thead>
-			
-		</table>-->
 
 	</section>
 
