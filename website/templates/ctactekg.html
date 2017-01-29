@@ -38,51 +38,71 @@
 		<br>
 		{% for k, v in tickets.items  %}
 			<h2>{{k}}</h2>
-			{% for i, j in v.items %}
-				<h4>{{i}} - {{j.name}}</h4>
-				<table>
-					<thead>
+			<table>
+				<thead>
+					<tr>
+						<th rowspan="2">Fecha</th>
+						<th rowspan="2">Comprobante</th>
+						<th rowspan="2">Brutos</th>
+						<th colspan="2">Hum.</th>
+						<th colspan="2">Zar.</th>
+						<th colspan="2">Vol.</th>
+						<th rowspan="2">Netos</th>
+						<th rowspan="2">Factor</th>
+						<th rowspan="2">Grado</th>
+						<th rowspan="2">Nº 1116A</th>
+						<th rowspan="2">CP</th>
+						<th rowspan="2"	>Transportista</th>
+					</tr>
+					<tr>
+						<th colspan="1">%</th>
+						<th colspan="1">Kg.</th>
+						<th colspan="1">%</th>
+						<th colspan="1">Kg.</th>
+						<th colspan="1">%</th>
+						<th colspan="1">Kg.</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i, j in v.items %}
 						<tr>
-							<th>Fecha</th>
-							<th>Comprobante</th>
-							<th>Kg. Brutos</th>
-							<th>Hum. %</th>
-							<th>Hum. Kg.</th>
-							<th>Zar. %</th>
-							<th>Zar. Kg.</th>
-							<th>Vol. %</th>
-							<th>Vol. Kg.</th>
-							<th>Kg. Netos</th>
-							<th>Factor</th>
-							<th>Grado</th>
-							<th>Nº 1116A</th>
-							<th>CP</th>
-							<th>Transportista</th>
+							<td colspan="15">{{i}} - {{j.name}}</td>
 						</tr>
-					</thead>
-					<tbody>
 						{% for a, b in j.tickets.items %}
 							<tr>
-								<td>{{b.date}}</td>
+								<td class="date">{{b.date|date:"d-m-Y"}}</td>
 								<td>{{b.voucher}}</td>
-								<td>{{b.gross_kg}}</td>
-								<td>{{b.humidity_percentage}}</td>
-								<td>{{b.humidity_kg}}</td>
-								<td>Ver</td>
-								<td>{{b.shaking_kg}}</td>
-								<td>Ver</td>
-								<td>{{b.shaking_reduction}}</td>
-								<td>{{b.net_weight}}</td>
-								<td>{{b.factor}}</td>
-								<td>{{b.grade}}</td>
-								<td>{{b.number_1116A}}</td>
-								<td>{{b.external_voucher_number}}</td>
-								<td>{{b.carrier_name}}</td>
+								<td class="number">{{b.gross_kg|intcomma}}</td>
+								<td class="number">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
+								<td class="number">{{b.humidity_kg|intcomma}}</td>
+								<td class="number">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
+								<td class="number">{{b.shaking_kg|intcomma}}</td>
+								<td class="number">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
+								<td class="number">{{b.volatile_kg|intcomma}}</td>
+								<td class="number">{{b.net_weight|intcomma}}</td>
+								<td class="center">{{b.factor|intcomma}}</td>
+								<td class="center">{{b.grade}}</td>
+								<td class="center">{{b.number_1116A}}</td>
+								<td class="center">{{b.external_voucher_number}}</td>
+								<td>{{b.driver_name}}</td>
 							</tr>
 						{% endfor %}
-					</tbody>
-				</table>
-			{% endfor %}
+						<tr>
+							<td></td>
+							<td></td>
+							<td>{{j.total_gross}}</td>
+							<td></td>
+							<td>{{j.total_hum}}</td>
+							<td></td>
+							<td>{{j.total_sha}}</td>
+							<td></td>
+							<td>{{j.total_vol}}</td>
+							<td>{{j.total_net}}</td>
+							<td colspan="5">{{j.tickets_count}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		{% endfor %}
 
 	</section>

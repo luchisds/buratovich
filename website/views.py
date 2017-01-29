@@ -194,7 +194,7 @@ def ctactekg(request):
 
 		# Dict with [species description]-->[field]-->[tickets]
 		fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('field', 'field_description', 'species_description').distinct()
-		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_kg', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'carrier_name', 'field', 'species_description').order_by('date')
+		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
 
 		tickets_by_field = {}
 		for s in species_description:
@@ -207,9 +207,28 @@ def ctactekg(request):
 						tickets_by_field[s][f['field']]['number'] = f['field']
 						tickets_by_field[s][f['field']]['name'] = f['field_description']
 					tickets_by_field[s][f['field']]['tickets'] = OrderedDict()
+					total_gross = 0
+					total_hum = 0
+					total_sha = 0
+					total_vol = 0
+					total_net = 0
+					tickets_count = 0
 					for t in tickets:
 						if t['species_description'] == s and t['field'] == f['field']:
 							tickets_by_field[s][f['field']]['tickets'][t['voucher']] = t
+							total_gross += t['gross_kg']
+							total_hum += t['humidity_kg']
+							total_sha += t['shaking_kg']
+							total_vol += t['volatile_kg']
+							total_net += t['net_weight']
+							tickets_count += 1
+						tickets_by_field[s][f['field']]['total_gross'] = total_gross
+						tickets_by_field[s][f['field']]['total_hum'] = total_hum
+						tickets_by_field[s][f['field']]['total_sha'] = total_sha
+						tickets_by_field[s][f['field']]['total_vol'] = total_vol
+						tickets_by_field[s][f['field']]['total_net'] = total_net
+						tickets_by_field[s][f['field']]['tickets_count'] = tickets_count
+
 
 		return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field})
 

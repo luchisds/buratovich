@@ -1682,6 +1682,9 @@ footer .cv div span:hover .work {
 #ctacte table td.number {
   text-align: right;
 }
+#ctacte table td.center {
+  text-align: center;
+}
 #ctacte table thead th {
   background-color: #018d34;
   color: #fff;
