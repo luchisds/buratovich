@@ -835,6 +835,54 @@ footer
 					background-color $lightGrey
 					color $midGrey
 	&.kilos
+		// .export
+		// 	border-top 1px solid $baseColor
+		.harvest-selector
+			text-align center
+			padding 2em 0
+			form
+				background-color #fafafa
+				border-bottom 1px solid $midGrey
+				border-top 1px solid $midGrey
+				border-radius 3px
+				display inline-block
+				font-size .9em
+				overflow hidden
+				padding 1em
+				div
+					float left
+					margin-right 3em
+					&:first-child
+						margin-left 1em
+					&:last-child
+						margin-right 1em
+				h4
+					//border-bottom 1px solid $lightGrey
+					border-bottom 1px solid $midGrey
+					color $baseColor
+					font-size 1.2em
+					margin-bottom .7em
+					padding-bottom .18em
+					text-align center
+				label
+					display block
+					margin .5em 0
+					padding 0 1em
+					text-align left
+					input
+						margin-right 5px
+				.submit
+					border 1px solid $baseColor
+					display inline-block
+					font-size 1.1em
+					margin 0 auto
+					margin-top 1em
+					padding .3em
+					&:hover
+						border 1px solid $accentColor
+		.harvest-title
+			font-size 1.4em
+			margin-bottom .5em
 		tr
 			&.total
 				color $accentColor
@@ -854,4 +902,5 @@ footer
 					padding-top .6em
 			&.separator
 				td
-					padding-top 1em
+					border 0
+					padding-top 1.3em

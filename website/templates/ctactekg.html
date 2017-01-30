@@ -17,27 +17,34 @@
 	<section id="ctacte" class="kilos maxwidth">
 		<h3>Cuenta Corriente en Kilos</h3>
 
-		<!--<div class="export">
+		<div class="harvest-selector">
+			<form action="">
+				{% for k, v in species.items %}
+					<div>
+						<h4>{{k}}</h4>
+						{% for i, j in v.items %}
+							<label><input type="checkbox" value="{{i}}{{k}}">{{j|title}}</label>
+						{% endfor %}
+					</div>
+				{% endfor %}
+				<div style="clear:both;"></div>
+				<button type="submit" class="submit">
+					Buscar
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</form>
+		</div>
+
+		<div class="export">
 			<button>
 				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 			</button>
 			<button>
 				<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 	Exportar a TXT</a>
 			</button>
-		</div>-->
-
-		<form action="">
-			{% for k, v in species.items %}
-				<h2>{{k}}</h2>
-				{% for i, j in v.items %}
-					<input type="checkbox" value="{{i}}{{k}}"> {{j}}
-				{% endfor %}
-			{% endfor %}
-		</form>
-		<hr>
-		<br>
+		</div>
 		{% for k, v in tickets.items  %}
-			<h2>{{k}}</h2>
+			<h4 class="harvest-title">{{k}}</h4>
 			<table>
 				<thead>
 					<tr>

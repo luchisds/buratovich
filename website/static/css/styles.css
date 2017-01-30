@@ -1755,6 +1755,62 @@ footer .cv div span:hover .work {
   background-color: #fafafa;
   color: #ccc;
 }
+#ctacte.kilos .harvest-selector {
+  text-align: center;
+  padding: 2em 0;
+}
+#ctacte.kilos .harvest-selector form {
+  background-color: #fafafa;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.9em;
+  overflow: hidden;
+  padding: 1em;
+}
+#ctacte.kilos .harvest-selector form div {
+  float: left;
+  margin-right: 3em;
+}
+#ctacte.kilos .harvest-selector form div:first-child {
+  margin-left: 1em;
+}
+#ctacte.kilos .harvest-selector form div:last-child {
+  margin-right: 1em;
+}
+#ctacte.kilos .harvest-selector form h4 {
+  border-bottom: 1px solid #ccc;
+  color: #018d34;
+  font-size: 1.2em;
+  margin-bottom: 0.7em;
+  padding-bottom: 0.18em;
+  text-align: center;
+}
+#ctacte.kilos .harvest-selector form label {
+  display: block;
+  margin: 0.5em 0;
+  padding: 0 1em;
+  text-align: left;
+}
+#ctacte.kilos .harvest-selector form label input {
+  margin-right: 5px;
+}
+#ctacte.kilos .harvest-selector form .submit {
+  border: 1px solid #018d34;
+  display: inline-block;
+  font-size: 1.1em;
+  margin: 0 auto;
+  margin-top: 1em;
+  padding: 0.3em;
+}
+#ctacte.kilos .harvest-selector form .submit:hover {
+  border: 1px solid #065a7a;
+}
+#ctacte.kilos .harvest-title {
+  font-size: 1.4em;
+  margin-bottom: 0.5em;
+}
 #ctacte.kilos tr.total {
   color: #065a7a;
 }
@@ -1777,5 +1833,6 @@ footer .cv div span:hover .work {
   padding-top: 0.6em;
 }
 #ctacte.kilos tr.separator td {
-  padding-top: 1em;
+  border: 0;
+  padding-top: 1.3em;
 }
