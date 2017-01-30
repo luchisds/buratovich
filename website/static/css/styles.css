@@ -1668,6 +1668,7 @@ footer .cv div span:hover .work {
   margin: 1.2em 0 0.5em 0;
 }
 #ctacte table {
+  border-spacing: 1px;
   font-size: 0.8em;
   margin: 0 auto;
   width: 100%;
@@ -1676,10 +1677,7 @@ footer .cv div span:hover .work {
   border-bottom: 1px solid #ccc;
   padding: 0.2em 0;
 }
-#ctacte table td.date {
-  text-align: center;
-}
-#ctacte table td.number {
+#ctacte table td.right {
   text-align: right;
 }
 #ctacte table td.center {
@@ -1718,21 +1716,21 @@ footer .cv div span:hover .work {
 #ctacte .export button a:hover {
   color: #fff;
 }
-#ctacte .pagination {
+#ctacte.pesos .pagination {
   font-size: 0.9em;
   margin: 2.5em 0 5em 0;
   text-align: center;
 }
-#ctacte .pagination .wrapper {
+#ctacte.pesos .pagination .wrapper {
   border: 1px solid #ccc;
   border-radius: 3px;
   display: inline-block;
 /* Fix distance between inline-block childrens */
   font-size: 0;
 }
-#ctacte .pagination .wrapper .endless_page_current,
-#ctacte .pagination .wrapper .endless_page_link,
-#ctacte .pagination .wrapper .endless_separator {
+#ctacte.pesos .pagination .wrapper .endless_page_current,
+#ctacte.pesos .pagination .wrapper .endless_page_link,
+#ctacte.pesos .pagination .wrapper .endless_separator {
   border-left: 1px solid #ccc;
   color: #3c433e;
   display: inline-block;
@@ -1741,19 +1739,43 @@ footer .cv div span:hover .work {
   padding: 0.5em 0;
   width: 50px;
 }
-#ctacte .pagination .wrapper .endless_page_current:first-child,
-#ctacte .pagination .wrapper .endless_page_link:first-child,
-#ctacte .pagination .wrapper .endless_separator:first-child {
+#ctacte.pesos .pagination .wrapper .endless_page_current:first-child,
+#ctacte.pesos .pagination .wrapper .endless_page_link:first-child,
+#ctacte.pesos .pagination .wrapper .endless_separator:first-child {
   border-left: none;
 }
-#ctacte .pagination .wrapper .endless_page_current {
+#ctacte.pesos .pagination .wrapper .endless_page_current {
   background-color: #ccc;
 }
-#ctacte .pagination .wrapper .endless_page_link:hover {
+#ctacte.pesos .pagination .wrapper .endless_page_link:hover {
   background-color: #065a7a;
   color: #fff;
 }
-#ctacte .pagination .wrapper .endless_separator {
+#ctacte.pesos .pagination .wrapper .endless_separator {
   background-color: #fafafa;
   color: #ccc;
+}
+#ctacte.kilos tr.total {
+  color: #065a7a;
+}
+#ctacte.kilos tr.total td {
+  border: 0;
+  padding: 0;
+}
+#ctacte.kilos tr.total td span {
+  display: block;
+  margin-right: 2px;
+  padding: 3px;
+}
+#ctacte.kilos tr.field-name {
+  background-color: #e9e9e9;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+#ctacte.kilos tr.field-name td {
+  padding-left: 0.5em;
+  padding-top: 0.6em;
+}
+#ctacte.kilos tr.separator td {
+  padding-top: 1em;
 }

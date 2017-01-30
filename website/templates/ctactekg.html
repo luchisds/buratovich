@@ -14,7 +14,7 @@
 
 {% block content %}
 
-	<section id="ctacte" class="maxwidth">
+	<section id="ctacte" class="kilos maxwidth">
 		<h3>Cuenta Corriente en Kilos</h3>
 
 		<!--<div class="export">
@@ -65,21 +65,22 @@
 				</thead>
 				<tbody>
 					{% for i, j in v.items %}
-						<tr>
-							<td colspan="15">{{i}} - {{j.name}}</td>
+						<tr class="field-name">
+							<!--<td colspan="15">{{i}} - {{j.name}}</td>-->
+							<td colspan="15">{{j.name}}</td>
 						</tr>
 						{% for a, b in j.tickets.items %}
 							<tr>
-								<td class="date">{{b.date|date:"d-m-Y"}}</td>
+								<td class="center">{{b.date|date:"d-m-Y"}}</td>
 								<td>{{b.voucher}}</td>
-								<td class="number">{{b.gross_kg|intcomma}}</td>
-								<td class="number">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
-								<td class="number">{{b.humidity_kg|intcomma}}</td>
-								<td class="number">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
-								<td class="number">{{b.shaking_kg|intcomma}}</td>
-								<td class="number">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
-								<td class="number">{{b.volatile_kg|intcomma}}</td>
-								<td class="number">{{b.net_weight|intcomma}}</td>
+								<td class="right">{{b.gross_kg|intcomma}}</td>
+								<td class="right">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
+								<td class="right">{{b.humidity_kg|intcomma}}</td>
+								<td class="right">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
+								<td class="right">{{b.shaking_kg|intcomma}}</td>
+								<td class="right">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
+								<td class="right">{{b.volatile_kg|intcomma}}</td>
+								<td class="right">{{b.net_weight|intcomma}}</td>
 								<td class="center">{{b.factor|intcomma}}</td>
 								<td class="center">{{b.grade}}</td>
 								<td class="center">{{b.number_1116A}}</td>
@@ -87,19 +88,24 @@
 								<td>{{b.driver_name}}</td>
 							</tr>
 						{% endfor %}
-						<tr>
+						<tr class="total">
+							<td class="center"><span>Entregas: {{j.tickets_count}}</span></td>
+							<td></td>
+							<td class="right"><span>{{j.total_gross}}</span></td>
+							<td></td>
+							<td class="right"><span>{{j.total_hum}}</span></td>
+							<td></td>
+							<td class="right"><span>{{j.total_sha}}</span></td>
+							<td></td>
+							<td class="right"><span>{{j.total_vol}}</span></td>
+							<td class="right"><span>{{j.total_net}}</span></td>
 							<td></td>
 							<td></td>
-							<td>{{j.total_gross}}</td>
 							<td></td>
-							<td>{{j.total_hum}}</td>
 							<td></td>
-							<td>{{j.total_sha}}</td>
 							<td></td>
-							<td>{{j.total_vol}}</td>
-							<td>{{j.total_net}}</td>
-							<td colspan="5">{{j.tickets_count}}</td>
 						</tr>
+						<tr class="separator"><td colspan="15"></td></tr>
 					{% endfor %}
 				</tbody>
 			</table>
