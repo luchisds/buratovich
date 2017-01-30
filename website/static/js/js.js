@@ -121,6 +121,18 @@ document.onreadystatechange = function () {
 			});
 		}
 
+		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
+
+		var ctaCteKg = document.getElementById('ctacte');
+		if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
+			var check = ctaCteKg.getElementsByTagName('input');
+			for (i = 0; i < check.length; i++) {
+				check[i].addEventListener('click', function(event) {
+					console.log('click');
+				});
+			}
+		}
+
 
 		/// Scroll FadeIn ////////////////////////////////////////////////////////////////////////////////////
 
