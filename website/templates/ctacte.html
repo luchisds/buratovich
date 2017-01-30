@@ -17,7 +17,7 @@
 	{% load el_pagination_tags %}
 	{% paginate ctacte %}
 
-	<section id="ctacte" class="maxwidth">
+	<section id="ctacte" class="pesos maxwidth">
 		<h3>Cuenta Corriente en Pesos</h3>
 		<div class="export">
 			<button>
@@ -50,24 +50,24 @@
 							<td></td>
 							<td></td>
 							<td>Saldo Inicial:</td>
-							<td class="number">{{j.balance|floatformat:2|intcomma}}</td>
+							<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
 						</tr>
 					{% endif %}
 				{% endfor %}
 				{% for i in ctacte %}
 					<tr>
-						<td class="date">{{i.obj.date_2|date:"d-m-Y"}}</td>
+						<td class="center">{{i.obj.date_2|date:"d-m-Y"}}</td>
 						<td>{{i.obj.voucher}}</td>
 						<td>{{i.obj.concept}}</td>
-						<td class="date">{{i.obj.date_1|date:"d-m-Y"}}</td>
+						<td class="center">{{i.obj.date_1|date:"d-m-Y"}}</td>
 						{% if i.obj.movement_type == "Debito" %}
-							<td class="number">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+							<td class="right">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
 							<td></td>
 						{% else %}
 							<td></td>
-							<td class="number">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
+							<td class="right">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
 						{% endif %}
-						<td class="number">{{i.balance|floatformat:2|intcomma}}</td>
+						<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
 					</tr>
 				{% endfor %}
 				{% if page_number == 1 %}
@@ -78,7 +78,7 @@
 						<td></td>
 						<td></td>
 						<td>Total Gral.:</td>
-						<td class="number">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
+						<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
 					</tr>
 				{% endif %}
 			</tbody>
