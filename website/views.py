@@ -177,6 +177,9 @@ def ctacte(request):
 @login_required
 def ctactekg(request):
 	if 'algoritmo_code' in request.session:
+		current_species = ''
+		if request.POST:
+			current_species = request.POST.getlist('checks')
 
 		# Dict with [harvest]-->[species]-->[species description]
 		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'species_description').order_by('-harvest','species').distinct()
@@ -186,8 +189,16 @@ def ctactekg(request):
 		for s in species:
 			if species_by_harvest.get(s['harvest'], None) is None:
 				species_by_harvest[s['harvest']] = OrderedDict()
-			species_by_harvest[s['harvest']][s['species']] = s['species_description'].replace('COSECHA ', '')
+			species_by_harvest[s['harvest']][s['species']] = OrderedDict()
+			species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
+			#species_by_harvest[s['harvest']][s['species']] = s['species_description'].replace('COSECHA ', '')
+			if s['species']+s['harvest'] in current_species:
+				species_by_harvest[s['harvest']][s['species']]['checked'] = True
+			else:
+				species_by_harvest[s['harvest']][s['species']]['checked'] = False
 			species_description.append(s['species_description'].replace('COSECHA ', ''))
+
+		print species_by_harvest
 
 		## Total kg for selected species_description
 		total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').aggregate(Sum('net_weight'))
