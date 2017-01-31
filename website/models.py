@@ -18,6 +18,7 @@ class CtaCteKilos(models.Model):
 	indicator = models.CharField(max_length=1, verbose_name='Indicador')
 	species = models.CharField(max_length=4, verbose_name='Especie')
 	harvest = models.CharField(max_length=4, verbose_name='Cosecha')
+	speciesharvest = models.CharField(max_length=8, verbose_name='Especie Cosecha', null=True)
 	species_description = models.CharField(max_length=50, verbose_name='Especie y Cosecha')
 	field = models.IntegerField(verbose_name='Codigo de Campo')
 	field_description = models.CharField(max_length=100, verbose_name='Nombre de Campo')

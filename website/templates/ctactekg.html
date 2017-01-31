@@ -39,88 +39,100 @@
 			</form>
 		</div>
 
-		<div class="export">
-			<button>
-				<a href=""><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
-			</button>
-			<button>
-				<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
-			</button>
-		</div>
-		{% for k, v in tickets.items  %}
-			<h4 class="harvest-title">{{k}}</h4>
-			<table>
-				<thead>
-					<tr>
-						<th rowspan="2">Fecha</th>
-						<th rowspan="2">Comprobante</th>
-						<th rowspan="2">Brutos</th>
-						<th colspan="2">Hum.</th>
-						<th colspan="2">Zar.</th>
-						<th colspan="2">Vol.</th>
-						<th rowspan="2">Netos</th>
-						<th rowspan="2">Factor</th>
-						<th rowspan="2">Grado</th>
-						<th rowspan="2">Nº 1116A</th>
-						<th rowspan="2">CP</th>
-						<th rowspan="2"	>Transportista</th>
-					</tr>
-					<tr>
-						<th colspan="1">%</th>
-						<th colspan="1">Kg.</th>
-						<th colspan="1">%</th>
-						<th colspan="1">Kg.</th>
-						<th colspan="1">%</th>
-						<th colspan="1">Kg.</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for i, j in v.items %}
-						<tr class="field-name">
-							<!--<td colspan="15">{{i}} - {{j.name}}</td>-->
-							<td colspan="15">{{j.name}}</td>
+		{% if tickets %}
+			<div class="export">
+				<button>
+					<a href=""><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+				</button>
+				<button>
+					<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
+				</button>
+			</div>
+
+			{% for k, v in tickets.items  %}
+				<h4 class="harvest-title">{{k}}</h4>
+				<table>
+					<thead>
+						<tr>
+							<th rowspan="2">Fecha</th>
+							<th rowspan="2">Comprobante</th>
+							<th rowspan="2">Brutos</th>
+							<th colspan="2">Hum.</th>
+							<th colspan="2">Zar.</th>
+							<th colspan="2">Vol.</th>
+							<th rowspan="2">Netos</th>
+							<th rowspan="2">Factor</th>
+							<th rowspan="2">Grado</th>
+							<th rowspan="2">Nº 1116A</th>
+							<th rowspan="2">CP</th>
+							<th rowspan="2"	>Transportista</th>
 						</tr>
-						{% for a, b in j.tickets.items %}
-							<tr>
-								<td class="center">{{b.date|date:"d-m-Y"}}</td>
-								<td>{{b.voucher}}</td>
-								<td class="right">{{b.gross_kg|intcomma}}</td>
-								<td class="right">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
-								<td class="right">{{b.humidity_kg|intcomma}}</td>
-								<td class="right">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
-								<td class="right">{{b.shaking_kg|intcomma}}</td>
-								<td class="right">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
-								<td class="right">{{b.volatile_kg|intcomma}}</td>
-								<td class="right">{{b.net_weight|intcomma}}</td>
-								<td class="center">{{b.factor|intcomma}}</td>
-								<td class="center">{{b.grade}}</td>
-								<td class="center">{{b.number_1116A}}</td>
-								<td class="center">{{b.external_voucher_number}}</td>
-								<td>{{b.driver_name}}</td>
+						<tr>
+							<th colspan="1">%</th>
+							<th colspan="1">Kg.</th>
+							<th colspan="1">%</th>
+							<th colspan="1">Kg.</th>
+							<th colspan="1">%</th>
+							<th colspan="1">Kg.</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i, j in v.items %}
+							<tr class="field-name">
+								<!--<td colspan="15">{{i}} - {{j.name}}</td>-->
+								<td colspan="15">{{j.name}}</td>
 							</tr>
+							{% for a, b in j.tickets.items %}
+								<tr>
+									<td class="center">{{b.date|date:"d-m-Y"}}</td>
+									<td>{{b.voucher}}</td>
+									<td class="right">{{b.gross_kg|intcomma}}</td>
+									<td class="right">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
+									<td class="right">{{b.humidity_kg|intcomma}}</td>
+									<td class="right">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
+									<td class="right">{{b.shaking_kg|intcomma}}</td>
+									<td class="right">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
+									<td class="right">{{b.volatile_kg|intcomma}}</td>
+									<td class="right">{{b.net_weight|intcomma}}</td>
+									<td class="center">{{b.factor|intcomma}}</td>
+									<td class="center">{{b.grade}}</td>
+									<td class="center">{{b.number_1116A}}</td>
+									<td class="center">{{b.external_voucher_number}}</td>
+									<td>{{b.driver_name}}</td>
+								</tr>
+							{% endfor %}
+							<tr class="total">
+								<td class="center"><span>Entregas: {{j.tickets_count}}</span></td>
+								<td></td>
+								<td class="right"><span>{{j.total_gross}}</span></td>
+								<td></td>
+								<td class="right"><span>{{j.total_hum}}</span></td>
+								<td></td>
+								<td class="right"><span>{{j.total_sha}}</span></td>
+								<td></td>
+								<td class="right"><span>{{j.total_vol}}</span></td>
+								<td class="right"><span>{{j.total_net}}</span></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr class="separator"><td colspan="15"></td></tr>
 						{% endfor %}
-						<tr class="total">
-							<td class="center"><span>Entregas: {{j.tickets_count}}</span></td>
-							<td></td>
-							<td class="right"><span>{{j.total_gross}}</span></td>
-							<td></td>
-							<td class="right"><span>{{j.total_hum}}</span></td>
-							<td></td>
-							<td class="right"><span>{{j.total_sha}}</span></td>
-							<td></td>
-							<td class="right"><span>{{j.total_vol}}</span></td>
-							<td class="right"><span>{{j.total_net}}</span></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr class="separator"><td colspan="15"></td></tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		{% endfor %}
+					</tbody>
+				</table>
+			{% endfor %}
+			<div class="total-received">
+				<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>
+			</div>
+
+		{% else %}
+			<div class="no-species">
+				<p>Seleccione las especies y cosechas que desea visualizar.</p>
+			</div>
+
+		{% endif %}
 
 	</section>
 

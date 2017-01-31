@@ -12,6 +12,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render
@@ -177,12 +178,14 @@ def ctacte(request):
 @login_required
 def ctactekg(request):
 	if 'algoritmo_code' in request.session:
-		current_species = ''
+
 		if request.POST:
 			current_species = request.POST.getlist('checks')
+		else:
+			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'species_description').order_by('-harvest','species').distinct()
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
 
 		species_description = []
 		species_by_harvest = OrderedDict()
@@ -191,57 +194,72 @@ def ctactekg(request):
 				species_by_harvest[s['harvest']] = OrderedDict()
 			species_by_harvest[s['harvest']][s['species']] = OrderedDict()
 			species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
-			#species_by_harvest[s['harvest']][s['species']] = s['species_description'].replace('COSECHA ', '')
-			if s['species']+s['harvest'] in current_species:
+			# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
+			if s['speciesharvest'] in current_species:
 				species_by_harvest[s['harvest']][s['species']]['checked'] = True
 			else:
 				species_by_harvest[s['harvest']][s['species']]['checked'] = False
-			species_description.append(s['species_description'].replace('COSECHA ', ''))
-
-		print species_by_harvest
-
-		## Total kg for selected species_description
-		total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').aggregate(Sum('net_weight'))
-
-		# Dict with [species description]-->[field]-->[tickets]
-		fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('field', 'field_description', 'species_description').distinct()
-		tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
-
-		tickets_by_field = {}
-		for s in species_description:
-			if tickets_by_field.get(s, None) is None:
-				tickets_by_field[s] = OrderedDict()
-			for f in fields:
-				if f['species_description'].replace('COSECHA ', '') == s:
-					if tickets_by_field[s].get(f['field'], None) is None:
-						tickets_by_field[s][f['field']] = OrderedDict()
-						tickets_by_field[s][f['field']]['number'] = f['field']
-						tickets_by_field[s][f['field']]['name'] = f['field_description']
-					tickets_by_field[s][f['field']]['tickets'] = OrderedDict()
-					total_gross = 0
-					total_hum = 0
-					total_sha = 0
-					total_vol = 0
-					total_net = 0
-					tickets_count = 0
-					for t in tickets:
-						if t['species_description'].replace('COSECHA ', '') == s and t['field'] == f['field']:
-							tickets_by_field[s][f['field']]['tickets'][t['voucher']] = t
-							total_gross += t['gross_kg']
-							total_hum += t['humidity_kg']
-							total_sha += t['shaking_kg']
-							total_vol += t['volatile_kg']
-							total_net += t['net_weight']
-							tickets_count += 1
-						tickets_by_field[s][f['field']]['total_gross'] = total_gross
-						tickets_by_field[s][f['field']]['total_hum'] = total_hum
-						tickets_by_field[s][f['field']]['total_sha'] = total_sha
-						tickets_by_field[s][f['field']]['total_vol'] = total_vol
-						tickets_by_field[s][f['field']]['total_net'] = total_net
-						tickets_by_field[s][f['field']]['tickets_count'] = tickets_count
+			species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
 
-		return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field})
+		if request.POST:
+			# Create a filter by species / harvest using Q function and OR statement (|)
+			speciesharvest_filter = Q()
+			for item in current_species:
+				speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
+
+			## Total kg for selected species_description
+			total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+
+			# Dict with [species description]-->[field]-->[tickets]
+			fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
+			tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
+
+			tickets_by_field = {}
+			for s in species_description:
+				# Description
+				sd = s[0]
+				# Species Harvest
+				sh = s[1]
+				if sh in current_species:
+					if tickets_by_field.get(sd, None) is None:
+						tickets_by_field[sd] = OrderedDict()
+					for f in fields:
+						if f['species_description'].replace('COSECHA ', '') == sd:
+							if tickets_by_field[sd].get(f['field'], None) is None:
+								tickets_by_field[sd][f['field']] = OrderedDict()
+								tickets_by_field[sd][f['field']]['number'] = f['field']
+								tickets_by_field[sd][f['field']]['name'] = f['field_description']
+							tickets_by_field[sd][f['field']]['tickets'] = OrderedDict()
+							total_gross = 0
+							total_hum = 0
+							total_sha = 0
+							total_vol = 0
+							total_net = 0
+							tickets_count = 0
+							for t in tickets:
+								if t['species_description'].replace('COSECHA ', '') == sd and t['field'] == f['field']:
+									tickets_by_field[sd][f['field']]['tickets'][t['voucher']] = t
+									total_gross += t['gross_kg']
+									total_hum += t['humidity_kg']
+									total_sha += t['shaking_kg']
+									total_vol += t['volatile_kg']
+									total_net += t['net_weight']
+									tickets_count += 1
+								tickets_by_field[sd][f['field']]['total_gross'] = total_gross
+								tickets_by_field[sd][f['field']]['total_hum'] = total_hum
+								tickets_by_field[sd][f['field']]['total_sha'] = total_sha
+								tickets_by_field[sd][f['field']]['total_vol'] = total_vol
+								tickets_by_field[sd][f['field']]['total_net'] = total_net
+								tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
+
+			return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
+
+		else:
+			# If request is GET
+			return render(request, 'ctactekg.html', {'species':species_by_harvest})
+
+		
 
 
 @login_required
@@ -436,6 +454,7 @@ def importcc(request, typecc):
 						indicator = evalText(data[2]),
 						species = evalText(data[3]),
 						harvest = evalText(data[4]),
+						speciesharvest = evalText(data[3]) + evalText(data[4]),
 						species_description = evalText(data[5]),
 						field = evalInt(data[6]),
 						field_description = evalText(data[7]),
