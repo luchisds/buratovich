@@ -18,12 +18,16 @@
 		<h3>Cuenta Corriente en Kilos</h3>
 
 		<div class="harvest-selector">
-			<form action="">
-				{% for k, v in species.items %}
+			<form action="/extranet/ctacte/kilos/" method="post">
+			{% csrf_token %}
+				{% for harvest, values in species.items %}
 					<div>
-						<h4>{{k}}</h4>
-						{% for i, j in v.items %}
-							<label><input type="checkbox" value="{{i}}{{k}}">{{j|title}}</label>
+						<h4>{{harvest}}</h4>
+						{% for species_name, items in values.items %}
+							<label>
+								<input type="checkbox" name="checks" value="{{species_name}}{{harvest}}" {% if items.checked %} checked {% endif %}>
+								{{items.description|title}}
+							</label>
 						{% endfor %}
 					</div>
 				{% endfor %}
@@ -37,10 +41,10 @@
 
 		<div class="export">
 			<button>
-				<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+				<a href=""><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 			</button>
 			<button>
-				<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 	Exportar a TXT</a>
+				<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
 			</button>
 		</div>
 		{% for k, v in tickets.items  %}
