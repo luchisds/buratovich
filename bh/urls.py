@@ -28,6 +28,7 @@ urlpatterns = [
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
 	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
 	url(r'^extranet/ctacte/kilos/$', views.ctactekg, name='ctactekg'),
+	url(r'^extranet/ventas/$', views.ventas, name='ventas'),
 
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
