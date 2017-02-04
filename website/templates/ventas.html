@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Ventas</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+	<section id="ctacte" class="ventas maxwidth">
+		<h3>Cuenta Corriente en Kilos</h3>
+
+		<div class="harvest-selector">
+			<form action="/extranet/ventas/" method="post">
+			{% csrf_token %}
+				{% for harvest, values in species.items %}
+					<div>
+						<h4>{{harvest}}</h4>
+						{% for species_name, items in values.items %}
+							<label>
+								<input type="checkbox" name="checks" value="{{species_name}}{{harvest}}" {% if items.checked %} checked {% endif %}>
+								{{items.description|title}}
+							</label>
+						{% endfor %}
+					</div>
+				{% endfor %}
+				<div style="clear:both;"></div>
+				<button type="submit" class="submit">
+					Buscar
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</form>
+		</div>
+
+		{% if sales %}
+			<div class="export">
+				<button>
+					<a href=""><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+				</button>
+				<button>
+					<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
+				</button>
+			</div>
+
+			{% for k, v in sales.items  %}
+				<h4 class="harvest-title">{{k}}</h4>
+				{% if v.sales %}
+					<table>
+						<thead>
+							<tr>
+								<th colspan="10">VENTAS</th>
+							</tr>
+							<tr>
+								<th rowspan="2">Fecha</th>
+								<th rowspan="2">Comprobante</th>
+								<th rowspan="2">Destino</th>
+								<th colspan="2">Fecha de Entrega</th>
+								<th rowspan="2">Kilos</th>
+								<th rowspan="2">Pend. TC</th>
+								<th rowspan="2">Liquidados</th>
+								<th rowspan="2">Precio por QQ.</th>
+								<th rowspan="2">Moneda</th>
+							</tr>
+							<tr>
+								<th colspan="1">Desde</th>
+								<th colspan="1">Hasta</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i, j in v.sales.items %}
+								<tr>
+									<td class="center">{{j.date|date:"d-m-Y"}}</td>
+									<td class="center">{{j.voucher}}</td>
+									<td>{{j.field_description}}</td>
+									<td class="center">{{j.service_billing_date|date:"d-m-Y"}}</td>
+									<td class="center">{{j.to_date|date:"d-m-Y"}}</td>
+									<td class="right">{{j.gross_kg|intcomma}}</td>
+									<td class="right">{{j.service_billing_number|intcomma}}</td>
+									<td class="center">{{j.number_1116A|intcomma}}</td>
+									<td class="right">{{j.price_per_yard|floatformat:2|intcomma}}</td>
+									<td class="center">{{j.grade}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+				{% if v.to_set %}
+					<table>
+						<thead>
+							<tr>
+								<th colspan="6">A FIJAR</th>
+							</tr>
+							<tr>
+								<th rowspan="2">Fecha</th>
+								<th rowspan="2">Comprobante</th>
+								<th rowspan="2">Destino</th>
+								<th colspan="2">Fecha de Entrega</th>
+								<th rowspan="2">Kilos</th>
+							</tr>
+							<tr>
+								<th colspan="1">Desde</th>
+								<th colspan="1">Hasta</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i, j in v.to_set.items %}
+								<tr>
+									<td class="center">{{j.date|date:"d-m-Y"}}</td>
+									<td class="center">{{j.voucher}}</td>
+									<td>{{j.field_description}}</td>
+									<td class="center">{{j.service_billing_date|date:"d-m-Y"}}</td>
+									<td class="center">{{j.to_date|date:"d-m-Y"}}</td>
+									<td class="right">{{j.gross_kg|intcomma}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+				{% if v.others %}
+					<table>
+						<thead>
+							<tr>
+								<th colspan="6">OTROS</th>
+							</tr>
+							<tr>
+								<th rowspan="2">Fecha</th>
+								<th rowspan="2">Comprobante</th>
+								<th rowspan="2">Productor / Receptor</th>
+								<th rowspan="2">Entradas</th>
+								<th rowspan="2">Salidas</th>
+								<th rowspan="2">Observaciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i, j in v.others.items %}
+								<tr>
+									<td class="center">{{j.date|date:"d-m-Y"}}</td>
+									<td class="center">{{j.voucher}}</td>
+									<td>{{j.driver_name}}</td>
+									{% if j.gross_kg > 0 %}
+										<td class="right">{{j.gross_kg|intcomma}}</td>
+										<td></td>
+									{% else %}
+										<td></td>
+										<td class="right">{{j.gross_kg|abs|intcomma}}</td>
+									{% endif %}
+									<td>{{j.observations}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
+			{% endfor %}
+			<!--<div class="total-received">
+				<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>
+			</div>-->
+
+		{% else %}
+			<div class="no-species">
+				<p>Seleccione las especies y cosechas que desea visualizar.</p>
+			</div>
+
+		{% endif %}
+
+	</section>
+
+{% endblock %}

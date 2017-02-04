@@ -1755,36 +1755,44 @@ footer .cv div span:hover .work {
   background-color: #fafafa;
   color: #ccc;
 }
-#ctacte.kilos {
+#ctacte.kilos,
+#ctacte.ventas {
   padding-bottom: 2em;
 }
-#ctacte.kilos .no-species {
+#ctacte.kilos .no-species,
+#ctacte.ventas .no-species {
   padding: 2.5em 0 5em 0;
   text-align: center;
 }
-#ctacte.kilos .no-species p {
+#ctacte.kilos .no-species p,
+#ctacte.ventas .no-species p {
   color: #ccc;
   font-size: 2em;
   margin: 0;
 }
-#ctacte.kilos .total-received {
+#ctacte.kilos .total-received,
+#ctacte.ventas .total-received {
   background-color: #d5d5d5;
   border-radius: 3px;
   margin-top: 1em;
   padding: 0.5em 1em;
 }
-#ctacte.kilos .total-received p {
+#ctacte.kilos .total-received p,
+#ctacte.ventas .total-received p {
   font-weight: bold;
 }
-#ctacte.kilos .total-received p span {
+#ctacte.kilos .total-received p span,
+#ctacte.ventas .total-received p span {
   color: #018d34;
   margin-left: 0.5em;
 }
-#ctacte.kilos .harvest-selector {
+#ctacte.kilos .harvest-selector,
+#ctacte.ventas .harvest-selector {
   text-align: center;
   padding: 2em 0;
 }
-#ctacte.kilos .harvest-selector form {
+#ctacte.kilos .harvest-selector form,
+#ctacte.ventas .harvest-selector form {
   background-color: #fafafa;
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
@@ -1794,17 +1802,21 @@ footer .cv div span:hover .work {
   overflow: hidden;
   padding: 1em;
 }
-#ctacte.kilos .harvest-selector form div {
+#ctacte.kilos .harvest-selector form div,
+#ctacte.ventas .harvest-selector form div {
   float: left;
   margin-right: 3em;
 }
-#ctacte.kilos .harvest-selector form div:first-child {
+#ctacte.kilos .harvest-selector form div:first-child,
+#ctacte.ventas .harvest-selector form div:first-child {
   margin-left: 1em;
 }
-#ctacte.kilos .harvest-selector form div:last-child {
+#ctacte.kilos .harvest-selector form div:last-child,
+#ctacte.ventas .harvest-selector form div:last-child {
   margin-right: 1em;
 }
-#ctacte.kilos .harvest-selector form h4 {
+#ctacte.kilos .harvest-selector form h4,
+#ctacte.ventas .harvest-selector form h4 {
   border-bottom: 1px solid #ccc;
   color: #018d34;
   font-size: 1.2em;
@@ -1812,16 +1824,19 @@ footer .cv div span:hover .work {
   padding-bottom: 0.18em;
   text-align: center;
 }
-#ctacte.kilos .harvest-selector form label {
+#ctacte.kilos .harvest-selector form label,
+#ctacte.ventas .harvest-selector form label {
   display: block;
   margin: 0.5em 0;
   padding: 0 1em;
   text-align: left;
 }
-#ctacte.kilos .harvest-selector form label input {
+#ctacte.kilos .harvest-selector form label input,
+#ctacte.ventas .harvest-selector form label input {
   margin-right: 5px;
 }
-#ctacte.kilos .harvest-selector form .submit {
+#ctacte.kilos .harvest-selector form .submit,
+#ctacte.ventas .harvest-selector form .submit {
   border: 1px solid #018d34;
   display: inline-block;
   font-size: 1.1em;
@@ -1829,35 +1844,43 @@ footer .cv div span:hover .work {
   margin-top: 1em;
   padding: 0.3em;
 }
-#ctacte.kilos .harvest-selector form .submit:hover {
+#ctacte.kilos .harvest-selector form .submit:hover,
+#ctacte.ventas .harvest-selector form .submit:hover {
   border: 1px solid #065a7a;
 }
-#ctacte.kilos .harvest-title {
+#ctacte.kilos .harvest-title,
+#ctacte.ventas .harvest-title {
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
-#ctacte.kilos tr.total {
+#ctacte.kilos tr.total,
+#ctacte.ventas tr.total {
   color: #065a7a;
 }
-#ctacte.kilos tr.total td {
+#ctacte.kilos tr.total td,
+#ctacte.ventas tr.total td {
   border: 0;
   padding: 0;
 }
-#ctacte.kilos tr.total td span {
+#ctacte.kilos tr.total td span,
+#ctacte.ventas tr.total td span {
   display: block;
   margin-right: 2px;
   padding: 3px;
 }
-#ctacte.kilos tr.field-name {
+#ctacte.kilos tr.field-name,
+#ctacte.ventas tr.field-name {
   background-color: #e9e9e9;
   font-size: 1.2em;
   font-weight: bold;
 }
-#ctacte.kilos tr.field-name td {
+#ctacte.kilos tr.field-name td,
+#ctacte.ventas tr.field-name td {
   padding-left: 0.5em;
   padding-top: 0.6em;
 }
-#ctacte.kilos tr.separator td {
+#ctacte.kilos tr.separator td,
+#ctacte.ventas tr.separator td {
   border: 0;
   padding-top: 1.3em;
 }

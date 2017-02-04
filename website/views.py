@@ -259,7 +259,87 @@ def ctactekg(request):
 			# If request is GET
 			return render(request, 'ctactekg.html', {'species':species_by_harvest})
 
-		
+
+def ventas(request):
+	if 'algoritmo_code' in request.session:
+
+		if request.POST:
+			current_species = request.POST.getlist('checks')
+		else:
+			current_species = ''
+
+		# Dict with [harvest]-->[species]-->[species description]
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+
+		species_description = []
+		species_by_harvest = OrderedDict()
+		for s in species:
+			if species_by_harvest.get(s['harvest'], None) is None:
+				species_by_harvest[s['harvest']] = OrderedDict()
+			species_by_harvest[s['harvest']][s['species']] = OrderedDict()
+			species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
+			# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
+			if s['speciesharvest'] in current_species:
+				species_by_harvest[s['harvest']][s['species']]['checked'] = True
+			else:
+				species_by_harvest[s['harvest']][s['species']]['checked'] = False
+			species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
+
+		if request.POST:
+			# Create a filter by species / harvest using Q function and OR statement (|)
+			speciesharvest_filter = Q()
+			for item in current_species:
+				speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
+
+			## Total kg for selected species_description
+			total_kg = {}
+			total_kg['sales'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+			total_kg['other'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+
+			# Dict with [species description]-->[sales]
+			voucher = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
+
+			sales = {}
+			for s in species_description:
+				# Description
+				sd = s[0]
+				# Species Harvest
+				sh = s[1]
+				if sh in current_species:
+					if sales.get(sd, None) is None:
+						sales[sd] = OrderedDict()
+						for v in voucher:
+							if v['species_description'].replace('COSECHA ', '') == sd:
+								if v['indicator'] == '2':
+									if sales[sd].get('sales', None) is None:
+										sales[sd]['sales'] = OrderedDict()
+									sales[sd]['sales'][v['voucher']] = v
+								elif v['indicator'] == '2B':
+									if sales[sd].get('to_set', None) is None:
+										sales[sd]['to_set'] = OrderedDict()
+									sales[sd]['to_set'][v['voucher']] = v
+								else:
+									if sales[sd].get('others', None) is None:
+										sales[sd]['others'] = OrderedDict()
+									sales[sd]['others'][v['voucher']] = v
+								# total_gross += t['gross_kg']
+								# total_hum += t['humidity_kg']
+								# total_sha += t['shaking_kg']
+								# total_vol += t['volatile_kg']
+								# total_net += t['net_weight']
+								# tickets_count += 1
+							# tickets_by_field[sd][f['field']]['total_gross'] = total_gross
+							# tickets_by_field[sd][f['field']]['total_hum'] = total_hum
+							# tickets_by_field[sd][f['field']]['total_sha'] = total_sha
+							# tickets_by_field[sd][f['field']]['total_vol'] = total_vol
+							# tickets_by_field[sd][f['field']]['total_net'] = total_net
+							# tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
+
+			return render(request, 'ventas.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
+
+		else:
+			# If request is GET
+			return render(request, 'ventas.html', {'species':species_by_harvest})
 
 
 @login_required
