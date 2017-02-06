@@ -308,26 +308,40 @@ def ventas(request):
 				if sh in current_species:
 					if sales.get(sd, None) is None:
 						sales[sd] = OrderedDict()
+						total_g_sales = 0
+						total_p_sales = 0
+						total_l_sales = 0
+						count_sales = 0
+						total_g_to_set = 0
+						count_to_set = 0
+						total_i_others = 0
+						total_o_others = 0
+						count_others = 0
 						for v in voucher:
 							if v['species_description'].replace('COSECHA ', '') == sd:
 								if v['indicator'] == '2':
 									if sales[sd].get('sales', None) is None:
 										sales[sd]['sales'] = OrderedDict()
 									sales[sd]['sales'][v['voucher']] = v
+									total_g_sales += v['gross_kg']
+									total_p_sales += v['service_billing_number']
+									total_l_sales += v['grade']
+									count_sales += 1
 								elif v['indicator'] == '2B':
 									if sales[sd].get('to_set', None) is None:
 										sales[sd]['to_set'] = OrderedDict()
 									sales[sd]['to_set'][v['voucher']] = v
+									total_g_to_set += v['gross_kg']
+									count_to_set += 1
 								else:
 									if sales[sd].get('others', None) is None:
 										sales[sd]['others'] = OrderedDict()
 									sales[sd]['others'][v['voucher']] = v
-								# total_gross += t['gross_kg']
-								# total_hum += t['humidity_kg']
-								# total_sha += t['shaking_kg']
-								# total_vol += t['volatile_kg']
-								# total_net += t['net_weight']
-								# tickets_count += 1
+									if v['gross_kg'] > 0:
+										total_i_others += v['gross_kg']
+									else:
+										total_o_others += v['gross_kg']
+									count_others += 1
 							# tickets_by_field[sd][f['field']]['total_gross'] = total_gross
 							# tickets_by_field[sd][f['field']]['total_hum'] = total_hum
 							# tickets_by_field[sd][f['field']]['total_sha'] = total_sha
