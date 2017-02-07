@@ -322,7 +322,8 @@ def ventas(request):
 								if v['indicator'] == '2':
 									if sales[sd].get('sales', None) is None:
 										sales[sd]['sales'] = OrderedDict()
-									sales[sd]['sales'][v['voucher']] = v
+										sales[sd]['sales']['vouchers'] = OrderedDict()
+									sales[sd]['sales']['vouchers'][v['voucher']] = v
 									total_g_sales += v['gross_kg']
 									total_p_sales += v['service_billing_number']
 									total_l_sales += v['grade']
@@ -330,30 +331,39 @@ def ventas(request):
 								elif v['indicator'] == '2B':
 									if sales[sd].get('to_set', None) is None:
 										sales[sd]['to_set'] = OrderedDict()
-									sales[sd]['to_set'][v['voucher']] = v
+										sales[sd]['to_set']['vouchers'] = OrderedDict()
+									sales[sd]['to_set']['vouchers'][v['voucher']] = v
 									total_g_to_set += v['gross_kg']
 									count_to_set += 1
 								else:
 									if sales[sd].get('others', None) is None:
 										sales[sd]['others'] = OrderedDict()
-									sales[sd]['others'][v['voucher']] = v
+										sales[sd]['others']['vouchers'] = OrderedDict()
+									sales[sd]['others']['vouchers'][v['voucher']] = v
 									if v['gross_kg'] > 0:
 										total_i_others += v['gross_kg']
 									else:
 										total_o_others += v['gross_kg']
 									count_others += 1
-							# tickets_by_field[sd][f['field']]['total_gross'] = total_gross
-							# tickets_by_field[sd][f['field']]['total_hum'] = total_hum
-							# tickets_by_field[sd][f['field']]['total_sha'] = total_sha
-							# tickets_by_field[sd][f['field']]['total_vol'] = total_vol
-							# tickets_by_field[sd][f['field']]['total_net'] = total_net
-							# tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
-			return render(request, 'ventas.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
+								if sales[sd].get('sales', None) <> None:
+									sales[sd]['sales']['total_g_sales'] = total_g_sales
+									sales[sd]['sales']['total_p_sales'] = total_p_sales
+									sales[sd]['sales']['total_l_sales'] = total_l_sales
+									sales[sd]['sales']['count_sales'] = count_sales
+								elif sales[sd].get('to_set', None) <> None:
+									sales[sd]['to_set']['total_l_sales'] = total_g_to_set
+									sales[sd]['to_set']['count_to_set'] = count_to_set
+								elif  sales[sd].get('others', None) <> None:
+									sales[sd]['others']['total_i_others'] = total_i_others
+									sales[sd]['others']['total_o_others'] = total_o_others
+									sales[sd]['others']['count_others'] = count_others
+
+			return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
 
 		else:
 			# If request is GET
-			return render(request, 'ventas.html', {'species':species_by_harvest})
+			return render(request, 'sales.html', {'species':species_by_harvest})
 
 
 @login_required
