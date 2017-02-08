@@ -294,6 +294,7 @@ def ventas(request):
 			## Total kg for selected species_description
 			total_kg = {}
 			total_kg['sales'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+			total_kg['to_set'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 			total_kg['other'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
 			# Dict with [species description]-->[sales]
@@ -326,7 +327,7 @@ def ventas(request):
 									sales[sd]['sales']['vouchers'][v['voucher']] = v
 									total_g_sales += v['gross_kg']
 									total_p_sales += v['service_billing_number']
-									total_l_sales += v['grade']
+									total_l_sales += v['number_1116A']
 									count_sales += 1
 								elif v['indicator'] == '2B':
 									if sales[sd].get('to_set', None) is None:
@@ -351,10 +352,12 @@ def ventas(request):
 									sales[sd]['sales']['total_p_sales'] = total_p_sales
 									sales[sd]['sales']['total_l_sales'] = total_l_sales
 									sales[sd]['sales']['count_sales'] = count_sales
-								elif sales[sd].get('to_set', None) <> None:
-									sales[sd]['to_set']['total_l_sales'] = total_g_to_set
+								if sales[sd].get('to_set', None) <> None:
+									print count_to_set
+									print total_g_to_set
+									sales[sd]['to_set']['total_g_to_set'] = total_g_to_set
 									sales[sd]['to_set']['count_to_set'] = count_to_set
-								elif  sales[sd].get('others', None) <> None:
+								if sales[sd].get('others', None) <> None:
 									sales[sd]['others']['total_i_others'] = total_i_others
 									sales[sd]['others']['total_o_others'] = total_o_others
 									sales[sd]['others']['count_others'] = count_others

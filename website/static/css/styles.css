@@ -1683,8 +1683,10 @@ footer .cv div span:hover .work {
 #ctacte table td.center {
   text-align: center;
 }
-#ctacte table thead th {
+#ctacte table thead tr {
   background-color: #018d34;
+}
+#ctacte table thead th {
   color: #fff;
   font-size: 1.2em;
   padding: 0.4em 0;
@@ -1756,43 +1758,43 @@ footer .cv div span:hover .work {
   color: #ccc;
 }
 #ctacte.kilos,
-#ctacte.ventas {
+#ctacte.sales {
   padding-bottom: 2em;
 }
 #ctacte.kilos .no-species,
-#ctacte.ventas .no-species {
+#ctacte.sales .no-species {
   padding: 2.5em 0 5em 0;
   text-align: center;
 }
 #ctacte.kilos .no-species p,
-#ctacte.ventas .no-species p {
+#ctacte.sales .no-species p {
   color: #ccc;
   font-size: 2em;
   margin: 0;
 }
 #ctacte.kilos .total-received,
-#ctacte.ventas .total-received {
+#ctacte.sales .total-received {
   background-color: #d5d5d5;
   border-radius: 3px;
   margin-top: 1em;
   padding: 0.5em 1em;
 }
 #ctacte.kilos .total-received p,
-#ctacte.ventas .total-received p {
+#ctacte.sales .total-received p {
   font-weight: bold;
 }
 #ctacte.kilos .total-received p span,
-#ctacte.ventas .total-received p span {
+#ctacte.sales .total-received p span {
   color: #018d34;
   margin-left: 0.5em;
 }
 #ctacte.kilos .harvest-selector,
-#ctacte.ventas .harvest-selector {
+#ctacte.sales .harvest-selector {
   text-align: center;
   padding: 2em 0;
 }
 #ctacte.kilos .harvest-selector form,
-#ctacte.ventas .harvest-selector form {
+#ctacte.sales .harvest-selector form {
   background-color: #fafafa;
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
@@ -1803,20 +1805,20 @@ footer .cv div span:hover .work {
   padding: 1em;
 }
 #ctacte.kilos .harvest-selector form div,
-#ctacte.ventas .harvest-selector form div {
+#ctacte.sales .harvest-selector form div {
   float: left;
   margin-right: 3em;
 }
 #ctacte.kilos .harvest-selector form div:first-child,
-#ctacte.ventas .harvest-selector form div:first-child {
+#ctacte.sales .harvest-selector form div:first-child {
   margin-left: 1em;
 }
 #ctacte.kilos .harvest-selector form div:last-child,
-#ctacte.ventas .harvest-selector form div:last-child {
+#ctacte.sales .harvest-selector form div:last-child {
   margin-right: 1em;
 }
 #ctacte.kilos .harvest-selector form h4,
-#ctacte.ventas .harvest-selector form h4 {
+#ctacte.sales .harvest-selector form h4 {
   border-bottom: 1px solid #ccc;
   color: #018d34;
   font-size: 1.2em;
@@ -1825,18 +1827,18 @@ footer .cv div span:hover .work {
   text-align: center;
 }
 #ctacte.kilos .harvest-selector form label,
-#ctacte.ventas .harvest-selector form label {
+#ctacte.sales .harvest-selector form label {
   display: block;
   margin: 0.5em 0;
   padding: 0 1em;
   text-align: left;
 }
 #ctacte.kilos .harvest-selector form label input,
-#ctacte.ventas .harvest-selector form label input {
+#ctacte.sales .harvest-selector form label input {
   margin-right: 5px;
 }
 #ctacte.kilos .harvest-selector form .submit,
-#ctacte.ventas .harvest-selector form .submit {
+#ctacte.sales .harvest-selector form .submit {
   border: 1px solid #018d34;
   display: inline-block;
   font-size: 1.1em;
@@ -1845,42 +1847,54 @@ footer .cv div span:hover .work {
   padding: 0.3em;
 }
 #ctacte.kilos .harvest-selector form .submit:hover,
-#ctacte.ventas .harvest-selector form .submit:hover {
+#ctacte.sales .harvest-selector form .submit:hover {
   border: 1px solid #065a7a;
 }
 #ctacte.kilos .harvest-title,
-#ctacte.ventas .harvest-title {
+#ctacte.sales .harvest-title {
   font-size: 1.4em;
-  margin-bottom: 0.5em;
+  margin: 0.8em 0 0.5em 0;
 }
 #ctacte.kilos tr.total,
-#ctacte.ventas tr.total {
+#ctacte.sales tr.total {
   color: #065a7a;
 }
 #ctacte.kilos tr.total td,
-#ctacte.ventas tr.total td {
+#ctacte.sales tr.total td {
   border: 0;
   padding: 0;
 }
 #ctacte.kilos tr.total td span,
-#ctacte.ventas tr.total td span {
+#ctacte.sales tr.total td span {
   display: block;
   margin-right: 2px;
   padding: 3px;
 }
 #ctacte.kilos tr.field-name,
-#ctacte.ventas tr.field-name {
+#ctacte.sales tr.field-name,
+#ctacte.kilos tr.sales-type,
+#ctacte.sales tr.sales-type {
   background-color: #e9e9e9;
   font-size: 1.2em;
   font-weight: bold;
 }
 #ctacte.kilos tr.field-name td,
-#ctacte.ventas tr.field-name td {
+#ctacte.sales tr.field-name td,
+#ctacte.kilos tr.sales-type td,
+#ctacte.sales tr.sales-type td,
+#ctacte.kilos tr.field-name th,
+#ctacte.sales tr.field-name th,
+#ctacte.kilos tr.sales-type th,
+#ctacte.sales tr.sales-type th {
+  color: #3c433e;
   padding-left: 0.5em;
   padding-top: 0.6em;
 }
 #ctacte.kilos tr.separator td,
-#ctacte.ventas tr.separator td {
+#ctacte.sales tr.separator td {
   border: 0;
   padding-top: 1.3em;
+}
+#ctacte.sales table {
+  margin-bottom: 1em;
 }

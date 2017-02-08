@@ -14,7 +14,7 @@
 
 {% block content %}
 
-	<section id="ctacte" class="ventas maxwidth">
+	<section id="ctacte" class="sales maxwidth">
 		<h3>Cuenta Corriente en Kilos</h3>
 
 		<div class="harvest-selector">
@@ -54,7 +54,7 @@
 				{% if v.sales %}
 					<table>
 						<thead>
-							<tr>
+							<tr class="sales-type">
 								<th colspan="10">VENTAS</th>
 							</tr>
 							<tr>
@@ -74,7 +74,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for i, j in v.sales.items %}
+							{% for i, j in v.sales.vouchers.items %}
 								<tr>
 									<td class="center">{{j.date|date:"d-m-Y"}}</td>
 									<td class="center">{{j.voucher}}</td>
@@ -88,13 +88,25 @@
 									<td class="center">{{j.grade}}</td>
 								</tr>
 							{% endfor %}
+							<tr class="total">
+								<td class="center"><span>Comprobantes: {{v.sales.count_sales}}</span></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="center"><span>{{v.sales.total_g_sales|intcomma}}</span></td>
+								<td class="center"><span>{{v.sales.total_p_sales|intcomma}}</span></td>
+								<td class="center"><span>{{v.sales.total_l_sales|intcomma}}</span></td>
+								<td></td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				{% endif %}
 				{% if v.to_set %}
 					<table>
 						<thead>
-							<tr>
+							<tr class="sales-type">
 								<th colspan="6">A FIJAR</th>
 							</tr>
 							<tr>
@@ -110,7 +122,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for i, j in v.to_set.items %}
+							{% for i, j in v.to_set.vouchers.items %}
 								<tr>
 									<td class="center">{{j.date|date:"d-m-Y"}}</td>
 									<td class="center">{{j.voucher}}</td>
@@ -120,13 +132,21 @@
 									<td class="right">{{j.gross_kg|intcomma}}</td>
 								</tr>
 							{% endfor %}
+							<tr class="total">
+								<td class="center"><span>Comprobantes: {{v.to_set.count_to_set}}</span></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="center"><span>{{v.to_set.total_g_to_set|intcomma}}</span></td>
+							</tr>
 						</tbody>
 					</table>
 				{% endif %}
 				{% if v.others %}
 					<table>
 						<thead>
-							<tr>
+							<tr class="sales-type">
 								<th colspan="6">OTROS</th>
 							</tr>
 							<tr>
@@ -139,7 +159,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for i, j in v.others.items %}
+							{% for i, j in v.others.vouchers.items %}
 								<tr>
 									<td class="center">{{j.date|date:"d-m-Y"}}</td>
 									<td class="center">{{j.voucher}}</td>
@@ -154,13 +174,28 @@
 									<td>{{j.observations}}</td>
 								</tr>
 							{% endfor %}
+							<tr class="total">
+								<td class="center"><span>Comprobantes: {{v.others.count_others}}</span></td>
+								<td></td>
+								<td></td>
+								<td class="center"><span>{{v.others.total_i_others|intcomma}}</span></td>
+								<td class="center"><span>{{v.others.total_o_others|intcomma}}</span></td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				{% endif %}
 			{% endfor %}
-			<!--<div class="total-received">
-				<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>
-			</div>-->
+
+			<div class="total-received">
+				<p>Total Ventas: <span>{% if not total.sales.net_weight__sum %} 0 {% else %} {{total.sales.net_weight__sum|intcomma}} {% endif %}</span></p>
+			</div>
+			<div class="total-received">
+				<p>Total A Fijar: <span>{% if not total.to_set.net_weight__sum %} 0 {% else %} {{total.to_set.net_weight__sum|intcomma}} {% endif %}</span></p>
+			</div>
+			<div class="total-received">
+				<p>Total Otros: <span>{% if not total.other.net_weight__sum %} 0 {% else %} {{total.other.net_weight__sum|intcomma}} {% endif %}</span></p>
+			</div>
 
 		{% else %}
 			<div class="no-species">
