@@ -767,7 +767,7 @@ header .logo h1 {
 }
 header .logo h1 {
   color: #333;
-  font-size: 2em;
+  font-size: 2.3em;
   line-height: 1em;
   margin-left: 0.5em;
   text-shadow: 2px 2px 0px #ddd;
@@ -1804,19 +1804,6 @@ footer .cv div span:hover .work {
   overflow: hidden;
   padding: 1em;
 }
-#ctacte.kilos .harvest-selector form div,
-#ctacte.sales .harvest-selector form div {
-  float: left;
-  margin-right: 3em;
-}
-#ctacte.kilos .harvest-selector form div:first-child,
-#ctacte.sales .harvest-selector form div:first-child {
-  margin-left: 1em;
-}
-#ctacte.kilos .harvest-selector form div:last-child,
-#ctacte.sales .harvest-selector form div:last-child {
-  margin-right: 1em;
-}
 #ctacte.kilos .harvest-selector form h4,
 #ctacte.sales .harvest-selector form h4 {
   border-bottom: 1px solid #ccc;
@@ -1836,6 +1823,14 @@ footer .cv div span:hover .work {
 #ctacte.kilos .harvest-selector form label input,
 #ctacte.sales .harvest-selector form label input {
   margin-right: 5px;
+}
+#ctacte.kilos .harvest-selector form .harvest-detail div,
+#ctacte.sales .harvest-selector form .harvest-detail div {
+  float: left;
+}
+#ctacte.kilos .harvest-selector form .harvest-detail div:not(:last-child),
+#ctacte.sales .harvest-selector form .harvest-detail div:not(:last-child) {
+  margin-right: 2em;
 }
 #ctacte.kilos .harvest-selector form .submit,
 #ctacte.sales .harvest-selector form .submit {
@@ -1862,6 +1857,8 @@ footer .cv div span:hover .work {
 #ctacte.kilos tr.total td,
 #ctacte.sales tr.total td {
   border: 0;
+  border-top: 1px solid #065a7a;
+  border-bottom: 2px solid #065a7a;
   padding: 0;
 }
 #ctacte.kilos tr.total td span,

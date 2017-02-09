@@ -20,6 +20,7 @@
 		<div class="harvest-selector">
 			<form action="/extranet/ctacte/kilos/" method="post">
 			{% csrf_token %}
+				<div class="harvest-detail">
 				{% for harvest, values in species.items %}
 					<div>
 						<h4>{{harvest}}</h4>
@@ -31,6 +32,7 @@
 						{% endfor %}
 					</div>
 				{% endfor %}
+				</div>
 				<div style="clear:both;"></div>
 				<button type="submit" class="submit">
 					Buscar
