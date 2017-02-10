@@ -33,6 +33,5 @@ urlpatterns = [
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
 
-	url(r'^import/ctacte/(?P<typecc>[a-z]+)/$', views.importfiles, name='importcc'),
-	url(r'^import/sales/$', views.importfiles, name='importsales'),
+	url(r'^import/(?P<typecc>[a-z]+)/$', views.importdata, name='importdata'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
