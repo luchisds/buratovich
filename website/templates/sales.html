@@ -15,10 +15,10 @@
 {% block content %}
 
 	<section id="ctacte" class="sales maxwidth">
-		<h3>Cuenta Corriente en Kilos</h3>
+		<h3>Ventas</h3>
 
 		<div class="harvest-selector">
-			<form action="/extranet/ventas/" method="post">
+			<form action="/extranet/sales/" method="post">
 			{% csrf_token %}
 				<div class="harvest-detail">
 				{% for harvest, values in species.items %}

@@ -1671,6 +1671,7 @@ footer .cv div span:hover .work {
   border-spacing: 1px;
   font-size: 0.8em;
   margin: 0 auto;
+  margin-bottom: 2.5em;
   width: 100%;
 }
 #ctacte table td {
@@ -1690,6 +1691,20 @@ footer .cv div span:hover .work {
   color: #fff;
   font-size: 1.2em;
   padding: 0.4em 0;
+}
+#ctacte table tr.total {
+  color: #065a7a;
+}
+#ctacte table tr.total td {
+  border: 0;
+  border-top: 1px solid #065a7a;
+  border-bottom: 2px solid #065a7a;
+  padding: 0;
+}
+#ctacte table tr.total td span {
+  display: block;
+  margin-right: 2px;
+  padding: 3px;
 }
 #ctacte table tr.total,
 #ctacte table tr.initial-balance {
@@ -1720,7 +1735,7 @@ footer .cv div span:hover .work {
 }
 #ctacte.pesos .pagination {
   font-size: 0.9em;
-  margin: 2.5em 0 5em 0;
+  margin: 0 0 5em 0;
   text-align: center;
 }
 #ctacte.pesos .pagination .wrapper {
@@ -1849,23 +1864,6 @@ footer .cv div span:hover .work {
 #ctacte.sales .harvest-title {
   font-size: 1.4em;
   margin: 0.8em 0 0.5em 0;
-}
-#ctacte.kilos tr.total,
-#ctacte.sales tr.total {
-  color: #065a7a;
-}
-#ctacte.kilos tr.total td,
-#ctacte.sales tr.total td {
-  border: 0;
-  border-top: 1px solid #065a7a;
-  border-bottom: 2px solid #065a7a;
-  padding: 0;
-}
-#ctacte.kilos tr.total td span,
-#ctacte.sales tr.total td span {
-  display: block;
-  margin-right: 2px;
-  padding: 3px;
 }
 #ctacte.kilos tr.field-name,
 #ctacte.sales tr.field-name,
