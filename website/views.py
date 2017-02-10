@@ -260,7 +260,8 @@ def ctactekg(request):
 			return render(request, 'ctactekg.html', {'species':species_by_harvest})
 
 
-def ventas(request):
+@login_required
+def sales(request):
 	if 'algoritmo_code' in request.session:
 
 		if request.POST:
@@ -425,7 +426,7 @@ def downloadtxt(request):
 
 
 @login_required
-def importcc(request, typecc):
+def importfiles(request, typecc):
 
 	# bulk_create have a limit of 999 objects per batch for SQLite
 	BULK_SIZE = 999
@@ -452,6 +453,78 @@ def importcc(request, typecc):
 	def evalText(text):
 		# Decode text in latin iso-8859-1 like (0xd1 --> ñ)
 		return unicode(text.strip(' ').decode('iso-8859-1'))
+
+
+	def importSales(file):
+		record = []
+		r = 0
+		for line in file:
+			# Delete new line character
+			line = line.replace('\n', '').replace('\r', '')
+			if len(line) > 0:
+				data = re.split('\t+', line)
+				print r
+				record.append(
+					Applied(
+						entity_type = evalInt(data[0]),
+						algoritmo_code = evalInt(data[1]),
+						name = evalText(data[2]),
+						address_street = evalText(data[3]),
+						address_number = evalText(data[4]),
+						address_floor = evalText(data[5]),
+						address_apartment = evalText(data[6]),
+						postal_code = evalText(data[7]),
+						postal_sufix = evalText(data[8]),
+						location = evalText(data[9]),
+						state = evalText(data[10]),
+						tel = evalText(data[11]),
+						amount = evalFloat(data[12]),
+						movement_type = evalText(data[13]),
+						account_balance = evalFloat(data[14]),
+						affected_voucher_balance = evalInt(data[15]),
+						voucher = evalText(data[16]),
+						afected_voucher = evalText(data[17]),
+						voucher_date = evalDate(data[18]),
+						afected_date = evalDate(data[19]),
+						expiration_date = evalDate(data[20]),
+						issue_date = evalDate(data[21]),
+						concept = evalText(data[22]),
+						cta_cte = evalText(data[23]),
+						cta_cte_description = evalText(data[24]),
+						cta_cte_detail = evalText(data[25]),
+						amount_usd = evalFloat(data[26]),
+						modify_balance = evalText(data[27]),
+						account_balance_usd = evalFloat(data[28]),
+						affected_balance_usd = evalFloat(data[29]),
+						link = evalText(data[30]),
+						currency = evalText(data[31]),
+						cuit = evalText(data[32]),
+						cbu = evalText(data[33]),
+						zone = evalInt(data[34]),
+						zone_name = evalText(data[35]),
+						amount_sign = evalFloat(data[36]),
+						numeric_voucher = evalText(data[37]),
+						internal_contract = evalText(data[38]),
+						export_contract = evalText(data[39]),
+						exporter = evalInt(data[40]),
+						exporter_name = evalText(data[41]),
+						exporter_group1 = evalInt(data[42]),
+						exporter_name_group1 = evalText(data[43]),
+						exporter_group2 = evalInt(data[44]),
+						exporter_name_group2 = evalText(data[45]),
+						exchange_rate = evalFloat(data[46]),
+						debit_amount_pes = evalFloat(data[47]),
+						credit_amount_pes = evalFloat(data[48]),
+						debit_amount_usd = evalFloat(data[49]),
+						credit_amount_usd = evalFloat(data[50])
+					)
+				)
+			r = r + 1
+
+		# break batch in small batches of 999 objects
+		for j in range(0, len(record), BULK_SIZE):
+			Applied.objects.bulk_create(record[j:j+BULK_SIZE])
+
 
 	def importCtaCteP(file):
 		record = []
