@@ -22,6 +22,7 @@ import django_excel as excel
 
 from models import CtaCte
 from models import CtaCteKilos
+from models import Applied
 from models import UserInfo
 from models import Notifications
 from models import ViewedNotifications
@@ -371,6 +372,70 @@ def sales(request):
 
 
 @login_required
+def applied(request):
+	if 'algoritmo_code' in request.session:
+		# Queryset with cta cte data
+		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+		# Total amount
+		total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
+
+		#### Add balance for every record in "data" queryset
+		balance = 0
+		records = []
+		for d in data:
+			balance += d['amount_sign']
+			tmp_dict = {}
+			tmp_dict['obj'] = d
+			tmp_dict['balance'] = balance
+			records.append(tmp_dict)
+
+		#### Create a new sorted queryset/list
+		limit = settings.EL_PAGINATION_PER_PAGE
+		total_records = len(records)
+		applied_ctacte = []
+
+		page_records = total_records
+		while page_records >= 0:
+			if page_records - limit < 0:
+				tmp = records[0:page_records]
+			else:
+				tmp = records[page_records-limit:page_records]
+
+			for obj in tmp:
+				applied_ctacte.append(obj)
+
+			page_records -= limit
+
+		#### Initial balance
+		ib_records = 0
+		remainder = total_records % limit
+		initial_balance = []
+		page_balance = []
+		while ib_records < total_records:
+			if ib_records == 0:
+				tmp = records[0:remainder]
+				ib_records += remainder
+			else:
+				tmp = records[0:ib_records+limit]
+				ib_records += limit
+
+			partial_balance = 0
+			for obj in tmp:
+				partial_balance += obj['obj']['amount_sign']
+
+			initial_balance.append(partial_balance)
+
+		# Scroll the list from first item to last-1 (is the cta cte total amount)
+		for n in range(0,len(initial_balance)-1):
+			tmp_dict = {}
+			tmp_dict['page'] = len(initial_balance)-1-n
+			tmp_dict['balance'] = initial_balance[n]
+			page_balance.append(tmp_dict)
+
+	return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+
+
+@login_required
 def downloadexcel(request):
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
@@ -426,7 +491,7 @@ def downloadtxt(request):
 
 
 @login_required
-def importfiles(request, typecc):
+def importdata(request, typecc):
 
 	# bulk_create have a limit of 999 objects per batch for SQLite
 	BULK_SIZE = 999
@@ -721,32 +786,33 @@ def importfiles(request, typecc):
 			CtaCteKilos.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
-	if typecc <> 'pesos' and typecc <> 'kilos':
-		raise Http404()
+	# Read file and delete existing objects
+	if typecc == 'ctacte':
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
+		# Check if the file exists before deleteing all objects
+		if os.path.isfile(file):
+			# Delete all objects if there is 1 or more model objects
+			if CtaCte.objects.count() > 0:
+				CtaCte.objects.all().delete()
+	elif typecc == 'ctactekg':
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
+		if os.path.isfile(file):
+			if CtaCteKilos.objects.count() > 0:
+				CtaCteKilos.objects.all().delete()
+	elif typecc == 'sales':
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'APLICADA.txt')
+		if os.path.isfile(file):
+			if Applied.objects.count() > 0:
+				Applied.objects.all().delete()
 	else:
-		# Read file and delete existing objects
-		if typecc == 'pesos':
-			print "pesos"
-			file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
-			# Check if the file exists before deleteing all objects
-			if os.path.isfile(file):
-				# Delete all objects if there is 1 or more model objects
-				if CtaCte.objects.count() > 0:
-					CtaCte.objects.all().delete()
-		else:
-			print "kilos"
-			file = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
-			if os.path.isfile(file):
-				if CtaCteKilos.objects.count() > 0:
-					CtaCteKilos.objects.all().delete()
+		raise Http404()
 
-		with open(file, 'r') as f:
-
-			if typecc == 'pesos':
-				print "pesos"
-				importCtaCteP(f)
-			else:
-				print "kilos"
-				importCtaCteKg(f)
+	with open(file, 'r') as f:
+		if typecc == 'ctacte':
+			importCtaCteP(f)
+		elif typecc == 'ctactekg':
+			importCtaCteKg(f)
+		elif typecc == 'sales':
+			importSales(f)
 
 	return render(request, '__ctacte.html')
