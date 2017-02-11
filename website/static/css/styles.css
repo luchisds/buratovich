@@ -1733,6 +1733,19 @@ footer .cv div span:hover .work {
 #ctacte .export button a:hover {
   color: #fff;
 }
+#ctacte .no-data,
+#ctacte .no-species {
+  text-align: center;
+}
+#ctacte .no-data p,
+#ctacte .no-species p {
+  color: #ccc;
+  font-size: 2em;
+  margin: 0;
+}
+#ctacte .no-data {
+  padding: 15em 0 15em 0;
+}
 #ctacte.pesos .pagination {
   font-size: 0.9em;
   margin: 0 0 5em 0;
@@ -1779,13 +1792,6 @@ footer .cv div span:hover .work {
 #ctacte.kilos .no-species,
 #ctacte.sales .no-species {
   padding: 2.5em 0 5em 0;
-  text-align: center;
-}
-#ctacte.kilos .no-species p,
-#ctacte.sales .no-species p {
-  color: #ccc;
-  font-size: 2em;
-  margin: 0;
 }
 #ctacte.kilos .total-received,
 #ctacte.sales .total-received {
