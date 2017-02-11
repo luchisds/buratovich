@@ -117,63 +117,67 @@ def ctacte(request):
 	if 'algoritmo_code' in request.session:
 		# Queryset with cta cte data
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		# Total amount
-		total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
+		# If exist data
+		if data:
+			# Total amount
+			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
-		#### Add balance for every record in "data" queryset
-		balance = 0
-		records = []
-		for d in data:
-			balance += d['amount_sign']
-			tmp_dict = {}
-			tmp_dict['obj'] = d
-			tmp_dict['balance'] = balance
-			records.append(tmp_dict)
+			#### Add balance for every record in "data" queryset
+			balance = 0
+			records = []
+			for d in data:
+				balance += d['amount_sign']
+				tmp_dict = {}
+				tmp_dict['obj'] = d
+				tmp_dict['balance'] = balance
+				records.append(tmp_dict)
 
-		#### Create a new sorted queryset/list
-		limit = settings.EL_PAGINATION_PER_PAGE
-		total_records = len(records)
-		ctacte = []
+			#### Create a new sorted queryset/list
+			limit = settings.EL_PAGINATION_PER_PAGE
+			total_records = len(records)
+			ctacte = []
 
-		page_records = total_records
-		while page_records >= 0:
-			if page_records - limit < 0:
-				tmp = records[0:page_records]
-			else:
-				tmp = records[page_records-limit:page_records]
+			page_records = total_records
+			while page_records >= 0:
+				if page_records - limit < 0:
+					tmp = records[0:page_records]
+				else:
+					tmp = records[page_records-limit:page_records]
 
-			for obj in tmp:
-				ctacte.append(obj)
+				for obj in tmp:
+					ctacte.append(obj)
 
-			page_records -= limit
+				page_records -= limit
 
-		#### Initial balance
-		ib_records = 0
-		remainder = total_records % limit
-		initial_balance = []
-		page_balance = []
-		while ib_records < total_records:
-			if ib_records == 0:
-				tmp = records[0:remainder]
-				ib_records += remainder
-			else:
-				tmp = records[0:ib_records+limit]
-				ib_records += limit
+			#### Initial balance
+			ib_records = 0
+			remainder = total_records % limit
+			initial_balance = []
+			page_balance = []
+			while ib_records < total_records:
+				if ib_records == 0:
+					tmp = records[0:remainder]
+					ib_records += remainder
+				else:
+					tmp = records[0:ib_records+limit]
+					ib_records += limit
 
-			partial_balance = 0
-			for obj in tmp:
-				partial_balance += obj['obj']['amount_sign']
+				partial_balance = 0
+				for obj in tmp:
+					partial_balance += obj['obj']['amount_sign']
 
-			initial_balance.append(partial_balance)
+				initial_balance.append(partial_balance)
 
-		# Scroll the list from first item to last-1 (is the cta cte total amount)
-		for n in range(0,len(initial_balance)-1):
-			tmp_dict = {}
-			tmp_dict['page'] = len(initial_balance)-1-n
-			tmp_dict['balance'] = initial_balance[n]
-			page_balance.append(tmp_dict)
+			# Scroll the list from first item to last-1 (is the cta cte total amount)
+			for n in range(0,len(initial_balance)-1):
+				tmp_dict = {}
+				tmp_dict['page'] = len(initial_balance)-1-n
+				tmp_dict['balance'] = initial_balance[n]
+				page_balance.append(tmp_dict)
 
-	return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+		else:
+			return render(request, 'ctacte.html')
 
 
 @login_required
@@ -187,78 +191,81 @@ def ctactekg(request):
 
 		# Dict with [harvest]-->[species]-->[species description]
 		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		# If exist species
+		if species:
+			species_description = []
+			species_by_harvest = OrderedDict()
+			for s in species:
+				if species_by_harvest.get(s['harvest'], None) is None:
+					species_by_harvest[s['harvest']] = OrderedDict()
+				species_by_harvest[s['harvest']][s['species']] = OrderedDict()
+				species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
+				# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
+				if s['speciesharvest'] in current_species:
+					species_by_harvest[s['harvest']][s['species']]['checked'] = True
+				else:
+					species_by_harvest[s['harvest']][s['species']]['checked'] = False
+				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-		species_description = []
-		species_by_harvest = OrderedDict()
-		for s in species:
-			if species_by_harvest.get(s['harvest'], None) is None:
-				species_by_harvest[s['harvest']] = OrderedDict()
-			species_by_harvest[s['harvest']][s['species']] = OrderedDict()
-			species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
-			# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
-			if s['speciesharvest'] in current_species:
-				species_by_harvest[s['harvest']][s['species']]['checked'] = True
+
+			if request.POST:
+				# Create a filter by species / harvest using Q function and OR statement (|)
+				speciesharvest_filter = Q()
+				for item in current_species:
+					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
+
+				## Total kg for selected species_description
+				total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+
+				# Dict with [species description]-->[field]-->[tickets]
+				fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
+				tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
+
+				tickets_by_field = {}
+				for s in species_description:
+					# Description
+					sd = s[0]
+					# Species Harvest
+					sh = s[1]
+					if sh in current_species:
+						if tickets_by_field.get(sd, None) is None:
+							tickets_by_field[sd] = OrderedDict()
+						for f in fields:
+							if f['species_description'].replace('COSECHA ', '') == sd:
+								if tickets_by_field[sd].get(f['field'], None) is None:
+									tickets_by_field[sd][f['field']] = OrderedDict()
+									tickets_by_field[sd][f['field']]['number'] = f['field']
+									tickets_by_field[sd][f['field']]['name'] = f['field_description']
+								tickets_by_field[sd][f['field']]['tickets'] = OrderedDict()
+								total_gross = 0
+								total_hum = 0
+								total_sha = 0
+								total_vol = 0
+								total_net = 0
+								tickets_count = 0
+								for t in tickets:
+									if t['species_description'].replace('COSECHA ', '') == sd and t['field'] == f['field']:
+										tickets_by_field[sd][f['field']]['tickets'][t['voucher']] = t
+										total_gross += t['gross_kg']
+										total_hum += t['humidity_kg']
+										total_sha += t['shaking_kg']
+										total_vol += t['volatile_kg']
+										total_net += t['net_weight']
+										tickets_count += 1
+									tickets_by_field[sd][f['field']]['total_gross'] = total_gross
+									tickets_by_field[sd][f['field']]['total_hum'] = total_hum
+									tickets_by_field[sd][f['field']]['total_sha'] = total_sha
+									tickets_by_field[sd][f['field']]['total_vol'] = total_vol
+									tickets_by_field[sd][f['field']]['total_net'] = total_net
+									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
+
+				return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
+
 			else:
-				species_by_harvest[s['harvest']][s['species']]['checked'] = False
-			species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
-
-
-		if request.POST:
-			# Create a filter by species / harvest using Q function and OR statement (|)
-			speciesharvest_filter = Q()
-			for item in current_species:
-				speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
-
-			## Total kg for selected species_description
-			total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
-
-			# Dict with [species description]-->[field]-->[tickets]
-			fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
-			tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
-
-			tickets_by_field = {}
-			for s in species_description:
-				# Description
-				sd = s[0]
-				# Species Harvest
-				sh = s[1]
-				if sh in current_species:
-					if tickets_by_field.get(sd, None) is None:
-						tickets_by_field[sd] = OrderedDict()
-					for f in fields:
-						if f['species_description'].replace('COSECHA ', '') == sd:
-							if tickets_by_field[sd].get(f['field'], None) is None:
-								tickets_by_field[sd][f['field']] = OrderedDict()
-								tickets_by_field[sd][f['field']]['number'] = f['field']
-								tickets_by_field[sd][f['field']]['name'] = f['field_description']
-							tickets_by_field[sd][f['field']]['tickets'] = OrderedDict()
-							total_gross = 0
-							total_hum = 0
-							total_sha = 0
-							total_vol = 0
-							total_net = 0
-							tickets_count = 0
-							for t in tickets:
-								if t['species_description'].replace('COSECHA ', '') == sd and t['field'] == f['field']:
-									tickets_by_field[sd][f['field']]['tickets'][t['voucher']] = t
-									total_gross += t['gross_kg']
-									total_hum += t['humidity_kg']
-									total_sha += t['shaking_kg']
-									total_vol += t['volatile_kg']
-									total_net += t['net_weight']
-									tickets_count += 1
-								tickets_by_field[sd][f['field']]['total_gross'] = total_gross
-								tickets_by_field[sd][f['field']]['total_hum'] = total_hum
-								tickets_by_field[sd][f['field']]['total_sha'] = total_sha
-								tickets_by_field[sd][f['field']]['total_vol'] = total_vol
-								tickets_by_field[sd][f['field']]['total_net'] = total_net
-								tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
-
-			return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
-
+				# If request is GET
+				return render(request, 'ctactekg.html', {'species':species_by_harvest})
 		else:
-			# If request is GET
-			return render(request, 'ctactekg.html', {'species':species_by_harvest})
+			return render(request, 'ctactekg.html')
 
 
 @login_required
@@ -271,104 +278,108 @@ def sales(request):
 			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		# If exist species
+		if species:
 
-		species_description = []
-		species_by_harvest = OrderedDict()
-		for s in species:
-			if species_by_harvest.get(s['harvest'], None) is None:
-				species_by_harvest[s['harvest']] = OrderedDict()
-			species_by_harvest[s['harvest']][s['species']] = OrderedDict()
-			species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
-			# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
-			if s['speciesharvest'] in current_species:
-				species_by_harvest[s['harvest']][s['species']]['checked'] = True
-			else:
-				species_by_harvest[s['harvest']][s['species']]['checked'] = False
-			species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
+			species_description = []
+			species_by_harvest = OrderedDict()
+			for s in species:
+				if species_by_harvest.get(s['harvest'], None) is None:
+					species_by_harvest[s['harvest']] = OrderedDict()
+				species_by_harvest[s['harvest']][s['species']] = OrderedDict()
+				species_by_harvest[s['harvest']][s['species']]['description'] = s['species_description'].replace('COSECHA ', '')
+				# Set attr TRUE if current harvest-species is in request to render checked checkboxes in template
+				if s['speciesharvest'] in current_species:
+					species_by_harvest[s['harvest']][s['species']]['checked'] = True
+				else:
+					species_by_harvest[s['harvest']][s['species']]['checked'] = False
+				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-		if request.POST:
-			# Create a filter by species / harvest using Q function and OR statement (|)
-			speciesharvest_filter = Q()
-			for item in current_species:
-				speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
+			if request.POST:
+				# Create a filter by species / harvest using Q function and OR statement (|)
+				speciesharvest_filter = Q()
+				for item in current_species:
+					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
 
-			## Total kg for selected species_description
-			total_kg = {}
-			total_kg['sales'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
-			total_kg['to_set'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
-			total_kg['other'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				## Total kg for selected species_description
+				total_kg = {}
+				total_kg['sales'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['to_set'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['other'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
-			# Dict with [species description]-->[sales]
-			voucher = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
+				# Dict with [species description]-->[sales]
+				voucher = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
 
-			sales = {}
-			for s in species_description:
-				# Description
-				sd = s[0]
-				# Species Harvest
-				sh = s[1]
-				if sh in current_species:
-					if sales.get(sd, None) is None:
-						sales[sd] = OrderedDict()
-						total_g_sales = 0
-						total_p_sales = 0
-						total_l_sales = 0
-						count_sales = 0
-						total_g_to_set = 0
-						count_to_set = 0
-						total_i_others = 0
-						total_o_others = 0
-						count_others = 0
-						for v in voucher:
-							if v['species_description'].replace('COSECHA ', '') == sd:
-								if v['indicator'] == '2':
-									if sales[sd].get('sales', None) is None:
-										sales[sd]['sales'] = OrderedDict()
-										sales[sd]['sales']['vouchers'] = OrderedDict()
-									sales[sd]['sales']['vouchers'][v['voucher']] = v
-									total_g_sales += v['gross_kg']
-									total_p_sales += v['service_billing_number']
-									total_l_sales += v['number_1116A']
-									count_sales += 1
-								elif v['indicator'] == '2B':
-									if sales[sd].get('to_set', None) is None:
-										sales[sd]['to_set'] = OrderedDict()
-										sales[sd]['to_set']['vouchers'] = OrderedDict()
-									sales[sd]['to_set']['vouchers'][v['voucher']] = v
-									total_g_to_set += v['gross_kg']
-									count_to_set += 1
-								else:
-									if sales[sd].get('others', None) is None:
-										sales[sd]['others'] = OrderedDict()
-										sales[sd]['others']['vouchers'] = OrderedDict()
-									sales[sd]['others']['vouchers'][v['voucher']] = v
-									if v['gross_kg'] > 0:
-										total_i_others += v['gross_kg']
+				sales = {}
+				for s in species_description:
+					# Description
+					sd = s[0]
+					# Species Harvest
+					sh = s[1]
+					if sh in current_species:
+						if sales.get(sd, None) is None:
+							sales[sd] = OrderedDict()
+							total_g_sales = 0
+							total_p_sales = 0
+							total_l_sales = 0
+							count_sales = 0
+							total_g_to_set = 0
+							count_to_set = 0
+							total_i_others = 0
+							total_o_others = 0
+							count_others = 0
+							for v in voucher:
+								if v['species_description'].replace('COSECHA ', '') == sd:
+									if v['indicator'] == '2':
+										if sales[sd].get('sales', None) is None:
+											sales[sd]['sales'] = OrderedDict()
+											sales[sd]['sales']['vouchers'] = OrderedDict()
+										sales[sd]['sales']['vouchers'][v['voucher']] = v
+										total_g_sales += v['gross_kg']
+										total_p_sales += v['service_billing_number']
+										total_l_sales += v['number_1116A']
+										count_sales += 1
+									elif v['indicator'] == '2B':
+										if sales[sd].get('to_set', None) is None:
+											sales[sd]['to_set'] = OrderedDict()
+											sales[sd]['to_set']['vouchers'] = OrderedDict()
+										sales[sd]['to_set']['vouchers'][v['voucher']] = v
+										total_g_to_set += v['gross_kg']
+										count_to_set += 1
 									else:
-										total_o_others += v['gross_kg']
-									count_others += 1
+										if sales[sd].get('others', None) is None:
+											sales[sd]['others'] = OrderedDict()
+											sales[sd]['others']['vouchers'] = OrderedDict()
+										sales[sd]['others']['vouchers'][v['voucher']] = v
+										if v['gross_kg'] > 0:
+											total_i_others += v['gross_kg']
+										else:
+											total_o_others += v['gross_kg']
+										count_others += 1
 
-								if sales[sd].get('sales', None) <> None:
-									sales[sd]['sales']['total_g_sales'] = total_g_sales
-									sales[sd]['sales']['total_p_sales'] = total_p_sales
-									sales[sd]['sales']['total_l_sales'] = total_l_sales
-									sales[sd]['sales']['count_sales'] = count_sales
-								if sales[sd].get('to_set', None) <> None:
-									print count_to_set
-									print total_g_to_set
-									sales[sd]['to_set']['total_g_to_set'] = total_g_to_set
-									sales[sd]['to_set']['count_to_set'] = count_to_set
-								if sales[sd].get('others', None) <> None:
-									sales[sd]['others']['total_i_others'] = total_i_others
-									sales[sd]['others']['total_o_others'] = total_o_others
-									sales[sd]['others']['count_others'] = count_others
+									if sales[sd].get('sales', None) <> None:
+										sales[sd]['sales']['total_g_sales'] = total_g_sales
+										sales[sd]['sales']['total_p_sales'] = total_p_sales
+										sales[sd]['sales']['total_l_sales'] = total_l_sales
+										sales[sd]['sales']['count_sales'] = count_sales
+									if sales[sd].get('to_set', None) <> None:
+										print count_to_set
+										print total_g_to_set
+										sales[sd]['to_set']['total_g_to_set'] = total_g_to_set
+										sales[sd]['to_set']['count_to_set'] = count_to_set
+									if sales[sd].get('others', None) <> None:
+										sales[sd]['others']['total_i_others'] = total_i_others
+										sales[sd]['others']['total_o_others'] = total_o_others
+										sales[sd]['others']['count_others'] = count_others
 
-			return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
+				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
 
+			else:
+				# If request is GET
+				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
-			# If request is GET
-			return render(request, 'sales.html', {'species':species_by_harvest})
+			return render(request, 'sales.html')
 
 
 @login_required
@@ -376,63 +387,68 @@ def applied(request):
 	if 'algoritmo_code' in request.session:
 		# Queryset with cta cte data
 		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-		# Total amount
-		total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
+		# If no data
+		if data:
+			# Total amount
+			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
-		#### Add balance for every record in "data" queryset
-		balance = 0
-		records = []
-		for d in data:
-			balance += d['amount_sign']
-			tmp_dict = {}
-			tmp_dict['obj'] = d
-			tmp_dict['balance'] = balance
-			records.append(tmp_dict)
+			#### Add balance for every record in "data" queryset
+			balance = 0
+			records = []
+			for d in data:
+				balance += d['amount_sign']
+				tmp_dict = {}
+				tmp_dict['obj'] = d
+				tmp_dict['balance'] = balance
+				records.append(tmp_dict)
 
-		#### Create a new sorted queryset/list
-		limit = settings.EL_PAGINATION_PER_PAGE
-		total_records = len(records)
-		applied_ctacte = []
+			#### Create a new sorted queryset/list
+			limit = settings.EL_PAGINATION_PER_PAGE
+			total_records = len(records)
+			applied_ctacte = []
 
-		page_records = total_records
-		while page_records >= 0:
-			if page_records - limit < 0:
-				tmp = records[0:page_records]
-			else:
-				tmp = records[page_records-limit:page_records]
+			page_records = total_records
+			while page_records >= 0:
+				if page_records - limit < 0:
+					tmp = records[0:page_records]
+				else:
+					tmp = records[page_records-limit:page_records]
 
-			for obj in tmp:
-				applied_ctacte.append(obj)
+				for obj in tmp:
+					applied_ctacte.append(obj)
 
-			page_records -= limit
+				page_records -= limit
 
-		#### Initial balance
-		ib_records = 0
-		remainder = total_records % limit
-		initial_balance = []
-		page_balance = []
-		while ib_records < total_records:
-			if ib_records == 0:
-				tmp = records[0:remainder]
-				ib_records += remainder
-			else:
-				tmp = records[0:ib_records+limit]
-				ib_records += limit
+			#### Initial balance
+			ib_records = 0
+			remainder = total_records % limit
+			initial_balance = []
+			page_balance = []
+			while ib_records < total_records:
+				if ib_records == 0:
+					tmp = records[0:remainder]
+					ib_records += remainder
+				else:
+					tmp = records[0:ib_records+limit]
+					ib_records += limit
 
-			partial_balance = 0
-			for obj in tmp:
-				partial_balance += obj['obj']['amount_sign']
+				partial_balance = 0
+				for obj in tmp:
+					partial_balance += obj['obj']['amount_sign']
 
-			initial_balance.append(partial_balance)
+				initial_balance.append(partial_balance)
 
-		# Scroll the list from first item to last-1 (is the cta cte total amount)
-		for n in range(0,len(initial_balance)-1):
-			tmp_dict = {}
-			tmp_dict['page'] = len(initial_balance)-1-n
-			tmp_dict['balance'] = initial_balance[n]
-			page_balance.append(tmp_dict)
+			# Scroll the list from first item to last-1 (is the cta cte total amount)
+			for n in range(0,len(initial_balance)-1):
+				tmp_dict = {}
+				tmp_dict['page'] = len(initial_balance)-1-n
+				tmp_dict['balance'] = initial_balance[n]
+				page_balance.append(tmp_dict)
 
-	return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+			return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+		else:
+			return render(request, 'applied.html')
+
 
 
 @login_required

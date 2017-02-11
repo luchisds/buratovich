@@ -97,6 +97,10 @@ class CtaCteKilos(models.Model):
 	blank_14 = models.CharField(max_length=2, verbose_name='Blanco 14')
 	ctg = models.IntegerField(verbose_name='CTG')
 
+	class Meta:
+		verbose_name = 'Cuenta Corriente en Kilos'
+		verbose_name_plural = 'Cuentas Corrientes en Kilos'
+
 
 class Applied(models.Model):
 	entity_type = models.IntegerField(verbose_name='Tipo de Entidad')
@@ -150,6 +154,10 @@ class Applied(models.Model):
 	credit_amount_pes = models.FloatField(verbose_name='Saldo Credito $')
 	debit_amount_usd = models.FloatField(verbose_name='Saldo Debito USD')
 	credit_amount_usd = models.FloatField(verbose_name='Saldo Credito USD')
+
+	class Meta:
+		verbose_name = 'Cuenta Corriente Aplicada'
+		verbose_name_plural = 'Cuentas Corrientes Aplicadas'
 
 
 class CtaCte(models.Model):
@@ -229,6 +237,11 @@ class CtaCte(models.Model):
 	class Meta:
 		verbose_name = 'Cuenta Corriente'
 		verbose_name_plural = 'Cuentas Corrientes'
+
+
+class Currencies(models.Model):
+	date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha')
+	
 
 
 class Notifications(models.Model):
