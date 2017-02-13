@@ -154,11 +154,12 @@
 						</table>
 						<span class="data">+ Precios del día <span>{{b.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<form action="">
+					<form action="/" method="post">
+					{% csrf_token %}
 						<fieldset>
 							<legend>Ver pizarra del: </legend>
 							<div class="input">
-								<input id="date" name="date" type="date">
+								<input id="date" name="board" type="date">
 								<span>
 									<i class="fa fa-calendar-o" aria-hidden="true"></i>
 								</span>
@@ -198,7 +199,8 @@
 						</table>
 						<span class="data">+ Cotización del día <span>{{c.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<form action="">
+					<form action="/" method="post">
+					{% csrf_token %}
 						<fieldset>
 							<legend>Ver dolar del: </legend>
 							<div class="input">

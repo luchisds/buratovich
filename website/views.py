@@ -31,8 +31,17 @@ from models import Board
 
 
 def index(request):
-	currency = Currencies.objects.order_by('-date')[:1]
-	board = Board.objects.order_by('-date')[:1]
+
+	if request.POST:
+		if request.POST.get('usd'):
+			currency = Currencies.objects.filter(date=request.POST.get('usd'))
+			board = Board.objects.order_by('-date')[:1]
+		elif request.POST.get('board'):
+			currency = Currencies.objects.order_by('-date')[:1]
+			board = Board.objects.filter(date=request.POST.get('board'))
+	else:
+		currency = Currencies.objects.order_by('-date')[:1]
+		board = Board.objects.order_by('-date')[:1]
 
 	return render(request, 'index.html', {'currency': currency, 'board': board})
 
