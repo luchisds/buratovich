@@ -240,8 +240,47 @@ class CtaCte(models.Model):
 
 
 class Currencies(models.Model):
-	date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha')
-	
+	date = models.DateField(verbose_name='Fecha')
+	dn_buy = models.FloatField(verbose_name='Dolar Nación')
+	dl_buy = models.FloatField(verbose_name='Dolar Libre')
+	dn_sell = models.FloatField(verbose_name='Dolar Nación')
+	dl_sell = models.FloatField(verbose_name='Dolar Libre')
+
+	class Meta:
+		verbose_name = 'Moneda'
+		verbose_name_plural = 'Monedas'
+
+
+class Board(models.Model):
+	date = models.DateField(verbose_name='Fecha')
+	wheat_ros = models.FloatField(default=0, verbose_name='Trigo')
+	wheat_bas = models.FloatField(default=0, verbose_name='Trigo')
+	wheat_qq = models.FloatField(default=0, verbose_name='Trigo')
+	wheat_bb = models.FloatField(default=0, verbose_name='Trigo')
+	wheat12_ros = models.FloatField(default=0, verbose_name='Trigo Art. 12')
+	wheat12_bas = models.FloatField(default=0, verbose_name='Trigo Art. 12')
+	wheat12_qq = models.FloatField(default=0, verbose_name='Trigo Art. 12')
+	wheat12_bb = models.FloatField(default=0, verbose_name='Trigo Art. 12')
+	corn_ros = models.FloatField(default=0, verbose_name='Maiz')
+	corn_bas = models.FloatField(default=0, verbose_name='Maiz')
+	corn_qq = models.FloatField(default=0, verbose_name='Maiz')
+	corn_bb = models.FloatField(default=0, verbose_name='Maiz')
+	sunflower_ros = models.FloatField(default=0, verbose_name='Girasol')
+	sunflower_bas = models.FloatField(default=0, verbose_name='Girasol')
+	sunflower_qq = models.FloatField(default=0, verbose_name='Girasol')
+	sunflower_bb = models.FloatField(default=0, verbose_name='Girasol')
+	soy_ros = models.FloatField(default=0, verbose_name='Soja')
+	soy_bas = models.FloatField(default=0, verbose_name='Soja')
+	soy_qq = models.FloatField(default=0, verbose_name='Soja')
+	soy_bb = models.FloatField(default=0, verbose_name='Soja')
+	sorghum_ros = models.FloatField(default=0, verbose_name='Sorgo')
+	sorghum_bas = models.FloatField(default=0, verbose_name='Sorgo')
+	sorghum_qq = models.FloatField(default=0, verbose_name='Sorgo')
+	sorghum_bb = models.FloatField(default=0, verbose_name='Sorgo')
+
+	class Meta:
+		verbose_name = 'Pizarra'
+		verbose_name_plural = 'Pizarras'
 
 
 class Notifications(models.Model):
