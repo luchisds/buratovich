@@ -26,10 +26,15 @@ from models import Applied
 from models import UserInfo
 from models import Notifications
 from models import ViewedNotifications
+from models import Currencies
 
 
 def index(request):
-	return render(request, 'index.html')
+	currency = Currencies.objects.order_by('-date')[:1]
+	for d in currency:
+		print d.date
+
+	return render(request, 'index.html', {'currency': currency})
 
 
 def company(request):

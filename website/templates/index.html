@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}Buratovich Hnos. S.A.{% endblock %}
 
@@ -175,24 +176,26 @@
 					</span>
 				</h3>
 				<div class="container">
-					<table>
-						<tr>
-							<th>29/11/2016</th>
-							<th>Compra</th>
-							<th>Venta</th>
-						</tr>
-						<tr>
-							<td>DOLAR NACION</td>
-							<td>15,44</td>
-							<td>15,54</td>
-						</tr>
-						<tr>
-							<td>DOLAR LIBRE</td>
-							<td>15,20</td>
-							<td>15,70</td>
-						</tr>
-					</table>
-					<span class="data">+ Cotización del día <span>29/11/2016</span></span>
+					{% for c in currency %}
+						<table>
+							<tr>
+								<th>{{c.date|date:"d/m/Y"}}</th>
+								<th>Compra</th>
+								<th>Venta</th>
+							</tr>
+							<tr>
+								<td>DOLAR NACION</td>
+								<td>{{c.dn_buy|floatformat:2|intcomma}}</td>
+								<td>{{c.dl_buy|floatformat:2|intcomma}}</td>
+							</tr>
+							<tr>
+								<td>DOLAR LIBRE</td>
+								<td>{{c.dn_sell|floatformat:2|intcomma}}</td>
+								<td>{{c.dl_sell|floatformat:2|intcomma}}</td>
+							</tr>
+						</table>
+						<span class="data">+ Cotización del día <span>{{c.date|date:"d/m/Y"}}</span></span>
+					{% endfor %}
 					<form action="">
 						<fieldset>
 							<legend>Ver dolar del: </legend>
