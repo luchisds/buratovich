@@ -96,62 +96,64 @@
 					</span>
 				</h3>
 				<div class="container">
-					<table>
-						<thead>
-							<tr>
-								<th>29/11/2016</th>
-								<th>ROS.</th>
-								<th>BS. AS.</th>
-								<th>QQ.</th>
-								<th>B.B.</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Trigo</td>
-								<td>2200</td>
-								<td></td>
-								<td>2234</td>
-								<td>2250</td>
-							</tr>
-							<tr>
-								<td>Trigo Art. 12</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Maíz</td>
-								<td>2590</td>
-								<td></td>
-								<td>2396</td>
-								<td>2500</td>
-							</tr>
-							<tr>
-								<td>Girasol</td>
-								<td></td>
-								<td></td>
-								<td>4520</td>
-								<td>4530</td>
-							</tr>
-							<tr>
-								<td>Soja</td>
-								<td>4100</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Sorgo</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-					<span class="data">+ Precios del día <span>29/11/2016</span></span>
+					{% for b in board %}
+						<table>
+							<thead>
+								<tr>
+									<th>{{b.date|date:"d/m/Y"}}</th>
+									<th>ROS.</th>
+									<th>BS. AS.</th>
+									<th>QQ.</th>
+									<th>B.B.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Trigo</td>
+									<td>{{b.wheat_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat_bb|floatformat:2|intcomma}}</td>
+								</tr>
+								<tr>
+									<td>Trigo Art. 12</td>
+									<td>{{b.wheat12_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat12_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat12_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.wheat12_bb|floatformat:2|intcomma}}</td>
+								</tr>
+								<tr>
+									<td>Maíz</td>
+									<td>{{b.corn_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.corn_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.corn_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.corn_bb|floatformat:2|intcomma}}</td>
+								</tr>
+								<tr>
+									<td>Girasol</td>
+									<td>{{b.sunflower_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.sunflower_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.sunflower_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.sunflower_bb|floatformat:2|intcomma}}</td>
+								</tr>
+								<tr>
+									<td>Soja</td>
+									<td>{{b.soy_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.soy_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.soy_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.soy_bb|floatformat:2|intcomma}}</td>
+								</tr>
+								<tr>
+									<td>Sorgo</td>
+									<td>{{b.sorghum_ros|floatformat:2|intcomma}}</td>
+									<td>{{b.sorghum_bas|floatformat:2|intcomma}}</td>
+									<td>{{b.sorghum_qq|floatformat:2|intcomma}}</td>
+									<td>{{b.sorghum_bb|floatformat:2|intcomma}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<span class="data">+ Precios del día <span>{{b.date|date:"d/m/Y"}}</span></span>
+					{% endfor %}
 					<form action="">
 						<fieldset>
 							<legend>Ver pizarra del: </legend>
