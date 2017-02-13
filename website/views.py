@@ -27,14 +27,14 @@ from models import UserInfo
 from models import Notifications
 from models import ViewedNotifications
 from models import Currencies
+from models import Board
 
 
 def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
-	for d in currency:
-		print d.date
+	board = Board.objects.order_by('-date')[:1]
 
-	return render(request, 'index.html', {'currency': currency})
+	return render(request, 'index.html', {'currency': currency, 'board': board})
 
 
 def company(request):
