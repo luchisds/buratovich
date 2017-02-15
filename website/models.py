@@ -12,6 +12,49 @@ class UserInfo(models.Model):
 	company_name = models.CharField(max_length=150, verbose_name='Razón Social')
 
 
+class Analysis(models.Model):
+	entry_point = models.IntegerField(verbose_name='Punto de Ingreso')
+	analysis_number = models.IntegerField(verbose_name='Numero de Analisis')
+	analysis = models.CharField(max_length=13, verbose_name='Analisis')
+	date = models.DateField(verbose_name='Fecha de Analisis')
+	newsletter_number = models.CharField(max_length=20, verbose_name='Numero de Boletin')
+	field = models.IntegerField(verbose_name='Campo')
+	lot = models.CharField(max_length=10, verbose_name='Lote')
+	field_description = models.CharField(max_length=100, verbose_name='Nombre de Campo')
+	species = models.CharField(max_length=4, verbose_name='Especie')
+	harvest = models.CharField(max_length=4, verbose_name='Cosecha')
+	protein = models.FloatField(verbose_name='Contenido Proteico')
+	grade = models.IntegerField(verbose_name='Grado')
+	factor = models.FloatField(verbose_name='Factor')
+	analysis_costs = models.FloatField(verbose_name='Gastos de Analisis')
+	gluten = models.IntegerField(verbose_name='Gluten')
+	analysis_item = models.IntegerField(verbose_name='Rubro de Analisis')
+	percentage = models.FloatField(verbose_name='Porcentaje')
+	bonus = models.FloatField(verbose_name='Bonificacion')
+	reduction = models.FloatField(verbose_name='Rebaja')
+	item_descripcion = models.CharField(max_length=100, verbose_name='Descripcion')
+
+	class Meta:
+		verbose_name = 'Analisis'
+
+
+class Remittances(models.Model):
+	entry_point = models.IntegerField(verbose_name='Punto de Ingreso')
+	analysis_number = models.IntegerField(verbose_name='Numero de Analisis')
+	analysis = models.CharField(max_length=13, verbose_name='Analisis')
+	date = models.DateField(verbose_name='Fecha de Analisis')
+	entry_point_ticket = models.IntegerField(verbose_name='Punto de Ingreso Ticket')
+	ticket_number = models.IntegerField(verbose_name='Numero de Ticket')
+	certified = models.BooleanField(verbose_name='Certificado', default=True)
+	ticket = models.CharField(max_length=16, verbose_name='Ticket')
+	ticket_date = models.DateField(verbose_name='Fecha de Ticket')
+	net_kg = models.IntegerField(verbose_name='Kilos Netos')
+
+	class Meta:
+		verbose_name = 'Remesa'
+		verbose_name_plural = 'Remesas'
+
+
 class CtaCteKilos(models.Model):
 	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
 	name = models.CharField(max_length=150, verbose_name='Razón Social')
