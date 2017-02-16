@@ -28,10 +28,11 @@ from models import Notifications
 from models import ViewedNotifications
 from models import Currencies
 from models import Board
+from models import Analysis
+from models import Remittances
 
 
 def index(request):
-
 	if request.POST:
 		if request.POST.get('usd'):
 			currency = Currencies.objects.filter(date=request.POST.get('usd'))
@@ -521,7 +522,7 @@ def downloadtxt(request):
 
 
 @login_required
-def importdata(request, typecc):
+def importdata(request, datatype):
 
 	# bulk_create have a limit of 999 objects per batch for SQLite
 	BULK_SIZE = 999
@@ -548,6 +549,20 @@ def importdata(request, typecc):
 	def evalText(text):
 		# Decode text in latin iso-8859-1 like (0xd1 --> ñ)
 		return unicode(text.strip(' ').decode('iso-8859-1'))
+
+
+	# def importAnalysis(file):
+	# 	record = []
+	# 	r = 0
+	# 	for line in file:
+	# 		# Delete new line character
+	# 		line = line.replace('\n', '').replace('\r', '')
+	# 		if len(line) > 0:
+	# 			data = re.split('\t+', line)
+	# 			print r
+	# 			record.append(
+	# 				Analysis(
+						
 
 
 	def importSales(file):
@@ -817,19 +832,19 @@ def importdata(request, typecc):
 
 
 	# Read file and delete existing objects
-	if typecc == 'ctacte':
+	if datatype == 'ctacte':
 		file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
 		# Check if the file exists before deleteing all objects
 		if os.path.isfile(file):
 			# Delete all objects if there is 1 or more model objects
 			if CtaCte.objects.count() > 0:
 				CtaCte.objects.all().delete()
-	elif typecc == 'ctactekg':
+	elif datatype == 'ctactekg':
 		file = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
 		if os.path.isfile(file):
 			if CtaCteKilos.objects.count() > 0:
 				CtaCteKilos.objects.all().delete()
-	elif typecc == 'sales':
+	elif datatype == 'sales':
 		file = os.path.join(settings.BASE_DIR, 'FTP', 'APLICADA.txt')
 		if os.path.isfile(file):
 			if Applied.objects.count() > 0:
@@ -838,11 +853,11 @@ def importdata(request, typecc):
 		raise Http404()
 
 	with open(file, 'r') as f:
-		if typecc == 'ctacte':
+		if datatype == 'ctacte':
 			importCtaCteP(f)
-		elif typecc == 'ctactekg':
+		elif datatype == 'ctactekg':
 			importCtaCteKg(f)
-		elif typecc == 'sales':
+		elif datatype == 'sales':
 			importSales(f)
 
 	return render(request, '__ctacte.html')
