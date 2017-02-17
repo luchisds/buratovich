@@ -551,20 +551,59 @@ def importdata(request, datatype):
 		return unicode(text.strip(' ').decode('iso-8859-1'))
 
 
-	def importAnalysis(file):
+	def importRemittances(file):
 		record = []
 		r = 0
+		# Exclude header
+		file.next()
 		for line in file:
 			# Delete new line character
 			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
-				data = re.split('\t+', line)
+				data = re.split('\t', line)
+				print r
+				# Certified True or False
+				if evalText(data[20]) == 'Sí':
+					is_certified = True
+				else:
+					is_certified = False
+				record.append(
+					Remittances(
+						entry_point = evalInt(data[0]),
+						analysis_number = evalInt(data[1]),
+						analysis = evalText(data[2]),
+						date = evalDate(data[3]),
+						entry_point_ticket = evalInt(data[18]),
+						ticket_number = evalInt(data[19]),
+						certified = is_certified,
+						ticket = 'TK ' + evalText(data[21]),
+						ticket_date = evalDate(data[22]),
+						net_kg = evalInt(data[23])
+					)
+				)
+			r = r + 1
+
+		# break batch in small batches of 999 objects
+		for j in range(0, len(record), BULK_SIZE):
+			Remittances.objects.bulk_create(record[j:j+BULK_SIZE])
+
+
+	def importAnalysis(file):
+		record = []
+		r = 0
+		# Exclude header
+		file.next()
+		for line in file:
+			# Delete new line character
+			line = line.replace('\n', '').replace('\r', '')
+			if len(line) > 0:
+				data = re.split('\t', line)
 				print r
 				record.append(
 					Analysis(
 						entry_point = evalInt(data[0]),
 						analysis_number = evalInt(data[1]),
-						analysis = 'TK ' + evalText(data[2]),
+						analysis = evalText(data[2]),
 						date = evalDate(data[3]),
 						newsletter_number = evalText(data[4]),
 						field = evalInt(data[5]),
@@ -598,7 +637,7 @@ def importdata(request, datatype):
 			# Delete new line character
 			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
-				data = re.split('\t+', line)
+				data = re.split('\t', line)
 				print r
 				record.append(
 					Applied(
@@ -669,7 +708,7 @@ def importdata(request, datatype):
 			# Delete new line character
 			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
-				data = re.split('\t+', line)
+				data = re.split('\t', line)
 				print r
 				record.append(
 					CtaCte(
@@ -761,7 +800,7 @@ def importdata(request, datatype):
 			# Delete new line character
 			line = line.replace('\n', '').replace('\r', '')
 			if len(line) > 0:
-				data = re.split('\t+', line)
+				data = re.split('\t', line)
 				print r
 				record.append(
 					CtaCteKilos(
@@ -876,10 +915,15 @@ def importdata(request, datatype):
 			if Applied.objects.count() > 0:
 				Applied.objects.all().delete()
 	elif datatype == 'analysis':
-		file = os.path.join(settings.BASE_DIR, 'FTP', 'analisis.txt')
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'Analisis.txt')
 		if os.path.isfile(file):
 			if Analysis.objects.count() > 0:
 				Analysis.objects.all().delete()
+	elif datatype == 'remittances':
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'Remesas.txt')
+		if os.path.isfile(file):
+			if Remittances.objects.count() > 0:
+				Remittances.objects.all().delete()
 	else:
 		raise Http404()
 
@@ -892,5 +936,7 @@ def importdata(request, datatype):
 			importSales(f)
 		elif datatype == 'analysis':
 			importAnalysis(f)
+		elif datatype == 'remittances':
+			importRemittances(f)
 
 	return render(request, '__ctacte.html')
