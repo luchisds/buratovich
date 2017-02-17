@@ -551,18 +551,44 @@ def importdata(request, datatype):
 		return unicode(text.strip(' ').decode('iso-8859-1'))
 
 
-	# def importAnalysis(file):
-	# 	record = []
-	# 	r = 0
-	# 	for line in file:
-	# 		# Delete new line character
-	# 		line = line.replace('\n', '').replace('\r', '')
-	# 		if len(line) > 0:
-	# 			data = re.split('\t+', line)
-	# 			print r
-	# 			record.append(
-	# 				Analysis(
-						
+	def importAnalysis(file):
+		record = []
+		r = 0
+		for line in file:
+			# Delete new line character
+			line = line.replace('\n', '').replace('\r', '')
+			if len(line) > 0:
+				data = re.split('\t+', line)
+				print r
+				record.append(
+					Analysis(
+						entry_point = evalInt(data[0]),
+						analysis_number = evalInt(data[1]),
+						analysis = 'TK ' + evalText(data[2]),
+						date = evalDate(data[3]),
+						newsletter_number = evalText(data[4]),
+						field = evalInt(data[5]),
+						lot = evalText(data[6]),
+						field_description = evalText(data[7]),
+						species = evalText(data[8]),
+						harvest = evalText(data[9]),
+						protein = evalFloat(data[11]),
+						grade = evalInt(data[12]),
+						factor = evalFloat(data[13]),
+						analysis_costs = evalFloat(data[14]),
+						gluten = evalInt(data[15]),
+						analysis_item = evalInt(data[18]),
+						percentage = evalFloat(data[19]),
+						bonus = evalFloat(data[20]),
+						reduction = evalFloat(data[21]),
+						item_descripcion = evalText(data[22])
+					)
+				)
+			r = r + 1
+
+		# break batch in small batches of 999 objects
+		for j in range(0, len(record), BULK_SIZE):
+			Analysis.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
 	def importSales(file):
@@ -849,6 +875,11 @@ def importdata(request, datatype):
 		if os.path.isfile(file):
 			if Applied.objects.count() > 0:
 				Applied.objects.all().delete()
+	elif datatype == 'analysis':
+		file = os.path.join(settings.BASE_DIR, 'FTP', 'analisis.txt')
+		if os.path.isfile(file):
+			if Analysis.objects.count() > 0:
+				Analysis.objects.all().delete()
 	else:
 		raise Http404()
 
@@ -859,5 +890,7 @@ def importdata(request, datatype):
 			importCtaCteKg(f)
 		elif datatype == 'sales':
 			importSales(f)
+		elif datatype == 'analysis':
+			importAnalysis(f)
 
 	return render(request, '__ctacte.html')
