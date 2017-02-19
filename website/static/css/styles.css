@@ -1710,6 +1710,19 @@ footer .cv div span:hover .work {
 #ctacte table tr.initial-balance {
   font-weight: bold;
 }
+#ctacte table .analysis-detail {
+  font-size: 0.9em;
+  margin: auto 0 auto auto;
+  width: auto;
+}
+#ctacte table .analysis-detail td,
+#ctacte table .analysis-detail th {
+  padding: 0.4em 1em;
+}
+#ctacte table .analysis-detail th {
+  background-color: #ccc;
+  color: #065a7a;
+}
 #ctacte .export {
   font-size: 0.9em;
   padding: 1em;

@@ -2,6 +2,7 @@
 {% load static %}
 {% load mathfilters %}
 {% load humanize %}
+{% load analysis %}
 
 {% block path %}
 <div class="path maxwidth">
@@ -103,6 +104,37 @@
 										<td class="center">{{b.number_1116A}}</td>
 										<td class="center">{{b.external_voucher_number}}</td>
 										<td>{{b.driver_name}}</td>
+									</tr>
+									<tr>
+										{% get_analysis ticket_analysis analysis_detail b.voucher as detail %}
+										<td colspan="15">
+											<table class="analysis-detail">
+												<thead>
+													<tr>
+														<th colspan="2">Analisis: {{detail.0.analysis}}</th>
+														<th>C. Proteico: {{detail.0.protein}}</th>
+														<th>Gluten: {{detail.0.gluten}}</th>
+														<th>Importe de Gastos: ${{detail.0.analysis_costs}}</th>
+													</tr>
+													<tr>
+														<th colspan="2">Item</th>
+														<th>%</th>
+														<th>Bonificación</th>
+														<th>Rebaja</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for z in detail %}
+														<tr>
+															<td colspan="2">{{z.item_descripcion}}</td>
+															<td>{{z.percentage}}</td>
+															<td>{{z.bonus}}</td>
+															<td>{{z.reduction}}</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</td>
 									</tr>
 								{% endfor %}
 								<tr class="total">
