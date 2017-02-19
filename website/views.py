@@ -21,7 +21,8 @@ from django.shortcuts import redirect
 import django_excel as excel
 
 from models import CtaCte
-from models import CtaCteKilos
+from models import Deliveries
+from models import Sales
 from models import Applied
 from models import UserInfo
 from models import Notifications
@@ -196,7 +197,7 @@ def ctacte(request):
 
 
 @login_required
-def ctactekg(request):
+def deliveries(request):
 	if 'algoritmo_code' in request.session:
 
 		if request.POST:
@@ -205,7 +206,7 @@ def ctactekg(request):
 			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		species = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
 		# If exist species
 		if species:
 			species_description = []
@@ -230,11 +231,11 @@ def ctactekg(request):
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
 
 				## Total kg for selected species_description
-				total_kg = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
 				# Dict with [species description]-->[field]-->[tickets]
-				fields = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
-				tickets = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
+				fields = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
+				tickets = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
 
 				tickets_by_field = {}
 				for s in species_description:
@@ -274,13 +275,13 @@ def ctactekg(request):
 									tickets_by_field[sd][f['field']]['total_net'] = total_net
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
-				return render(request, 'ctactekg.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
+				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
 
 			else:
 				# If request is GET
-				return render(request, 'ctactekg.html', {'species':species_by_harvest})
+				return render(request, 'deliveries.html', {'species':species_by_harvest})
 		else:
-			return render(request, 'ctactekg.html')
+			return render(request, 'deliveries.html')
 
 
 @login_required
@@ -293,7 +294,7 @@ def sales(request):
 			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		species = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
 		# If exist species
 		if species:
 
@@ -319,12 +320,12 @@ def sales(request):
 
 				## Total kg for selected species_description
 				total_kg = {}
-				total_kg['sales'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
-				total_kg['to_set'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
-				total_kg['other'] = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['sales'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['to_set'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['other'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
 				# Dict with [species description]-->[sales]
-				voucher = CtaCteKilos.objects.filter(algoritmo_code=request.session['algoritmo_code']).exclude(indicator='1').filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
+				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
 
 				sales = {}
 				for s in species_description:
@@ -465,12 +466,31 @@ def applied(request):
 			return render(request, 'applied.html')
 
 
+@login_required
+def test(request):
+	if 'algoritmo_code' in request.session:
+		# data = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(rem__ticket_number='TK 0021 0000017440').values('date', 'voucher', 'gross_kg', 'net_weight', 'factor', 'grade')
+		data = Remittances.objects.get(ticket='TK 0021 0000017440')
+		print data.entry_point
+		print data.analysis_number
+		print data.analysis
+		print data.date
+		print data.entry_point_ticket
+		print data.ticket_number
+		print data.certified
+		print data.ticket
+		print data.ticket_date
+		print data.net_kg
+		print data.rem
+
+	return render(request, 'test.html')
+
 
 @login_required
 def downloadexcel(request):
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		
+
 		balance = 0
 		records = []
 		for d in data:
@@ -516,9 +536,6 @@ def downloadtxt(request):
 			records.append(tmp_dict)
 
 		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
-
-
-
 
 
 @login_required
@@ -630,7 +647,7 @@ def importdata(request, datatype):
 			Analysis.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
-	def importSales(file):
+	def importApplied(file):
 		record = []
 		r = 0
 		for line in file:
@@ -793,8 +810,9 @@ def importdata(request, datatype):
 			CtaCte.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
-	def importCtaCteKg(file):
-		record = []
+	def importKilos(file):
+		record_deliveries = []
+		record_sales = []
 		r = 0
 		for line in file:
 			# Delete new line character
@@ -802,98 +820,191 @@ def importdata(request, datatype):
 			if len(line) > 0:
 				data = re.split('\t', line)
 				print r
-				record.append(
-					CtaCteKilos(
-						algoritmo_code = evalInt(data[0]),
-						name = evalText(data[1]),
-						indicator = evalText(data[2]),
-						species = evalText(data[3]),
-						harvest = evalText(data[4]),
-						speciesharvest = evalText(data[3]) + evalText(data[4]),
-						species_description = evalText(data[5]),
-						field = evalInt(data[6]),
-						field_description = evalText(data[7]),
-						date = evalDate(data[8]),
-						voucher = evalText(data[9]),
-						gross_kg = evalInt(data[10]),
-						humidity_percentage = evalFloat(data[11]),
-						humidity_reduction = evalFloat(data[12]),
-						humidity_kg = evalInt(data[13]),
-						shaking_reduction = evalFloat(data[14]),
-						shaking_kg = evalInt(data[15]),
-						volatile_reduction = evalFloat(data[16]),
-						volatile_kg = evalInt(data[17]),
-						price_per_yard = evalFloat(data[18]),
-						driver_code = evalInt(data[19]),
-						driver_name = evalText(data[20]),
-						factor = evalFloat(data[21]),
-						grade = evalInt(data[22]),
-						gluten = evalInt(data[23]),
-						number_1116A = evalInt(data[24]),
-						km = evalInt(data[25]),
-						charge_carry = evalText(data[26]),
-						external_voucher_code = evalText(data[27]),
-						external_voucher_branch = evalInt(data[28]),
-						external_voucher_number = evalInt(data[29]),
-						aeration_reduction = evalFloat(data[30]),
-						aeration_kg = evalInt(data[31]),
-						quality_reduction = evalFloat(data[32]),
-						quality_kg = evalInt(data[33]),
-						zone = evalText(data[34]),
-						zone_description = evalText(data[35]),
-						plant_code = evalInt(data[36]),
-						service_billing_code = evalText(data[37]),
-						service_billing_branch = evalInt(data[38]),
-						service_billing_number = evalInt(data[39]),
-						service_billing_date = evalDate(data[40]),
-						service_billing = evalText(data[41]),
-						carrier_code = evalInt(data[42]),
-						carrier_name = evalText(data[43]),
-						exclude_charge_expenses = evalText(data[44]),
-						to_date = evalDate(data[45]),
-						observations = evalText(data[46]),
-						follow_destination = evalText(data[47]),
-						destination_code = evalText(data[48]),
-						net_weight = evalInt(data[49]),
-						tare = evalInt(data[50]),
-						gross_weight_recognized = evalInt(data[51]),
-						plant_description = evalText(data[52]),
-						gross_kg_var = evalInt(data[53]),
-						gross_kg_2 = evalInt(data[54]),
-						blank_1 = evalText(data[55]),
-						blank_2 = evalText(data[56]),
-						blank_3 = evalText(data[57]),
-						blank_4 = evalText(data[58]),
-						allotment = evalText(data[59]),
-						allotment_description = evalText(data[60]),
-						blank_5 = evalInt(data[61]),
-						blank_6 = evalText(data[62]),
-						kg_cnv = evalInt(data[63]),
-						kg_cnv_2 = evalInt(data[64]),
-						kg_cnv_3 = evalInt(data[65]),
-						blank_7 = evalText(data[66]),
-						blank_8 = evalText(data[67]),
-						blank_9 = evalText(data[68]),
-						blank_10 = evalText(data[69]),
-						gross_kg_3 = evalInt(data[70]),
-						unknown_1 = evalInt(data[71]),
-						unknown_2 = evalInt(data[72]),
-						gross_kg_4 = evalInt(data[73]),
-						rate = evalFloat(data[74]),
-						net_weight_2 = evalInt(data[75]),
-						humidity_kg_2 = evalInt(data[76]),
-						blank_11 = evalText(data[77]),
-						blank_12 = evalText(data[78]),
-						blank_13 = evalText(data[79]),
-						blank_14 = evalText(data[80]),
-						ctg = evalInt(data[81])
+				if data[2] == '1':
+					record_deliveries.append(
+						Deliveries(
+							algoritmo_code = evalInt(data[0]),
+							name = evalText(data[1]),
+							indicator = evalText(data[2]),
+							species = evalText(data[3]),
+							harvest = evalText(data[4]),
+							speciesharvest = evalText(data[3]) + evalText(data[4]),
+							species_description = evalText(data[5]),
+							field = evalInt(data[6]),
+							field_description = evalText(data[7]),
+							date = evalDate(data[8]),
+							voucher = evalText(data[9]),
+							gross_kg = evalInt(data[10]),
+							humidity_percentage = evalFloat(data[11]),
+							humidity_reduction = evalFloat(data[12]),
+							humidity_kg = evalInt(data[13]),
+							shaking_reduction = evalFloat(data[14]),
+							shaking_kg = evalInt(data[15]),
+							volatile_reduction = evalFloat(data[16]),
+							volatile_kg = evalInt(data[17]),
+							price_per_yard = evalFloat(data[18]),
+							driver_code = evalInt(data[19]),
+							driver_name = evalText(data[20]),
+							factor = evalFloat(data[21]),
+							grade = evalInt(data[22]),
+							gluten = evalInt(data[23]),
+							number_1116A = evalInt(data[24]),
+							km = evalInt(data[25]),
+							charge_carry = evalText(data[26]),
+							external_voucher_code = evalText(data[27]),
+							external_voucher_branch = evalInt(data[28]),
+							external_voucher_number = evalInt(data[29]),
+							aeration_reduction = evalFloat(data[30]),
+							aeration_kg = evalInt(data[31]),
+							quality_reduction = evalFloat(data[32]),
+							quality_kg = evalInt(data[33]),
+							zone = evalText(data[34]),
+							zone_description = evalText(data[35]),
+							plant_code = evalInt(data[36]),
+							service_billing_code = evalText(data[37]),
+							service_billing_branch = evalInt(data[38]),
+							service_billing_number = evalInt(data[39]),
+							service_billing_date = evalDate(data[40]),
+							service_billing = evalText(data[41]),
+							carrier_code = evalInt(data[42]),
+							carrier_name = evalText(data[43]),
+							exclude_charge_expenses = evalText(data[44]),
+							to_date = evalDate(data[45]),
+							observations = evalText(data[46]),
+							follow_destination = evalText(data[47]),
+							destination_code = evalText(data[48]),
+							net_weight = evalInt(data[49]),
+							tare = evalInt(data[50]),
+							gross_weight_recognized = evalInt(data[51]),
+							plant_description = evalText(data[52]),
+							gross_kg_var = evalInt(data[53]),
+							gross_kg_2 = evalInt(data[54]),
+							blank_1 = evalText(data[55]),
+							blank_2 = evalText(data[56]),
+							blank_3 = evalText(data[57]),
+							blank_4 = evalText(data[58]),
+							allotment = evalText(data[59]),
+							allotment_description = evalText(data[60]),
+							blank_5 = evalInt(data[61]),
+							blank_6 = evalText(data[62]),
+							kg_cnv = evalInt(data[63]),
+							kg_cnv_2 = evalInt(data[64]),
+							kg_cnv_3 = evalInt(data[65]),
+							blank_7 = evalText(data[66]),
+							blank_8 = evalText(data[67]),
+							blank_9 = evalText(data[68]),
+							blank_10 = evalText(data[69]),
+							gross_kg_3 = evalInt(data[70]),
+							unknown_1 = evalInt(data[71]),
+							unknown_2 = evalInt(data[72]),
+							gross_kg_4 = evalInt(data[73]),
+							rate = evalFloat(data[74]),
+							net_weight_2 = evalInt(data[75]),
+							humidity_kg_2 = evalInt(data[76]),
+							blank_11 = evalText(data[77]),
+							blank_12 = evalText(data[78]),
+							blank_13 = evalText(data[79]),
+							blank_14 = evalText(data[80]),
+							ctg = evalInt(data[81])
+						)
 					)
-				)
+				else:
+					record_sales.append(
+						Sales(
+							algoritmo_code = evalInt(data[0]),
+							name = evalText(data[1]),
+							indicator = evalText(data[2]),
+							species = evalText(data[3]),
+							harvest = evalText(data[4]),
+							speciesharvest = evalText(data[3]) + evalText(data[4]),
+							species_description = evalText(data[5]),
+							field = evalInt(data[6]),
+							field_description = evalText(data[7]),
+							date = evalDate(data[8]),
+							voucher = evalText(data[9]),
+							gross_kg = evalInt(data[10]),
+							humidity_percentage = evalFloat(data[11]),
+							humidity_reduction = evalFloat(data[12]),
+							humidity_kg = evalInt(data[13]),
+							shaking_reduction = evalFloat(data[14]),
+							shaking_kg = evalInt(data[15]),
+							volatile_reduction = evalFloat(data[16]),
+							volatile_kg = evalInt(data[17]),
+							price_per_yard = evalFloat(data[18]),
+							driver_code = evalInt(data[19]),
+							driver_name = evalText(data[20]),
+							factor = evalFloat(data[21]),
+							grade = evalInt(data[22]),
+							gluten = evalInt(data[23]),
+							number_1116A = evalInt(data[24]),
+							km = evalInt(data[25]),
+							charge_carry = evalText(data[26]),
+							external_voucher_code = evalText(data[27]),
+							external_voucher_branch = evalInt(data[28]),
+							external_voucher_number = evalInt(data[29]),
+							aeration_reduction = evalFloat(data[30]),
+							aeration_kg = evalInt(data[31]),
+							quality_reduction = evalFloat(data[32]),
+							quality_kg = evalInt(data[33]),
+							zone = evalText(data[34]),
+							zone_description = evalText(data[35]),
+							plant_code = evalInt(data[36]),
+							service_billing_code = evalText(data[37]),
+							service_billing_branch = evalInt(data[38]),
+							service_billing_number = evalInt(data[39]),
+							service_billing_date = evalDate(data[40]),
+							service_billing = evalText(data[41]),
+							carrier_code = evalInt(data[42]),
+							carrier_name = evalText(data[43]),
+							exclude_charge_expenses = evalText(data[44]),
+							to_date = evalDate(data[45]),
+							observations = evalText(data[46]),
+							follow_destination = evalText(data[47]),
+							destination_code = evalText(data[48]),
+							net_weight = evalInt(data[49]),
+							tare = evalInt(data[50]),
+							gross_weight_recognized = evalInt(data[51]),
+							plant_description = evalText(data[52]),
+							gross_kg_var = evalInt(data[53]),
+							gross_kg_2 = evalInt(data[54]),
+							blank_1 = evalText(data[55]),
+							blank_2 = evalText(data[56]),
+							blank_3 = evalText(data[57]),
+							blank_4 = evalText(data[58]),
+							allotment = evalText(data[59]),
+							allotment_description = evalText(data[60]),
+							blank_5 = evalInt(data[61]),
+							blank_6 = evalText(data[62]),
+							kg_cnv = evalInt(data[63]),
+							kg_cnv_2 = evalInt(data[64]),
+							kg_cnv_3 = evalInt(data[65]),
+							blank_7 = evalText(data[66]),
+							blank_8 = evalText(data[67]),
+							blank_9 = evalText(data[68]),
+							blank_10 = evalText(data[69]),
+							gross_kg_3 = evalInt(data[70]),
+							unknown_1 = evalInt(data[71]),
+							unknown_2 = evalInt(data[72]),
+							gross_kg_4 = evalInt(data[73]),
+							rate = evalFloat(data[74]),
+							net_weight_2 = evalInt(data[75]),
+							humidity_kg_2 = evalInt(data[76]),
+							blank_11 = evalText(data[77]),
+							blank_12 = evalText(data[78]),
+							blank_13 = evalText(data[79]),
+							blank_14 = evalText(data[80]),
+							ctg = evalInt(data[81])
+						)
+					)
 			r = r + 1
 
 		# break batch in small batches of 999 objects
-		for j in range(0, len(record), BULK_SIZE):
-			CtaCteKilos.objects.bulk_create(record[j:j+BULK_SIZE])
+		for j in range(0, len(record_deliveries), BULK_SIZE):
+			Deliveries.objects.bulk_create(record_deliveries[j:j+BULK_SIZE])
+
+		# break batch in small batches of 999 objects
+		for j in range(0, len(record_sales), BULK_SIZE):
+			Sales.objects.bulk_create(record_sales[j:j+BULK_SIZE])
 
 
 	# Read file and delete existing objects
@@ -904,12 +1015,14 @@ def importdata(request, datatype):
 			# Delete all objects if there is 1 or more model objects
 			if CtaCte.objects.count() > 0:
 				CtaCte.objects.all().delete()
-	elif datatype == 'ctactekg':
+	elif datatype == 'kilos':
 		file = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
 		if os.path.isfile(file):
-			if CtaCteKilos.objects.count() > 0:
-				CtaCteKilos.objects.all().delete()
-	elif datatype == 'sales':
+			if Deliveries.objects.count() > 0:
+				Deliveries.objects.all().delete()
+			if Sales.objects.count() > 0:
+				Sales.objects.all().delete()
+	elif datatype == 'applied':
 		file = os.path.join(settings.BASE_DIR, 'FTP', 'APLICADA.txt')
 		if os.path.isfile(file):
 			if Applied.objects.count() > 0:
@@ -930,10 +1043,10 @@ def importdata(request, datatype):
 	with open(file, 'r') as f:
 		if datatype == 'ctacte':
 			importCtaCteP(f)
-		elif datatype == 'ctactekg':
-			importCtaCteKg(f)
-		elif datatype == 'sales':
-			importSales(f)
+		elif datatype == 'kilos':
+			importKilos(f)
+		elif datatype == 'applied':
+			importApplied(f)
 		elif datatype == 'analysis':
 			importAnalysis(f)
 		elif datatype == 'remittances':

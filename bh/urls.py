@@ -28,8 +28,9 @@ urlpatterns = [
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
 	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
 	url(r'^extranet/ctacte/applied/$', views.applied, name='applied'),
-	url(r'^extranet/ctacte/kilos/$', views.ctactekg, name='ctactekg'),
+	url(r'^extranet/ctacte/kilos/$', views.deliveries, name='deliveries'),
 	url(r'^extranet/sales/$', views.sales, name='sales'),
+	url(r'^extranet/test/$', views.test, name='test'),
 
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
