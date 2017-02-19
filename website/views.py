@@ -238,6 +238,7 @@ def deliveries(request):
 				tickets = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
 
 				tickets_by_field = {}
+				tickets_for_analysis = []
 				for s in species_description:
 					# Description
 					sd = s[0]
@@ -268,6 +269,8 @@ def deliveries(request):
 										total_vol += t['volatile_kg']
 										total_net += t['net_weight']
 										tickets_count += 1
+										# Ticket number (voucher) for Analysis filter
+										tickets_for_analysis.append(t['voucher'])
 									tickets_by_field[sd][f['field']]['total_gross'] = total_gross
 									tickets_by_field[sd][f['field']]['total_hum'] = total_hum
 									tickets_by_field[sd][f['field']]['total_sha'] = total_sha
@@ -275,7 +278,23 @@ def deliveries(request):
 									tickets_by_field[sd][f['field']]['total_net'] = total_net
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
-				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg})
+				# Get ticket and analysis
+				remittances = Remittances.objects.filter(ticket__in = tickets_for_analysis).values('ticket', 'analysis')
+				# dict [Ticket] --> [Analysis]
+				ticket_analysis = {}
+				# dict [Analysis] --> [Analysis detail]
+				analysis_detail = {}
+				for i in remittances:
+					ticket_analysis[i['ticket']] = i['analysis']
+					if analysis_detail.get(i['analysis'], None) is None:
+						analysis = Analysis.objects.filter(analysis = i['analysis']).exclude(percentage=0).values('analysis', 'date', 'protein', 'analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('analysis', 'item_descripcion')
+						analysis_detail[i['analysis']] = analysis
+
+				# print ticket_analysis
+				# print '-------------'
+				# print analysis_detail
+
+				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis, 'analysis_detail': analysis_detail})
 
 			else:
 				# If request is GET
@@ -467,26 +486,6 @@ def applied(request):
 
 
 @login_required
-def test(request):
-	if 'algoritmo_code' in request.session:
-		# data = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(rem__ticket_number='TK 0021 0000017440').values('date', 'voucher', 'gross_kg', 'net_weight', 'factor', 'grade')
-		data = Remittances.objects.get(ticket='TK 0021 0000017440')
-		print data.entry_point
-		print data.analysis_number
-		print data.analysis
-		print data.date
-		print data.entry_point_ticket
-		print data.ticket_number
-		print data.certified
-		print data.ticket
-		print data.ticket_date
-		print data.net_kg
-		print data.rem
-
-	return render(request, 'test.html')
-
-
-@login_required
 def downloadexcel(request):
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
@@ -593,7 +592,7 @@ def importdata(request, datatype):
 						entry_point_ticket = evalInt(data[18]),
 						ticket_number = evalInt(data[19]),
 						certified = is_certified,
-						ticket = 'TK ' + evalText(data[21]),
+						ticket = 'TK ' + evalText(data[21][:5]+data[21][7:]),
 						ticket_date = evalDate(data[22]),
 						net_kg = evalInt(data[23])
 					)
