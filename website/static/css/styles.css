@@ -629,7 +629,7 @@ footer .foot:last-child {
   float: left;
   clear: none;
   text-align: inherit;
-  width: 30.66666666666666%;
+  width: 27.2%;
   margin-left: 0%;
   margin-right: 4%;
 }
@@ -642,6 +642,26 @@ footer .foot:last-child {
   clear: both;
 }
 #home .utils article:last-child {
+  margin-right: 0%;
+}
+#home .utils article.pizarras {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 37.6%;
+  margin-left: 0%;
+  margin-right: 4%;
+}
+#home .utils article.pizarras:before,
+#home .utils article.pizarras:after {
+  content: '';
+  display: table;
+}
+#home .utils article.pizarras:after {
+  clear: both;
+}
+#home .utils article.pizarras:last-child {
   margin-right: 0%;
 }
 #company .first-col {
