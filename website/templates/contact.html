@@ -42,6 +42,9 @@
 			<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 03731-480600</p>
 		</div>
 	</article>
+	<article>
+		<div id="map" style="height: 400px;"></div>
+	</article>
 	<article class="areas">
 		<h2>CONTACTOS POR UNIDAD DE NEGOCIOS</h2>
 		<div class="column">
@@ -134,4 +137,21 @@
 		</div>
 	</article>
 </section>
+{% endblock %}
+
+{% block scriptjs %}
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaGlzZHMiLCJhIjoiVkNPam1nTSJ9.xmW7X9AcRugB2l_V6A5gUA';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/luchisds/cizeku3m500as2rnqv2cytig8',
+    minZoom: 5,
+    scrollZoom: false,
+    center: [-31.4845511,-67.1153538]
+});
+</script>
+
 {% endblock %}
