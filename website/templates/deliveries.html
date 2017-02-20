@@ -69,6 +69,7 @@
 								<th rowspan="2">Netos</th>
 								<th rowspan="2">Factor</th>
 								<th rowspan="2">Grado</th>
+								<th rowspan="2">Analisis</th>
 								<th rowspan="2">Nº 1116A</th>
 								<th rowspan="2">CP</th>
 								<th rowspan="2"	>Transportista</th>
@@ -85,9 +86,10 @@
 						<tbody>
 							{% for i, j in v.items %}
 								<tr class="field-name">
-									<td colspan="15">{{j.name}}</td>
+									<td colspan="16">{{j.name}}</td>
 								</tr>
 								{% for a, b in j.tickets.items %}
+									{% get_analysis ticket_analysis analysis_detail b.voucher as detail %}
 									<tr>
 										<td class="center">{{b.date|date:"d-m-Y"}}</td>
 										<td>{{b.voucher}}</td>
@@ -101,41 +103,52 @@
 										<td class="right">{{b.net_weight|intcomma}}</td>
 										<td class="center">{{b.factor|intcomma}}</td>
 										<td class="center">{{b.grade}}</td>
+										<td class="center">
+											{% if detail %}
+												<a href="#" class="show-analysis">
+													<i class="fa fa-search-plus" aria-hidden="true"></i>
+												</a>
+												<a href="#" class="hide-analysis hide-btn">
+													<i class="fa fa-search-minus" aria-hidden="true"></i>
+												</a>
+											{% endif %}
+										</td>
 										<td class="center">{{b.number_1116A}}</td>
 										<td class="center">{{b.external_voucher_number}}</td>
 										<td>{{b.driver_name}}</td>
 									</tr>
-									<tr>
-										{% get_analysis ticket_analysis analysis_detail b.voucher as detail %}
-										<td colspan="15">
-											<table class="analysis-detail">
-												<thead>
-													<tr>
-														<th colspan="2">Analisis: {{detail.0.analysis}}</th>
-														<th>C. Proteico: {{detail.0.protein}}</th>
-														<th>Gluten: {{detail.0.gluten}}</th>
-														<th>Importe de Gastos: ${{detail.0.analysis_costs}}</th>
-													</tr>
-													<tr>
-														<th colspan="2">Item</th>
-														<th>%</th>
-														<th>Bonificación</th>
-														<th>Rebaja</th>
-													</tr>
-												</thead>
-												<tbody>
-													{% for z in detail %}
+									{% if detail %}
+										<tr class="analysis">
+											<td colspan="16">
+												<table class="analysis-detail">
+													<thead>
 														<tr>
-															<td colspan="2">{{z.item_descripcion}}</td>
-															<td>{{z.percentage}}</td>
-															<td>{{z.bonus}}</td>
-															<td>{{z.reduction}}</td>
+															<th colspan="2">Analisis: {{detail.0.analysis}}</th>
+															<th>C. Proteico: {{detail.0.protein|intcomma}}</th>
+															<th>Gluten: {{detail.0.gluten|intcomma}}</th>
+															<th>Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
 														</tr>
-													{% endfor %}
-												</tbody>
-											</table>
-										</td>
-									</tr>
+														<tr>
+															<th colspan="2">Item</th>
+															<th>%</th>
+															<th>Bonificación</th>
+															<th>Rebaja</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for z in detail %}
+															<tr>
+																<td colspan="2">{{z.item_descripcion}}</td>
+																<td class="right">{{z.percentage|floatformat:2|intcomma}}</td>
+																<td class="right">{{z.bonus|floatformat:2|intcomma}}</td>
+																<td class="right">{{z.reduction|floatformat:2|intcomma}}</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									{% endif %}
 								{% endfor %}
 								<tr class="total">
 									<td class="center"><span>Entregas: {{j.tickets_count}}</span></td>
@@ -154,7 +167,7 @@
 									<td></td>
 									<td></td>
 								</tr>
-								<!--<tr class="separator"><td colspan="15"></td></tr>-->
+								<!--<tr class="separator"><td colspan="16"></td></tr>-->
 							{% endfor %}
 						</tbody>
 					</table>

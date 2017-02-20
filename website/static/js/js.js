@@ -123,15 +123,27 @@ document.onreadystatechange = function () {
 
 		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
-		// var ctaCteKg = document.getElementById('ctacte');
-		// if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
-		// 	var check = ctaCteKg.getElementsByTagName('input');
-		// 	for (i = 0; i < check.length; i++) {
-		// 		check[i].addEventListener('click', function(event) {
-		// 			console.log('click');
-		// 		});
-		// 	}
-		// }
+		var ctaCteKg = document.getElementById('ctacte');
+		if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
+			var showAnalysis = ctaCteKg.getElementsByClassName('show-analysis');
+			for (i = 0; i < showAnalysis.length; i++) {
+				showAnalysis[i].addEventListener('click', function(event) {
+					event.preventDefault();
+					addClass(this.parentElement.parentElement.nextElementSibling, 'show');
+					toggleClass(this, 'hide-btn');
+					toggleClass(this.nextElementSibling, 'hide-btn');
+				});
+			}
+			var hideAnalysis = ctaCteKg.getElementsByClassName('hide-analysis');
+			for (i = 0; i < hideAnalysis.length; i++) {
+				hideAnalysis[i].addEventListener('click', function(event) {
+					event.preventDefault();
+					removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
+					toggleClass(this, 'hide-btn');
+					toggleClass(this.previousElementSibling, 'hide-btn');
+				});
+			}
+		}
 
 
 		/// Scroll FadeIn ////////////////////////////////////////////////////////////////////////////////////

@@ -780,6 +780,13 @@ footer
 				text-align right
 			&.center
 				text-align center
+			& .hide-btn
+				display none
+			& .show-analysis i, .hide-analysis i
+				color $baseColor
+				font-size 1.1em
+			& .hide-analysis i
+				color $accentColor
 		thead
 			tr
 				background-color $baseColor
@@ -788,6 +795,10 @@ footer
 				font-size 1.2em
 				padding .4em 0
 		tr
+			&.analysis
+				display none
+				&.show
+					display table-row
 			&.total
 				color $accentColor
 				td

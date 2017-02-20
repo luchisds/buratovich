@@ -1684,6 +1684,17 @@ footer .cv div span:hover .work {
 #ctacte table td.center {
   text-align: center;
 }
+#ctacte table td .hide-btn {
+  display: none;
+}
+#ctacte table td .show-analysis i,
+#ctacte table td .hide-analysis i {
+  color: #018d34;
+  font-size: 1.1em;
+}
+#ctacte table td .hide-analysis i {
+  color: #065a7a;
+}
 #ctacte table thead tr {
   background-color: #018d34;
 }
@@ -1691,6 +1702,12 @@ footer .cv div span:hover .work {
   color: #fff;
   font-size: 1.2em;
   padding: 0.4em 0;
+}
+#ctacte table tr.analysis {
+  display: none;
+}
+#ctacte table tr.analysis.show {
+  display: table-row;
 }
 #ctacte table tr.total {
   color: #065a7a;
