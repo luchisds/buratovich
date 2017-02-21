@@ -769,6 +769,26 @@ footer .foot:last-child {
 #contact .areas .column:last-child {
   margin-right: 0%;
 }
+#contact .maps div {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 49.4%;
+  margin-left: 0%;
+  margin-right: 1.2%;
+}
+#contact .maps div:before,
+#contact .maps div:after {
+  content: '';
+  display: table;
+}
+#contact .maps div:after {
+  clear: both;
+}
+#contact .maps div:last-child {
+  margin-right: 0%;
+}
 header {
   overflow: hidden;
   padding: 1em 0;
@@ -1469,7 +1489,7 @@ footer .cv div span:hover .work {
   border: 1px solid #018d34;
 }
 #contact .offices {
-  margin: 1em 0;
+  margin: 1em 0 2.5em 0;
   overflow: hidden;
 }
 #contact .offices div img {
@@ -1535,6 +1555,15 @@ footer .cv div span:hover .work {
 #contact .areas h2 {
   margin: 1em 0 1.5em 0;
   text-align: center;
+}
+#contact .maps {
+  overflow: hidden;
+}
+#contact .maps #basMap {
+  border-radius: 0 3px 3px 0;
+}
+#contact .maps #chacoMap {
+  border-radius: 3px 0 0 3px;
 }
 #login .state {
   margin: 2em 0;

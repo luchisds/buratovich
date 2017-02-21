@@ -21,29 +21,34 @@
 			<img src="{% static "img/office_arrecifes.jpg" %}" alt="">
 			<h3>Oficina ARRECIFES</h3>
 			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 8 y Leandro N. Alem</p>
+			<p><i class="fa fa-globe" aria-hidden="true"></i> Buenos Aires</p>
 			<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 02478-451500 Lineas Rotativas</p>
 		</div>
 		<div>
 			<img src="{% static "img/office_lobos.jpg" %}" alt="">
 			<h3>Oficina LOBOS</h3>
 			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 205 e Int.Miguel A.Turdó</p>
+			<p><i class="fa fa-globe" aria-hidden="true"></i> Buenos Aires</p>
 			<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 02227-15-410537</p>
 		</div>
 		<div>
 			<img src="{% static "img/office_pinedo.jpg" %}" alt="">
 			<h3>Oficina GRAL. PINEDO</h3>
 			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta Prov. 94 Km 65</p>
+			<p><i class="fa fa-globe" aria-hidden="true"></i> Chaco</p>
 			<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 03731-480600</p>
 		</div>
 		<div>
 			<img src="{% static "img/office_arrecifes.jpg" %}" alt="">
 			<h3>Oficina CHARATA</h3>
 			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta Prov. 94 Km 65</p>
+			<p><i class="fa fa-globe" aria-hidden="true"></i> Chaco</p>
 			<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 03731-480600</p>
 		</div>
 	</article>
-	<article>
-		<div id="map" style="height: 400px;"></div>
+	<article class="maps">
+		<div id="basMap" style="height: 400px;"></div>
+		<div id="chacoMap" style="height: 400px;"></div>
 	</article>
 	<article class="areas">
 		<h2>CONTACTOS POR UNIDAD DE NEGOCIOS</h2>
@@ -141,11 +146,8 @@
 
 {% block scriptjs %}
 
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBscUBCpzV6BcvWRB8OgdE8d1CBdH_NzuY&callback=initMap"></script>
-
 	<script>
 		function initMap() {
-			var myLatLng = {lat: -30.237661, lng: -60.806929};
 
 			var styleArray = [
 				{
@@ -169,67 +171,91 @@
 				}
 			];
 
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 5,
-				center: myLatLng,
+			var basLatLng = {lat: -34.552769, lng: -59.488081};
+			var chacoLatLng = {lat: -27.2530632, lng: -61.292384};
+			var chLatLng = {lat: -27.224199, lng: -61.190521};
+			var gpLatLng = {lat: -27.321000, lng: -61.262627};
+			var arLatLng = {lat: -34.0619369, lng: -60.1060231};
+			var loLatLng = {lat: -35.175489, lng: -59.061557};
+		
+			// Mapa Bs. As.
+			var basMap = new google.maps.Map(document.getElementById('basMap'), {
+				zoom: 8,
+				center: basLatLng,
 				scrollwheel: false,
 				streetViewControl: false,
 				mapTypeControl: false,
 				styles: styleArray,
 			});
 
-			var charata = new google.maps.Marker({
-				position: {lat: -27.224199, lng: -61.190521},
-				map: map,
-				title: 'CHARATA',
-				icon: '{% static "img/marker.png" %}',
+			// Mapa Chaco
+			var chacoMap = new google.maps.Map(document.getElementById('chacoMap'), {
+				zoom: 9,
+				center: chacoLatLng,
+				scrollwheel: false,
+				streetViewControl: false,
+				mapTypeControl: false,
+				styles: styleArray,
 			});
 
-			var arrecifes = new google.maps.Marker({
-				position: {lat: -34.0619369, lng: -60.1060231},
-				map: map,
-				title: 'ARRECIFES',
-				icon: '{% static "img/marker.png" %}',
+			// Markers
+			var charata = new google.maps.Marker({
+				position: chLatLng,
+				map: chacoMap,
+				title: 'CHARATA',
+				icon: '{% static "img/ch_marker.png" %}',
 			});
 
 			var pinedo = new google.maps.Marker({
-				position: {lat: -27.321000, lng: -61.262627},
-				map: map,
+				position: gpLatLng,
+				map: chacoMap,
 				title: 'GRAL. PINEDO',
-				icon: '{% static "img/marker.png" %}',
+				icon: '{% static "img/gp_marker.png" %}',
+			});
+
+			var arrecifes = new google.maps.Marker({
+				position: arLatLng,
+				map: basMap,
+				title: 'ARRECIFES',
+				icon: '{% static "img/ar_marker.png" %}',
 			});
 
 			var lobos = new google.maps.Marker({
-				position: {lat: -35.175489, lng: -59.061557},
-				map: map,
+				position: loLatLng,
+				map: basMap,
 				title: 'LOBOS',
-				icon: '{% static "img/marker.png" %}',
+				icon: '{% static "img/lo_marker.png" %}',
 			});
 
-			var arrecifesText = new google.maps.InfoWindow({
-				content: 'Arrecifes',
-				disableAutoPan: true,
-			});
-			arrecifesText.open(map, arrecifes);
+			// Info Windows
+			// var charataText = new google.maps.InfoWindow({
+			// 	content: 'Charata',
+			// 	disableAutoPan: true,
+			// });
+			// charataText.open(chacoMap, charata);
 
-			var charataText = new google.maps.InfoWindow({
-				content: 'Charata',
-				disableAutoPan: true,
-			});
-			charataText.open(map, charata);
+			// var pinedoText = new google.maps.InfoWindow({
+			// 	content: 'Gral. Pinedo',
+			// 	disableAutoPan: true,
+			// });
+			// pinedoText.open(chacoMap, pinedo);
 
-			var lobosText = new google.maps.InfoWindow({
-				content: 'Lobos',
-				disableAutoPan: true,
-			});
-			lobosText.open(map, lobos);
+			// var arrecifesText = new google.maps.InfoWindow({
+			// 	content: 'Arrecifes',
+			// 	disableAutoPan: true,
+			// });
+			// arrecifesText.open(basMap, arrecifes);
 
-			var pinedoText = new google.maps.InfoWindow({
-				content: 'Gral. Pinedo',
-				disableAutoPan: true,
-			});
-			pinedoText.open(map, pinedo);
+			// var lobosText = new google.maps.InfoWindow({
+			// 	content: 'Lobos',
+			// 	disableAutoPan: true,
+			// });
+			// lobosText.open(basMap, lobos);
+			
 		}
+	</script>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBscUBCpzV6BcvWRB8OgdE8d1CBdH_NzuY&callback=initMap">
 	</script>
 
 {% endblock %}
