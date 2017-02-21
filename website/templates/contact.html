@@ -140,18 +140,78 @@
 {% endblock %}
 
 {% block scriptjs %}
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
 
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaGlzZHMiLCJhIjoiVkNPam1nTSJ9.xmW7X9AcRugB2l_V6A5gUA';
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/luchisds/cizeku3m500as2rnqv2cytig8',
-    minZoom: 5,
-    scrollZoom: false,
-    center: [-31.4845511,-67.1153538]
-});
-</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBscUBCpzV6BcvWRB8OgdE8d1CBdH_NzuY&callback=initMap"></script>
+
+	<script>
+		function initMap() {
+			var myLatLng = {lat: -32.237661, lng: -60.806929};
+
+			var styleArray = [
+				{
+					featureType: 'all',
+					stylers: [
+						{ saturation: -80 }
+					]
+				},{
+					featureType: 'road.arterial',
+					elementType: 'geometry',
+					stylers: [
+						{ hue: '#00ffee' },
+						{ saturation: 50 }
+					]
+				},{
+					featureType: 'poi.business',
+					elementType: 'labels',
+					stylers: [
+						{ visibility: 'off' }
+					]
+				}
+			];
+
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 5,
+				center: myLatLng,
+				scrollwheel: false,
+				streetViewControl: false,
+				mapTypeControl: false,
+				styles: styleArray,
+			});
+
+			var charata = new google.maps.Marker({
+				position: {lat: -27.224199, lng: -61.190521},
+				map: map,
+				title: 'CHARATA',
+				icon: '{% static "img/marker.png" %}',
+			});
+
+			// var arrecifes = new google.maps.Marker({
+			// 	position: {lat: -34.0619369, lng: -60.1060231},
+			// 	map: map,
+			// 	title: 'ARRECIFES'
+			// });
+
+			var arrecifes = new google.maps.Marker({
+				position: {lat: -34.0619369, lng: -60.1060231},
+				map: map,
+				title: 'ARRECIFES',
+				icon: '{% static "img/marker.png" %}',
+			});
+
+			var pinedo = new google.maps.Marker({
+				position: {lat: -27.321000, lng: -61.262627},
+				map: map,
+				title: 'GRAL. PINEDO',
+				icon: '{% static "img/marker.png" %}',
+			});
+
+			var lobos = new google.maps.Marker({
+				position: {lat: -35.175489, lng: -59.061557},
+				map: map,
+				title: 'LOBOS',
+				icon: '{% static "img/marker.png" %}',
+			});
+		}
+	</script>
 
 {% endblock %}
