@@ -145,7 +145,7 @@
 
 	<script>
 		function initMap() {
-			var myLatLng = {lat: -32.237661, lng: -60.806929};
+			var myLatLng = {lat: -30.237661, lng: -60.806929};
 
 			var styleArray = [
 				{
@@ -185,12 +185,6 @@
 				icon: '{% static "img/marker.png" %}',
 			});
 
-			// var arrecifes = new google.maps.Marker({
-			// 	position: {lat: -34.0619369, lng: -60.1060231},
-			// 	map: map,
-			// 	title: 'ARRECIFES'
-			// });
-
 			var arrecifes = new google.maps.Marker({
 				position: {lat: -34.0619369, lng: -60.1060231},
 				map: map,
@@ -211,6 +205,30 @@
 				title: 'LOBOS',
 				icon: '{% static "img/marker.png" %}',
 			});
+
+			var arrecifesText = new google.maps.InfoWindow({
+				content: 'Arrecifes',
+				disableAutoPan: true,
+			});
+			arrecifesText.open(map, arrecifes);
+
+			var charataText = new google.maps.InfoWindow({
+				content: 'Charata',
+				disableAutoPan: true,
+			});
+			charataText.open(map, charata);
+
+			var lobosText = new google.maps.InfoWindow({
+				content: 'Lobos',
+				disableAutoPan: true,
+			});
+			lobosText.open(map, lobos);
+
+			var pinedoText = new google.maps.InfoWindow({
+				content: 'Gral. Pinedo',
+				disableAutoPan: true,
+			});
+			pinedoText.open(map, pinedo);
 		}
 	</script>
 
