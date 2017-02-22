@@ -3,7 +3,7 @@
 import math
 import os
 import re
-from datetime import datetime
+import datetime
 from collections import OrderedDict
 
 from django.conf import settings
@@ -98,7 +98,7 @@ def auth_logout(request):
 
 @login_required
 def extranet(request):
-	notifications = Notifications.objects.filter(active=True)
+	notifications = Notifications.objects.filter(active=True, date_to__gte=datetime.date.today())
 	notifications_list = []
 	notifications_id = []
 	for n in notifications:
@@ -572,7 +572,7 @@ def importdata(request, datatype):
 	def evalDate(date):
 		# Catch format error in date
 		try:
-			return datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
+			return datetime.datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
 		except ValueError:
 			return None
 
