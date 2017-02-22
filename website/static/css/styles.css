@@ -1726,6 +1726,7 @@ footer .cv div span:hover .work {
 }
 #ctacte table td {
   border-bottom: 1px solid #ccc;
+  height: 23px;
   padding: 0.2em 0;
 }
 #ctacte table td.right {
