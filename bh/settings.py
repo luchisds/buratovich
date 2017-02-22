@@ -148,6 +148,10 @@ STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+STATICFILES_DIRS = [
+	('ctacte', os.path.join(BASE_DIR, 'FTP', 'CtaCtePesos')),
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
