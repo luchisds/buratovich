@@ -129,6 +129,17 @@ def notifications(request):
 
 @login_required
 def ctacte(request):
+
+	vouchers = {
+		'LC': {'codigo': ['C',], 'separator': ' '},
+		'IC': {'codigo': ['C',], 'separator': ' '},
+		'LB': {'codigo': ['B',], 'separator': ' '},
+		'IB': {'codigo': ['B',], 'separator': ' '},
+		'ND': {'codigo': ['HNDCER','HNDE','NDE','NDECAJ','NDECER','NDEPER',], 'separator': '_'},
+		'NC': {'codigo': ['HNCCER','HNCR','NCR','NCRCER','NCRDEV','NCSCER',], 'separator': '_'},
+		'FC': {'codigo': ['FAC','FACCER','FACD','FACSER','FASCER','HFAC','HFACER',], 'separator': '_'},
+	}
+
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
 		# Queryset with cta cte data
@@ -147,6 +158,20 @@ def ctacte(request):
 				tmp_dict['obj'] = d
 				tmp_dict['balance'] = balance
 				records.append(tmp_dict)
+				
+				voucher_list = d['voucher'].split(' ')
+				if vouchers.get(voucher_list[0], None) is None:
+					print None
+				else:
+					separator = vouchers[voucher_list[0]]['separator']
+					for c in vouchers[voucher_list[0]]['codigo']:
+						file_name = c + separator + voucher_list[1] + separator + voucher_list[2] + '.pdf'
+						file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCtePesos', file_name)
+						if os.path.isfile(file):
+							print 'Existe'
+						else:
+							print 'No Existe'
+
 
 			#### Create a new sorted queryset/list
 			limit = settings.EL_PAGINATION_PER_PAGE
