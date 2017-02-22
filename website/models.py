@@ -419,6 +419,8 @@ class Notifications(models.Model):
 	title = models.CharField(max_length=200, verbose_name='Titulo')
 	notification = models.TextField(verbose_name='Notificación')
 	active = models.BooleanField(verbose_name='Activa/Inactiva', default=True)
+	date_from = models.DateField(verbose_name='Vigencia Desde')
+	date_to = models.DateField(verbose_name='Vigencia Hasta')
 
 	class Meta:
 		verbose_name = 'Notificación'
