@@ -266,7 +266,6 @@
 
 	var request = ajax({
 		headers: {
-			//'X-Requested-With': 'XMLHttpRequest'
 			'X-CSRFToken': csrftoken
 		}
 	});
@@ -279,7 +278,7 @@
 	});
 
 	function getCurrencyAjax(date) {
-		request.post('/currency/', {date:'date'}).then(function(response, xhr){
+		request.post('/currency/', {date:date}).then(function(response, xhr){
 			console.log(response);
 		}).catch(function (response, xhr) {
 			console.log('Error: ' + response);

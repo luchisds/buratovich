@@ -12,6 +12,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
@@ -35,22 +36,29 @@ from models import Remittances
 
 
 def index(request):
-	if request.POST:
-		if request.POST.get('usd'):
-			currency = Currencies.objects.filter(date=request.POST.get('usd'))
-			board = Board.objects.order_by('-date')[:1]
-		elif request.POST.get('board'):
-			currency = Currencies.objects.order_by('-date')[:1]
-			board = Board.objects.filter(date=request.POST.get('board'))
-	else:
-		currency = Currencies.objects.order_by('-date')[:1]
-		board = Board.objects.order_by('-date')[:1]
+	# if request.POST:
+	# 	if request.POST.get('usd'):
+	# 		currency = Currencies.objects.filter(date=request.POST.get('usd'))
+	# 		board = Board.objects.order_by('-date')[:1]
+	# 	elif request.POST.get('board'):
+	# 		currency = Currencies.objects.order_by('-date')[:1]
+	# 		board = Board.objects.filter(date=request.POST.get('board'))
+	# else:
+	currency = Currencies.objects.order_by('-date')[:1]
+	board = Board.objects.order_by('-date')[:1]
 
 	return render(request, 'index.html', {'currency': currency, 'board': board})
 
 
 def get_currency(request):
-	return JsonResponse({'data': 'esta es la respuesta'})
+	if request.POST:
+		if request.POST.get('date'):
+			currency = Currencies.objects.filter(date=request.POST.get('date'))
+
+		if currency:
+			return JsonResponse({'data': serializers.serialize('json',currency)})
+		else:
+			return JsonResponse({'data': 'No se encontro TC para la fecha solicitada.'})
 
 
 def company(request):
