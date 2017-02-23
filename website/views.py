@@ -52,13 +52,23 @@ def index(request):
 
 def get_currency(request):
 	if request.POST:
-		if request.POST.get('date'):
-			currency = Currencies.objects.filter(date=request.POST.get('date'))
+		if request.POST.get('cDate'):
+			currency = Currencies.objects.filter(date=request.POST.get('cDate'))
 
 		if currency:
 			return JsonResponse({'data': serializers.serialize('json',currency)})
 		else:
-			return JsonResponse({'data': 'No se encontro TC para la fecha solicitada.'})
+			return JsonResponse({'data': None})
+
+def get_board(request):
+	if request.POST:
+		if request.POST.get('bDate'):
+			board = Board.objects.filter(date=request.POST.get('bDate'))
+
+		if board:
+			return JsonResponse({'data': serializers.serialize('json',board)})
+		else:
+			return JsonResponse({'data': None})
 
 
 def company(request):

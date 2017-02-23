@@ -35,6 +35,7 @@ urlpatterns = [
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
 
 	url(r'^currency/$', views.get_currency, name='currency'),
+	url(r'^board/$', views.get_board, name='board'),
 
 	url(r'^import/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
