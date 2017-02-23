@@ -315,17 +315,6 @@ footer
 				font-size 1.5em
 				padding 0 .7em
 				vertical-align middle
-				// &:before
-				// 	border-top 4px solid $baseColor
-				// 	bottom 0
-				// 	content ""
-				// 	left 0
-				// 	margin 0 auto
-				// 	position absolute
-				// 	right 0
-				// 	top 55%
-				// 	width 100%
-				// 	z-index -1
 				span
 					display inline-block
 					position relative
@@ -447,6 +436,16 @@ footer
 					&:hover
 						td
 							background #4E5066
+			&.currency-error, &.board-error
+				display none
+				td
+					color $midGrey
+					font-size 1.5em
+					padding 1em 0
+					text-align center
+			&.board-error
+				td
+					padding 4em 0
 
 
 /*#### COMPANY ################################################################*/

@@ -1328,6 +1328,20 @@ footer .cv div span:hover .work {
 #home .utils table tr:nth-child(odd):hover td {
   background: #4e5066;
 }
+#home .utils table.currency-error,
+#home .utils table.board-error {
+  display: none;
+}
+#home .utils table.currency-error td,
+#home .utils table.board-error td {
+  color: #ccc;
+  font-size: 1.5em;
+  padding: 1em 0;
+  text-align: center;
+}
+#home .utils table.board-error td {
+  padding: 4em 0;
+}
 #company {
   overflow: hidden;
   position: relative;

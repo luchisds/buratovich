@@ -97,10 +97,10 @@
 				</h3>
 				<div class="container">
 					{% for b in board %}
-						<table>
+						<table class="board-ok">
 							<thead>
 								<tr>
-									<th>{{b.date|date:"d/m/Y"}}</th>
+									<th class="board-date">{{b.date|date:"d/m/Y"}}</th>
 									<th>ROS.</th>
 									<th>BS. AS.</th>
 									<th>QQ.</th>
@@ -110,51 +110,64 @@
 							<tbody>
 								<tr>
 									<td>Trigo</td>
-									<td>{{b.wheat_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat_bb|floatformat:2|intcomma}}</td>
+									<td id="wheat-ros">{{b.wheat_ros|floatformat:2|intcomma}}</td>
+									<td id="wheat-bas">{{b.wheat_bas|floatformat:2|intcomma}}</td>
+									<td id="wheat-qq">{{b.wheat_qq|floatformat:2|intcomma}}</td>
+									<td id="wheat-bb">{{b.wheat_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Trigo Art. 12</td>
-									<td>{{b.wheat12_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat12_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat12_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.wheat12_bb|floatformat:2|intcomma}}</td>
+									<td id="wheat12-ros">{{b.wheat12_ros|floatformat:2|intcomma}}</td>
+									<td id="wheat12-bas">{{b.wheat12_bas|floatformat:2|intcomma}}</td>
+									<td id="wheat12-qq">{{b.wheat12_qq|floatformat:2|intcomma}}</td>
+									<td id="wheat12-bb">{{b.wheat12_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Maíz</td>
-									<td>{{b.corn_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.corn_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.corn_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.corn_bb|floatformat:2|intcomma}}</td>
+									<td id="corn-ros">{{b.corn_ros|floatformat:2|intcomma}}</td>
+									<td id="corn-bas">{{b.corn_bas|floatformat:2|intcomma}}</td>
+									<td id="corn-qq">{{b.corn_qq|floatformat:2|intcomma}}</td>
+									<td id="corn-bb">{{b.corn_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Girasol</td>
-									<td>{{b.sunflower_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.sunflower_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.sunflower_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.sunflower_bb|floatformat:2|intcomma}}</td>
+									<td id="sunflower-ros">{{b.sunflower_ros|floatformat:2|intcomma}}</td>
+									<td id="sunflower-bas">{{b.sunflower_bas|floatformat:2|intcomma}}</td>
+									<td id="sunflower-qq">{{b.sunflower_qq|floatformat:2|intcomma}}</td>
+									<td id="sunflower-bb">{{b.sunflower_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Soja</td>
-									<td>{{b.soy_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.soy_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.soy_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.soy_bb|floatformat:2|intcomma}}</td>
+									<td id="soy-ros">{{b.soy_ros|floatformat:2|intcomma}}</td>
+									<td id="soy-bas">{{b.soy_bas|floatformat:2|intcomma}}</td>
+									<td id="soy-qq">{{b.soy_qq|floatformat:2|intcomma}}</td>
+									<td id="soy-bb">{{b.soy_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Sorgo</td>
-									<td>{{b.sorghum_ros|floatformat:2|intcomma}}</td>
-									<td>{{b.sorghum_bas|floatformat:2|intcomma}}</td>
-									<td>{{b.sorghum_qq|floatformat:2|intcomma}}</td>
-									<td>{{b.sorghum_bb|floatformat:2|intcomma}}</td>
+									<td id="sorghum-ros">{{b.sorghum_ros|floatformat:2|intcomma}}</td>
+									<td id="sorghum-bas">{{b.sorghum_bas|floatformat:2|intcomma}}</td>
+									<td id="sorghum-qq">{{b.sorghum_qq|floatformat:2|intcomma}}</td>
+									<td id="sorghum-bb">{{b.sorghum_bb|floatformat:2|intcomma}}</td>
 								</tr>
 							</tbody>
 						</table>
-						<span class="data">+ Precios del día <span>{{b.date|date:"d/m/Y"}}</span></span>
+						<table class="board-error">
+							<tr>
+								<th class="board-date"></th>
+								<th>ROS.</th>
+								<th>BS. AS.</th>
+								<th>QQ.</th>
+								<th>B.B.</th>
+							</tr>
+							<tr>
+								<td colspan="5" rowspan="6">Sin Pizarra</td>
+							</tr>
+						</table>
+						<span class="data">+ Precios del día <span id="b-data-date">{{b.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<form action="/" method="post">
+					<!--<form action="/" method="post">-->
+					<form id="board">
 					{% csrf_token %}
 						<fieldset>
 							<legend>Ver pizarra del: </legend>
@@ -180,24 +193,34 @@
 				</h3>
 				<div class="container">
 					{% for c in currency %}
-						<table>
+						<table class="currency-ok">
 							<tr>
-								<th>{{c.date|date:"d/m/Y"}}</th>
+								<th class="currency-date">{{c.date|date:"d/m/Y"}}</th>
 								<th>Compra</th>
 								<th>Venta</th>
 							</tr>
 							<tr>
 								<td>DOLAR NACION</td>
-								<td>{{c.dn_buy|floatformat:2|intcomma}}</td>
-								<td>{{c.dl_buy|floatformat:2|intcomma}}</td>
+								<td id="dn-buy">{{c.dn_buy|floatformat:2|intcomma}}</td>
+								<td id="dl-buy">{{c.dl_buy|floatformat:2|intcomma}}</td>
 							</tr>
 							<tr>
 								<td>DOLAR LIBRE</td>
-								<td>{{c.dn_sell|floatformat:2|intcomma}}</td>
-								<td>{{c.dl_sell|floatformat:2|intcomma}}</td>
+								<td id="dn-sell">{{c.dn_sell|floatformat:2|intcomma}}</td>
+								<td id="dl-sell">{{c.dl_sell|floatformat:2|intcomma}}</td>
 							</tr>
 						</table>
-						<span class="data">+ Cotización del día <span>{{c.date|date:"d/m/Y"}}</span></span>
+						<table class="currency-error">
+							<tr>
+								<th class="currency-date"></th>
+								<th>Compra</th>
+								<th>Venta</th>
+							</tr>
+							<tr>
+								<td colspan="3" rowspan="2">Sin Cotización</td>
+							</tr>
+						</table>
+						<span class="data">+ Cotización del día <span id="c-data-date">{{c.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
 					<!--<form action="/" method="post" id="currency">-->
 					<form id="currency">
@@ -277,12 +300,105 @@
 		getCurrencyAjax(date);
 	});
 
+	var board = document.getElementById('board');
+	board.addEventListener('submit', function(event) {
+		event.preventDefault();
+		var date = document.getElementById('date').value;
+		getBoardAjax(date);
+	});
+
 	function getCurrencyAjax(date) {
-		request.post('/currency/', {date:date}).then(function(response, xhr){
-			console.log(response);
+		request.post('/currency/', {cDate:date}).then(function(response, xhr){
+			var obj = JSON.parse(response.data);
+			if(obj) {
+				if(document.getElementsByClassName('currency-ok')[0].style.display == 'none') {
+					document.getElementsByClassName('currency-error')[0].style.display= 'none';
+					document.getElementsByClassName('currency-ok')[0].style.display= 'table';
+				}
+				document.getElementById('dn-buy').innerHTML = floatToString(obj[0].fields.dn_buy);
+				document.getElementById('dl-buy').innerHTML = floatToString(obj[0].fields.dl_buy);
+				document.getElementById('dn-sell').innerHTML = floatToString(obj[0].fields.dn_sell);
+				document.getElementById('dl-sell').innerHTML = floatToString(obj[0].fields.dl_sell);
+			} else {
+				document.getElementsByClassName('currency-ok')[0].style.display= 'none';
+				document.getElementsByClassName('currency-error')[0].style.display= 'table';
+			}
+			var formatDate = getDateWithFormat(date);
+			currencyDate = document.getElementsByClassName('currency-date');
+			for(var i = 0; i < currencyDate.length; i++) {
+				currencyDate[i].innerHTML = formatDate;
+			}
+			document.getElementById('c-data-date').innerHTML = formatDate;
 		}).catch(function (response, xhr) {
 			console.log('Error: ' + response);
 		});
+	}
+
+	function getBoardAjax(date) {
+		request.post('/board/', {bDate:date}).then(function(response, xhr){
+			var obj = JSON.parse(response.data);
+			if(obj) {
+				if(document.getElementsByClassName('board-ok')[0].style.display == 'none') {
+					document.getElementsByClassName('board-error')[0].style.display= 'none';
+					document.getElementsByClassName('board-ok')[0].style.display= 'table';
+				}
+				console.log(obj[0]);
+				document.getElementById('corn-bas').innerHTML = floatToString(obj[0].fields.corn_bas);
+				document.getElementById('corn-bb').innerHTML = floatToString(obj[0].fields.corn_bb);
+				document.getElementById('corn-qq').innerHTML = floatToString(obj[0].fields.corn_qq);
+				document.getElementById('corn-ros').innerHTML = floatToString(obj[0].fields.corn_ros);
+				document.getElementById('sorghum-bas').innerHTML = floatToString(obj[0].fields.sorghum_bas);
+				document.getElementById('sorghum-bb').innerHTML = floatToString(obj[0].fields.sorghum_bb);
+				document.getElementById('sorghum-qq').innerHTML = floatToString(obj[0].fields.sorghum_qq);
+				document.getElementById('sorghum-ros').innerHTML = floatToString(obj[0].fields.sorghum_ros);
+				document.getElementById('soy-bas').innerHTML = floatToString(obj[0].fields.soy_bas);
+				document.getElementById('soy-bb').innerHTML = floatToString(obj[0].fields.soy_bb);
+				document.getElementById('soy-qq').innerHTML = floatToString(obj[0].fields.soy_qq);
+				document.getElementById('soy-ros').innerHTML = floatToString(obj[0].fields.soy_ros);
+				document.getElementById('sunflower-bas').innerHTML = floatToString(obj[0].fields.sunflower_bas);
+				document.getElementById('sunflower-bb').innerHTML = floatToString(obj[0].fields.sunflower_bb);
+				document.getElementById('sunflower-qq').innerHTML = floatToString(obj[0].fields.sunflower_qq);
+				document.getElementById('sunflower-ros').innerHTML = floatToString(obj[0].fields.sunflower_ros);
+				document.getElementById('wheat12-bas').innerHTML = floatToString(obj[0].fields.wheat12_bas);
+				document.getElementById('wheat12-bb').innerHTML = floatToString(obj[0].fields.wheat12_bb);
+				document.getElementById('wheat12-qq').innerHTML = floatToString(obj[0].fields.wheat12_qq);
+				document.getElementById('wheat12-ros').innerHTML = floatToString(obj[0].fields.wheat12_ros);
+				document.getElementById('wheat-bas').innerHTML = floatToString(obj[0].fields.wheat_bas);
+				document.getElementById('wheat-bb').innerHTML = floatToString(obj[0].fields.wheat_bb);
+				document.getElementById('wheat-qq').innerHTML = floatToString(obj[0].fields.wheat_qq);
+				document.getElementById('wheat-ros').innerHTML = floatToString(obj[0].fields.wheat_ros);
+			} else {
+				document.getElementsByClassName('board-ok')[0].style.display= 'none';
+				document.getElementsByClassName('board-error')[0].style.display= 'table';
+			}
+			var formatDate = getDateWithFormat(date);
+			boardDate = document.getElementsByClassName('board-date');
+			for(var i = 0; i < boardDate.length; i++) {
+				boardDate[i].innerHTML = formatDate;
+			}
+			document.getElementById('b-data-date').innerHTML = formatDate;
+		}).catch(function (response, xhr) {
+			console.log('Error: ' + response);
+		});
+	}
+
+	function getDateWithFormat(date) {
+		var d = new Date(date);
+		var month = d.getUTCMonth() + 1; //months from 1-12
+		var day = d.getUTCDate();
+		var year = d.getUTCFullYear();
+		return ('0' + day).slice(-2) + '/' + ('0' + month).slice(-2) + '/' + year
+	}
+
+	function floatToString(num) {
+		if(num) {
+			num = parseFloat(num).toFixed(2);
+			var numStr = num.toString();
+			numStr = numStr.replace('.', ',');
+			return numStr;
+		} else {
+			return null;
+		}
 	}
 
 </script>
