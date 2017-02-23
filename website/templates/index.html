@@ -199,7 +199,8 @@
 						</table>
 						<span class="data">+ Cotización del día <span>{{c.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<form action="/" method="post">
+					<!--<form action="/" method="post" id="currency">-->
+					<form id="currency">
 					{% csrf_token %}
 						<fieldset>
 							<legend>Ver dolar del: </legend>
@@ -246,6 +247,9 @@
 {% endblock %}
 
 {% block scriptjs %}
+
+<script src="{% static "js/js.cookie.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
 <script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>
 <script>
 	var flkty = new Flickity( '.carousel', {
@@ -255,5 +259,32 @@
 		pageDots: false,
 		imagesLoaded: true
 	});
+</script>
+<script>
+
+	var csrftoken = Cookies.get('csrftoken');
+
+	var request = ajax({
+		headers: {
+			//'X-Requested-With': 'XMLHttpRequest'
+			'X-CSRFToken': csrftoken
+		}
+	});
+
+	var currency = document.getElementById('currency');
+	currency.addEventListener('submit', function(event) {
+		event.preventDefault();
+		var date = document.getElementById('usd').value;
+		getCurrencyAjax(date);
+	});
+
+	function getCurrencyAjax(date) {
+		request.post('/currency/', {date:'date'}).then(function(response, xhr){
+			console.log(response);
+		}).catch(function (response, xhr) {
+			console.log('Error: ' + response);
+		});
+	}
+
 </script>
 {% endblock %}

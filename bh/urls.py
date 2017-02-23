@@ -24,15 +24,17 @@ urlpatterns = [
 	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),
 	url(r'^login/required/$', views.auth_login_required, name='login_required'),
 	url(r'^logout/$', views.auth_logout, name='logout'),
+
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
 	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
 	url(r'^extranet/ctacte/applied/$', views.applied, name='applied'),
 	url(r'^extranet/ctacte/kilos/$', views.deliveries, name='deliveries'),
 	url(r'^extranet/sales/$', views.sales, name='sales'),
-
 	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
+
+	url(r'^currency/$', views.get_currency, name='currency'),
 
 	url(r'^import/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

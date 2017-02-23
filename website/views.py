@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 
@@ -46,6 +47,10 @@ def index(request):
 		board = Board.objects.order_by('-date')[:1]
 
 	return render(request, 'index.html', {'currency': currency, 'board': board})
+
+
+def get_currency(request):
+	return JsonResponse({'data': 'esta es la respuesta'})
 
 
 def company(request):
