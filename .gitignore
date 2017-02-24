@@ -1,8 +1,10 @@
 # Staticfiles
 staticfiles/
 
-# Fixtures
+# Fixtures and initial data
 data.json
+db_dumps/
+cuentas.csv
 
 # Sqlite
 *.sqlite3
