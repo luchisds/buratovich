@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
 
-from website.models import UserInfo
+from website.models import UserInfo	
 
 class Command(BaseCommand):
 	help = 'Import users from csv file'
@@ -14,8 +14,6 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		file = os.path.join(settings.BASE_DIR, 'cuentas.csv')
 		with open(file, 'r') as accounts:
-
-			# default_password = 'tsc_eclub'
 
 			reader = csv.reader(accounts, delimiter=';')
 			# First line is header
@@ -35,6 +33,7 @@ class Command(BaseCommand):
 						userinfo = UserInfo(user_id=user.id)
 						userinfo.algoritmo_code = cod
 						userinfo.company_name = name
+						userinfo.old_user = True
 						userinfo.save()
 						self.stdout.write(self.style.SUCCESS('Successfully created user "%s"' % name))
 					except IntegrityError:
