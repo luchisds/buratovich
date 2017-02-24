@@ -27,14 +27,15 @@ class Command(BaseCommand):
 				user = row[2]
 				passw = row[3]
 				email = ''
-				try:
-					user = User.objects.create_user(user, email, passw)
-					user.is_staff = False
-					user.save()
-					userinfo = UserInfo(user_id=user.id)
-					userinfo.algoritmo_code = cod
-					userinfo.company_name = name
-					userinfo.save()
-					self.stdout.write(self.style.SUCCESS('Successfully created user "%s"' % name))
-				except IntegrityError:
-					print name
+				if passw:
+					try:
+						user = User.objects.create_user(user, email, passw)
+						user.is_staff = False
+						user.save()
+						userinfo = UserInfo(user_id=user.id)
+						userinfo.algoritmo_code = cod
+						userinfo.company_name = name
+						userinfo.save()
+						self.stdout.write(self.style.SUCCESS('Successfully created user "%s"' % name))
+					except IntegrityError:
+						print name
