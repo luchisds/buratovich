@@ -10,7 +10,7 @@ class UserInfo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	algoritmo_code = models.IntegerField(unique=True, verbose_name='Cuenta Algoritmo')
 	company_name = models.CharField(max_length=150, verbose_name='Razón Social')
-	old_user = models.BooleanField(default=False)
+	# old_user = models.BooleanField(default=False)
 
 
 class Analysis(models.Model):
