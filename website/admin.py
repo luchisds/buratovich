@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 
+from django.forms import ModelForm
+from django import forms
+
 from website.models import UserInfo
 from website.models import CtaCte
 from website.models import Notifications
@@ -11,14 +14,37 @@ from website.models import Currencies
 from website.models import Board
 
 
+# Unregister models
+admin.site.unregister(User)
+admin.site.unregister(Group)
+
+
+class UserCreateForm(ModelForm):
+	username = forms.CharField(required=True)
+	email = forms.EmailField(required=True)
+
+	class Meta:
+		model = User
+		fields = ('username', 'email',)
+
+
 class UserInline(admin.StackedInline):
 	model = UserInfo
 	can_delete = False
 	verbose_name = 'Informacion Algoritmo'
 	verbose_name_plural = 'Informacion Algoritmo'
 
+
 class UserAdmin(BaseUserAdmin):
 	inlines = (UserInline, )
+	add_form = UserCreateForm
+	
+	add_fieldsets = (
+		(None, {
+			'classes': ('wide',),
+			'fields': ('username', 'email',)}
+		),
+	)
 
 
 class CurrenciesAdmin(admin.ModelAdmin):
@@ -33,6 +59,7 @@ class CurrenciesAdmin(admin.ModelAdmin):
 			'fields': (('dn_sell', 'dl_sell'),),
 		}),
 	)
+
 
 class BoardAdmin(admin.ModelAdmin):
 	fieldsets = (
@@ -53,10 +80,6 @@ class BoardAdmin(admin.ModelAdmin):
 		}),
 	)
 
-
-# Unregister models
-admin.site.unregister(User)
-admin.site.unregister(Group)
 
 # Register models
 admin.site.register(User, UserAdmin)

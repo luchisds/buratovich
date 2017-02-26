@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
 
-from website.models import UserInfo	
+from website.models import UserInfo
 
 class Command(BaseCommand):
 	help = 'Import users from csv file'
