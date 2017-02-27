@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Nuevo Usuario</title>
+</head>
+<body>
+	<p>Nuevo usuario creado:</p>
+	<p>User name: {{data.username}}</p>
+	<p>Password: {{data.password}}</p>
+	<p>Link de activacion:</p>
+	<a href="http://127.0.0.1:8000/activate_account/{{data.uidb64}}/{{data.token}}/">Activar la cuenta</a>
+</body>
+</html>

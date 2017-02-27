@@ -11,6 +11,7 @@ class UserInfo(models.Model):
 	algoritmo_code = models.IntegerField(unique=True, verbose_name='Cuenta Algoritmo')
 	company_name = models.CharField(max_length=150, verbose_name='Razón Social')
 	# old_user = models.BooleanField(default=False)
+	account_confirmed = models.BooleanField(default=False)
 
 
 class Analysis(models.Model):

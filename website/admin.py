@@ -20,8 +20,8 @@ admin.site.unregister(Group)
 
 
 class UserCreateForm(ModelForm):
-	username = forms.CharField(required=True)
-	email = forms.EmailField(required=True)
+	username = forms.CharField(required=True, label='Nombre de usuario')
+	email = forms.EmailField(required=True, label='Direccion de email')
 
 	class Meta:
 		model = User
@@ -33,6 +33,7 @@ class UserInline(admin.StackedInline):
 	can_delete = False
 	verbose_name = 'Informacion Algoritmo'
 	verbose_name_plural = 'Informacion Algoritmo'
+	exclude = ('account_confirmed',)
 
 
 class UserAdmin(BaseUserAdmin):

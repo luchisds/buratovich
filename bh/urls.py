@@ -38,4 +38,6 @@ urlpatterns = [
 	url(r'^board/$', views.get_board, name='board'),
 
 	url(r'^import/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
+
+	# url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.ActivateAccountView.as_view(), name='activate_account'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
