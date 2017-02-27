@@ -170,5 +170,12 @@ LOGIN_REDIRECT_URL = '/extranet/'
 EL_PAGINATION_PER_PAGE = 50
 
 # Django-excel
-FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
-						"django_excel.TemporaryExcelFileUploadHandler")
+FILE_UPLOAD_HANDLERS = ('django_excel.ExcelMemoryFileUploadHandler',
+						'django_excel.TemporaryExcelFileUploadHandler')
+
+
+# EMAIL Configuration
+EMAIL_HOST = '190.224.160.35'
+EMAIL_HOST_PASSWORD = 'Admbura2017$'
+EMAIL_HOST_USER = 'notificaciones@buratovich.com'
+EMAIL_PORT = 587
