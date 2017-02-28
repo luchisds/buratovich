@@ -24,6 +24,9 @@ urlpatterns = [
 	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),
 	url(r'^login/required/$', views.auth_login_required, name='login_required'),
 	url(r'^logout/$', views.auth_logout, name='logout'),
+	url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.auth_activate_account, name='activate_account'),
+	url(r'^account/change_password/$', views.change_password, name='change_password'),
+
 
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
@@ -39,5 +42,4 @@ urlpatterns = [
 
 	url(r'^import/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
 
-	# url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.ActivateAccountView.as_view(), name='activate_account'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
