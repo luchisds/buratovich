@@ -27,6 +27,13 @@
 			<a href="/extranet/notifications/">He leido las notificaciones</a>
 		</p>
 	{% else %}
+		{% if request.user.userinfo.random_password %}
+			<div class="random-password">
+				<!--<a href="#" class="close-random-password"><i class="fa fa-times-circle" aria-hidden="true"></i></a>-->
+				<p>Le recomendamos cambiar la <strong>contraseña</strong> que se le ha asignado aleatoriamente por una nueva contraseña que solo usted conozca.</p>
+				<p>Para ello puede acceder <a href="/account/change_password/">aquí</a>.</p>
+			</div>
+		{% endif %}
 		<ul class="h-list">
 			<div class="row">
 				<li>

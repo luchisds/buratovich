@@ -16,15 +16,19 @@
 		{% if login %}
 			<p>Acceso para clientes</p>
 		{% else %}
-			{% if login_invalid %}
-				<p>¡Ops! parece que su usuario y contraseña no son validos. Intentelo nuevamente.</p>
+			{% if inactive_account %}
+				<p>Su cuenta aún no ha sido activada. Ingrese al link de activación que recibio por correo.</p>
 			{% else %}
-				{% if login_required %}
-					<p>Es necesario que ingrese con su usuario y contraseña para acceder esta pagina.</p>
+				{% if login_invalid %}
+					<p>¡Ops! parece que su usuario y contraseña no son validos. Intentelo nuevamente.</p>
+				{% else %}
+					{% if login_required %}
+						<p>Es necesario que ingrese con su usuario y contraseña para acceder esta pagina.</p>
+					{% endif %}
 				{% endif %}
 			{% endif %}
 		{% endif %}
-		<span>Si no recuerda sus datos de ingreso puede comunicarse via correo electrónico a  <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a> y recibira nuevamente su usuario y contraseña.</span>
+		<!--<span>Si no recuerda sus datos de ingreso puede comunicarse via correo electrónico a  <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a> y recibira nuevamente su usuario y contraseña.</span>-->
 	</div>
 
 	<form action="{% url 'login' %}" class="login-extranet" method="post">

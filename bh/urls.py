@@ -23,6 +23,7 @@ urlpatterns = [
 	url(r'^login/$', views.auth_login, name='login'),
 	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),
 	url(r'^login/required/$', views.auth_login_required, name='login_required'),
+	url(r'^login/inactive_account/$', views.auth_login_inactive_account, name='login_inactive_account'),
 	url(r'^logout/$', views.auth_logout, name='logout'),
 	url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.auth_activate_account, name='activate_account'),
 	url(r'^account/change_password/$', views.change_password, name='change_password'),

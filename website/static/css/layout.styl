@@ -664,6 +664,10 @@ footer
 				padding .1em .3em
 				&:hover
 					border 1px solid $baseColor
+		.account-confirmed
+			color $baseColor
+			font-size 2.2em
+			margin-bottom .5em
 	.login-extranet, .input, .submit
 		margin 0 auto
 	.login-extranet
@@ -729,6 +733,30 @@ footer
 			&:hover
 				background-color $baseColor
 				color white
+	.random-password
+		background-color rgba(100,100,100,.1)
+		border-radius 3px
+		margin 0 3em 4em 3em
+		padding 1em
+		position relative
+		& > a
+			color $accentColor
+			font-size 1.5em
+			position absolute
+			right 10px
+			top 5px
+		p
+			line-height 1.8em
+			a
+				border 1px solid $baseColor
+				// background-color $baseColor
+				border-radius 3px
+				color $baseColor
+				padding 0 .4em .1em .4em
+				transition all .3s
+				&:hover
+					background-color $baseColor
+					color white
 	.row
 		margin-top 2em
 	ul
