@@ -1580,34 +1580,43 @@ footer .cv div span:hover .work {
 #contact .maps #chacoMap {
   border-radius: 3px 0 0 3px;
 }
-#login .state {
+#login .state,
+#change-password .state {
   margin: 2em 0;
   padding: 0 2em;
   text-align: center;
 }
-#login .state p {
+#login .state p,
+#change-password .state p {
   font-size: 2em;
 }
-#login .state span {
+#login .state span,
+#change-password .state span {
   display: block;
   font-size: 1.1em;
   margin-top: 2em;
 }
-#login .state span a {
+#login .state span a,
+#change-password .state span a {
   border: 1px solid transparent;
   border-radius: 3px;
   color: #018d34;
   padding: 0.1em 0.3em;
 }
-#login .state span a:hover {
+#login .state span a:hover,
+#change-password .state span a:hover {
   border: 1px solid #018d34;
 }
 #login .login-extranet,
+#change-password .login-extranet,
 #login .input,
-#login .submit {
+#change-password .input,
+#login .submit,
+#change-password .submit {
   margin: 0 auto;
 }
-#login .login-extranet {
+#login .login-extranet,
+#change-password .login-extranet {
   background-color: #ccc;
   border-radius: 3px;
   margin-bottom: 3em;
@@ -1615,16 +1624,19 @@ footer .cv div span:hover .work {
   padding: 1em 0;
   text-align: center;
 }
-#login .login-extranet .input {
+#login .login-extranet .input,
+#change-password .login-extranet .input {
   margin-top: 0.8em;
   width: 300px;
 }
-#login .login-extranet .submit {
+#login .login-extranet .submit,
+#change-password .login-extranet .submit {
   font-size: 1.2em;
   margin-top: 1em;
   padding: 0.3em 1em;
 }
-#login .login-extranet .submit i {
+#login .login-extranet .submit i,
+#change-password .login-extranet .submit i {
   font-size: 1.2em;
   margin-left: 0.3em;
 }

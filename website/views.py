@@ -19,6 +19,8 @@ from django.http import Http404
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 
 import django_excel as excel
 
@@ -33,6 +35,7 @@ from models import Currencies
 from models import Board
 from models import Analysis
 from models import Remittances
+from tokens import account_activation_token
 
 
 def index(request):
@@ -71,6 +74,28 @@ def contact(request):
 	return render(request, 'contact.html')
 
 
+def auth_activate_account(request, uidb64, token):
+	try:
+		uid = force_text(urlsafe_base64_decode(uidb64))
+		user = User.objects.get(pk=uid)
+	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+		user = None
+
+	if user is not None and account_activation_token.check_token(user, token):
+		user.userinfo.account_confirmed = True
+		user.is_active = True
+		user.save()
+
+		user.backend = 'django.contrib.auth.backends.ModelBackend'
+		login(request, user)
+
+		request.session['algoritmo_code'] = user.userinfo.algoritmo_code
+		
+		return redirect('/account/change_password/')
+	else:
+		return redirect('/login/invalid/')
+
+
 def auth_login(request):
 	# If receive data via POST (login form)
 	if request.POST:
@@ -78,7 +103,7 @@ def auth_login(request):
 		password = request.POST['password']
 
 		user = authenticate(username=username, password=password)
-		if user is not None:
+		if user is not None and user.is_active == True:
 			login(request, user)
 
 			user_code = User.objects.get(username=request.POST['username'])
@@ -103,6 +128,29 @@ def auth_login_invalid(request):
 
 def auth_login_required(request):
 	return render(request, 'login.html', {'login_required': 'login required'})
+
+
+@login_required
+def change_password(request):
+	if request.POST:
+		password1 = request.POST['password1']
+		password2 = request.POST['password2']
+		if password1 is not None and password1 == password2:
+			try:
+				request.user.set_password(password1)
+				request.user.save()
+
+				user = authenticate(username=request.user.username, password=password1)
+				if user is not None and user.is_active == True:
+					login(request, user)
+					request.session['algoritmo_code'] = request.user.userinfo.algoritmo_code
+					return render(request, 'change_password.html', {'changed':'changed'})
+				else:
+					print 'Usuario no encontrado'
+			except:
+				print 'No se pudede cambiar el password'
+	else:
+		return render(request, 'change_password.html')
 
 
 @login_required
