@@ -1891,12 +1891,14 @@ footer .cv div span:hover .work {
 #ctacte .no-data {
   padding: 15em 0 15em 0;
 }
-#ctacte.pesos .pagination {
+#ctacte.pesos .pagination,
+#ctacte.applied .pagination {
   font-size: 0.9em;
   margin: 0 0 5em 0;
   text-align: center;
 }
-#ctacte.pesos .pagination .wrapper {
+#ctacte.pesos .pagination .wrapper,
+#ctacte.applied .pagination .wrapper {
   border: 1px solid #ccc;
   border-radius: 3px;
   display: inline-block;
@@ -1904,8 +1906,11 @@ footer .cv div span:hover .work {
   font-size: 0;
 }
 #ctacte.pesos .pagination .wrapper .endless_page_current,
+#ctacte.applied .pagination .wrapper .endless_page_current,
 #ctacte.pesos .pagination .wrapper .endless_page_link,
-#ctacte.pesos .pagination .wrapper .endless_separator {
+#ctacte.applied .pagination .wrapper .endless_page_link,
+#ctacte.pesos .pagination .wrapper .endless_separator,
+#ctacte.applied .pagination .wrapper .endless_separator {
   border-left: 1px solid #ccc;
   color: #3c433e;
   display: inline-block;
@@ -1915,18 +1920,24 @@ footer .cv div span:hover .work {
   width: 50px;
 }
 #ctacte.pesos .pagination .wrapper .endless_page_current:first-child,
+#ctacte.applied .pagination .wrapper .endless_page_current:first-child,
 #ctacte.pesos .pagination .wrapper .endless_page_link:first-child,
-#ctacte.pesos .pagination .wrapper .endless_separator:first-child {
+#ctacte.applied .pagination .wrapper .endless_page_link:first-child,
+#ctacte.pesos .pagination .wrapper .endless_separator:first-child,
+#ctacte.applied .pagination .wrapper .endless_separator:first-child {
   border-left: none;
 }
-#ctacte.pesos .pagination .wrapper .endless_page_current {
+#ctacte.pesos .pagination .wrapper .endless_page_current,
+#ctacte.applied .pagination .wrapper .endless_page_current {
   background-color: #ccc;
 }
-#ctacte.pesos .pagination .wrapper .endless_page_link:hover {
+#ctacte.pesos .pagination .wrapper .endless_page_link:hover,
+#ctacte.applied .pagination .wrapper .endless_page_link:hover {
   background-color: #065a7a;
   color: #fff;
 }
-#ctacte.pesos .pagination .wrapper .endless_separator {
+#ctacte.pesos .pagination .wrapper .endless_separator,
+#ctacte.applied .pagination .wrapper .endless_separator {
   background-color: #fafafa;
   color: #ccc;
 }
