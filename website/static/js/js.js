@@ -123,6 +123,18 @@ document.onreadystatechange = function () {
 
 		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
+		// var extranet = document.getElementById('extranet');
+		// if (extranet) {
+		// 	var randomPassword = document.getElementsByClassName('random-password')[0];
+		// 	var closeRandomPassword = document.getElementsByClassName('close-random-password')[0];
+		// 	closeRandomPassword.addEventListener('click', function(event) {
+		// 		event.preventDefault();
+		// 		randomPassword.style.display = 'none';
+		// 	});
+		// }
+
+		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
+
 		var ctaCteKg = document.getElementById('ctacte');
 		if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
 			var showAnalysis = ctaCteKg.getElementsByClassName('show-analysis');

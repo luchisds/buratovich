@@ -33,7 +33,7 @@ class UserInline(admin.StackedInline):
 	can_delete = False
 	verbose_name = 'Informacion Algoritmo'
 	verbose_name_plural = 'Informacion Algoritmo'
-	exclude = ('account_confirmed',)
+	exclude = ('account_confirmed', 'random_password',)
 
 
 class UserAdmin(BaseUserAdmin):

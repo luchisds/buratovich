@@ -398,6 +398,9 @@ body {
 #extranet legend {
   font-weight: 700;
 }
+#extranet .random-password {
+  font-weight: 300;
+}
 .input input {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -1607,6 +1610,12 @@ footer .cv div span:hover .work {
 #change-password .state span a:hover {
   border: 1px solid #018d34;
 }
+#login .state .account-confirmed,
+#change-password .state .account-confirmed {
+  color: #018d34;
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
+}
 #login .login-extranet,
 #change-password .login-extranet,
 #login .input,
@@ -1689,6 +1698,35 @@ footer .cv div span:hover .work {
   padding: 0.3em 0.5em;
 }
 #extranet .viewed a:hover {
+  background-color: #018d34;
+  color: #fff;
+}
+#extranet .random-password {
+  background-color: rgba(100,100,100,0.1);
+  border-radius: 3px;
+  margin: 0 3em 4em 3em;
+  padding: 1em;
+  position: relative;
+}
+#extranet .random-password > a {
+  color: #065a7a;
+  font-size: 1.5em;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+#extranet .random-password p {
+  line-height: 1.8em;
+}
+#extranet .random-password p a {
+  border: 1px solid #018d34;
+  border-radius: 3px;
+  color: #018d34;
+  padding: 0 0.4em 0.1em 0.4em;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#extranet .random-password p a:hover {
   background-color: #018d34;
   color: #fff;
 }

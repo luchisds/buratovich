@@ -7,6 +7,7 @@ import datetime
 from collections import OrderedDict
 
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -77,21 +78,25 @@ def contact(request):
 def auth_activate_account(request, uidb64, token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
+		# Search user account
 		user = User.objects.get(pk=uid)
 	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
 		user = None
 
+	# Check token, mark account as active and confirm account
 	if user is not None and account_activation_token.check_token(user, token):
 		user.userinfo.account_confirmed = True
+		user.userinfo.save()
 		user.is_active = True
 		user.save()
 
+		# Set backend for user instead authenticate() function
 		user.backend = 'django.contrib.auth.backends.ModelBackend'
 		login(request, user)
 
 		request.session['algoritmo_code'] = user.userinfo.algoritmo_code
-		
-		return redirect('/account/change_password/')
+
+		return render(request, 'change_password.html', {'account_confirmed': True})
 	else:
 		return redirect('/login/invalid/')
 
@@ -102,7 +107,9 @@ def auth_login(request):
 		username = request.POST['username']
 		password = request.POST['password']
 
+		# Authenticate user first
 		user = authenticate(username=username, password=password)
+		# Check if user is active
 		if user is not None and user.is_active == True:
 			login(request, user)
 
@@ -112,6 +119,8 @@ def auth_login(request):
 			request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
 
 			return redirect(settings.LOGIN_REDIRECT_URL)
+		elif user.is_active == False:
+			return redirect('/login/inactive_account/')
 		else:
 			return redirect('/login/invalid/')
 	else:
@@ -119,15 +128,19 @@ def auth_login(request):
 		if request.user.is_authenticated():
 			return redirect(settings.LOGIN_REDIRECT_URL)
 		else:
-			return render(request, 'login.html', {'login': 'login'})
+			return render(request, 'login.html', {'login': True})
 
 
 def auth_login_invalid(request):
-	return render(request, 'login.html', {'login_invalid': 'login invalid'})
+	return render(request, 'login.html', {'login_invalid': True})
 
 
 def auth_login_required(request):
-	return render(request, 'login.html', {'login_required': 'login required'})
+	return render(request, 'login.html', {'login_required': True})
+
+
+def auth_login_inactive_account(request):
+	return render(request, 'login.html', {'inactive_account': True})
 
 
 @login_required
@@ -138,6 +151,10 @@ def change_password(request):
 		if password1 is not None and password1 == password2:
 			try:
 				request.user.set_password(password1)
+				# If current password is the original random password then mark as random password as False
+				if request.user.userinfo.random_password == True:
+					request.user.userinfo.random_password = False
+					request.user.userinfo.save()
 				request.user.save()
 
 				user = authenticate(username=request.user.username, password=password1)
@@ -627,6 +644,7 @@ def downloadtxt(request):
 
 
 @login_required
+@staff_member_required
 def importdata(request, datatype):
 
 	# bulk_create have a limit of 999 objects per batch for SQLite
