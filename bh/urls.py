@@ -15,7 +15,7 @@ urlpatterns = [
 	url(r'^admin_tools/', include('admin_tools.urls')),
 
 	url(r'^admin/', admin.site.urls),
-	
+
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),
 	url(r'^contacto/$', views.contact, name='contact'),
@@ -28,15 +28,16 @@ urlpatterns = [
 	url(r'^activate_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.auth_activate_account, name='activate_account'),
 	url(r'^account/change_password/$', views.change_password, name='change_password'),
 
-
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/notifications/$', views.notifications, name='notifications'),
 	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
 	url(r'^extranet/ctacte/applied/$', views.applied, name='applied'),
-	url(r'^extranet/ctacte/kilos/$', views.deliveries, name='deliveries'),
+	url(r'^extranet/deliveries/$', views.deliveries, name='deliveries'),
 	url(r'^extranet/sales/$', views.sales, name='sales'),
-	url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
-	url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
+
+	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)/$', views.downloadexcel, name='downloadexcel'),
+	# url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
+	# url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
 
 	url(r'^currency/$', views.get_currency, name='currency'),
 	url(r'^board/$', views.get_board, name='board'),
