@@ -22,7 +22,7 @@
 		{% if species %}
 
 			<div class="harvest-selector">
-				<form action="/extranet/ctacte/kilos/" method="post">
+				<form action="/extranet/deliveries/" method="post">
 				{% csrf_token %}
 					<div class="harvest-detail">
 					{% for harvest, values in species.items %}
@@ -48,11 +48,11 @@
 			{% if tickets %}
 				<div class="export">
 					<button>
-						<a href=""><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+						<a href="/downloadexcel/deliveries/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 					</button>
-					<button>
+					<!--<button>
 						<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
-					</button>
+					</button>-->
 				</div>
 
 				{% for k, v in tickets.items  %}
@@ -161,6 +161,7 @@
 									<td></td>
 									<td class="right"><span>{{j.total_vol}}</span></td>
 									<td class="right"><span>{{j.total_net}}</span></td>
+									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>

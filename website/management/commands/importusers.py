@@ -23,17 +23,22 @@ class Command(BaseCommand):
 				cod = row[0]
 				name = row[1]
 				user = row[2]
-				passw = row[3]
+				# passw = row[3]
 				email = ''
 				if passw:
 					try:
+						passw = User.objects.make_random_password(8)
+
 						user = User.objects.create_user(user, email, passw)
 						user.is_staff = False
+						user.is_active = False
 						user.save()
+
 						userinfo = UserInfo(user_id=user.id)
 						userinfo.algoritmo_code = cod
 						userinfo.company_name = name
-						userinfo.old_user = True
+						userinfo.account_confirmed = False
+						userinfo.random_password = True
 						userinfo.save()
 						self.stdout.write(self.style.SUCCESS('Successfully created user "%s"' % name))
 					except IntegrityError:

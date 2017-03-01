@@ -17,6 +17,7 @@ from django.core import serializers
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -308,6 +309,7 @@ def deliveries(request):
 
 		if request.POST:
 			current_species = request.POST.getlist('checks')
+			request.session['current_species'] = current_species
 		else:
 			current_species = ''
 
@@ -396,10 +398,6 @@ def deliveries(request):
 						analysis = Analysis.objects.filter(analysis = i['analysis']).exclude(percentage=0).values('analysis', 'date', 'protein', 'analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('analysis', 'item_descripcion')
 						analysis_detail[i['analysis']] = analysis
 
-				# print ticket_analysis
-				# print '-------------'
-				# print analysis_detail
-
 				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis, 'analysis_detail': analysis_detail})
 
 			else:
@@ -415,6 +413,7 @@ def sales(request):
 
 		if request.POST:
 			current_species = request.POST.getlist('checks')
+			request.session['current_species'] = current_species
 		else:
 			current_species = ''
 
@@ -592,8 +591,10 @@ def applied(request):
 
 
 @login_required
-def downloadexcel(request):
-	if 'algoritmo_code' in request.session:
+def downloadexcel(request, module):
+	print 'Ingreso a la vista'
+
+	def getPesosExcel():
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
 
 		balance = 0
@@ -614,14 +615,112 @@ def downloadexcel(request):
 			tmp_dict['Saldo'] = float(format(balance, '.2f'))
 			records.append(tmp_dict)
 
-		return excel.make_response_from_records(records, 'xlsx', file_name='CtaCte')
+		filename = 'CtaCte Pesos'
+		return records, filename
+
+	def getAppliedExcel():
+		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+		
+		balance = 0
+		records = []
+		for d in data:
+			balance += d['amount_sign']
+			tmp_dict = OrderedDict()
+			tmp_dict['Fecha Vencimiento'] = d['expiration_date']
+			tmp_dict['Comprobante'] = d['voucher']
+			tmp_dict['Observaciones'] = d['concept']
+			tmp_dict['Fecha Emision'] = d['issue_date']
+			if d['movement_type'] == 'Debito':
+				tmp_dict['Debe'] = d['amount_sign']
+				tmp_dict['Haber'] = 0
+			else:
+				tmp_dict['Debe'] = 0
+				tmp_dict['Haber'] = abs(d['amount_sign'])
+			tmp_dict['Saldo'] = float(format(balance, '.2f'))
+			records.append(tmp_dict)
+
+		filename = 'CtaCte Aplicada'
+		return records, filename
+
+	def getDeliveriesExcel(species):
+		speciesharvest_filter = Q()
+		for s in species:
+			speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=s)
+
+		tickets = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'field_description', 'species_description').order_by('field_description', 'date')
+
+		records = []
+		for t in tickets:
+			tmp_dict = OrderedDict()
+			tmp_dict['Especie y Cosecha'] = t['species_description']
+			tmp_dict['Campo'] = t['field']
+			tmp_dict['Nombre del Campo'] = t['field']
+			tmp_dict['Fecha'] = t['date']
+			tmp_dict['Comprobante'] = t['voucher']
+			tmp_dict['Kg. Brutos'] = t['gross_kg']
+			tmp_dict['Hum. (%)'] = t['humidity_percentage']
+			tmp_dict['Hum. (Kg)'] = t['humidity_kg']
+			tmp_dict['Zarandeo (Merma)'] = t['shaking_reduction']
+			tmp_dict['Zarandeo (Kg)'] = t['shaking_kg']
+			tmp_dict['Volatil (Merma)'] = t['volatile_reduction']
+			tmp_dict['Volatil (Kg)'] = t['volatile_kg']
+			tmp_dict['Kg. Netos'] = t['net_weight']
+			tmp_dict['Factor'] = t['factor']
+			tmp_dict['Grado'] = t['grade']
+			tmp_dict['Numero 1116A'] = t['number_1116A']
+			tmp_dict['Carta de Porte'] = t['external_voucher_number']
+			tmp_dict['Chofer'] = t['driver_name']
+			records.append(tmp_dict)
+
+		filename = 'Entregas'
+		return records, filename
+
+	def getSalesExcel(species):
+		speciesharvest_filter = Q()
+		for s in species:
+			speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=s)
+
+		sales = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'species_description').order_by('species_description', 'date')
+
+		records = []
+		for s in sales:
+			tmp_dict = OrderedDict()
+			tmp_dict['Especie y Cosecha'] = s['species_description']
+			tmp_dict['Fecha'] = s['date']
+			tmp_dict['Comprobante'] = s['voucher']
+			tmp_dict['Destino'] = s['field_description']
+			tmp_dict['Fecha de Entrega Desde'] = s['service_billing_date']
+			tmp_dict['Fecha de Entrega Hasta'] = s['to_date']
+			tmp_dict['Kilos'] = s['gross_kg']
+			tmp_dict['Pend. TC'] = s['service_billing_number']
+			tmp_dict['Liquidados'] = s['number_1116A']
+			tmp_dict['Precio por QQ.'] = s['price_per_yard']
+			tmp_dict['Moneda'] = s['grade']
+			records.append(tmp_dict)
+
+		filename = 'Ventas'
+		return records, filename
+
+	if 'algoritmo_code' in request.session:
+		if module == 'pesos':
+			records, filename = getPesosExcel()
+		elif module == 'applied':
+			records, filename = getAppliedExcel()
+		elif module == 'deliveries':
+			records, filename = getDeliveriesExcel(request.session['current_species'])
+		elif module == 'sales':
+			records, filename = getSalesExcel(request.session['current_species'])
+		else:
+			raise Http404()
+
+		return excel.make_response_from_records(records, 'xlsx', file_name=filename)
 
 
 @login_required
 def downloadtxt(request):
 	if 'algoritmo_code' in request.session:
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		
+
 		balance = 0
 		records = []
 		for d in data:
