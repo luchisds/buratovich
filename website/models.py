@@ -416,6 +416,37 @@ class Board(models.Model):
 		verbose_name_plural = 'Pizarras'
 
 
+class City(models.Model):
+	STATE_CHOICES = (
+		('BUE', 'Buenos Aires'),
+		('CHA', 'Chaco'),
+	)
+	city = models.CharField(max_length=80, verbose_name='Ciudad')
+	state = models.CharField(max_length=3, choices=STATE_CHOICES, verbose_name='Provincia', default='BUE')
+
+	class Meta:
+		verbose_name = 'Ciudad'
+		verbose_name_plural = 'Ciudades'
+
+
+class Rain(models.Model):
+	date = models.DateTimeField(auto_now=True, verbose_name='Fecha')
+
+	class Meta:
+		verbose_name = 'Lluvia'
+		verbose_name_plural = 'Lluvias'
+
+
+class RainDetail(models.Model):
+	rain = models.ForeignKey(Rain, on_delete=models.CASCADE)
+	city = models.ForeignKey(City, on_delete=models.CASCADE)
+	mm = models.IntegerField(verbose_name='Milimetros')
+
+	class Meta:
+		verbose_name = 'Detalle'
+		verbose_name_plural = 'Detalles'
+
+
 class Notifications(models.Model):
 	date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha')
 	title = models.CharField(max_length=200, verbose_name='Titulo')
