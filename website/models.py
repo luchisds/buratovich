@@ -428,23 +428,30 @@ class City(models.Model):
 		verbose_name = 'Ciudad'
 		verbose_name_plural = 'Ciudades'
 
+	def __unicode__(self):
+		return unicode(self.city)
+
 
 class Rain(models.Model):
-	date = models.DateTimeField(auto_now=True, verbose_name='Fecha')
+	date = models.DateField(verbose_name='Fecha')
 
 	class Meta:
 		verbose_name = 'Lluvia'
 		verbose_name_plural = 'Lluvias'
 
+	def __unicode__(self):
+		return unicode(self.date)
+
 
 class RainDetail(models.Model):
 	rain = models.ForeignKey(Rain, on_delete=models.CASCADE)
 	city = models.ForeignKey(City, on_delete=models.CASCADE)
-	mm = models.IntegerField(verbose_name='Milimetros')
+	mm = models.FloatField(verbose_name='Milimetros')
 
 	class Meta:
 		verbose_name = 'Detalle'
 		verbose_name_plural = 'Detalles'
+		unique_together = (('rain', 'city'),)
 
 
 class Notifications(models.Model):

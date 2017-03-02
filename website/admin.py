@@ -12,6 +12,9 @@ from website.models import Notifications
 from website.models import ViewedNotifications
 from website.models import Currencies
 from website.models import Board
+from website.models import City
+from website.models import Rain
+from website.models import RainDetail
 
 
 # Unregister models
@@ -82,6 +85,43 @@ class BoardAdmin(admin.ModelAdmin):
 	)
 
 
+# class RainForm(ModelForm):
+# 	class Meta:
+# 		model = RainDetail
+# 		fields=('city', 'mm',)
+		# error_messages = {
+		# 	NON_FIELD_ERRORS: {
+		# 		'unique_together': "%(model_name)s's %(field_labels)s are not unique.",
+		# 	}
+		# }
+
+# 	def clean(self):
+# 		cleaned_data = self.cleaned_data
+
+# 		try:
+# 			RainDetail.objects.get(city=cleaned_data['city'], rain=cleaned_data['rain'])
+# 			print cleaned_data['city'], cleaned_data['rain']
+# 		except RainDetail.DoesNotExist:
+# 			pass
+# 		else:
+# 			raise ValidationError('Errorrrrrrrrrrr')
+
+# 		# Always return cleaned_data
+# 		return cleaned_data
+
+
+class RainDetailInline(admin.StackedInline):
+	model = RainDetail
+	#add_form = RainForm
+	can_delete = False
+	extra = 1
+	verbose_name = 'Detalle de Lluvias'
+
+
+class RainAdmin(admin.ModelAdmin):
+	inlines = (RainDetailInline, )
+
+
 # Register models
 admin.site.register(User, UserAdmin)
 admin.site.register(CtaCte)
@@ -89,3 +129,5 @@ admin.site.register(Notifications)
 admin.site.register(ViewedNotifications)
 admin.site.register(Currencies, CurrenciesAdmin)
 admin.site.register(Board, BoardAdmin)
+admin.site.register(City)
+admin.site.register(Rain, RainAdmin)
