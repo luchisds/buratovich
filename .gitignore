@@ -5,6 +5,7 @@ staticfiles/
 data.json
 db_dumps/
 cuentas.csv
+lluvias.csv
 
 # Sqlite
 *.sqlite3

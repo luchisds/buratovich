@@ -85,37 +85,12 @@ class BoardAdmin(admin.ModelAdmin):
 	)
 
 
-# class RainForm(ModelForm):
-# 	class Meta:
-# 		model = RainDetail
-# 		fields=('city', 'mm',)
-		# error_messages = {
-		# 	NON_FIELD_ERRORS: {
-		# 		'unique_together': "%(model_name)s's %(field_labels)s are not unique.",
-		# 	}
-		# }
-
-# 	def clean(self):
-# 		cleaned_data = self.cleaned_data
-
-# 		try:
-# 			RainDetail.objects.get(city=cleaned_data['city'], rain=cleaned_data['rain'])
-# 			print cleaned_data['city'], cleaned_data['rain']
-# 		except RainDetail.DoesNotExist:
-# 			pass
-# 		else:
-# 			raise ValidationError('Errorrrrrrrrrrr')
-
-# 		# Always return cleaned_data
-# 		return cleaned_data
-
-
 class RainDetailInline(admin.StackedInline):
 	model = RainDetail
-	#add_form = RainForm
 	can_delete = False
 	extra = 1
-	verbose_name = 'Detalle de Lluvias'
+	verbose_name = 'Detalle de Lluvia'
+	verbose_name_plural = 'Detalle de Lluvias'
 
 
 class RainAdmin(admin.ModelAdmin):
