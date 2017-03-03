@@ -285,8 +285,7 @@
 					<table class="rain-error">
 						<tr>
 							<th class="rain-date"></th>
-							<th>Compra</th>
-							<th>Venta</th>
+							<th>Milimetros</th>
 						</tr>
 						<tr>
 							<td colspan="2" rowspan="2">Sin Lluvias</td>
@@ -351,6 +350,13 @@
 		event.preventDefault();
 		var date = document.getElementById('date').value;
 		getBoardAjax(date);
+	});
+
+	var rain = document.getElementById('rain');
+	rain.addEventListener('submit', function(event) {
+		event.preventDefault();
+		var date = document.getElementById('rain-date').value;
+		getRainAjax(date);
 	});
 
 	function getCurrencyAjax(date) {
@@ -423,6 +429,36 @@
 				boardDate[i].innerHTML = formatDate;
 			}
 			document.getElementById('b-data-date').innerHTML = formatDate;
+		}).catch(function (response, xhr) {
+			console.log('Error: ' + response);
+		});
+	}
+
+	function getRainAjax(date) {
+		request.post('/rain/', {rDate:date}).then(function(response, xhr){
+			var obj = JSON.parse(response.data);
+			if(obj) {
+				if(document.getElementsByClassName('rain-ok')[0].style.display == 'none') {
+					document.getElementsByClassName('rain-error')[0].style.display= 'none';
+					document.getElementsByClassName('rain-ok')[0].style.display= 'table';
+				}
+				for(var i = 0; i < obj.length; i++) {
+					console.log(obj[i]);
+				}
+				// document.getElementById('dn-buy').innerHTML = floatToString(obj[0].fields.dn_buy);
+				// document.getElementById('dl-buy').innerHTML = floatToString(obj[0].fields.dl_buy);
+				// document.getElementById('dn-sell').innerHTML = floatToString(obj[0].fields.dn_sell);
+				// document.getElementById('dl-sell').innerHTML = floatToString(obj[0].fields.dl_sell);
+			} else {
+				document.getElementsByClassName('rain-ok')[0].style.display= 'none';
+				document.getElementsByClassName('rain-error')[0].style.display= 'table';
+			}
+			var formatDate = getDateWithFormat(date);
+			rainDate = document.getElementsByClassName('rain-date');
+			for(var i = 0; i < rainDate.length; i++) {
+				rainDate[i].innerHTML = formatDate;
+			}
+			document.getElementById('r-data-date').innerHTML = formatDate;
 		}).catch(function (response, xhr) {
 			console.log('Error: ' + response);
 		});

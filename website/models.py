@@ -453,9 +453,6 @@ class RainDetail(models.Model):
 		verbose_name_plural = 'Detalles'
 		unique_together = (('rain', 'city'),)
 
-	# def __unicode__(self):
-	# 	return unicode(self.rain.date, self.city.city, self.mm)
-
 
 class Notifications(models.Model):
 	date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha')

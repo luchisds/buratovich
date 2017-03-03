@@ -71,6 +71,16 @@ def get_board(request):
 		else:
 			return JsonResponse({'data': None})
 
+def get_rain(request):
+	if request.POST:
+		if request.POST.get('rDate'):
+			rain = RainDetail.objects.filter(rain=request.POST.get('rDate'))
+
+		if rain:
+			return JsonResponse({'data': serializers.serialize('json',rain)})
+		else:
+			return JsonResponse({'data': None})
+
 
 def company(request):
 	return render(request, 'company.html')
