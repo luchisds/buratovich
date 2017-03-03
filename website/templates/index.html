@@ -394,7 +394,6 @@
 					document.getElementsByClassName('board-error')[0].style.display= 'none';
 					document.getElementsByClassName('board-ok')[0].style.display= 'table';
 				}
-				console.log(obj[0]);
 				document.getElementById('corn-bas').innerHTML = floatToString(obj[0].fields.corn_bas);
 				document.getElementById('corn-bb').innerHTML = floatToString(obj[0].fields.corn_bb);
 				document.getElementById('corn-qq').innerHTML = floatToString(obj[0].fields.corn_qq);
@@ -442,13 +441,18 @@
 					document.getElementsByClassName('rain-error')[0].style.display= 'none';
 					document.getElementsByClassName('rain-ok')[0].style.display= 'table';
 				}
-				for(var i = 0; i < obj.length; i++) {
-					console.log(obj[i]);
+				var rainOk = document.getElementsByClassName('rain-ok')[0];
+				console.log(rainOk.rows.length);
+				for(var i = 1; i <= rainOk.rows.length; i++) {
+					rainOk.deleteRow(1);
 				}
-				// document.getElementById('dn-buy').innerHTML = floatToString(obj[0].fields.dn_buy);
-				// document.getElementById('dl-buy').innerHTML = floatToString(obj[0].fields.dl_buy);
-				// document.getElementById('dn-sell').innerHTML = floatToString(obj[0].fields.dn_sell);
-				// document.getElementById('dl-sell').innerHTML = floatToString(obj[0].fields.dl_sell);
+				for(var i = 0; i < obj.length; i++) {
+					var row = rainOk.insertRow(rainOk.rows.length);
+					var cellCity = row.insertCell(0);
+					var cellMm = row.insertCell(1);
+					cellCity.innerHTML = obj[i].city;
+					cellMm.innerHTML = obj[i].mm;
+				}
 			} else {
 				document.getElementsByClassName('rain-ok')[0].style.display= 'none';
 				document.getElementsByClassName('rain-error')[0].style.display= 'table';
