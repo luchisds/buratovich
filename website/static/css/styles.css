@@ -1332,11 +1332,13 @@ footer .cv div span:hover .work {
   background: #4e5066;
 }
 #home .utils table.currency-error,
-#home .utils table.board-error {
+#home .utils table.board-error,
+#home .utils table.rain-error {
   display: none;
 }
 #home .utils table.currency-error td,
-#home .utils table.board-error td {
+#home .utils table.board-error td,
+#home .utils table.rain-error td {
   color: #ccc;
   font-size: 1.5em;
   padding: 1em 0;

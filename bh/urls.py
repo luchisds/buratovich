@@ -41,6 +41,7 @@ urlpatterns = [
 
 	url(r'^currency/$', views.get_currency, name='currency'),
 	url(r'^board/$', views.get_board, name='board'),
+	url(r'^rain/$', views.get_rain, name='rain'),
 
 	url(r'^import/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
 
