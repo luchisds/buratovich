@@ -166,7 +166,6 @@
 						</table>
 						<span class="data">+ Precios del día <span id="b-data-date">{{b.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<!--<form action="/" method="post">-->
 					<form id="board">
 					{% csrf_token %}
 						<fieldset>
@@ -222,7 +221,6 @@
 						</table>
 						<span class="data">+ Cotización del día <span id="c-data-date">{{c.date|date:"d/m/Y"}}</span></span>
 					{% endfor %}
-					<!--<form action="/" method="post" id="currency">-->
 					<form id="currency">
 					{% csrf_token %}
 						<fieldset>
@@ -262,6 +260,54 @@
 					<div id="lobos" class="tabcontent">
 						<div id="cont_32c73aacee8cd6cb959ca93018134fbc"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/32c73aacee8cd6cb959ca93018134fbc"></script></div>
 					</div>
+				</div>
+			</article>
+			<article class="rain module">
+				<h3 class="utils-title">
+					<span class="title">
+						<span><i class="fa fa-tint" aria-hidden="true"></i></span>
+						<span>Lluvias</span>
+					</span>
+				</h3>
+				<div class="container">
+					<table class="rain-ok">
+						<tr>
+							<th class="rain-date">{{rain.0.rain.date|date:"d/m/Y"}}</th>
+							<th>Milimetros</th>
+						</tr>
+						{% for r in rain %}
+							<tr>
+								<td>{{r.city}}</td>
+								<td>{{r.mm|floatformat:0|intcomma}}</td>
+							</tr>
+						{% endfor %}
+					</table>
+					<table class="rain-error">
+						<tr>
+							<th class="rain-date"></th>
+							<th>Compra</th>
+							<th>Venta</th>
+						</tr>
+						<tr>
+							<td colspan="2" rowspan="2">Sin Lluvias</td>
+						</tr>
+					</table>
+					<span class="data">+ Lluvias del día <span id="r-data-date">{{rain.0.rain.date|date:"d/m/Y"}}</span></span>
+					<form id="rain">
+					{% csrf_token %}
+						<fieldset>
+							<legend>Ver lluvias del: </legend>
+							<div class="input">
+								<input id="rain-date" name="rain-date" type="date">
+								<span>
+									<i class="fa fa-calendar-o" aria-hidden="true"></i>
+								</span>
+							</div>
+							<button type="submit" class="submit">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</fieldset>
+					</form>
 				</div>
 			</article>
 		</div>

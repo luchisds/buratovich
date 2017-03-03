@@ -37,14 +37,18 @@ from models import Currencies
 from models import Board
 from models import Analysis
 from models import Remittances
+from models import Rain
+from models import RainDetail
 from tokens import account_activation_token
 
 
 def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
 	board = Board.objects.order_by('-date')[:1]
+	rain = Rain.objects.order_by('-date')[:1]
+	rain = RainDetail.objects.filter(rain=rain)
 
-	return render(request, 'index.html', {'currency': currency, 'board': board})
+	return render(request, 'index.html', {'currency': currency, 'board': board, 'rain': rain})
 
 
 def get_currency(request):
