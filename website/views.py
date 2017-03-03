@@ -6,6 +6,9 @@ import re
 import datetime
 from collections import OrderedDict
 
+from django.core import serializers
+import json
+
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate
@@ -13,7 +16,6 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
@@ -37,6 +39,7 @@ from models import Currencies
 from models import Board
 from models import Analysis
 from models import Remittances
+from models import City
 from models import Rain
 from models import RainDetail
 from tokens import account_activation_token
@@ -46,7 +49,7 @@ def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
 	board = Board.objects.order_by('-date')[:1]
 	rain = Rain.objects.order_by('-date')[:1]
-	rain = RainDetail.objects.filter(rain=rain)
+	rain = RainDetail.objects.filter(rain=rain).order_by('city__city')
 
 	return render(request, 'index.html', {'currency': currency, 'board': board, 'rain': rain})
 
@@ -56,30 +59,37 @@ def get_currency(request):
 		if request.POST.get('cDate'):
 			currency = Currencies.objects.filter(date=request.POST.get('cDate'))
 
-		if currency:
-			return JsonResponse({'data': serializers.serialize('json',currency)})
-		else:
-			return JsonResponse({'data': None})
+			if currency:
+				return JsonResponse({'data': serializers.serialize('json',currency)})
+			else:
+				return JsonResponse({'data': None})
 
 def get_board(request):
 	if request.POST:
 		if request.POST.get('bDate'):
 			board = Board.objects.filter(date=request.POST.get('bDate'))
 
-		if board:
-			return JsonResponse({'data': serializers.serialize('json',board)})
-		else:
-			return JsonResponse({'data': None})
+			if board:
+				return JsonResponse({'data': serializers.serialize('json',board)})
+			else:
+				return JsonResponse({'data': None})
 
 def get_rain(request):
 	if request.POST:
 		if request.POST.get('rDate'):
-			rain = RainDetail.objects.filter(rain=request.POST.get('rDate'))
+			rain = RainDetail.objects.filter(rain=request.POST.get('rDate')).values('rain', 'city__city', 'mm').order_by('city__city')
+			data = []
+			for r in rain:
+				temp = {}
+				temp['date'] = str(r['rain'])
+				temp['city'] = r['city__city']
+				temp['mm'] = r['mm']
+				data.append(temp)
 
-		if rain:
-			return JsonResponse({'data': serializers.serialize('json',rain)})
-		else:
-			return JsonResponse({'data': None})
+			if rain:
+				return JsonResponse({'data': json.dumps(data)})
+			else:
+				return JsonResponse({'data': None})
 
 
 def company(request):
