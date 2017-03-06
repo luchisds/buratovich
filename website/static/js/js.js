@@ -99,20 +99,45 @@ document.onreadystatechange = function () {
 			}
 
 
+			/// Rain-Weather /////////////////////////////////////////////////////////////////////////////////////
+
+			var tabTitle = document.getElementsByClassName('tab-title')[0];
+			tabTitle.addEventListener('click', function(event){
+				event.preventDefault();
+				var target = findRwLinks(event.target, 'rwlinks');
+				var rwcontent = document.getElementsByClassName('rwcontent');
+				for (i = 0; i < rwcontent.length; i++) {
+					rwcontent[i].style.display = 'none';
+				}
+				var rwlinks = document.getElementsByClassName('rwlinks');
+				for (i = 0; i < rwlinks.length; i++) {
+					rwlinks[i].className = rwlinks[i].className.replace(' active', '');
+				}
+				document.getElementById(target.className.split(' ')[1]).style.display = 'block';
+				addClass(target, 'active');
+			});
+
+			function findRwLinks(el, cls) {
+				while ((el = el.parentElement) && !el.classList.contains(cls));
+				return el;
+			}
+
+
 			/// Weather //////////////////////////////////////////////////////////////////////////////////////////
 
 			var tab = document.getElementsByClassName('tab')[0];
 			tab.addEventListener('click', function(event){
 				event.preventDefault();
+				console.log(event.target);
 				if (!matchesSelector(event.target, '.tablinks')) {
 					return;
 				}
-				var tabcontent = document.getElementsByClassName("tabcontent");
+				var tabcontent = document.getElementsByClassName('tabcontent');
 				//console.log(tabcontent);
 				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = "none";
+					tabcontent[i].style.display = 'none';
 				}
-				var tablinks = document.getElementsByClassName("tablinks");
+				var tablinks = document.getElementsByClassName('tablinks');
 				for (i = 0; i < tablinks.length; i++) {
 					tablinks[i].className = tablinks[i].className.replace(' active', '');
 				}
