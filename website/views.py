@@ -100,36 +100,45 @@ def historic_rain(request):
 	prev_year = 0
 	prev_month = 0
 	year_sum = 0
-	month_avg = 0
+	month_avg = OrderedDict()
+
 	for r in rain:
 		year = datetime.datetime.strptime(r['year'], "%Y-%m-%d").date().year
 		month = datetime.datetime.strptime(r['month'], "%Y-%m-%d").date().month
 
+		if history.get(year, None) is None:
+			history[year] = OrderedDict()
+			history[year]['rain'] = OrderedDict()
+			history[year]['total'] = 0
+
+		if month_avg.get(month, None) is None:
+			month_avg[month] = OrderedDict()
+			month_avg[month]['sum'] = 0
+			month_avg[month]['count'] = 0
+
 		if year == prev_year or prev_year == 0:
 			if prev_month + 1 == month or prev_month == 0:
-				if history.get(year, None) is None:
-					history[year] = OrderedDict()
-					history[year]['rain'] = OrderedDict()
-					history[year]['total'] = 0
 				history[year]['rain'][month] = r['mmsum']
 				history[year]['total'] += r['mmsum']
+				month_avg[month]['sum'] += r['mmsum']
+				month_avg[month]['count'] += 1
 			else:
 				for i in range(prev_month+1, month):
 					history[year]['rain'][datetime.datetime(year,i,1).date().month] = 0
 				history[year]['rain'][month] = r['mmsum']
 				history[year]['total'] += r['mmsum']
+				month_avg[month]['sum'] += r['mmsum']
+				month_avg[month]['count'] += 1
 		else:
-			if history.get(year, None) is None:
-				history[year] = OrderedDict()
-				history[year]['rain'] = OrderedDict()
-				history[year]['total'] = 0
 			history[year]['rain'][month] = r['mmsum']
 			history[year]['total'] += r['mmsum']
+			month_avg[month]['sum'] += r['mmsum']
+			month_avg[month]['count'] += 1
 
 		prev_year = year
 		prev_month = month
 
-	return render(request, 'historic_rain.html', {'history':history})
+	return render(request, 'historic_rain.html', {'history':history, 'month_avg':month_avg})
 
 
 def company(request):
