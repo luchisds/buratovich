@@ -53,11 +53,11 @@
 		</article>
 		<article class="units">
 			<ul class="h-list">
-				<li><a href="#" class="slide current" data-selector=".cell1"><!--<img src="{% static "img/acopio.png" %}" alt=""> -->ACOPIO</a></li><!--
-				--><li><a href="#" class="slide" data-selector=".cell2"><!--<img src="{% static "img/comercializacion.png" %}" alt=""> -->COMERCIALIZACION</a></li><!--
-				--><li><a href="#" class="slide" data-selector=".cell3"><!--<img src="{% static "img/agro.png" %}" alt=""> -->AGRICULTURA</a></li><!--
-				--><li><a href="#" class="slide" data-selector=".cell4"><!--<img src="{% static "img/ganaderia.png" %}" alt=""> -->GANADERIA</a></li><!--
-				--><li><a href="#" class="slide" data-selector=".cell5"><!--<img src="{% static "img/exportacion.png" %}" alt=""> -->EXPORTACION</a></li>
+				<li><a href="#" class="slide current" data-selector=".cell1">ACOPIO</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell2">COMERCIALIZACION</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell3">AGRICULTURA</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell4">GANADERIA</a></li><!--
+				--><li><a href="#" class="slide" data-selector=".cell5">EXPORTACION</a></li>
 			</ul>
 		</article>
 	</section>
@@ -97,7 +97,7 @@
 				</h3>
 				<div class="container">
 					{% for b in board %}
-						<table class="board-ok">
+						<table class="data-table board-ok">
 							<thead>
 								<tr>
 									<th class="board-date">{{b.date|date:"d/m/Y"}}</th>
@@ -110,49 +110,49 @@
 							<tbody>
 								<tr>
 									<td>Trigo</td>
-									<td id="wheat-ros">{{b.wheat_ros|floatformat:2|intcomma}}</td>
-									<td id="wheat-bas">{{b.wheat_bas|floatformat:2|intcomma}}</td>
-									<td id="wheat-qq">{{b.wheat_qq|floatformat:2|intcomma}}</td>
-									<td id="wheat-bb">{{b.wheat_bb|floatformat:2|intcomma}}</td>
+									<td id="wheat-ros" class="right">{{b.wheat_ros|floatformat:2|intcomma}}</td>
+									<td id="wheat-bas" class="right">{{b.wheat_bas|floatformat:2|intcomma}}</td>
+									<td id="wheat-qq" class="right">{{b.wheat_qq|floatformat:2|intcomma}}</td>
+									<td id="wheat-bb" class="right">{{b.wheat_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Trigo Art. 12</td>
-									<td id="wheat12-ros">{{b.wheat12_ros|floatformat:2|intcomma}}</td>
-									<td id="wheat12-bas">{{b.wheat12_bas|floatformat:2|intcomma}}</td>
-									<td id="wheat12-qq">{{b.wheat12_qq|floatformat:2|intcomma}}</td>
-									<td id="wheat12-bb">{{b.wheat12_bb|floatformat:2|intcomma}}</td>
+									<td id="wheat12-ros" class="right">{{b.wheat12_ros|floatformat:2|intcomma}}</td>
+									<td id="wheat12-bas" class="right">{{b.wheat12_bas|floatformat:2|intcomma}}</td>
+									<td id="wheat12-qq" class="right">{{b.wheat12_qq|floatformat:2|intcomma}}</td>
+									<td id="wheat12-bb" class="right">{{b.wheat12_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Maíz</td>
-									<td id="corn-ros">{{b.corn_ros|floatformat:2|intcomma}}</td>
-									<td id="corn-bas">{{b.corn_bas|floatformat:2|intcomma}}</td>
-									<td id="corn-qq">{{b.corn_qq|floatformat:2|intcomma}}</td>
-									<td id="corn-bb">{{b.corn_bb|floatformat:2|intcomma}}</td>
+									<td id="corn-ros" class="right">{{b.corn_ros|floatformat:2|intcomma}}</td>
+									<td id="corn-bas" class="right">{{b.corn_bas|floatformat:2|intcomma}}</td>
+									<td id="corn-qq" class="right">{{b.corn_qq|floatformat:2|intcomma}}</td>
+									<td id="corn-bb" class="right">{{b.corn_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Girasol</td>
-									<td id="sunflower-ros">{{b.sunflower_ros|floatformat:2|intcomma}}</td>
-									<td id="sunflower-bas">{{b.sunflower_bas|floatformat:2|intcomma}}</td>
-									<td id="sunflower-qq">{{b.sunflower_qq|floatformat:2|intcomma}}</td>
-									<td id="sunflower-bb">{{b.sunflower_bb|floatformat:2|intcomma}}</td>
+									<td id="sunflower-ros" class="right">{{b.sunflower_ros|floatformat:2|intcomma}}</td>
+									<td id="sunflower-bas" class="right">{{b.sunflower_bas|floatformat:2|intcomma}}</td>
+									<td id="sunflower-qq" class="right">{{b.sunflower_qq|floatformat:2|intcomma}}</td>
+									<td id="sunflower-bb" class="right">{{b.sunflower_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Soja</td>
-									<td id="soy-ros">{{b.soy_ros|floatformat:2|intcomma}}</td>
-									<td id="soy-bas">{{b.soy_bas|floatformat:2|intcomma}}</td>
-									<td id="soy-qq">{{b.soy_qq|floatformat:2|intcomma}}</td>
-									<td id="soy-bb">{{b.soy_bb|floatformat:2|intcomma}}</td>
+									<td id="soy-ros" class="right">{{b.soy_ros|floatformat:2|intcomma}}</td>
+									<td id="soy-bas" class="right">{{b.soy_bas|floatformat:2|intcomma}}</td>
+									<td id="soy-qq" class="right">{{b.soy_qq|floatformat:2|intcomma}}</td>
+									<td id="soy-bb" class="right">{{b.soy_bb|floatformat:2|intcomma}}</td>
 								</tr>
 								<tr>
 									<td>Sorgo</td>
-									<td id="sorghum-ros">{{b.sorghum_ros|floatformat:2|intcomma}}</td>
-									<td id="sorghum-bas">{{b.sorghum_bas|floatformat:2|intcomma}}</td>
-									<td id="sorghum-qq">{{b.sorghum_qq|floatformat:2|intcomma}}</td>
-									<td id="sorghum-bb">{{b.sorghum_bb|floatformat:2|intcomma}}</td>
+									<td id="sorghum-ros" class="right">{{b.sorghum_ros|floatformat:2|intcomma}}</td>
+									<td id="sorghum-bas" class="right">{{b.sorghum_bas|floatformat:2|intcomma}}</td>
+									<td id="sorghum-qq" class="right">{{b.sorghum_qq|floatformat:2|intcomma}}</td>
+									<td id="sorghum-bb" class="right">{{b.sorghum_bb|floatformat:2|intcomma}}</td>
 								</tr>
 							</tbody>
 						</table>
-						<table class="board-error">
+						<table class="data-table board-error">
 							<tr>
 								<th class="board-date"></th>
 								<th>ROS.</th>
@@ -192,7 +192,7 @@
 				</h3>
 				<div class="container">
 					{% for c in currency %}
-						<table class="currency-ok">
+						<table class="data-table currency-ok">
 							<tr>
 								<th class="currency-date">{{c.date|date:"d/m/Y"}}</th>
 								<th>Compra</th>
@@ -200,16 +200,16 @@
 							</tr>
 							<tr>
 								<td>DOLAR NACION</td>
-								<td id="dn-buy">{{c.dn_buy|floatformat:2|intcomma}}</td>
-								<td id="dl-buy">{{c.dl_buy|floatformat:2|intcomma}}</td>
+								<td id="dn-buy" class="right">{{c.dn_buy|floatformat:2|intcomma}}</td>
+								<td id="dl-buy" class="right">{{c.dl_buy|floatformat:2|intcomma}}</td>
 							</tr>
 							<tr>
 								<td>DOLAR LIBRE</td>
-								<td id="dn-sell">{{c.dn_sell|floatformat:2|intcomma}}</td>
-								<td id="dl-sell">{{c.dl_sell|floatformat:2|intcomma}}</td>
+								<td id="dn-sell" class="right">{{c.dn_sell|floatformat:2|intcomma}}</td>
+								<td id="dl-sell" class="right">{{c.dl_sell|floatformat:2|intcomma}}</td>
 							</tr>
 						</table>
-						<table class="currency-error">
+						<table class="data-table currency-error">
 							<tr>
 								<th class="currency-date"></th>
 								<th>Compra</th>
@@ -238,76 +238,81 @@
 					</form>
 				</div>
 			</article>
-			<article class="weather module">
-				<h3 class="utils-title">
-					<span class="title">
-						<span><i class="fa fa-cloud" aria-hidden="true"></i></span>
-						<span>Clima</span>
-					</span>
-				</h3>
-				<div class="container">
-					<ul class="tab h-list">
-						<li><a href="#" class="tablinks arrecifes active">Arrecifes</a></li><!--
-						--><li><a href="#" class="tablinks pinedo">Gral. Pinedo</a></li><!--
-						--><li><a href="#" class="tablinks lobos">Lobos</a></li>
-					</ul>
-					<div id="arrecifes" class="tabcontent">
-						<div id="cont_6a42ac026df37ca04fe779cb2f1def70"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/6a42ac026df37ca04fe779cb2f1def70"></script></div>
-					</div>
-					<div id="pinedo" class="tabcontent">
-						<div id="cont_203f9864594f9f354d6242dbad7b366f"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/203f9864594f9f354d6242dbad7b366f"></script></div>
-					</div>
-					<div id="lobos" class="tabcontent">
-						<div id="cont_32c73aacee8cd6cb959ca93018134fbc"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/32c73aacee8cd6cb959ca93018134fbc"></script></div>
-					</div>
-				</div>
-			</article>
-			<article class="rain module">
-				<h3 class="utils-title">
-					<span class="title">
-						<span><i class="fa fa-tint" aria-hidden="true"></i></span>
-						<span>Lluvias</span>
-					</span>
-				</h3>
-				<div class="container">
-					<table class="rain-ok">
-						<tr>
-							<th class="rain-date">{{rain.0.rain.date|date:"d/m/Y"}}</th>
-							<th>Milimetros</th>
-						</tr>
-						{% for r in rain %}
+			<article>
+				<article class="rain module">
+					<h3 class="utils-title">
+						<span class="title">
+							<span><i class="fa fa-tint" aria-hidden="true"></i></span>
+							<span>Lluvias</span>
+						</span>
+					</h3>
+					<div class="container">
+						<table class="data-table rain-ok">
 							<tr>
-								<td>{{r.city}}</td>
-								<td>{{r.mm|floatformat:0|intcomma}}</td>
+								<th class="rain-date">{{rain.0.rain.date|date:"d/m/Y"}}</th>
+								<th>Milimetros</th>
 							</tr>
-						{% endfor %}
-					</table>
-					<table class="rain-error">
-						<tr>
-							<th class="rain-date"></th>
-							<th>Milimetros</th>
-						</tr>
-						<tr>
-							<td colspan="2" rowspan="2">Sin Lluvias</td>
-						</tr>
-					</table>
-					<span class="data">+ Lluvias del día <span id="r-data-date">{{rain.0.rain.date|date:"d/m/Y"}}</span></span>
-					<form id="rain">
-					{% csrf_token %}
-						<fieldset>
-							<legend>Ver lluvias del: </legend>
-							<div class="input">
-								<input id="rain-date" name="rain-date" type="date">
-								<span>
-									<i class="fa fa-calendar-o" aria-hidden="true"></i>
-								</span>
-							</div>
-							<button type="submit" class="submit">
-								<i class="fa fa-search" aria-hidden="true"></i>
-							</button>
-						</fieldset>
-					</form>
-				</div>
+							{% for r in rain %}
+								<tr>
+									<td>{{r.city}}</td>
+									<td class="right">{{r.mm|floatformat:0|intcomma}}</td>
+								</tr>
+							{% endfor %}
+						</table>
+						<table class="data-table rain-error">
+							<tr>
+								<th class="rain-date"></th>
+								<th>Milimetros</th>
+							</tr>
+							<tr>
+								<td colspan="2" rowspan="2">Sin Lluvias</td>
+							</tr>
+						</table>
+						<span class="data">+ Lluvias del día <span id="r-data-date">{{rain.0.rain.date|date:"d/m/Y"}}</span></span>
+						<form id="rain">
+						{% csrf_token %}
+							<fieldset>
+								<legend>Ver lluvias del: </legend>
+								<div class="input">
+									<input id="rain-date" name="rain-date" type="date">
+									<span>
+										<i class="fa fa-calendar-o" aria-hidden="true"></i>
+									</span>
+								</div>
+								<button type="submit" class="submit">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</fieldset>
+						</form>
+						<div class="historic-rain">
+							<a href="/historic_rain/"><i class="fa fa-history" aria-hidden="true"></i> Ver registro historico</a>
+						</div>
+					</div>
+				</article>
+				<article class="weather module">
+					<h3 class="utils-title">
+						<span class="title">
+							<span><i class="fa fa-cloud" aria-hidden="true"></i></span>
+							<span>Clima</span>
+						</span>
+					</h3>
+					<div class="container">
+						<ul class="tab h-list">
+							<li><a href="#" class="tablinks arrecifes active">Arrecifes</a></li><!--
+							--><li><a href="#" class="tablinks pinedo">Gral. Pinedo</a></li><!--
+							--><li><a href="#" class="tablinks lobos">Lobos</a></li>
+						</ul>
+						<div id="arrecifes" class="tabcontent">
+							<div id="cont_6a42ac026df37ca04fe779cb2f1def70"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/6a42ac026df37ca04fe779cb2f1def70"></script></div>
+						</div>
+						<div id="pinedo" class="tabcontent">
+							<div id="cont_203f9864594f9f354d6242dbad7b366f"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/203f9864594f9f354d6242dbad7b366f"></script></div>
+						</div>
+						<div id="lobos" class="tabcontent">
+							<div id="cont_32c73aacee8cd6cb959ca93018134fbc"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/32c73aacee8cd6cb959ca93018134fbc"></script></div>
+						</div>
+					</div>
+				</article>
 			</article>
 		</div>
 	</section>

@@ -293,6 +293,86 @@ template {
   font-weight: bold;
   text-transform: uppercase;
 }
+.data-table {
+  -webkit-animation: float 5s infinite;
+          animation: float 5s infinite;
+  background: #fff;
+  border-collapse: collapse;
+  border-radius: 3px;
+  border-spacing: 0;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  font-size: 0.9em;
+  padding: 5px;
+  width: 100%;
+}
+.data-table td {
+  background: #fff;
+  border-right: 1px solid #c1c3d1;
+  padding: 7px 12px;
+  text-align: left;
+  text-shadow: -1px -1px 1px rgba(0,0,0,0.1);
+  vertical-align: middle;
+}
+.data-table td:last-child {
+  border-right: 0px;
+}
+.data-table td.right {
+  text-align: right;
+}
+.data-table td.center {
+  text-align: center;
+}
+.data-table th {
+  background: #1b1e24;
+  border-bottom: 4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  color: #d5dde5;
+  padding: 15px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  vertical-align: middle;
+}
+.data-table th:first-child {
+  border-top-left-radius: 3px;
+}
+.data-table th:last-child {
+  border-right: none;
+  border-top-right-radius: 3px;
+}
+.data-table tr {
+  border-bottom: 1px solid #c1c3d1;
+  border-top: 1px solid #c1c3d1;
+  color: #666b85;
+  font-size: 0.9em;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+}
+.data-table tr:hover td {
+  background: #4e5066;
+  border-bottom: 1px solid #22262e;
+  border-top: 1px solid #22262e;
+  color: #fff;
+}
+.data-table tr:first-child {
+  border-top: none;
+}
+.data-table tr:last-child {
+  border-bottom: none;
+}
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+.data-table tr:last-child td:first-child {
+  border-bottom-left-radius: 3px;
+}
+.data-table tr:last-child td:last-child {
+  border-bottom-right-radius: 3px;
+}
+.data-table tr:nth-child(odd) td {
+  background: #ebebeb;
+}
+.data-table tr:nth-child(odd):hover td {
+  background: #4e5066;
+}
 .come-in {
   -webkit-transform: translateY(100px);
           transform: translateY(100px);
@@ -627,44 +707,44 @@ footer .foot:last-child {
 #home .utils:last-child {
   margin-right: auto;
 }
-#home .utils article {
+#home .utils div > article {
   *zoom: 1;
   float: left;
   clear: none;
   text-align: inherit;
-  width: 27.2%;
+  width: 27.9%;
   margin-left: 0%;
-  margin-right: 4%;
+  margin-right: 3%;
 }
-#home .utils article:before,
-#home .utils article:after {
+#home .utils div > article:before,
+#home .utils div > article:after {
   content: '';
   display: table;
 }
-#home .utils article:after {
+#home .utils div > article:after {
   clear: both;
 }
-#home .utils article:last-child {
+#home .utils div > article:last-child {
   margin-right: 0%;
 }
-#home .utils article.pizarras {
+#home .utils div > article.pizarras {
   *zoom: 1;
   float: left;
   clear: none;
   text-align: inherit;
-  width: 37.6%;
+  width: 38.2%;
   margin-left: 0%;
-  margin-right: 4%;
+  margin-right: 3%;
 }
-#home .utils article.pizarras:before,
-#home .utils article.pizarras:after {
+#home .utils div > article.pizarras:before,
+#home .utils div > article.pizarras:after {
   content: '';
   display: table;
 }
-#home .utils article.pizarras:after {
+#home .utils div > article.pizarras:after {
   clear: both;
 }
-#home .utils article.pizarras:last-child {
+#home .utils div > article.pizarras:last-child {
   margin-right: 0%;
 }
 #company .first-col {
@@ -1192,6 +1272,32 @@ footer .cv div span:hover .work {
 #home .utils .utils-subtitle {
   margin-bottom: 0.5em;
 }
+#home .utils .rain .historic-rain {
+  background-color: #ccc;
+  padding: 0.7em 0 1em 0;
+  text-align: center;
+}
+#home .utils .rain .historic-rain a {
+  border-bottom: 1px dotted transparent;
+  color: #018d34;
+  padding: 0.3em 0.5em;
+}
+#home .utils .rain .historic-rain a i {
+  color: #018d34;
+  margin-right: 0.3em;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+#home .utils .rain .historic-rain a:hover {
+  border-bottom: 1px dotted #ccc;
+}
+#home .utils .rain .historic-rain a:hover i {
+  -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+#home .utils .weather {
+  margin-top: 0.5em;
+}
 #home .utils .weather .tab {
   background-color: #1b1e24;
   border-bottom: 4px solid #9ea7af;
@@ -1257,95 +1363,30 @@ footer .cv div span:hover .work {
   display: inline-block;
   font-size: 1.1em;
 }
-#home .utils table {
-  -webkit-animation: float 5s infinite;
-          animation: float 5s infinite;
-  background: #fff;
-  border-collapse: collapse;
-  border-radius: 3px;
-  border-spacing: 0;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  font-size: 0.9em;
-  padding: 5px;
-  width: 100%;
-}
-#home .utils table td {
-  background: #fff;
-  border-right: 1px solid #c1c3d1;
-  padding: 7px 12px;
-  text-align: left;
-  text-shadow: -1px -1px 1px rgba(0,0,0,0.1);
-  vertical-align: middle;
-}
-#home .utils table td:last-child {
-  border-right: 0px;
-}
-#home .utils table th {
-  background: #1b1e24;
-  border-bottom: 4px solid #9ea7af;
-  border-right: 1px solid #343a45;
-  color: #d5dde5;
-  padding: 15px;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-  vertical-align: middle;
-}
-#home .utils table th:first-child {
-  border-top-left-radius: 3px;
-}
-#home .utils table th:last-child {
-  border-right: none;
-  border-top-right-radius: 3px;
-}
-#home .utils table tr {
-  border-bottom: 1px solid #c1c3d1;
-  border-top: 1px solid #c1c3d1;
-  color: #666b85;
-  font-size: 0.9em;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.1);
-}
-#home .utils table tr:hover td {
-  background: #4e5066;
-  border-bottom: 1px solid #22262e;
-  border-top: 1px solid #22262e;
-  color: #fff;
-}
-#home .utils table tr:first-child {
-  border-top: none;
-}
-#home .utils table tr:last-child {
-  border-bottom: none;
-}
-#home .utils table tr:last-child td {
-  border-bottom: none;
-}
-#home .utils table tr:last-child td:first-child {
-  border-bottom-left-radius: 3px;
-}
-#home .utils table tr:last-child td:last-child {
-  border-bottom-right-radius: 3px;
-}
-#home .utils table tr:nth-child(odd) td {
-  background: #ebebeb;
-}
-#home .utils table tr:nth-child(odd):hover td {
-  background: #4e5066;
-}
-#home .utils table.currency-error,
-#home .utils table.board-error,
-#home .utils table.rain-error {
+#home .utils .data-table.currency-error,
+#home .utils .data-table.board-error,
+#home .utils .data-table.rain-error {
   display: none;
 }
-#home .utils table.currency-error td,
-#home .utils table.board-error td,
-#home .utils table.rain-error td {
+#home .utils .data-table.currency-error td,
+#home .utils .data-table.board-error td,
+#home .utils .data-table.rain-error td {
   color: #ccc;
   font-size: 1.5em;
   padding: 1em 0;
   text-align: center;
 }
-#home .utils table.board-error td {
+#home .utils .data-table.board-error td {
   padding: 4em 0;
+}
+#historic-rain {
+  padding: 0 2em;
+}
+#historic-rain h2 {
+  margin-top: 1.7em;
+}
+#historic-rain table {
+  margin: 2em 0 4em 0;
 }
 #company {
   overflow: hidden;

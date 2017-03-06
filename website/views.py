@@ -16,6 +16,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import connection
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import Http404
@@ -90,6 +91,36 @@ def get_rain(request):
 				return JsonResponse({'data': json.dumps(data)})
 			else:
 				return JsonResponse({'data': None})
+
+
+def historic_rain(request):
+	# Filter City = 1 only por Arrecifes
+	rain = RainDetail.objects.filter(city=1).extra(select={'month':connection.ops.date_trunc_sql('month', '"website_raindetail"."rain_id"'), 'year':connection.ops.date_trunc_sql('year', '"website_raindetail"."rain_id"')}).values('month', 'year').annotate(mmsum=Sum('mm')).order_by('-year', 'month')
+	history = OrderedDict()
+	prev_year = 0
+	prev_month = 0
+	for r in rain:
+		year = datetime.datetime.strptime(r['year'], "%Y-%m-%d").date().year
+		month = datetime.datetime.strptime(r['month'], "%Y-%m-%d").date().month
+
+		if year == prev_year or prev_year == 0:
+			if prev_month + 1 == month or prev_month == 0:
+				if history.get(year, None) is None:
+					history[year] = OrderedDict()
+				history[year][month] = r['mmsum']
+			else:
+				for i in range(prev_month+1, month):
+					history[year][datetime.datetime(year,i,1).date().month] = 0
+				history[year][month] = r['mmsum']
+		else:
+			if history.get(year, None) is None:
+				history[year] = OrderedDict()
+			history[year][month] = r['mmsum']
+
+		prev_year = year
+		prev_month = month
+
+	return render(request, 'historic_rain.html', {'history':history})
 
 
 def company(request):
