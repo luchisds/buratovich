@@ -1272,51 +1272,82 @@ footer .cv div span:hover .work {
 #home .utils .utils-subtitle {
   margin-bottom: 0.5em;
 }
-#home .utils .rain .historic-rain {
+#home .utils .rain-weather .utils-title {
+  background-color: rgba(255,255,255,0.3);
+  padding-bottom: 0;
+}
+#home .utils .rain-weather .utils-title li {
+  display: inline-block;
+  width: 50%;
+}
+#home .utils .rain-weather .utils-title li a {
+  color: #dedede;
+  display: block;
+  padding-bottom: 0.35em;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+#home .utils .rain-weather .utils-title li a h3 {
+  font-weight: 400;
+}
+#home .utils .rain-weather .utils-title li a:not(.active):hover {
+  color: #bbb;
+}
+#home .utils .rain-weather .utils-title li a.active {
+  background-color: rgba(255,255,255,0.3);
+  color: #3c433e;
+}
+#home .utils .rain-weather .utils-title li:nth-child(1) {
+  border-radius: 3px 0 0 0;
+}
+#home .utils .rain-weather .utils-title li:nth-child(2) {
+  border-radius: 0 3px 0 0;
+}
+#home .utils .rain-weather .rain .historic-rain {
   background-color: #ccc;
   padding: 0.7em 0 1em 0;
   text-align: center;
 }
-#home .utils .rain .historic-rain a {
+#home .utils .rain-weather .rain .historic-rain a {
   border-bottom: 1px dotted transparent;
   color: #018d34;
   padding: 0.3em 0.5em;
 }
-#home .utils .rain .historic-rain a i {
+#home .utils .rain-weather .rain .historic-rain a i {
   color: #018d34;
   margin-right: 0.3em;
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
 }
-#home .utils .rain .historic-rain a:hover {
+#home .utils .rain-weather .rain .historic-rain a:hover {
   border-bottom: 1px dotted #ccc;
 }
-#home .utils .rain .historic-rain a:hover i {
+#home .utils .rain-weather .rain .historic-rain a:hover i {
   -webkit-transform: rotate(-360deg);
           transform: rotate(-360deg);
 }
-#home .utils .weather {
-  margin-top: 0.5em;
+#home .utils .rain-weather .weather {
+  display: none;
 }
-#home .utils .weather .tab {
+#home .utils .rain-weather .weather .tab {
   background-color: #1b1e24;
   border-bottom: 4px solid #9ea7af;
   border-radius: 3px 3px 0 0;
   text-align: center;
 }
-#home .utils .weather .tab li {
+#home .utils .rain-weather .weather .tab li {
   width: 33.33%;
 }
-#home .utils .weather .tab li:first-child a {
+#home .utils .rain-weather .weather .tab li:first-child a {
   border-top-left-radius: 3px;
 }
-#home .utils .weather .tab li:last-child a {
+#home .utils .rain-weather .weather .tab li:last-child a {
   border-top-right-radius: 3px;
 }
-#home .utils .weather .tab li:not(:last-child) {
+#home .utils .rain-weather .weather .tab li:not(:last-child) {
   border-right: 1px solid #343a45;
 }
-#home .utils .weather .tab li a {
+#home .utils .rain-weather .weather .tab li a {
   color: #d5dde5;
   display: block;
   font-size: 0.8em;
@@ -1327,17 +1358,17 @@ footer .cv div span:hover .work {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-#home .utils .weather .tab li a:hover,
-#home .utils .weather .tab li a:focus,
-#home .utils .weather .tab li a.active {
+#home .utils .rain-weather .weather .tab li a:hover,
+#home .utils .rain-weather .weather .tab li a:focus,
+#home .utils .rain-weather .weather .tab li a.active {
   background-color: #4e5066;
 }
-#home .utils .weather .tabcontent {
+#home .utils .rain-weather .weather .tabcontent {
   -webkit-animation: fadeEffect 1s;
           animation: fadeEffect 1s;
   display: none;
 }
-#home .utils .weather .tabcontent#arrecifes {
+#home .utils .rain-weather .weather .tabcontent#arrecifes {
   display: block;
 }
 #home .utils form {
