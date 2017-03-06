@@ -99,6 +99,8 @@ def historic_rain(request):
 	history = OrderedDict()
 	prev_year = 0
 	prev_month = 0
+	year_sum = 0
+	month_avg = 0
 	for r in rain:
 		year = datetime.datetime.strptime(r['year'], "%Y-%m-%d").date().year
 		month = datetime.datetime.strptime(r['month'], "%Y-%m-%d").date().month
@@ -107,15 +109,22 @@ def historic_rain(request):
 			if prev_month + 1 == month or prev_month == 0:
 				if history.get(year, None) is None:
 					history[year] = OrderedDict()
-				history[year][month] = r['mmsum']
+					history[year]['rain'] = OrderedDict()
+					history[year]['total'] = 0
+				history[year]['rain'][month] = r['mmsum']
+				history[year]['total'] += r['mmsum']
 			else:
 				for i in range(prev_month+1, month):
-					history[year][datetime.datetime(year,i,1).date().month] = 0
-				history[year][month] = r['mmsum']
+					history[year]['rain'][datetime.datetime(year,i,1).date().month] = 0
+				history[year]['rain'][month] = r['mmsum']
+				history[year]['total'] += r['mmsum']
 		else:
 			if history.get(year, None) is None:
 				history[year] = OrderedDict()
-			history[year][month] = r['mmsum']
+				history[year]['rain'] = OrderedDict()
+				history[year]['total'] = 0
+			history[year]['rain'][month] = r['mmsum']
+			history[year]['total'] += r['mmsum']
 
 		prev_year = year
 		prev_month = month

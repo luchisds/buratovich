@@ -1419,6 +1419,10 @@ footer .cv div span:hover .work {
 #historic-rain table {
   margin: 2em 0 4em 0;
 }
+#historic-rain table .total,
+#historic-rain table .avg {
+  font-weight: bold;
+}
 #company {
   overflow: hidden;
   position: relative;
