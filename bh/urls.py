@@ -19,6 +19,7 @@ urlpatterns = [
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),
 	url(r'^contacto/$', views.contact, name='contact'),
+	url(r'^historic_rain/$', views.historic_rain, name='historic_rain'),
 
 	url(r'^login/$', views.auth_login, name='login'),
 	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),

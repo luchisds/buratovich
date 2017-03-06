@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load l10n %}
+
+{% block title %}Buratovich Hnos. S.A.{% endblock %}
+
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Historico de Lluvias</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+
+	{% endif %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+<section id="historic-rain" class="maxwidth">
+	<h2>Registro Historico de Lluvias en Arrecifes</h2>
+	<table class="data-table">
+		<thead>
+			<tr>
+				<th>AÑO</th>
+				<th>Ene</th>
+				<th>Feb</th>
+				<th>Mar</th>
+				<th>Abr</th>
+				<th>May</th>
+				<th>Jun</th>
+				<th>Jul</th>
+				<th>Ago</th>
+				<th>Sep</th>
+				<th>Oct</th>
+				<th>Nov</th>
+				<th>Dic</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for k, v in history.items %}
+			<tr>
+				<td>{{k|unlocalize}}</td>
+				{% for l, m in v.items %}
+					<td class="right">{{m}}</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</section>
+{% endblock %}
