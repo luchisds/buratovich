@@ -103,7 +103,10 @@ footer
 			margin-right 1em
 			span
 				font-weight bold
-	.cv
+	.tax
+		border-right 1px solid $midGrey
+		margin-right .4em !important
+	.cv, .tax
 		margin-top 1.2em
 		max-height 230px
 		min-height 60px
@@ -144,6 +147,8 @@ footer
 					transition 0.5s ease-out
 					&.send-cv
 						opacity 0
+		&:not(.tax)
+			span
 				&:hover
 					transform translateY(-50%)
 					.send-cv

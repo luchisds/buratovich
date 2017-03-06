@@ -2,8 +2,8 @@
 {% load static %}
 {% load humanize %}
 {% load l10n %}
-{% load mathfilters %}
 {% load complete_tablecol %}
+{% load rain_average %}
 
 {% block title %}Buratovich Hnos. S.A.{% endblock %}
 
@@ -52,21 +52,21 @@
 						{% complete_tablecol v.rain|length 12 as cols %}
 						{{cols|safe}}
 					{% endif %}
-					<td class="right total">{{v.total}}</td>
+					<td class="right total">{{v.total|floatformat:2|intcomma}}</td>
 				</tr>
 			{% endfor %}
 			<tr>
-				<td>Prom.</td>
+				<td class="total">Prom.</td>
 				{% for i in 'bbbbbbbbbbbb' %}
-					{% with index=forloop.counter0 %}
-					{% endwith %}
-					{% with numerator=month_avg.index.sum denominator=month_avg.index.count %}
-						<td>{{ numerator|div:denominator }}</td>
+					{% with index=forloop.counter %}
+						{% get_rain_average month_avg index as avg %}
+						<td class="right total">{{avg|floatformat:2|intcomma}}</td>
 					{% endwith %}
 				{% endfor %}
+				<td></td>
 			</tr>
 		</tbody>
 	</table>
-	{{month_avg}}
+	<!--{{month_avg}}-->
 </section>
 {% endblock %}

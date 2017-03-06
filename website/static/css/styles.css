@@ -631,6 +631,46 @@ footer .nav:after {
 footer .nav:last-child {
   margin-right: 0%;
 }
+footer .nav .tax {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 65.33333333333333%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+footer .nav .tax:before,
+footer .nav .tax:after {
+  content: '';
+  display: table;
+}
+footer .nav .tax:after {
+  clear: both;
+}
+footer .nav .tax:last-child {
+  margin-right: 0%;
+}
+footer .nav .cv {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 33.33333333333333%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+footer .nav .cv:before,
+footer .nav .cv:after {
+  content: '';
+  display: table;
+}
+footer .nav .cv:after {
+  clear: both;
+}
+footer .nav .cv:last-child {
+  margin-right: 0%;
+}
 footer .foot {
   display: block;
   clear: both;
@@ -1007,13 +1047,19 @@ footer .foot p {
 footer .foot p span {
   font-weight: bold;
 }
-footer .cv {
+footer .tax {
+  border-right: 1px solid #ccc;
+  margin-right: 0.4em !important;
+}
+footer .cv,
+footer .tax {
   margin-top: 1.2em;
   max-height: 230px;
   min-height: 60px;
   position: relative;
 }
-footer .cv div {
+footer .cv div,
+footer .tax div {
   background-color: #ccc;
   border-radius: 3px;
   bottom: 0;
@@ -1024,10 +1070,12 @@ footer .cv div {
   text-align: right;
   top: 0;
 }
-footer .cv div:hover i {
+footer .cv div:hover i,
+footer .tax div:hover i {
   color: #018d34;
 }
-footer .cv div i {
+footer .cv div i,
+footer .tax div i {
   color: #065a7a;
   font-size: 2em;
   left: 10%;
@@ -1036,7 +1084,8 @@ footer .cv div i {
   transition: 0.5s ease-out;
   top: 22%;
 }
-footer .cv div span {
+footer .cv div span,
+footer .tax div span {
   display: inline-block;
   height: 200%;
   margin-left: 35%;
@@ -1045,7 +1094,8 @@ footer .cv div span {
   transition: 0.3s ease-out;
   width: 65%;
 }
-footer .cv div span a {
+footer .cv div span a,
+footer .tax div span a {
   display: block;
   color: #3c433e;
   height: 50%;
@@ -1053,17 +1103,21 @@ footer .cv div span a {
   -webkit-transition: 0.5s ease-out;
   transition: 0.5s ease-out;
 }
-footer .cv div span a.send-cv {
+footer .cv div span a.send-cv,
+footer .tax div span a.send-cv {
   opacity: 0;
 }
-footer .cv div span:hover {
+footer .cv:not(.tax) span:hover,
+footer .tax:not(.tax) span:hover {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-footer .cv div span:hover .send-cv {
+footer .cv:not(.tax) span:hover .send-cv,
+footer .tax:not(.tax) span:hover .send-cv {
   opacity: 1;
 }
-footer .cv div span:hover .work {
+footer .cv:not(.tax) span:hover .work,
+footer .tax:not(.tax) span:hover .work {
   opacity: 0;
 }
 .customer {
