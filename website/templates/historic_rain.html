@@ -2,6 +2,7 @@
 {% load static %}
 {% load humanize %}
 {% load l10n %}
+{% load mathfilters %}
 {% load complete_tablecol %}
 
 {% block title %}Buratovich Hnos. S.A.{% endblock %}
@@ -41,20 +42,31 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for k, v in history.items %}
+			{% for k, v in history.items %}
+				<tr>
+					<td>{{k|unlocalize}}</td>
+					{% for l, m in v.rain.items %}
+						<td class="right">{{m}}</td>
+					{% endfor %}
+					{% if v.rain|length < 12 %}
+						{% complete_tablecol v.rain|length 12 as cols %}
+						{{cols|safe}}
+					{% endif %}
+					<td class="right total">{{v.total}}</td>
+				</tr>
+			{% endfor %}
 			<tr>
-				<td>{{k|unlocalize}}</td>
-				{% for l, m in v.rain.items %}
-					<td class="right">{{m}}</td>
+				<td>Prom.</td>
+				{% for i in 'bbbbbbbbbbbb' %}
+					{% with index=forloop.counter0 %}
+					{% endwith %}
+					{% with numerator=month_avg.index.sum denominator=month_avg.index.count %}
+						<td>{{ numerator|div:denominator }}</td>
+					{% endwith %}
 				{% endfor %}
-				{% if v.rain|length < 12 %}
-					{% complete_tablecol v.rain|length 12 as cols %}
-					{{cols|safe}}
-				{% endif %}
-				<td class="right total">{{v.total}}</td>
 			</tr>
-		{% endfor %}
 		</tbody>
 	</table>
+	{{month_avg}}
 </section>
 {% endblock %}
