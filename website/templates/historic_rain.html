@@ -2,6 +2,7 @@
 {% load static %}
 {% load humanize %}
 {% load l10n %}
+{% load complete_tablecol %}
 
 {% block title %}Buratovich Hnos. S.A.{% endblock %}
 
@@ -36,15 +37,21 @@
 				<th>Oct</th>
 				<th>Nov</th>
 				<th>Dic</th>
+				<th>Total</th>
 			</tr>
 		</thead>
 		<tbody>
 		{% for k, v in history.items %}
 			<tr>
 				<td>{{k|unlocalize}}</td>
-				{% for l, m in v.items %}
+				{% for l, m in v.rain.items %}
 					<td class="right">{{m}}</td>
 				{% endfor %}
+				{% if v.rain|length < 12 %}
+					{% complete_tablecol v.rain|length 12 as cols %}
+					{{cols|safe}}
+				{% endif %}
+				<td class="right total">{{v.total}}</td>
 			</tr>
 		{% endfor %}
 		</tbody>
