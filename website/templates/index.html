@@ -67,7 +67,7 @@
 				<img src="{% static "img/centenaria.jpg" %}" alt="">
 				<h3>Una empresa centenaria</h3>
 				<p>Conocé los valores que nos mantiene en constante crecimiento luego de un siglo de actividad.</p>
-				<a href="/empresa"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				<a href="{% url 'company' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 			</article>
 			<article class="center module">
 				<img src="{% static "img/zonas.jpg" %}" alt="">
@@ -238,7 +238,7 @@
 					</form>
 				</div>
 			</article>
-			<article class="rain-weather">
+			<article class="rain-weather module">
 				<ul class="tab-title h-list utils-title">
 					<li>
 						<a href="#" class="rwlinks rcontent active">
@@ -307,7 +307,7 @@
 							</fieldset>
 						</form>
 						<div class="historic-rain">
-							<a href="/historic_rain/"><i class="fa fa-history" aria-hidden="true"></i> Ver registro historico</a>
+							<a href="{% url 'historic_rain' %}"><i class="fa fa-history" aria-hidden="true"></i> Ver registro historico</a>
 						</div>
 					</div>
 				</article>
@@ -387,7 +387,7 @@
 	});
 
 	function getCurrencyAjax(date) {
-		request.post('/currency/', {cDate:date}).then(function(response, xhr){
+		request.post("{% url 'currency' %}", {cDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
 				if(document.getElementsByClassName('currency-ok')[0].style.display == 'none') {
@@ -414,7 +414,7 @@
 	}
 
 	function getBoardAjax(date) {
-		request.post('/board/', {bDate:date}).then(function(response, xhr){
+		request.post("{% url 'board' %}", {bDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
 				if(document.getElementsByClassName('board-ok')[0].style.display == 'none') {
@@ -461,7 +461,7 @@
 	}
 
 	function getRainAjax(date) {
-		request.post('/rain/', {rDate:date}).then(function(response, xhr){
+		request.post("{% url 'rain' %}", {rDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
 				if(document.getElementsByClassName('rain-ok')[0].style.display == 'none') {

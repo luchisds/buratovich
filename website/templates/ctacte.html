@@ -5,7 +5,7 @@
 
 {% block path %}
 <div class="path maxwidth">
-	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Cuenta Corriente en Pesos</span></div>
+	<div class="route"><a href="/">Home</a> > <a href="{% url 'extranet' %}">Extranet</a> > <span class="current">Cuenta Corriente en Pesos</span></div>
 	{% if user.is_authenticated %}
 		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
@@ -25,8 +25,7 @@
 
 			<div class="export">
 				<button>
-					<a href="/downloadexcel/pesos/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
-					<!--<a href="/extranet/ctacte/downloadexcel/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>-->
+					<a href="{% url 'downloadexcel' 'pesos' %}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 				</button>
 				<!--<button>
 					<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
@@ -79,7 +78,6 @@
 								{% with 'ctacte/'|add:i.file as image_static %}
 									<td class="center">
 										<a href="{% static image_static %}" target="_blank">
-											<!--<i class="fa fa-file-pdf-o" aria-hidden="true"></i>-->
 											<img src="{% static "img/pdf2.png" %}" alt="">
 										</a>
 									</td>
