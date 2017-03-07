@@ -1616,18 +1616,31 @@ footer .tax:not(.tax) span:hover .work {
 #company .infography .row .empty {
   height: 100%;
 }
+#taxes .block {
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+#taxes .data-download {
+  border-radius: 3px;
+  padding: 2em;
+}
 #contact .offices,
 #contact .data-contact,
 #contact .areas,
-#contact .maps {
+#contact .maps,
+#taxes .data-contact,
+#taxes .tax-data {
   font-weight: 300;
   padding: 0 2em;
 }
-#contact .data-contact {
+#contact .data-contact,
+#taxes .data-contact {
   margin: 1.5em 0 0 0;
   font-size: 1.2em;
 }
-#contact .data-contact a {
+#contact .data-contact a,
+#taxes .data-contact a {
   color: #018d34;
   border: 1px solid #fff;
   border-radius: 3px;
@@ -1635,8 +1648,15 @@ footer .tax:not(.tax) span:hover .work {
   margin-left: 0.5em;
   padding: 0.2em 0.3em;
 }
-#contact .data-contact a:hover {
+#contact .data-contact a:hover,
+#taxes .data-contact a:hover {
   border: 1px solid #018d34;
+}
+#contact .offices h2,
+#contact .areas h2,
+#taxes .tax-data h2 {
+  margin: 1em 0 1.5em 0;
+  text-align: center;
 }
 #contact .offices {
   margin: 1em 0 2.5em 0;
@@ -1700,11 +1720,6 @@ footer .tax:not(.tax) span:hover .work {
 }
 #contact .areas .column .unit:first-child h3 {
   margin-top: 0;
-}
-#contact .offices h2,
-#contact .areas h2 {
-  margin: 1em 0 1.5em 0;
-  text-align: center;
 }
 #contact .maps {
   overflow: hidden;

@@ -560,24 +560,48 @@ footer
 
 
 
-/*#### CONTACT ################################################################*/
+/*#### CONTACT / INFORMACION IMPOSITIVA ######################################################*/
+
+#taxes
+	.block
+		border-bottom 1px dotted $midGrey
+		margin-bottom 1em
+		padding-bottom 1em
+	.data-download
+		border-radius 3px
+		padding 2em
+
+#contact .offices, 
+#contact .data-contact, 
+#contact .areas, 
+#contact .maps,
+#taxes .data-contact,
+#taxes .tax-data
+	font-weight 300
+	padding 0 2em
+
+#contact .data-contact,
+#taxes .data-contact
+	margin 1.5em 0 0 0
+	font-size 1.2em
+	a
+		color $baseColor
+		border 1px solid white
+		border-radius 3px
+		font-weight 400
+		margin-left .5em
+		padding .2em .3em
+		&:hover
+			border 1px solid $baseColor
+
+#contact .offices, 
+#contact .areas,
+#taxes .tax-data
+	h2
+		margin 1em 0 1.5em 0
+		text-align center
 
 #contact
-	.offices, .data-contact, .areas, .maps
-		font-weight 300
-		padding 0 2em
-	.data-contact
-		margin 1.5em 0 0 0
-		font-size 1.2em
-		a
-			color $baseColor
-			border 1px solid white
-			border-radius 3px
-			font-weight 400
-			margin-left .5em
-			padding .2em .3em
-			&:hover
-				border 1px solid $baseColor
 	.offices
 		margin 1em 0 2.5em 0
 		overflow hidden
@@ -628,10 +652,6 @@ footer
 			& .unit:first-child
 					h3
 						margin-top 0
-	.offices, .areas
-		h2
-			margin 1em 0 1.5em 0
-			text-align center
 	.maps
 		overflow hidden
 		#basMap
