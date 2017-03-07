@@ -1663,10 +1663,12 @@ footer .tax:not(.tax) span:hover .work {
   margin-bottom: 1em;
 }
 #taxes h4 {
+  font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 #taxes h5 {
-  margin-bottom: 0.5em;
+  font-size: 1em;
+  margin: 1.2em 0 0.6em 0;
 }
 #taxes .address span {
   font-weight: bold;
@@ -1675,6 +1677,9 @@ footer .tax:not(.tax) span:hover .work {
   border-bottom: 1px dotted #ccc;
   margin-bottom: 1em;
   padding-bottom: 1em;
+}
+#taxes .col-2 {
+  padding-top: 3em;
 }
 #taxes .col-2 a {
   display: block;
@@ -1691,6 +1696,13 @@ footer .tax:not(.tax) span:hover .work {
 #taxes .data-gral span {
   font-weight: bold;
 }
+#taxes .cuit {
+  color: #018d34;
+  font-weight: bold;
+}
+#taxes .cuit span {
+  color: #3c433e;
+}
 #taxes .data-description {
   margin: 1em 0 2.5em 0;
 }
@@ -1701,8 +1713,41 @@ footer .tax:not(.tax) span:hover .work {
   margin: 2em 0;
   padding: 2em;
 }
-#taxes .data-public i {
+#taxes .data-download h4,
+#taxes .data-download h5 {
   color: #065a7a;
+}
+#taxes .data-download ul {
+  padding-left: 0.5em;
+}
+#taxes .data-download ul li {
+  margin: 0.5em 0;
+}
+#taxes .data-download ul li a {
+  color: #3c433e;
+  font-weight: 400;
+  vertical-align: middle;
+}
+#taxes .data-download ul li a img {
+  margin-right: 0.5em;
+  width: 18px;
+  vertical-align: middle;
+}
+#taxes .data-fiscal {
+  color: #065a7a;
+}
+#taxes .data-gral.rfog {
+  color: #018d34;
+}
+#taxes .data-public {
+  padding-left: 0.7em;
+}
+#taxes .data-public li {
+  margin: 0.5em 0;
+}
+#taxes .data-public li i {
+  color: #065a7a;
+  margin-right: 0.3em;
 }
 #contact .offices,
 #contact .data-contact,
@@ -1819,28 +1864,29 @@ footer .tax:not(.tax) span:hover .work {
 #change-password .state p {
   font-size: 2em;
 }
-#login .state span,
-#change-password .state span {
-  display: block;
-  font-size: 1.1em;
-  margin-top: 2em;
-}
-#login .state span a,
-#change-password .state span a {
-  border: 1px solid transparent;
-  border-radius: 3px;
-  color: #018d34;
-  padding: 0.1em 0.3em;
-}
-#login .state span a:hover,
-#change-password .state span a:hover {
-  border: 1px solid #018d34;
-}
 #login .state .account-confirmed,
 #change-password .state .account-confirmed {
   color: #018d34;
   font-size: 2.2em;
   margin-bottom: 0.5em;
+}
+#login .state .legend,
+#change-password .state .legend {
+  display: block;
+  line-height: 1.5em;
+  font-size: 1.1em;
+  margin-top: 2em;
+}
+#login .state .legend a,
+#change-password .state .legend a {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #018d34;
+  padding: 0.1em 0.3em;
+}
+#login .state .legend a:hover,
+#change-password .state .legend a:hover {
+  border: 1px solid #018d34;
 }
 #login .login-extranet,
 #change-password .login-extranet,
