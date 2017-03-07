@@ -153,6 +153,10 @@ def contact(request):
 	return render(request, 'contact.html')
 
 
+def taxes(request):
+	return render(request, 'taxes.html')
+
+
 def auth_activate_account(request, uidb64, token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
@@ -188,17 +192,18 @@ def auth_login(request):
 		# Authenticate user first
 		user = authenticate(username=username, password=password)
 		# Check if user is active
-		if user is not None and user.is_active == True:
-			login(request, user)
+		if user is not None:
+			if user.is_active == True:
+				login(request, user)
 
-			user_code = User.objects.get(username=request.POST['username'])
-			algoritmo_code = UserInfo.objects.get(user=user_code.id)
-			# Save algoritmo_code on session
-			request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
+				user_code = User.objects.get(username=request.POST['username'])
+				algoritmo_code = UserInfo.objects.get(user=user_code.id)
+				# Save algoritmo_code on session
+				request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
 
-			return redirect(settings.LOGIN_REDIRECT_URL)
-		elif user.is_active == False:
-			return redirect('/login/inactive_account/')
+				return redirect(settings.LOGIN_REDIRECT_URL)
+			else:
+				return redirect('/login/inactive_account/')
 		else:
 			return redirect('/login/invalid/')
 	else:

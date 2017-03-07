@@ -8,7 +8,6 @@
 	<div class="route"><a href="/">Home</a> > <span class="current">Institucional</span></div>
 	{% if user.is_authenticated %}
 		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
-
 	{% endif %}
 </div>
 {% endblock %}

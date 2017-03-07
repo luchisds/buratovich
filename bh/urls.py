@@ -19,7 +19,8 @@ urlpatterns = [
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),
 	url(r'^contacto/$', views.contact, name='contact'),
-	url(r'^historic_rain/$', views.historic_rain, name='historic_rain'),
+	url(r'^historico_lluvias/$', views.historic_rain, name='historic_rain'),
+	url(r'^impuestos/$', views.taxes, name='taxes'),
 
 	url(r'^login/$', views.auth_login, name='login'),
 	url(r'^login/invalid/$', views.auth_login_invalid, name='login_invalid'),
@@ -37,8 +38,6 @@ urlpatterns = [
 	url(r'^extranet/sales/$', views.sales, name='sales'),
 
 	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)/$', views.downloadexcel, name='downloadexcel'),
-	# url(r'^extranet/ctacte/downloadexcel/$', views.downloadexcel, name='downloadexcel'),
-	# url(r'^extranet/ctacte/downloadtxt/$', views.downloadtxt, name='downloadtxt'),
 
 	url(r'^currency/$', views.get_currency, name='currency'),
 	url(r'^board/$', views.get_board, name='board'),

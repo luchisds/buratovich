@@ -5,7 +5,7 @@
 
 {% block path %}
 <div class="path maxwidth">
-	<div class="route"><a href="/">Home</a> > <a href="/extranet/">Extranet</a> > <span class="current">Ventas</span></div>
+	<div class="route"><a href="/">Home</a> > <a href="{% url 'extranet' %}">Extranet</a> > <span class="current">Ventas</span></div>
 	{% if user.is_authenticated %}
 		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 	{% endif %}
@@ -21,7 +21,7 @@
 		{% if species %}
 
 			<div class="harvest-selector">
-				<form action="/extranet/sales/" method="post">
+				<form action="{% url 'sales' %}" method="post">
 				{% csrf_token %}
 					<div class="harvest-detail">
 					{% for harvest, values in species.items %}
@@ -47,7 +47,7 @@
 			{% if sales %}
 				<div class="export">
 					<button>
-						<a href="/downloadexcel/sales/"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+						<a href="{% url 'downloadexcel' 'sales' %}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 					</button>
 					<!--<button>
 						<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
