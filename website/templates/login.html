@@ -15,6 +15,7 @@
 	<div class="state">
 		{% if login %}
 			<p>Acceso para clientes</p>
+			<p class="legend">Nos sentimos en la obligacion de facilitarle el acceso a la información y la transparencia de nuestras operaciones, motivo por el cual agredecemos que nos envie sus criticas y/o sugerencias via correo electrónico a <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
 		{% else %}
 			{% if inactive_account %}
 				<p>Su cuenta aún no ha sido activada. Ingrese al link de activación que recibio por correo.</p>
@@ -28,7 +29,6 @@
 				{% endif %}
 			{% endif %}
 		{% endif %}
-		<!--<span>Si no recuerda sus datos de ingreso puede comunicarse via correo electrónico a  <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a> y recibira nuevamente su usuario y contraseña.</span>-->
 	</div>
 
 	<form action="{% url 'login' %}" class="login-extranet" method="post">

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 import math
 import os
@@ -16,6 +16,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import connection
 from django.db.models import Q
 from django.db.models import Sum
@@ -180,7 +181,7 @@ def auth_activate_account(request, uidb64, token):
 
 		return render(request, 'change_password.html', {'account_confirmed': True})
 	else:
-		return redirect('/login/invalid/')
+		return redirect(reverse('login_invalid'))
 
 
 def auth_login(request):
@@ -203,9 +204,9 @@ def auth_login(request):
 
 				return redirect(settings.LOGIN_REDIRECT_URL)
 			else:
-				return redirect('/login/inactive_account/')
+				return redirect(reverse('login_inactive_account'))
 		else:
-			return redirect('/login/invalid/')
+			return redirect(reverse('login_invalid'))
 	else:
 		# If data is received via GET and user is already authenticated redirect to /extranet/
 		if request.user.is_authenticated():
@@ -285,7 +286,7 @@ def notifications(request):
 			not_obj = Notifications.objects.get(id=n)
 			ViewedNotifications.objects.create(notification=not_obj, user=request.user, viewed=True)
 		del request.session['notifications']
-		return redirect('/extranet/')
+		return redirect(reverse('extranet'))
 	else:
 		return redirect('/')
 
