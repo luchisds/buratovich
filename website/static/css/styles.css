@@ -1093,7 +1093,7 @@ footer .tax {
 }
 footer .cv,
 footer .tax {
-  margin-top: 1.2em;
+  margin-top: 1.8em;
   max-height: 230px;
   min-height: 60px;
   position: relative;
@@ -1194,12 +1194,13 @@ footer .tax:not(.tax) span:hover .work {
   top: 14px;
 }
 #home .business-units {
-  height: 480px;
   overflow: hidden;
   position: relative;
 }
 #home .business-units .carousel .carousel-cell {
   clear: both;
+  margin-right: 20px;
+  overflow: hidden;
   width: 100%;
 }
 #home .business-units .carousel .carousel-cell div {
@@ -1216,12 +1217,13 @@ footer .tax:not(.tax) span:hover .work {
   line-height: 1.5em;
   opacity: 0;
   text-shadow: 2px 2px 1px #3c433e;
-  -webkit-transition: 0.5s ease-out;
-  transition: 0.5s ease-out;
+  -webkit-transition: 0.4s ease-out;
+  transition: 0.4s ease-out;
   -webkit-transform: translateY(10px);
           transform: translateY(10px);
 }
 #home .business-units .carousel .carousel-cell img {
+  display: block;
   width: 100%;
 }
 #home .business-units .carousel .carousel-cell.move-in p {
