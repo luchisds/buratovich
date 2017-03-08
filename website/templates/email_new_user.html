@@ -9,6 +9,6 @@
 	<p>User name: {{data.username}}</p>
 	<p>Password: {{data.password}}</p>
 	<p>Link de activacion:</p>
-	<a href="http://127.0.0.1:8000/activate_account/{{data.uidb64}}/{{data.token}}/">Activar la cuenta</a>
+	<a href="http://127.0.0.1:8000/{% url 'activate_account' data.uidb64 data.token %}/">Activar la cuenta</a>
 </body>
 </html>
