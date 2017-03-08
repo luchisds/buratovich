@@ -107,7 +107,7 @@ footer
 		border-right 1px solid $midGrey
 		margin-right .4em !important
 	.cv, .tax
-		margin-top 1.2em
+		margin-top 1.8em
 		max-height 230px
 		min-height 60px
 		position relative
@@ -188,12 +188,14 @@ footer
 
 #home
 	.business-units
-		height 480px
+		// height 480px
 		overflow hidden
 		position relative
 		.carousel
 			.carousel-cell
 				clear both
+				margin-right 20px
+				overflow hidden
 				width 100%
 				div
 					background-color rgba(0,0,0,.4)
@@ -208,11 +210,10 @@ footer
 						line-height 1.5em
 						opacity 0
 						text-shadow 2px 2px 1px $darkGreyGreen
-						transition .5s ease-out
+						transition .4s ease-out
 						transform translateY(10px)
-						// .highlight
-						// 	border-bottom 4px solid $baseColor
 				img
+					display block
 					width 100%
 				&.move-in
 						p
@@ -618,6 +619,18 @@ footer
 						margin-right .5em
 						width 18px
 						vertical-align middle
+		// .col-1, .col-2
+		// 	position relative
+		// .col-2
+		// 	.row
+		// 		overflow hidden
+		// 		width 100%
+		// 		.empty
+		// 			height 100%
+		// 		&:nth-child(1)
+		// 			text-align right
+		// 		&:nth-child(2)
+		// 			text-align right
 	.data-fiscal
 		color $accentColor
 	.data-gral.rfog

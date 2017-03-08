@@ -347,12 +347,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
 <script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>
 <script>
-	var flkty = new Flickity( '.carousel', {
+
+	var carousel = document.querySelector('.carousel');
+	var flkty = new Flickity(carousel, {
 		cellSelector: '.carousel-cell',
 		contain: true,
-		autoPlay: 8000,
+		autoPlay: 5000,
 		pageDots: false,
-		imagesLoaded: true
+		imagesLoaded: true,
+		selectedAttraction: 0.01,
+		friction: 0.15
+		// percentPosition: false,
+	});
+
+	var imgs = carousel.querySelectorAll('.carousel-cell img');
+	// get transform property
+	var docStyle = document.documentElement.style;
+	var transformProp = typeof docStyle.transform == 'string' ?
+		'transform' : 'WebkitTransform';
+
+	flkty.on('scroll', function() {
+		flkty.slides.forEach(function(slide, i) {
+			var img = imgs[i];
+			console.log(img);
+			var x = (slide.target + flkty.x) * -1/3;
+			img.style[transformProp] = 'translateX(' + x + 'px)';
+		});
 	});
 </script>
 <script>
