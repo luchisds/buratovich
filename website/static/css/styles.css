@@ -502,6 +502,9 @@ body {
 #home .utils .utils-title {
   font-weight: 400;
 }
+#units .unit .quote {
+  font-family: 'Merriweather', serif;
+}
 body,
 html {
   margin: 0;
@@ -1855,6 +1858,45 @@ footer .tax:not(.tax) span:hover .work {
 }
 #contact .maps #chacoMap {
   border-radius: 3px 0 0 3px;
+}
+#units {
+  padding: 3em 0;
+  text-align: center;
+}
+#units .unit {
+  margin-bottom: 2em;
+}
+#units .unit .image img {
+  width: 100%;
+}
+#units .unit .quote {
+  font-size: 1.3em;
+  line-height: 1.7em;
+  margin-bottom: 1em;
+}
+#units .unit .separator {
+  height: 2px;
+  background-color: #018d34;
+  display: block;
+  margin: 0.8em auto 2em auto;
+}
+#units .unit .unit-title {
+  font-size: 2.7em;
+}
+#units .acopio .separator {
+  width: 3em;
+}
+#units .commer .separator {
+  width: 12em;
+}
+#units .agro .separator {
+  width: 8em;
+}
+#units .breeding .separator {
+  width: 6em;
+}
+#units .export .separator {
+  width: 9em;
 }
 #login .state,
 #change-password .state {

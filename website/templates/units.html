@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Buratovich Hnos. S.A. - Unidades de Negocio{% endblock %}
+
+{% block head %}
+<!--<link rel="stylesheet" href="{% static "js/flickity/flickity.min.css" %}">-->
+{% endblock %}
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="route"><a href="/">Home</a> > <span class="current">Unidades de Negocio</span></div>
+	{% if user.is_authenticated %}
+		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<section id="units" class="maxwidth">
+	<section class="unit acopio">
+		<h2 class="unit-title">ACOPIO</h2>
+		<div class="separator"></div>
+		<p class="quote">Tres plantas de silos altamente calificadas para el acopio y acondicionamiento de granos al servicio de nuestros clientes.</p>
+		<div class="image">
+			<img src="{% static "img/unit_acopio.jpg" %}" alt="">
+		</div>
+	</section>
+	<section class="unit commer">
+		<h2 class="unit-title">COMERCIALIZACIÓN</h2>
+		<div class="separator"></div>
+		<p class="quote">Mas de 100 años de experiencia en la comercializacion de granos y oleaginosas para ofrecerle diferentes alternativas de negocios: acopio, corretaje, asesoramiento, canjes, contratos forward y disponible.</p>
+	</section>
+	<section class="unit agro">
+		<h2 class="unit-title">AGRICULTURA</h2>
+		<div class="separator"></div>
+		<p class="quote">Desarrollamos la produccion agricola en distintas regiones de las provincias de Buenos Aires y Chaco. Nuestros principales cultivos son la Arveja, Trigo, Maiz, Soja, Sorgo, Girasol y Algodón.</p>
+	</section>
+	<section class="unit breeding">
+		<h2 class="unit-title">GANADERIA</h2>
+		<div class="separator"></div>
+		<p class="quote">Desde hace años practicamos la actividad ganadera en la localidad de Pila, en el centro este de la provincia de Buenos Aires.</p>
+	</section>
+	<section class="unit export">
+		<h2 class="unit-title">EXPORTACIÓN</h2>
+		<div class="separator"></div>
+		<p class="quote">Una actividad en constante crecimiento que nos ha permitido conformar una fuerte red de contactos internacionales a traves de la exportacion de cereales, oleaginosas y productos derivados.</p>
+	</section>
+</section>
+{% endblock %}
+
+{% block scriptjs %}
+
+<!--<script src="{% static "js/js.cookie.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
+<script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>-->
+<!--<script>
+
+	var carousel = document.querySelector('.carousel');
+	var flkty = new Flickity(carousel, {
+		cellSelector: '.carousel-cell',
+		contain: true,
+		autoPlay: 5000,
+		pageDots: false,
+		imagesLoaded: true,
+		selectedAttraction: 0.01,
+		friction: 0.15
+		// percentPosition: false,
+	});
+
+	var imgs = carousel.querySelectorAll('.carousel-cell img');
+	// get transform property
+	var docStyle = document.documentElement.style;
+	var transformProp = typeof docStyle.transform == 'string' ?
+		'transform' : 'WebkitTransform';
+
+	flkty.on('scroll', function() {
+		flkty.slides.forEach(function(slide, i) {
+			var img = imgs[i];
+			console.log(img);
+			var x = (slide.target + flkty.x) * -1/3;
+			img.style[transformProp] = 'translateX(' + x + 'px)';
+		});
+	});
+</script>-->
+
+{% endblock %}
