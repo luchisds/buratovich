@@ -955,6 +955,40 @@ footer .foot:last-child {
 #taxes .col-2:last-child {
   margin-right: 0%;
 }
+#bussines-units .col-2 {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+#bussines-units .col-2:before,
+#bussines-units .col-2:after {
+  content: '';
+  display: table;
+}
+#bussines-units .col-2:after {
+  clear: both;
+}
+#bussines-units .col-2:last-child {
+  margin-right: 0%;
+}
+#bussines-units .row-2 {
+  display: block;
+  clear: both;
+  float: none;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#bussines-units .row-2:first-child {
+  margin-left: auto;
+}
+#bussines-units .row-2:last-child {
+  margin-right: auto;
+}
 header {
   overflow: hidden;
   padding: 1em 0;
@@ -1866,8 +1900,11 @@ footer .tax:not(.tax) span:hover .work {
 #bussines-units .unit {
   margin-bottom: 2em;
 }
-#bussines-units .unit .image img {
-  width: 100%;
+#bussines-units .unit .image {
+  max-height: 500px;
+  overflow: hidden;
+  position: relative;
+  background: #eee url("../img/units/unit_acopio_2.jpg") no-repeat fixed top right;
 }
 #bussines-units .unit .quote {
   font-size: 1.3em;
@@ -1885,6 +1922,42 @@ footer .tax:not(.tax) span:hover .work {
 }
 #bussines-units .acopio .separator {
   width: 3em;
+}
+#bussines-units .acopio .image .map-container {
+  overflow: hidden;
+  padding: 1em 0 0 1em;
+  position: relative;
+  text-align: left;
+}
+#bussines-units .acopio .image .map-container .map {
+  width: 60%;
+  z-index: 1;
+}
+#bussines-units .acopio .image .map-container .marker,
+#bussines-units .acopio .image .map-container .line {
+  position: absolute;
+  z-index: 2;
+}
+#bussines-units .acopio .image .map-container .gp {
+  left: 34%;
+  top: 15%;
+}
+#bussines-units .acopio .image .map-container .ar {
+  left: 36%;
+  top: 35%;
+}
+#bussines-units .acopio .image .map-container .line {
+  border-top: 1px dashed #fff;
+  height: 1px;
+  width: 500px;
+}
+#bussines-units .acopio .image .map-container .gp-line {
+  left: 39%;
+  top: 17%;
+}
+#bussines-units .acopio .image .map-container .ar-line {
+  left: 41%;
+  top: 37%;
 }
 #bussines-units .commer .separator {
   width: 12em;

@@ -740,11 +740,13 @@ footer
 	.unit
 		margin-bottom 2em
 		.image
-			// background url(../img/unit_acopio.jpg) no-repeat
-			// background-size contain
-			// height 702px
-			img
-				width 100%
+			max-height 500px
+			overflow hidden
+			position relative
+			// img
+			// 	//position absolute
+			// 	width 100%
+			background #eee url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
 		.quote
 			font-size 1.3em
 			line-height 1.7em
@@ -759,6 +761,34 @@ footer
 	.acopio
 		.separator
 			width 3em
+		.image
+			.map-container
+				overflow hidden
+				padding 1em 0 0 1em
+				position relative
+				text-align left
+				.map
+					width 60%
+					z-index 1
+				.marker, .line
+					position absolute
+					z-index 2
+				.gp
+					left 34%
+					top 15%
+				.ar
+					left 36%
+					top 35%
+				.line
+					border-top 1px dashed white
+					height 1px
+					width 500px
+				.gp-line
+					left 39%
+					top 17%
+				.ar-line
+					left 41%
+					top 37%
 	.commer
 		.separator
 			width 12em
