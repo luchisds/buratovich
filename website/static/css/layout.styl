@@ -743,7 +743,19 @@ footer
 			max-height 500px
 			overflow hidden
 			position relative
-			background #eee url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
+			//background #eee url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
+			&::after
+				content ""
+				background url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
+				opacity .9
+				top 0
+				left 0
+				bottom 0
+				right 0
+				position absolute
+				z-index -1
+			.content
+				overflow hidden
 		.quote
 			font-size 1.3em
 			line-height 1.7em
@@ -759,9 +771,7 @@ footer
 		.separator
 			width 3em
 		.image
-			overflow hidden
 			.map-container
-				// overflow hidden
 				padding 1em 0 0 1em
 				position relative
 				text-align left
@@ -791,9 +801,10 @@ footer
 				overflow hidden
 				position relative
 				.plant
-					height 500px
+					//height 250px
 					text-align left
-					position absolute
+					//position absolute
+					position relative
 					width 50%
 					z-index 3
 					.detail
@@ -820,10 +831,12 @@ footer
 								i
 									margin-right .3em
 				.ar
-					left 15%
-					top 30%
+					//left 15%
+					//top 30%
+					margin 12% auto auto 15%
 				.gp
-					top 10%
+					//top 10%
+						margin 5% auto auto auto
 	.commer
 		.separator
 			width 12em
