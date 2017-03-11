@@ -1890,7 +1890,20 @@ footer .tax:not(.tax) span:hover .work {
   max-height: 500px;
   overflow: hidden;
   position: relative;
-  background: #eee url("../img/units/unit_acopio_2.jpg") no-repeat fixed top right;
+}
+#bussines-units .unit .image::after {
+  content: "";
+  background: url("../img/units/unit_acopio_2.jpg") no-repeat fixed top right;
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+#bussines-units .unit .image .content {
+  overflow: hidden;
 }
 #bussines-units .unit .quote {
   font-size: 1.3em;
@@ -1908,9 +1921,6 @@ footer .tax:not(.tax) span:hover .work {
 }
 #bussines-units .acopio .separator {
   width: 3em;
-}
-#bussines-units .acopio .image {
-  overflow: hidden;
 }
 #bussines-units .acopio .image .map-container {
   padding: 1em 0 0 1em;
@@ -1952,9 +1962,8 @@ footer .tax:not(.tax) span:hover .work {
   position: relative;
 }
 #bussines-units .acopio .image .location .plant {
-  height: 500px;
   text-align: left;
-  position: absolute;
+  position: relative;
   width: 50%;
   z-index: 3;
 }
@@ -1989,11 +1998,7 @@ footer .tax:not(.tax) span:hover .work {
   margin-right: 0.3em;
 }
 #bussines-units .acopio .image .location .ar {
-  left: 15%;
-  top: 30%;
-}
-#bussines-units .acopio .image .location .gp {
-  top: 10%;
+  margin: 12% auto auto 15%;
 }
 #bussines-units .commer .separator {
   width: 12em;
