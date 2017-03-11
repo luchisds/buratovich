@@ -743,9 +743,6 @@ footer
 			max-height 500px
 			overflow hidden
 			position relative
-			// img
-			// 	//position absolute
-			// 	width 100%
 			background #eee url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
 		.quote
 			font-size 1.3em
@@ -762,8 +759,9 @@ footer
 		.separator
 			width 3em
 		.image
+			overflow hidden
 			.map-container
-				overflow hidden
+				// overflow hidden
 				padding 1em 0 0 1em
 				position relative
 				text-align left
@@ -789,6 +787,43 @@ footer
 				.ar-line
 					left 41%
 					top 37%
+			.location
+				overflow hidden
+				position relative
+				.plant
+					height 500px
+					text-align left
+					position absolute
+					width 50%
+					z-index 3
+					.detail
+						background-color $midGrey
+						border 6px solid white
+						padding 10px
+						img
+							border-radius 3px
+							display inline-block
+							width 45%
+						div
+							display inline-block
+							font-size .85em
+							margin-left .5em
+							vertical-align top
+							h3
+								color $accentColor
+								margin-bottom .5em
+							p
+								margin .4em 0
+								a
+									border-bottom 1px dashed $baseColor
+									color $baseColor
+								i
+									margin-right .3em
+				.ar
+					left 15%
+					top 30%
+				.gp
+					top 10%
 	.commer
 		.separator
 			width 12em

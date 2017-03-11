@@ -22,10 +22,8 @@
 	<section class="unit acopio">
 		<h2 class="unit-title">ACOPIO</h2>
 		<div class="separator"></div>
-		<!--<p class="quote">Tres plantas de silos altamente calificadas para el acopio y acondicionamiento de granos al servicio de nuestros clientes.</p>-->
 		<p class="quote maxwidth">Acompañamos la gestión de nuestros clientes desde su campo hasta nuestras plantas de acopio, brindando un eficiente servicio de logística y acarreo, y garantizando la calidad y conservación de su mercadería.</p>
 		<div class="image">
-			<!--<img src="{% static "img/units/unit_acopio_2.jpg" %}" alt="">-->
 			<div class="content">
 				<div class="map-container col-2">
 					<div class="line gp-line"></div>
@@ -35,11 +33,36 @@
 					<img class="map" src="{% static "img/units/map.png" %}" alt="">
 				</div>
 				<div class="location col-2">
-					<div class="row-2">
-						
+					<div class="plant gp">
+						<div class="detail">
+							<img src="{% static "img/mini_chaco.jpg" %}" alt="">
+							<div>
+								<h3>Planta Gral. Pinedo</h3>
+								<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta Prov. 94 Km 65</p>
+								<p><i class="fa fa-globe" aria-hidden="true"></i> Gral. Pinedo, Chaco</p>
+								<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="">Ver mapa</a></p>
+							</div>
+						</div>
 					</div>
-					<div class="row-2">
-						
+					<div class="plant ar">
+						<div class="detail">
+							<img src="{% static "img/mini_silos.jpg" %}" alt="">
+							<div>
+								<h3>Planta Ruta 8</h3>
+								<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 8 y L. N. Alem</p>
+								<p><i class="fa fa-globe" aria-hidden="true"></i> Arrecifes, Bs. As.</p>
+								<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="">Ver mapa</a></p>
+							</div>
+						</div>
+						<div class="detail">
+							<img src="{% static "img/mini_ruta51.jpg" %}" alt="">
+							<div>
+								<h3>Planta Ruta 51</h3>
+								<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 51 Km XXXX</p>
+								<p><i class="fa fa-globe" aria-hidden="true"></i> Arrecifes, Bs. As.</p>
+								<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="">Ver mapa</a></p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -66,41 +89,4 @@
 		<p class="quote maxwidth">Una actividad en constante crecimiento que nos ha permitido conformar una fuerte red de contactos internacionales a traves de la exportacion de cereales, oleaginosas y productos derivados.</p>
 	</section>
 </section>
-{% endblock %}
-
-{% block scriptjs %}
-
-<!--<script src="{% static "js/js.cookie.js" %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
-<script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>-->
-<!--<script>
-
-	var carousel = document.querySelector('.carousel');
-	var flkty = new Flickity(carousel, {
-		cellSelector: '.carousel-cell',
-		contain: true,
-		autoPlay: 5000,
-		pageDots: false,
-		imagesLoaded: true,
-		selectedAttraction: 0.01,
-		friction: 0.15
-		// percentPosition: false,
-	});
-
-	var imgs = carousel.querySelectorAll('.carousel-cell img');
-	// get transform property
-	var docStyle = document.documentElement.style;
-	var transformProp = typeof docStyle.transform == 'string' ?
-		'transform' : 'WebkitTransform';
-
-	flkty.on('scroll', function() {
-		flkty.slides.forEach(function(slide, i) {
-			var img = imgs[i];
-			console.log(img);
-			var x = (slide.target + flkty.x) * -1/3;
-			img.style[transformProp] = 'translateX(' + x + 'px)';
-		});
-	});
-</script>-->
-
 {% endblock %}
