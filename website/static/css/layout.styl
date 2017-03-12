@@ -735,15 +735,25 @@ footer
 /*#### BUSINESS UNITS ###########################################################*/
 
 #bussines-units
+	background url('../img/units/back.jpg') no-repeat fixed top center)
 	padding 3em 0
 	text-align center
+	.units-description
+		color $accentColor
+		font-size 1.4em
+		font-weight 700
+		line-height 1.5em
+		padding 0 1.5em
+		text-align left
 	.unit
-		margin-bottom 2em
+		// margin-bottom 2em
+		margin-top 6em
 		.image
-			max-height 500px
+			max-height 520px
 			overflow hidden
 			position relative
-			//background #eee url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
+			.content
+				overflow hidden
 			&::after
 				content ""
 				background url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
@@ -754,8 +764,14 @@ footer
 				right 0
 				position absolute
 				z-index -1
-			.content
-				overflow hidden
+		.line
+			border-top 1px dashed white
+			height 1px
+			width 500px
+		.line-v
+			border-left 1px dashed white
+			margin 0 auto
+			width 1px
 		.quote
 			font-size 1.3em
 			line-height 1.7em
@@ -787,10 +803,6 @@ footer
 				.ar
 					left 36%
 					top 35%
-				.line
-					border-top 1px dashed white
-					height 1px
-					width 500px
 				.gp-line
 					left 39%
 					top 17%
@@ -801,15 +813,15 @@ footer
 				overflow hidden
 				position relative
 				.plant
-					//height 250px
-					text-align left
-					//position absolute
 					position relative
-					width 50%
+					text-align left
+					// width 50%
+					width 320px
 					z-index 3
 					.detail
 						background-color $midGrey
 						border 6px solid white
+						border-radius 3px
 						padding 10px
 						img
 							border-radius 3px
@@ -830,13 +842,14 @@ footer
 									color $baseColor
 								i
 									margin-right .3em
+					.line-v
+						height 15px
 				.ar
-					//left 15%
-					//top 30%
-					margin 12% auto auto 15%
+					margin 5% auto auto 15%
+					.detail:nth-child(2)
+						margin-top 15px
 				.gp
-					//top 10%
-						margin 5% auto auto auto
+					margin 10% auto auto 0
 	.commer
 		.separator
 			width 12em
