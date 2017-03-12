@@ -1883,13 +1883,24 @@ footer .tax:not(.tax) span:hover .work {
   padding: 3em 0;
   text-align: center;
 }
+#bussines-units .units-description {
+  color: #065a7a;
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1.5em;
+  padding: 0 1.5em;
+  text-align: left;
+}
 #bussines-units .unit {
-  margin-bottom: 2em;
+  margin-top: 6em;
 }
 #bussines-units .unit .image {
-  max-height: 500px;
+  max-height: 520px;
   overflow: hidden;
   position: relative;
+}
+#bussines-units .unit .image .content {
+  overflow: hidden;
 }
 #bussines-units .unit .image::after {
   content: "";
@@ -1902,8 +1913,15 @@ footer .tax:not(.tax) span:hover .work {
   position: absolute;
   z-index: -1;
 }
-#bussines-units .unit .image .content {
-  overflow: hidden;
+#bussines-units .unit .line {
+  border-top: 1px dashed #fff;
+  height: 1px;
+  width: 500px;
+}
+#bussines-units .unit .line-v {
+  border-left: 1px dashed #fff;
+  margin: 0 auto;
+  width: 1px;
 }
 #bussines-units .unit .quote {
   font-size: 1.3em;
@@ -1944,11 +1962,6 @@ footer .tax:not(.tax) span:hover .work {
   left: 36%;
   top: 35%;
 }
-#bussines-units .acopio .image .map-container .line {
-  border-top: 1px dashed #fff;
-  height: 1px;
-  width: 500px;
-}
 #bussines-units .acopio .image .map-container .gp-line {
   left: 39%;
   top: 17%;
@@ -1962,14 +1975,15 @@ footer .tax:not(.tax) span:hover .work {
   position: relative;
 }
 #bussines-units .acopio .image .location .plant {
-  text-align: left;
   position: relative;
-  width: 50%;
+  text-align: left;
+  width: 320px;
   z-index: 3;
 }
 #bussines-units .acopio .image .location .plant .detail {
   background-color: #ccc;
   border: 6px solid #fff;
+  border-radius: 3px;
   padding: 10px;
 }
 #bussines-units .acopio .image .location .plant .detail img {
@@ -1997,8 +2011,17 @@ footer .tax:not(.tax) span:hover .work {
 #bussines-units .acopio .image .location .plant .detail div p i {
   margin-right: 0.3em;
 }
+#bussines-units .acopio .image .location .plant .line-v {
+  height: 15px;
+}
 #bussines-units .acopio .image .location .ar {
-  margin: 12% auto auto 15%;
+  margin: 5% auto auto 15%;
+}
+#bussines-units .acopio .image .location .ar .detail:nth-child(2) {
+  margin-top: 15px;
+}
+#bussines-units .acopio .image .location .gp {
+  margin: 10% auto auto 0;
 }
 #bussines-units .commer .separator {
   width: 12em;
