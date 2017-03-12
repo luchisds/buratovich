@@ -735,7 +735,8 @@ footer
 /*#### BUSINESS UNITS ###########################################################*/
 
 #bussines-units
-	background url('../img/units/back.jpg') no-repeat fixed top center)
+	background url('../img/units/back.jpg') no-repeat top center
+	// margin-top -1em
 	padding 3em 0
 	text-align center
 	.units-description
@@ -743,20 +744,20 @@ footer
 		font-size 1.4em
 		font-weight 700
 		line-height 1.5em
+		margin 1em 0
 		padding 0 1.5em
 		text-align left
 	.unit
-		// margin-bottom 2em
-		margin-top 6em
-		.image
-			max-height 520px
+		margin-top 8em
+		.main
+			// max-height 520px
+			height 520px
 			overflow hidden
 			position relative
 			.content
 				overflow hidden
 			&::after
 				content ""
-				background url('../img/units/unit_acopio_2.jpg') no-repeat fixed top right
 				opacity .9
 				top 0
 				left 0
@@ -775,7 +776,7 @@ footer
 		.quote
 			font-size 1.3em
 			line-height 1.7em
-			margin-bottom 1em
+			margin-bottom 2em
 		.separator
 			height 2px
 			background-color $baseColor
@@ -786,7 +787,7 @@ footer
 	.acopio
 		.separator
 			width 3em
-		.image
+		.main
 			.map-container
 				padding 1em 0 0 1em
 				position relative
@@ -850,9 +851,25 @@ footer
 						margin-top 15px
 				.gp
 					margin 10% auto auto 0
+			&::after
+				background url('../img/units/unit_acopio.jpg') no-repeat fixed top right
+		.related
+			margin-top 4em
+			padding 0 10%
+			article
+				img
+					border-radius 50%
+					width 35%
+				div
+					font-size 1.1em
+					line-height 1.5em
+					padding 1.5em 2.5em 0 2.5em
 	.commer
 		.separator
 			width 12em
+		.main
+			&::after
+				background url('../img/units/unit_commer.jpg') no-repeat fixed center left
 	.agro
 		.separator
 			width 8em
