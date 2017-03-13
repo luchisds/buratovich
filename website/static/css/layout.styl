@@ -736,7 +736,6 @@ footer
 
 #bussines-units
 	background url('../img/units/back.jpg') no-repeat top center
-	// margin-top -1em
 	padding 3em 0
 	text-align center
 	.units-description
@@ -788,6 +787,8 @@ footer
 		.separator
 			width 3em
 		.main
+			&::after
+				background url('../img/units/unit_acopio.jpg') no-repeat fixed top right
 			.map-container
 				padding 1em 0 0 1em
 				position relative
@@ -816,7 +817,6 @@ footer
 				.plant
 					position relative
 					text-align left
-					// width 50%
 					width 320px
 					z-index 3
 					.detail
@@ -851,8 +851,6 @@ footer
 						margin-top 15px
 				.gp
 					margin 10% auto auto 0
-			&::after
-				background url('../img/units/unit_acopio.jpg') no-repeat fixed top right
 		.related
 			margin-top 4em
 			padding 0 10%
@@ -870,6 +868,27 @@ footer
 		.main
 			&::after
 				background url('../img/units/unit_commer.jpg') no-repeat fixed center left
+			.content
+				position relative
+				top 50%
+				transform translateY(-50%)
+				& > div
+					overflow hidden
+			.box
+				background-color white
+				border 1px dashed $midGrey
+				//box-shadow: 0 0 0 4px #ff0030, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+				box-shadow 0 0 0 6px white
+				color $accentColor
+				display inline-block
+				float none
+				font-size 1.2em
+				height 6em
+				margin 1em 2em
+				padding .7em
+				text-align left
+				vertical-align top
+				width 12em
 	.agro
 		.separator
 			width 8em

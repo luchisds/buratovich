@@ -995,6 +995,37 @@ footer .foot:last-child {
 #bussines-units .col-3:last-child {
   margin-right: 0%;
 }
+#bussines-units .row {
+  display: block;
+  clear: both;
+  float: none;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  *zoom: 1;
+  width: auto;
+  max-width: 1440px;
+  float: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+#bussines-units .row:first-child {
+  margin-left: auto;
+}
+#bussines-units .row:last-child {
+  margin-right: auto;
+}
+#bussines-units .row:before,
+#bussines-units .row:after {
+  content: '';
+  display: table;
+}
+#bussines-units .row:after {
+  clear: both;
+}
 #bussines-units .acopio .related article {
   *zoom: 1;
   float: left;
@@ -1981,6 +2012,9 @@ footer .tax:not(.tax) span:hover .work {
 #bussines-units .acopio .separator {
   width: 3em;
 }
+#bussines-units .acopio .main::after {
+  background: url("../img/units/unit_acopio.jpg") no-repeat fixed top right;
+}
 #bussines-units .acopio .main .map-container {
   padding: 1em 0 0 1em;
   position: relative;
@@ -2064,9 +2098,6 @@ footer .tax:not(.tax) span:hover .work {
 #bussines-units .acopio .main .location .gp {
   margin: 10% auto auto 0;
 }
-#bussines-units .acopio .main::after {
-  background: url("../img/units/unit_acopio.jpg") no-repeat fixed top right;
-}
 #bussines-units .acopio .related {
   margin-top: 4em;
   padding: 0 10%;
@@ -2085,6 +2116,30 @@ footer .tax:not(.tax) span:hover .work {
 }
 #bussines-units .commer .main::after {
   background: url("../img/units/unit_commer.jpg") no-repeat fixed center left;
+}
+#bussines-units .commer .main .content {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+#bussines-units .commer .main .content > div {
+  overflow: hidden;
+}
+#bussines-units .commer .main .box {
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  box-shadow: 0 0 0 6px #fff;
+  color: #065a7a;
+  display: inline-block;
+  float: none;
+  font-size: 1.2em;
+  height: 6em;
+  margin: 1em 2em;
+  padding: 0.7em;
+  text-align: left;
+  vertical-align: top;
+  width: 12em;
 }
 #bussines-units .agro .separator {
   width: 8em;
