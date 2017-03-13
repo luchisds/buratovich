@@ -269,14 +269,14 @@ template {
   outline: 0;
 }
 .path {
-  border-bottom: 1px solid #ccc;
-  margin: 1em 1.5em;
+  margin: 1em auto;
   overflow: hidden;
-  padding: 0 0.5em 0.3em 0.5em;
+  padding: 0 1.5em;
 }
 .path .route {
   display: inline-block;
   float: left;
+  padding-left: 0.5em;
 }
 .path .route a {
   color: #3c433e;
@@ -285,8 +285,9 @@ template {
   color: #018d34;
 }
 .path .hi {
-  display: inline-block;
-  float: right;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0.5em 0.2em 0.5em;
+  text-align: right;
 }
 .path .hi .customer-name {
   color: #018d34;
@@ -2135,11 +2136,11 @@ footer .tax:not(.tax) span:hover .work {
   float: none;
   font-size: 1.2em;
   height: 6em;
-  margin: 1em 2em;
+  margin: 1.2em 2em;
   padding: 0.7em;
   text-align: left;
   vertical-align: top;
-  width: 12em;
+  width: 13em;
 }
 #bussines-units .agro .separator {
   width: 8em;

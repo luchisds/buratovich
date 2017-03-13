@@ -59,20 +59,21 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 		outline 0
 
 .path
-	border-bottom 1px solid $midGrey
-	margin 1em 1.5em
+	margin 1em auto
 	overflow hidden
-	padding 0 .5em .3em .5em
+	padding 0 1.5em
 	.route
 		display inline-block
 		float left
+		padding-left .5em
 		a
 			color $darkGreyGreen
 		.current
 			color $baseColor
 	.hi
-		display inline-block
-		float right
+		border-bottom 1px solid $midGrey
+		padding 0 .5em .2em .5em
+		text-align right
 		.customer-name
 			color $baseColor
 			font-weight bold
