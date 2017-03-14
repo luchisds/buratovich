@@ -35,14 +35,20 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 		width 100%
 		&.focused
 			padding 5px 10px 8px 10px
-	span
+			// & ~ .eye
+			// 	opacity 1
+	.icon, .eye
 		color $midGrey
 		display block
 		font-size 15px
-		left 10px
 		opacity 1
 		position absolute
 		top 8px
+	.eye
+		// opacity 0
+		right 10px
+	.icon
+		left 10px
 
 .submit
 	background white

@@ -31,6 +31,11 @@ document.onreadystatechange = function () {
 			});
 		}
 
+		var pwd = document.getElementsByClassName('password')[0];
+		pwd.addEventListener('onmousedown', function() {
+			this.setAttribute('type', 'text');
+		});
+
 
 		//## INDEX ##################################################################################
 		var home = document.getElementById('home');
@@ -133,7 +138,6 @@ document.onreadystatechange = function () {
 					return;
 				}
 				var tabcontent = document.getElementsByClassName('tabcontent');
-				//console.log(tabcontent);
 				for (i = 0; i < tabcontent.length; i++) {
 					tabcontent[i].style.display = 'none';
 				}
@@ -146,17 +150,6 @@ document.onreadystatechange = function () {
 			});
 		}
 
-		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
-
-		// var extranet = document.getElementById('extranet');
-		// if (extranet) {
-		// 	var randomPassword = document.getElementsByClassName('random-password')[0];
-		// 	var closeRandomPassword = document.getElementsByClassName('close-random-password')[0];
-		// 	closeRandomPassword.addEventListener('click', function(event) {
-		// 		event.preventDefault();
-		// 		randomPassword.style.display = 'none';
-		// 	});
-		// }
 
 		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
