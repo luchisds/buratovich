@@ -243,14 +243,20 @@ template {
 .input input.focused {
   padding: 5px 10px 8px 10px;
 }
-.input span {
+.input .icon,
+.input .eye {
   color: #ccc;
   display: block;
   font-size: 15px;
-  left: 10px;
   opacity: 1;
   position: absolute;
   top: 8px;
+}
+.input .eye {
+  right: 10px;
+}
+.input .icon {
+  left: 10px;
 }
 .submit {
   background: #fff;
