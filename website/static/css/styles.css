@@ -253,7 +253,11 @@ template {
   top: 8px;
 }
 .input .eye {
+  color: #3c433e;
   right: 10px;
+}
+.input .eye.selected {
+  color: #ccc;
 }
 .input .icon {
   left: 10px;

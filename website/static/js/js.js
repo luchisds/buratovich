@@ -31,10 +31,30 @@ document.onreadystatechange = function () {
 			});
 		}
 
-		var pwd = document.getElementsByClassName('password')[0];
-		pwd.addEventListener('onmousedown', function() {
-			this.setAttribute('type', 'text');
-		});
+		var eye = document.getElementsByClassName('eye');
+		for (var i = 0; i < eye.length; i++) {
+			eye[i].addEventListener('mousedown', function() {
+				var target = findParent(this, 'input');
+				for (var i = 0; i < target.childNodes.length; i++) {
+					if (hasClass(target.childNodes[i], 'password')) {
+						// Change password input type
+						pwd = target.childNodes[i];
+					}
+				}
+				pwd.setAttribute('type', 'text');
+				addClass(this, 'selected');
+			});
+
+			eye[i].addEventListener('mouseup', function() {
+				pwd.setAttribute('type', 'password');
+				removeClass(this, 'selected');
+			});
+		}
+
+		function findParent(el, cls) {
+			while ((el = el.parentElement) && !el.classList.contains(cls));
+			return el;
+		}
 
 
 		//## INDEX ##################################################################################
@@ -133,7 +153,6 @@ document.onreadystatechange = function () {
 			var tab = document.getElementsByClassName('tab')[0];
 			tab.addEventListener('click', function(event){
 				event.preventDefault();
-				console.log(event.target);
 				if (!matchesSelector(event.target, '.tablinks')) {
 					return;
 				}
@@ -180,13 +199,8 @@ document.onreadystatechange = function () {
 
 		function visibleEl(element) {
 			var rect = element.getBoundingClientRect();
-			//console.log(rect);
 			var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
-			//console.log(document.scrollingElement.scrollTop + rect.top);
-			//console.log(totalScroll);
 			return (
-				//rect.top >= 0 &&
-				//rect.left >= 0 &&
 				totalScroll >= (document.scrollingElement.scrollTop + rect.top)
 			);
 		}

@@ -369,7 +369,6 @@
 	flkty.on('scroll', function() {
 		flkty.slides.forEach(function(slide, i) {
 			var img = imgs[i];
-			console.log(img);
 			var x = (slide.target + flkty.x) * -1/3;
 			img.style[transformProp] = 'translateX(' + x + 'px)';
 		});
@@ -489,7 +488,6 @@
 					document.getElementsByClassName('rain-ok')[0].style.display= 'table';
 				}
 				var rainOk = document.getElementsByClassName('rain-ok')[0];
-				console.log(rainOk.rows.length);
 				for(var i = 1; i <= rainOk.rows.length; i++) {
 					rainOk.deleteRow(1);
 				}
