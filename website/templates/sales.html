@@ -90,7 +90,17 @@
 										<td class="right">{{j.service_billing_number|intcomma}}</td>
 										<td class="center">{{j.number_1116A|intcomma}}</td>
 										<td class="right">{{j.price_per_yard|floatformat:2|intcomma}}</td>
-										<td class="center">{{j.grade}}</td>
+										{% if j.grade == 1 %}
+											<td class="center">USD Comprador</td>
+										{% else %}
+											{% if j.grade == 'D' %}
+												<td class="center">USD Vendedor</td>
+											{% else %}
+												{% if j.grade == 0 %}
+													<td class="center">Pesos</td>
+												{% endif %}
+											{% endif %}
+										{% endif %}
 									</tr>
 								{% endfor %}
 								<tr class="total">
