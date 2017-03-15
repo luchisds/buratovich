@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # User related info
 class UserInfo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -475,3 +476,9 @@ class ViewedNotifications(models.Model):
 	class Meta:
 		verbose_name = 'Notificación por Usuario'
 		verbose_name_plural = 'Notificaciones por Usuario'
+
+
+class AccessLog(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	algoritmo_code = models.IntegerField(verbose_name='Cuenta Algoritmo')
+	logged = models.DateTimeField(auto_now_add=True, verbose_name='Fecha/Hora de Ingreso')
