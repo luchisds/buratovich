@@ -529,14 +529,17 @@ def sales(request):
 				for item in current_species:
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
 
+
 				## Total kg for selected species_description
 				total_kg = {}
 				total_kg['sales'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['to_set'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['other'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
+
 				# Dict with [species description]-->[sales]
-				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
+				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('id', 'date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
+
 
 				sales = {}
 				for s in species_description:
@@ -562,7 +565,7 @@ def sales(request):
 										if sales[sd].get('sales', None) is None:
 											sales[sd]['sales'] = OrderedDict()
 											sales[sd]['sales']['vouchers'] = OrderedDict()
-										sales[sd]['sales']['vouchers'][v['voucher']] = v
+										sales[sd]['sales']['vouchers'][v['id']] = v
 										total_g_sales += v['gross_kg']
 										total_p_sales += v['service_billing_number']
 										total_l_sales += v['number_1116A']
