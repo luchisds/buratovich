@@ -384,6 +384,16 @@ template {
 .data-table tr:nth-child(odd):hover td {
   background: #4e5066;
 }
+video::-webkit-media-controls {
+  overflow: hidden !important;
+}
+video::-webkit-media-controls-enclosure {
+  width: calc(100% + 32px);
+  margin-left: auto;
+}
+video::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+}
 .come-in {
   -webkit-transform: translateY(100px);
           transform: translateY(100px);
