@@ -1,4 +1,5 @@
 # Signals
+from django.contrib.auth.signals import user_logged_in
 from django.db.models.signals import post_save
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -13,6 +14,8 @@ from django.template.loader import render_to_string
 
 from tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode
+
+from models import AccessLog
 
 
 # Signal sent after a user is created
@@ -54,3 +57,7 @@ def preSave_User(sender, instance, **kwargs):
 		instance._pswd = password
 		instance.password = make_password(password)
 		instance.is_active = False
+
+@receiver(user_logged_in)
+def userLogged_In(sender, request, user, **kwargs):
+	rain = AccessLog.objects.create(user=user, algoritmo_code=user.userinfo.algoritmo_code)

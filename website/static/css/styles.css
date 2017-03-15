@@ -1121,7 +1121,7 @@ header .logo span {
 }
 header nav ul {
   padding: 0.8em 0;
-  text-align: center;
+  text-align: right;
 }
 header nav ul li {
   margin: 0 1%;
@@ -1169,6 +1169,9 @@ header nav ul li a.extranet-btn i {
 header nav ul li a.login-btn.active,
 header nav ul li a.extranet-btn.active {
   background-color: #065a7a;
+}
+header nav ul li a.logout i {
+  margin: 0;
 }
 footer {
   border-top: 10px solid #065a7a;
