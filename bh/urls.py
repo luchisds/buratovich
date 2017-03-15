@@ -38,6 +38,7 @@ urlpatterns = [
 	url(r'^extranet/entregas/$', views.deliveries, name='deliveries'),
 	url(r'^extranet/ventas/$', views.sales, name='sales'),
 
+	url(r'^downloadexcel/rain/$', views.downloadRainExcel, name='download_rain'),
 	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)/$', views.downloadexcel, name='downloadexcel'),
 
 	url(r'^monedas/$', views.get_currency, name='currency'),

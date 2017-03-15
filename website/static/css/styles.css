@@ -304,6 +304,29 @@ template {
   font-weight: bold;
   text-transform: uppercase;
 }
+.export-data {
+  font-size: 0.9em;
+  padding: 1em;
+  text-align: right;
+}
+.export-data button {
+  background-color: #ccc;
+  border: none;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  padding: 0;
+}
+.export-data button:hover {
+  background-color: #065a7a;
+}
+.export-data button a {
+  color: #3c433e;
+  display: block;
+  padding: 0.3em 0.5em;
+}
+.export-data button a:hover {
+  color: #fff;
+}
 .data-table {
   -webkit-animation: float 5s infinite;
           animation: float 5s infinite;
@@ -2443,29 +2466,6 @@ footer .tax:not(.tax) span:hover .work {
 #ctacte table .analysis-detail th {
   background-color: #ccc;
   color: #065a7a;
-}
-#ctacte .export {
-  font-size: 0.9em;
-  padding: 1em;
-  text-align: right;
-}
-#ctacte .export button {
-  background-color: #ccc;
-  border: none;
-  border-radius: 3px;
-  margin-left: 0.5em;
-  padding: 0;
-}
-#ctacte .export button:hover {
-  background-color: #065a7a;
-}
-#ctacte .export button a {
-  color: #3c433e;
-  display: block;
-  padding: 0.3em 0.5em;
-}
-#ctacte .export button a:hover {
-  color: #fff;
 }
 #ctacte .no-data,
 #ctacte .no-species {

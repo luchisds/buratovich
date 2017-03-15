@@ -679,10 +679,45 @@ def applied(request):
 		else:
 			return render(request, 'applied.html')
 
+def downloadRainExcel(request):
+	rain = RainDetail.objects.filter(city=1).extra(select={'month':connection.ops.date_trunc_sql('month', '"website_raindetail"."rain_id"'), 'year':connection.ops.date_trunc_sql('year', '"website_raindetail"."rain_id"')}).values('month', 'year').annotate(mmsum=Sum('mm')).order_by('-year', 'month')
+	history = OrderedDict()
+	prev_year = 0
+	prev_month = 0
+
+	for r in rain:
+		year = datetime.datetime.strptime(r['year'], "%Y-%m-%d").date().year
+		month = datetime.datetime.strptime(r['month'], "%Y-%m-%d").date().month
+
+		if history.get(year, None) is None:
+			history[year] = OrderedDict()
+			history[year]['rain'] = OrderedDict()
+			history[year]['total'] = 0
+
+		if year == prev_year or prev_year == 0:
+			if prev_month + 1 == month or prev_month == 0:
+				history[year]['rain'][month] = r['mmsum']
+				history[year]['total'] += r['mmsum']
+			else:
+				for i in range(prev_month+1, month):
+					history[year]['rain'][datetime.datetime(year,i,1).date().month] = 0
+				history[year]['rain'][month] = r['mmsum']
+				history[year]['total'] += r['mmsum']
+		else:
+			history[year]['rain'][month] = r['mmsum']
+			history[year]['total'] += r['mmsum']
+
+		prev_year = year
+		prev_month = month
+
+	print history
+	filename = 'Lluvias Historico'
+
+	return excel.make_response_from_records(history, 'xlsx', file_name=filename)
+
 
 @login_required
 def downloadexcel(request, module):
-	print 'Ingreso a la vista'
 
 	def getPesosExcel():
 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
@@ -806,30 +841,30 @@ def downloadexcel(request, module):
 		return excel.make_response_from_records(records, 'xlsx', file_name=filename)
 
 
-@login_required
-def downloadtxt(request):
-	if 'algoritmo_code' in request.session:
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+# @login_required
+# def downloadtxt(request):
+# 	if 'algoritmo_code' in request.session:
+# 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
 
-		balance = 0
-		records = []
-		for d in data:
-			balance += d['amount_sign']
-			tmp_dict = OrderedDict()
-			tmp_dict['Fecha Vencimiento'] = d['date_1']
-			tmp_dict['Comprobante'] = d['voucher']
-			tmp_dict['Observaciones'] = d['concept']
-			tmp_dict['Fecha Emision'] = d['date_2']
-			if d['movement_type'] == 'Debito':
-				tmp_dict['Debe'] = d['amount_sign']
-				tmp_dict['Haber'] = 0
-			else:
-				tmp_dict['Debe'] = 0
-				tmp_dict['Haber'] = abs(d['amount_sign'])
-			tmp_dict['Saldo'] = float(format(balance, '.2f'))
-			records.append(tmp_dict)
+# 		balance = 0
+# 		records = []
+# 		for d in data:
+# 			balance += d['amount_sign']
+# 			tmp_dict = OrderedDict()
+# 			tmp_dict['Fecha Vencimiento'] = d['date_1']
+# 			tmp_dict['Comprobante'] = d['voucher']
+# 			tmp_dict['Observaciones'] = d['concept']
+# 			tmp_dict['Fecha Emision'] = d['date_2']
+# 			if d['movement_type'] == 'Debito':
+# 				tmp_dict['Debe'] = d['amount_sign']
+# 				tmp_dict['Haber'] = 0
+# 			else:
+# 				tmp_dict['Debe'] = 0
+# 				tmp_dict['Haber'] = abs(d['amount_sign'])
+# 			tmp_dict['Saldo'] = float(format(balance, '.2f'))
+# 			records.append(tmp_dict)
 
-		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
+# 		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
 
 
 @login_required
