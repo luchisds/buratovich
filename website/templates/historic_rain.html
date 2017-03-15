@@ -21,6 +21,13 @@
 {% block content %}
 <section id="historic-rain" class="maxwidth">
 	<h2>Registro Historico de Lluvias en Arrecifes</h2>
+
+	<div class="export-data">
+		<button>
+			<a href="{% url 'download_rain' %}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+		</button>
+	</div>
+
 	<table class="data-table">
 		<thead>
 			<tr>
