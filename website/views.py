@@ -679,8 +679,10 @@ def applied(request):
 		else:
 			return render(request, 'applied.html')
 
+
 def downloadRainExcel(request):
 	rain = RainDetail.objects.filter(city=1).extra(select={'month':connection.ops.date_trunc_sql('month', '"website_raindetail"."rain_id"'), 'year':connection.ops.date_trunc_sql('year', '"website_raindetail"."rain_id"')}).values('month', 'year').annotate(mmsum=Sum('mm')).order_by('-year', 'month')
+
 	history = OrderedDict()
 	prev_year = 0
 	prev_month = 0
@@ -710,10 +712,28 @@ def downloadRainExcel(request):
 		prev_year = year
 		prev_month = month
 
-	print history
+	records = []
+	for k, v in history.items():
+		tmp_dict = OrderedDict()
+		tmp_dict[u'Año'] = k
+		tmp_dict['Ene'] = v['rain'].get(1, 0)
+		tmp_dict['Feb'] = v['rain'].get(2, 0)
+		tmp_dict['Mar'] = v['rain'].get(3, 0)
+		tmp_dict['Abr'] = v['rain'].get(4, 0)
+		tmp_dict['May'] = v['rain'].get(5, 0)
+		tmp_dict['Jun'] = v['rain'].get(6, 0)
+		tmp_dict['Jul'] = v['rain'].get(7, 0)
+		tmp_dict['Ago'] = v['rain'].get(8, 0)
+		tmp_dict['Sep'] = v['rain'].get(9, 0)
+		tmp_dict['Oct'] = v['rain'].get(10, 0)
+		tmp_dict['Nov'] = v['rain'].get(11, 0)
+		tmp_dict['Dic'] = v['rain'].get(12, 0)
+		tmp_dict['Total'] = v['total']
+		records.append(tmp_dict)
+
 	filename = 'Lluvias Historico'
 
-	return excel.make_response_from_records(history, 'xlsx', file_name=filename)
+	return excel.make_response_from_records(records, 'xlsx', file_name=filename)
 
 
 @login_required
