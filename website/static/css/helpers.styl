@@ -153,6 +153,19 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 				td
 					background #4E5066
 
+/////////////////////////////// Fix for download button in html5 player
+
+video::-webkit-media-controls
+	overflow hidden !important
+
+video::-webkit-media-controls-enclosure 
+	width calc(100% + 32px)
+	margin-left auto
+
+video::-webkit-media-controls-fullscreen-button
+	display: none !important
+
+
 /////////////////////////////// scroll down fadein
 
 .come-in
