@@ -283,23 +283,24 @@ template {
   overflow: hidden;
   padding: 0 1.5em;
 }
-.path .route {
-  display: inline-block;
-  float: left;
-  padding-left: 0.5em;
-}
-.path .route a {
-  color: #3c433e;
-}
-.path .route .current {
-  color: #018d34;
-}
-.path .hi {
+.path .path-container {
   border-bottom: 1px solid #ccc;
   padding: 0 0.5em 0.2em 0.5em;
+}
+.path .path-container .route {
+  display: inline-block;
+  float: left;
+}
+.path .path-container .route a {
+  color: #3c433e;
+}
+.path .path-container .route .current {
+  color: #018d34;
+}
+.path .path-container .hi {
   text-align: right;
 }
-.path .hi .customer-name {
+.path .path-container .hi .customer-name {
   color: #018d34;
   font-weight: bold;
   text-transform: uppercase;
@@ -1119,12 +1120,19 @@ header .logo img {
 header .logo span {
   display: block;
 }
+header nav {
+  padding-right: 1em;
+}
 header nav ul {
   padding: 0.8em 0;
   text-align: right;
 }
 header nav ul li {
   margin: 0 1%;
+  text-align: center;
+}
+header nav ul li:last-child {
+  margin-right: 0;
 }
 header nav ul li:hover a:not(.login-btn) {
   color: #fafafa;

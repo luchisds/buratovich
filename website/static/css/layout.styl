@@ -22,12 +22,16 @@ header
 		span
 			display block
 	nav
+		padding-right 1em
 		ul
 			padding .8em 0
 			//text-align center
 			text-align right
 			li
 				margin 0 1%
+				text-align center
+				&:last-child
+					margin-right 0
 				&:hover
 					a:not(.login-btn)
 						color $lightGrey
