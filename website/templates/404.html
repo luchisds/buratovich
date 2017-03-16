@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="path-container">
+		<div class="route"><a href="/">Home</a> > <span class="current">¡Error 404!</span></div>
+		{% if user.is_authenticated %}
+			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section id="error404" class="error maxwidth">
+	<h2 class="title">PAGINA NO ENCONTRADA</h2>
+	<p class="message">¡Ooppss, la pagina que buscas no existe!</p>
+	<div class="col-2">
+		<p class="error-code">404</p>
+	</div>
+	<div class="col-2">
+		<p>Te pedimos disculpas por el inconveniente. No pudimos encontrar la pagina solicitada.</p>
+		<p>La pagina que estas buscando no existe, no se encuentra disponible por el momento o ha sido removida.</p>
+		<p>Pero todavia podemos ayudarte a encontrar la informacion que estas buscando, quizas quieras dirigirte a una estas paginas:</p>
+		<nav>
+			<ul class="h-list">
+				<li><a href="/">Home</a></li>
+				<li><a href="{% url 'company' %}">Institucional</a></li>
+				<li><a href="">Unidades de Negocio</a></li>
+				<li><a href="{% url 'contact' %}">Contacto</a></li>
+			</ul>
+		</nav>
+	</div>
+</section>
+{% endblock %}

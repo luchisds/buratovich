@@ -9,7 +9,7 @@ from website import views
 
 urlpatterns = [
 	# static.serve debe ser usado solo en dev environment Fuck!
-	# url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
+	url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 
 	# Django-admin-tools URL's
 	url(r'^admin_tools/', include('admin_tools.urls')),
@@ -48,3 +48,5 @@ urlpatterns = [
 	url(r'^importar/(?P<datatype>[a-z]+)/$', views.importdata, name='importdata'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'website.views.handler404'
