@@ -46,6 +46,9 @@ from models import Rain
 from models import RainDetail
 from tokens import account_activation_token
 
+def handler404(request):
+	return render(request, '404.html')
+
 
 def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
