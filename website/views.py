@@ -50,6 +50,10 @@ def handler404(request):
 	return render(request, '404.html')
 
 
+def handler500(request):
+	return render(request, '500.html')
+
+
 def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
 	board = Board.objects.order_by('-date')[:1]
