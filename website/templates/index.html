@@ -11,7 +11,9 @@
 {% block path %}
 {% if user.is_authenticated %}
 	<div class="path maxwidth">
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+		<div class="path-container">
+			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+		</div>
 	</div>
 {% endif %}
 {% endblock %}

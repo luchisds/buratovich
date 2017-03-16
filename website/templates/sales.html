@@ -5,10 +5,12 @@
 
 {% block path %}
 <div class="path maxwidth">
-	<div class="route"><a href="/">Home</a> > <a href="{% url 'extranet' %}">Extranet</a> > <span class="current">Ventas</span></div>
-	{% if user.is_authenticated %}
-		<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
-	{% endif %}
+	<div class="path-container">
+		<div class="route"><a href="/">Home</a> > <a href="{% url 'extranet' %}">Extranet</a> > <span class="current">Ventas</span></div>
+		{% if user.is_authenticated %}
+			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+		{% endif %}
+	</div>
 </div>
 {% endblock %}
 
