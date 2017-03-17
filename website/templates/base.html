@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<title>
-		{% block title %}Buratovich Hnos.{% endblock %}
+		{% block title %}{% endblock %}
 	</title>
 
 	<!--<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">-->
@@ -130,7 +130,7 @@
 						<i class="fa fa-cogs" aria-hidden="true"></i>
 						<span>
 							<a href="" class="work">Trabajá con nosotros</a>
-							<a href="" class="send-cv">Envianos tu CV</a>
+							<a href="{% url 'cv' %}" class="send-cv">Envianos tu CV</a>
 						</span>
 					</div>
 				</div>
