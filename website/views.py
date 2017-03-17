@@ -169,6 +169,10 @@ def units(request):
 	return render(request, 'units.html')
 
 
+def cv(request):
+	return render(request, 'cv.html')
+
+
 def auth_activate_account(request, uidb64, token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))

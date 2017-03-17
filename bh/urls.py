@@ -22,6 +22,7 @@ urlpatterns = [
 	url(r'^lluvias-historico/$', views.historic_rain, name='historic_rain'),
 	url(r'^impuestos/$', views.taxes, name='taxes'),
 	url(r'^unidades-de-negocio/$', views.units, name='units'),
+	url(r'^trabaja-con-nosotros/$', views.cv, name='cv'),
 
 	url(r'^login/$', views.auth_login, name='login'),
 	url(r'^login/invalido/$', views.auth_login_invalid, name='login_invalid'),
