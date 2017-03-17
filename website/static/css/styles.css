@@ -227,6 +227,11 @@ template {
   max-width: 1280px;
   margin: 0 auto;
 }
+#top {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
 .input {
   position: relative;
 }
@@ -284,9 +289,9 @@ template {
   padding: 0 1.5em;
 }
 .path .path-container {
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   overflow: hidden;
-  padding: 0 0.5em 0.2em 0.5em;
+  padding: 0.3em 0.5em;
 }
 .path .path-container .route {
   display: inline-block;
@@ -294,9 +299,20 @@ template {
 }
 .path .path-container .route a {
   color: #3c433e;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+.path .path-container .route a:hover {
+  border-bottom: 1px dashed #065a7a;
+  color: #065a7a;
+}
+.path .path-container .route .chevron {
+  margin: 0 0.5em;
 }
 .path .path-container .route .current {
   color: #018d34;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .path .path-container .hi {
   text-align: right;
@@ -1937,8 +1953,9 @@ footer .tax:not(.tax) span:hover .work {
 }
 #contact .data-contact,
 #taxes .data-contact {
-  margin: 1.5em 0 0 0;
   font-size: 1.2em;
+  margin: 2em 0 0 0;
+  vertical-align: middle;
 }
 #contact .data-contact a,
 #taxes .data-contact a {
@@ -1952,6 +1969,13 @@ footer .tax:not(.tax) span:hover .work {
 #contact .data-contact a:hover,
 #taxes .data-contact a:hover {
   border: 1px solid #018d34;
+}
+#contact .data-contact i.fa-ellipsis-v,
+#taxes .data-contact i.fa-ellipsis-v {
+  color: #018d34;
+  font-size: 1.4em;
+  margin-right: 0.3em;
+  vertical-align: middle;
 }
 #contact .offices h2,
 #contact .areas h2,
@@ -2704,6 +2728,13 @@ footer .tax:not(.tax) span:hover .work {
 #error-page .data p {
   line-height: 1.2em;
   margin: 0.5em 0;
+}
+#error-page .data p .email {
+  color: #018d34;
+  padding-bottom: 0.2em;
+}
+#error-page .data p .email:hover {
+  border-bottom: 1px dashed #018d34;
 }
 #error-page .data .back {
   margin-top: 3em;

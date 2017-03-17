@@ -4,7 +4,7 @@
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> > <span class="current">¡Error 500!</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">¡Error 500!</span></div>
 		{% if user.is_authenticated %}
 			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 		{% endif %}
@@ -19,7 +19,7 @@
 		<h3 class="message">Parece que ha ocurrido un problema inesperado.</h3>
 		<h4 class="error-code">ERROR 500</h4>
 		<p>Te pedimos disculpas por el inconveniente, se ha producido un error y estamos trabajando para solucionarlo lo antes posible.</p>
-		<p>Si neceita ayuda inmediata puede comunicarse a la casilla de correo <a href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a>.</p>
+		<p>Si necesitas ayuda inmediata podes comunicate a la casilla de correo <a class="email" href="mailto:buratovich@buratovich.com">buratovich@buratovich.com</a></p>
 		<div class="back">
 			<a href="/"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> VOLVER A <span>BURATOVICH.COM</span></a>
 		</div>

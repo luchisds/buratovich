@@ -23,6 +23,11 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 	max-width 1280px
 	margin 0 auto
 
+#top
+	position absolute
+	right 0
+	bottom 0
+
 .input
 	position relative
 	input
@@ -35,8 +40,6 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 		width 100%
 		&.focused
 			padding 5px 10px 8px 10px
-			// & ~ .eye
-			// 	opacity 1
 	.icon, .eye
 		color $midGrey
 		display block
@@ -71,16 +74,24 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 	overflow hidden
 	padding 0 1.5em
 	.path-container
-		border-bottom 1px solid $midGrey
+		border-top 1px solid $midGrey
 		overflow hidden
-		padding 0 .5em .2em .5em
+		padding .3em .5em
 		.route
 			display inline-block
 			float left
 			a
 				color $darkGreyGreen
+				transition 0.3s ease-out
+				&:hover
+					border-bottom 1px dashed $accentColor
+					color $accentColor
+			.chevron
+				margin 0 .5em
 			.current
 				color $baseColor
+				font-weight bold
+				text-transform uppercase
 		.hi
 			text-align right
 			.customer-name

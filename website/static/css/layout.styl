@@ -662,8 +662,9 @@ footer
 
 #contact .data-contact,
 #taxes .data-contact
-	margin 1.5em 0 0 0
 	font-size 1.2em
+	margin 2em 0 0 0
+	vertical-align middle
 	a
 		color $baseColor
 		border 1px solid white
@@ -673,6 +674,11 @@ footer
 		padding .2em .3em
 		&:hover
 			border 1px solid $baseColor
+	i.fa-ellipsis-v
+		color $baseColor
+		font-size 1.4em
+		margin-right .3em
+		vertical-align middle
 
 #contact .offices, 
 #contact .areas,
@@ -1253,6 +1259,11 @@ footer
 		p
 			line-height 1.2em
 			margin .5em 0
+			.email
+				color $baseColor
+				padding-bottom .2em
+				&:hover
+					border-bottom 1px dashed $baseColor
 		.back
 			margin-top 3em
 			text-align center
@@ -1268,10 +1279,6 @@ footer
 					margin 0 .4em 2px 0
 					vertical-align middle
 				&:hover
-					// i
-					// 	color $baseColor
-					// span
-					// 	color $baseColor
 					background-color $baseColor
 					border 1px solid $baseColor
 					color white

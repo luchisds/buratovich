@@ -6,7 +6,7 @@
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> > <span class="current">Contacto</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Contacto</span></div>
 		{% if user.is_authenticated %}
 			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 		{% endif %}
@@ -16,7 +16,7 @@
 
 {% block content %}
 <section id="contact">
-	<p class="data-contact">Ante cualquier consulta o sugerencia puede comunicarse via correo electronico a la dirección: <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
+	<p class="data-contact"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> Ante cualquier consulta o sugerencia puede comunicarse via correo electronico a la dirección: <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
 	<article class="offices">
 		<h2>OFICINAS COMERCIALES</h2>
 		<div>
