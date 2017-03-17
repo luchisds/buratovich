@@ -1,6 +1,18 @@
 document.onreadystatechange = function () {
 	if(document.readyState === 'interactive') {
 
+		/// Scroll actions ////////////////////////////////////////////////////////////////////////////////
+
+		window.onscroll = function() {
+			var el = document.getElementsByClassName('module');
+			for (var i = 0; i < el.length; i++) {
+				if (visibleEl(el[i])) {
+					addClass(el[i], 'come-in');
+				}
+			}
+		}
+
+		// ------------- Go to TOP
 		var top = document.getElementById('top');
 		top.addEventListener('click', function(event) {
 			console.log('click');
@@ -8,6 +20,23 @@ document.onreadystatechange = function () {
 			var html = document.getElementsByTagName('html')[0];
 			Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
 		});
+
+		
+		// ------------- Fade In
+		function visibleEl(element) {
+			var rect = element.getBoundingClientRect();
+			var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
+			return (
+				totalScroll >= (document.scrollingElement.scrollTop + rect.top)
+			);
+		}
+
+		var allMods = document.getElementsByClassName('module');
+		for (var i = 0; i < allMods.length; i++) {
+			if (visibleEl(allMods[i])) {
+				addClass(allMods[i], 'come-in');
+			}
+		}
 
 
 		/// Login Form ////////////////////////////////////////////////////////////////////////////////
@@ -203,34 +232,6 @@ document.onreadystatechange = function () {
 			}
 		}
 
-
-		/// Scroll FadeIn ////////////////////////////////////////////////////////////////////////////////////
-
-		function visibleEl(element) {
-			var rect = element.getBoundingClientRect();
-			var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
-			return (
-				totalScroll >= (document.scrollingElement.scrollTop + rect.top)
-			);
-		}
-
-		var allMods = document.getElementsByClassName('module');
-		for (var i = 0; i < allMods.length; i++) {
-			if (visibleEl(allMods[i])) {
-				addClass(allMods[i], 'come-in');
-				// addClass(allMods[i], 'already-visible');
-			}
-		}
-
-		window.onscroll = function() {
-			var el = document.getElementsByClassName('module');
-			for (var i = 0; i < el.length; i++) {
-				if (visibleEl(el[i])) {
-					addClass(el[i], 'come-in');
-					// addClass(el[i], 'already-visible');
-				}
-			}
-		}
 
 		/// CLASSES Functions ////////////////////////////////////////////////////////////////////////////////
 
