@@ -1,6 +1,15 @@
 document.onreadystatechange = function () {
 	if(document.readyState === 'interactive') {
 
+		var top = document.getElementById('top');
+		top.addEventListener('click', function(event) {
+			console.log('click');
+			event.preventDefault();
+			var html = document.getElementsByTagName('html')[0];
+			Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
+		});
+
+
 		/// Login Form ////////////////////////////////////////////////////////////////////////////////
 
 		var nav = document.getElementsByTagName('nav')[0];
