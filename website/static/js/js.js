@@ -3,25 +3,36 @@ document.onreadystatechange = function () {
 
 		/// Scroll actions ////////////////////////////////////////////////////////////////////////////////
 
+		var body = document.body;
+		var html = document.documentElement;
+		var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+		var viewportHeight = Math.max(html.clientHeight, window.innerHeight || 0);
+		const HEIGHT_FOR_TOP = 1000;
+
+		var allMods = document.getElementsByClassName('module');
+		var top = document.getElementById('top');
 		window.onscroll = function() {
-			var el = document.getElementsByClassName('module');
-			for (var i = 0; i < el.length; i++) {
-				if (visibleEl(el[i])) {
-					addClass(el[i], 'come-in');
+			// Show modules
+			for (var i = 0; i < allMods.length; i++) {
+				if (visibleEl(allMods[i])) {
+					addClass(allMods[i], 'come-in');
+				}
+			}
+
+			// Show top btn
+			if(height > HEIGHT_FOR_TOP && height > viewportHeight) {
+				if (visibleEl(top)) {
+					if(!hasClass(top, 'top-show')) {
+						addClass(top, 'top-show');
+					}
+				} else {
+					if(hasClass(top, 'top-show')) {
+						removeClass(top, 'top-show');
+					}
 				}
 			}
 		}
 
-		// ------------- Go to TOP
-		var top = document.getElementById('top');
-		top.addEventListener('click', function(event) {
-			console.log('click');
-			event.preventDefault();
-			var html = document.getElementsByTagName('html')[0];
-			Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
-		});
-
-		
 		// ------------- Fade In
 		function visibleEl(element) {
 			var rect = element.getBoundingClientRect();
@@ -31,12 +42,18 @@ document.onreadystatechange = function () {
 			);
 		}
 
-		var allMods = document.getElementsByClassName('module');
+		// To make visible all modules that are visible when page load
 		for (var i = 0; i < allMods.length; i++) {
 			if (visibleEl(allMods[i])) {
 				addClass(allMods[i], 'come-in');
 			}
 		}
+
+		// ------------- Go to TOP
+		top.addEventListener('click', function(event) {
+			event.preventDefault();
+			Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
+		});
 
 
 		/// Login Form ////////////////////////////////////////////////////////////////////////////////

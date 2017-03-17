@@ -24,21 +24,32 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 	margin 0 auto
 
 #top
-	background-color $baseColor
-	border-radius 3px 0 0 3px
-	box-shadow -2px 2px 5px rgba(0,0,0,.5)
-	color $midGrey
-	//height 40px
-	margin -70px -60px 0 0
-	padding .5em
+	margin-top -70px
+	overflow hidden
 	position absolute
 	right 0
-	transition .3s ease-out
 	width 50px
-	i
-		margin 8px 0
-	&:hover
-		color white
+	z-index 999
+	a
+		background-color $baseColor
+		border-radius 3px 0 0 3px
+		box-shadow -2px 2px 5px rgba(0,0,0,.5)
+		color $midGrey
+		display block
+		padding .5em
+		position absolute
+		right -60px
+		top 0
+		transition .3s ease-out
+		width 50px
+		i
+			margin 8px 0
+		&:hover
+			color white
+	&.top-show
+		a
+			right -10px
+		
 
 .input
 	position relative

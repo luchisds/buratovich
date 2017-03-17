@@ -228,23 +228,35 @@ template {
   margin: 0 auto;
 }
 #top {
+  margin-top: -70px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: 50px;
+  z-index: 999;
+}
+#top a {
   background-color: #018d34;
   border-radius: 3px 0 0 3px;
   box-shadow: -2px 2px 5px rgba(0,0,0,0.5);
   color: #ccc;
-  margin: -70px -60px 0 0;
+  display: block;
   padding: 0.5em;
   position: absolute;
-  right: 0;
+  right: -60px;
+  top: 0;
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
   width: 50px;
 }
-#top i {
+#top a i {
   margin: 8px 0;
 }
-#top:hover {
+#top a:hover {
   color: #fff;
+}
+#top.top-show a {
+  right: -10px;
 }
 .input {
   position: relative;
