@@ -445,9 +445,10 @@ footer
 /*#### HISTORIC RAIN ################################################################*/
 
 #historic-rain
-	padding 0 2em
-	h2
-		margin-top 1.7em
+	background url('../img/units/back.jpg') no-repeat top center
+	padding 1.7em 2em 0 2em
+	// h2
+	// 	margin-top 1.7em
 	table
 		margin 2em 0 4em 0
 		.total, .avg
@@ -456,6 +457,7 @@ footer
 /*#### COMPANY ################################################################*/
 
 #company
+	background url('../img/units/back.jpg') no-repeat top center
 	overflow hidden
 	position relative
 	.featured
@@ -586,7 +588,8 @@ footer
 #taxes .data-contact,
 #cv .data-contact
 	font-size 1.2em
-	margin 2em 0 0 0
+	// margin 2em 0 0 0
+	padding 2em 2em 0 2em
 	vertical-align middle
 	a
 		color $baseColor
@@ -612,17 +615,27 @@ footer
 		text-align center
 
 #cv
+	background url('../img/units/back.jpg') no-repeat top center
 	font-weight 400
+	padding 3em 5em
 	p
 		line-height 1.3em
-		margin .5em
+		margin 1em .5em
 		span
 			&:not(.bh)
 				font-weight bold
 			&.bh
 				color $baseColor
+		&.data-contact
+			text-align center
+	.img
+		text-align center
+		img
+			border-radius 3px
+			max-width 500px
 
 #taxes
+	background url('../img/units/back.jpg') no-repeat top center
 	h2
 		margin 2em 0 1.5em 0 !important
 	h3
@@ -703,6 +716,7 @@ footer
 				margin-right .3em
 
 #contact
+	background url('../img/units/back.jpg') no-repeat top center
 	.offices
 		margin 1em 0 2.5em 0
 		overflow hidden
