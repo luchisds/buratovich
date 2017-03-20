@@ -41,6 +41,7 @@ urlpatterns = [
 
 	url(r'^downloadexcel/rain/$', views.downloadRainExcel, name='download_rain'),
 	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)/$', views.downloadexcel, name='downloadexcel'),
+	url(r'^download/$', views.downloadPDFExtranet, name='downloadPDF'),
 
 	url(r'^monedas/$', views.get_currency, name='currency'),
 	url(r'^pizarras/$', views.get_board, name='board'),
@@ -51,8 +52,6 @@ urlpatterns = [
 	url(r'^400/$', views.handler404, name='handler400'),
 	url(r'^404/$', views.handler404, name='handler404'),
 	url(r'^500/$', views.handler500, name='handler500'),
-
-	url(r'^dwld/$', views.dwldFile, name='dwld'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

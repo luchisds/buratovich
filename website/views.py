@@ -60,19 +60,6 @@ def handler500(request):
 	return render(request, '500.html')
 
 
-def dwldFile(request):
-	f = request.GET['f']
-	filename = f+'.pdf'
-	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth(RS_USER, RS_PASS))
-
-	if r.status_code == '200':
-		length = r.headers['Content-Length']
-		response = StreamingHttpResponse(r.content, content_type="application/pdf")
-		response['Content-Length'] = length
-		response['Content-Disposition'] = "attachment; filename='%s'" % filename
-		return response
-
-
 def index(request):
 	currency = Currencies.objects.order_by('-date')[:1]
 	board = Board.objects.order_by('-date')[:1]
@@ -328,28 +315,7 @@ def notifications(request):
 @login_required
 def ctacte(request):
 
-	vouchers = {
-		'LC': {'codigo': ['C',], 'separator': ' '},
-		'IC': {'codigo': ['C',], 'separator': ' '},
-		'LB': {'codigo': ['B',], 'separator': ' '},
-		'IB': {'codigo': ['B',], 'separator': ' '},
-		'ND': {'codigo': ['HNDCER','HNDE','NDE','NDECAJ','NDECER','NDEPER',], 'separator': '_'},
-		'NC': {'codigo': ['HNCCER','HNCR','NCR','NCRCER','NCRDEV','NCSCER',], 'separator': '_'},
-		'FC': {'codigo': ['FAC','FACCER','FACD','FACSER','FASCER','HFAC','HFACER',], 'separator': '_'},
-	}
-
-	def search_file(voucher):
-		voucher_list = voucher.split(' ')
-		if vouchers.get(voucher_list[0], None) is None:
-			return None
-		else:
-			separator = vouchers[voucher_list[0]]['separator']
-			for c in vouchers[voucher_list[0]]['codigo']:
-				file_name = c + separator + voucher_list[1] + separator + voucher_list[2] + '.pdf'
-				file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCtePesos', file_name)
-				if os.path.isfile(file):
-					return file_name
-
+	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC']
 
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
@@ -367,7 +333,11 @@ def ctacte(request):
 				balance += d['amount_sign']
 				tmp_dict = {}
 				tmp_dict['obj'] = d
-				tmp_dict['file'] = search_file(d['voucher'])
+				#tmp_dict['file'] = search_file(d['voucher'])
+				if d['voucher'].split(' ')[0] in vouchers:
+					tmp_dict['file'] = d['voucher']
+				else:
+					tmp_dict['file'] = None
 				tmp_dict['balance'] = balance
 
 				records.append(tmp_dict)
@@ -767,6 +737,71 @@ def downloadRainExcel(request):
 
 
 @login_required
+def downloadPDFExtranet(request):
+
+	vouchers = {
+		'LC': {'codigo': ['C',], 'separator': ' ', 'url':''},
+		'IC': {'codigo': ['C',], 'separator': ' ', 'url':''},
+		'LB': {'codigo': ['B',], 'separator': ' ', 'url':''},
+		'IB': {'codigo': ['B',], 'separator': ' ', 'url':''},
+		'ND': {'codigo': ['HNDCER','HNDE','NDE','NDECAJ','NDECER','NDEPER',], 'separator': '_', 'url':'ventas/'},
+		'NC': {'codigo': ['HNCCER','HNCR','NCR','NCRCER','NCRDEV','NCSCER',], 'separator': '_', 'url':'ventas/'},
+		'FC': {'codigo': ['FAC','FACCER','FACD','FACSER','FASCER','HFAC','HFACER',], 'separator': '_', 'url':'ventas/'},
+	}
+
+	def search_file(voucher):
+		voucher = voucher.split(' ')
+		if vouchers.get(voucher[0], None) is None:
+			return None
+		else:
+			separator = vouchers[voucher[0]]['separator']
+			url = vouchers[voucher[0]]['url']
+			for c in vouchers[voucher[0]]['codigo']:
+				file_name = c + separator + voucher[1] + separator + voucher[2] + '.pdf'
+				r = requests.get('http://190.92.102.226:1500/'+url+file_name, auth=HTTPBasicAuth(RS_USER, RS_PASS))
+				if r.status_code == 200:
+					return {'file':r, 'filename':file_name}
+
+	if 'algoritmo_code' in request.session:
+		f = request.GET['f']
+		file = search_file(f)
+
+		if file:
+			length = file['file'].headers['Content-Length']
+			response = StreamingHttpResponse(file['file'].content, content_type="application/pdf")
+			response['Content-Length'] = length
+			response['Content-Disposition'] = "attachment; filename='%s'" % file['filename']
+			return response
+		else:
+			raise Http404
+
+	# def search_file(voucher):
+	# 	voucher_list = voucher.split(' ')
+	# 	if vouchers.get(voucher_list[0], None) is None:
+	# 		return None
+	# 	else:
+	# 		separator = vouchers[voucher_list[0]]['separator']
+	# 		for c in vouchers[voucher_list[0]]['codigo']:
+	# 			file_name = c + separator + voucher_list[1] + separator + voucher_list[2] + '.pdf'
+	# 			file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCtePesos', file_name)
+	# 			if os.path.isfile(file):
+	# 				return file_name
+
+	# if 'algoritmo_code' in request.session:
+	# 	f = request.GET['f']
+	# 	filename = f+'.pdf'
+	# 	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth(RS_USER, RS_PASS))
+	# 	if r.status_code == 200:
+	# 		length = r.headers['Content-Length']
+	# 		response = StreamingHttpResponse(r.content, content_type="application/pdf")
+	# 		response['Content-Length'] = length
+	# 		response['Content-Disposition'] = "attachment; filename='%s'" % filename
+	# 		return response
+	# 	else:
+	# 		raise Http404
+
+
+@login_required
 def downloadexcel(request, module):
 
 	def getPesosExcel():
@@ -889,32 +924,6 @@ def downloadexcel(request, module):
 			raise Http404()
 
 		return excel.make_response_from_records(records, 'xlsx', file_name=filename)
-
-
-# @login_required
-# def downloadtxt(request):
-# 	if 'algoritmo_code' in request.session:
-# 		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-
-# 		balance = 0
-# 		records = []
-# 		for d in data:
-# 			balance += d['amount_sign']
-# 			tmp_dict = OrderedDict()
-# 			tmp_dict['Fecha Vencimiento'] = d['date_1']
-# 			tmp_dict['Comprobante'] = d['voucher']
-# 			tmp_dict['Observaciones'] = d['concept']
-# 			tmp_dict['Fecha Emision'] = d['date_2']
-# 			if d['movement_type'] == 'Debito':
-# 				tmp_dict['Debe'] = d['amount_sign']
-# 				tmp_dict['Haber'] = 0
-# 			else:
-# 				tmp_dict['Debe'] = 0
-# 				tmp_dict['Haber'] = abs(d['amount_sign'])
-# 			tmp_dict['Saldo'] = float(format(balance, '.2f'))
-# 			records.append(tmp_dict)
-
-# 		return excel.make_response_from_records(records, 'plain', file_name='CtaCte')
 
 
 @login_required
