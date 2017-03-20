@@ -175,7 +175,16 @@ FILE_UPLOAD_HANDLERS = ('django_excel.ExcelMemoryFileUploadHandler',
 
 
 # EMAIL Configuration
-EMAIL_HOST = '190.224.160.35'
-EMAIL_HOST_PASSWORD = 'Admbura2017$'
-EMAIL_HOST_USER = 'notificaciones@buratovich.com'
-EMAIL_PORT = 587
+with open(BASE_DIR+'/bh/email_account.txt') as f:
+	ea = f.read().strip().split(':')
+	EMAIL_HOST = ea[0]
+	EMAIL_HOST_PASSWORD = ea[3]
+	EMAIL_HOST_USER = ea[2]
+	EMAIL_PORT = ea[1]
+
+
+# REMOTE SERVER
+with open(BASE_DIR+'/bh/remote_server.txt') as f:
+	rs = f.read().strip().split(':')
+	RS_USER = rs[0]
+	RS_PASS = rs[1]
