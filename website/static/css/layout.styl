@@ -569,7 +569,58 @@ footer
 
 
 
-/*#### CONTACT / INFORMACION IMPOSITIVA ######################################################*/
+/*#### CONTACT / INFORMACION IMPOSITIVA / CV ###########################################*/
+
+#contact .offices, 
+#contact .data-contact, 
+#contact .areas, 
+#contact .maps,
+#taxes .data-contact,
+#taxes .tax-data,
+#cv,
+#cv .data-contact
+	font-weight 300
+	padding 0 2em
+
+#contact .data-contact,
+#taxes .data-contact,
+#cv .data-contact
+	font-size 1.2em
+	margin 2em 0 0 0
+	vertical-align middle
+	a
+		color $baseColor
+		border 1px solid white
+		border-radius 3px
+		font-weight 400
+		margin-left .5em
+		padding .2em .3em
+		&:hover
+			border 1px solid $baseColor
+	i.fa-ellipsis-v
+		color $baseColor
+		font-size 1.4em
+		margin-right .3em
+		vertical-align middle
+
+#contact .offices, 
+#contact .areas,
+#taxes .tax-data,
+#cv
+	h2
+		margin 1em 0 1.5em 0
+		text-align center
+
+#cv
+	font-weight 400
+	p
+		line-height 1.3em
+		margin .5em
+		span
+			&:not(.bh)
+				font-weight bold
+			&.bh
+				color $baseColor
 
 #taxes
 	h2
@@ -650,42 +701,6 @@ footer
 			i
 				color $accentColor
 				margin-right .3em
-
-#contact .offices, 
-#contact .data-contact, 
-#contact .areas, 
-#contact .maps,
-#taxes .data-contact,
-#taxes .tax-data
-	font-weight 300
-	padding 0 2em
-
-#contact .data-contact,
-#taxes .data-contact
-	font-size 1.2em
-	margin 2em 0 0 0
-	vertical-align middle
-	a
-		color $baseColor
-		border 1px solid white
-		border-radius 3px
-		font-weight 400
-		margin-left .5em
-		padding .2em .3em
-		&:hover
-			border 1px solid $baseColor
-	i.fa-ellipsis-v
-		color $baseColor
-		font-size 1.4em
-		margin-right .3em
-		vertical-align middle
-
-#contact .offices, 
-#contact .areas,
-#taxes .tax-data
-	h2
-		margin 1em 0 1.5em 0
-		text-align center
 
 #contact
 	.offices

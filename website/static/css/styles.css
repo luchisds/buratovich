@@ -1135,7 +1135,9 @@ footer .foot:last-child {
   margin-right: 0%;
 }
 #error-page .img,
-#error-page .data {
+#cv .img,
+#error-page .data,
+#cv .data {
   *zoom: 1;
   float: left;
   clear: none;
@@ -1145,18 +1147,26 @@ footer .foot:last-child {
   margin-right: 0%;
 }
 #error-page .img:before,
+#cv .img:before,
 #error-page .data:before,
+#cv .data:before,
 #error-page .img:after,
-#error-page .data:after {
+#cv .img:after,
+#error-page .data:after,
+#cv .data:after {
   content: '';
   display: table;
 }
 #error-page .img:after,
-#error-page .data:after {
+#cv .img:after,
+#error-page .data:after,
+#cv .data:after {
   clear: both;
 }
 #error-page .img:last-child,
-#error-page .data:last-child {
+#cv .img:last-child,
+#error-page .data:last-child,
+#cv .data:last-child {
   margin-right: 0%;
 }
 header {
@@ -1875,6 +1885,67 @@ footer .tax:not(.tax) span:hover .work {
 #company .infography .row .empty {
   height: 100%;
 }
+#contact .offices,
+#contact .data-contact,
+#contact .areas,
+#contact .maps,
+#taxes .data-contact,
+#taxes .tax-data,
+#cv,
+#cv .data-contact {
+  font-weight: 300;
+  padding: 0 2em;
+}
+#contact .data-contact,
+#taxes .data-contact,
+#cv .data-contact {
+  font-size: 1.2em;
+  margin: 2em 0 0 0;
+  vertical-align: middle;
+}
+#contact .data-contact a,
+#taxes .data-contact a,
+#cv .data-contact a {
+  color: #018d34;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  font-weight: 400;
+  margin-left: 0.5em;
+  padding: 0.2em 0.3em;
+}
+#contact .data-contact a:hover,
+#taxes .data-contact a:hover,
+#cv .data-contact a:hover {
+  border: 1px solid #018d34;
+}
+#contact .data-contact i.fa-ellipsis-v,
+#taxes .data-contact i.fa-ellipsis-v,
+#cv .data-contact i.fa-ellipsis-v {
+  color: #018d34;
+  font-size: 1.4em;
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+#contact .offices h2,
+#contact .areas h2,
+#taxes .tax-data h2,
+#cv h2 {
+  margin: 1em 0 1.5em 0;
+  text-align: center;
+}
+#cv {
+  font-weight: 400;
+}
+#cv p {
+  line-height: 1.3em;
+  margin: 0.5em;
+}
+#cv p span:not(.bh) {
+  font-weight: bold;
+}
+#cv p span.bh {
+  color: #018d34;
+}
 #taxes h2 {
   margin: 2em 0 1.5em 0 !important;
 }
@@ -1967,47 +2038,6 @@ footer .tax:not(.tax) span:hover .work {
 #taxes .data-public li i {
   color: #065a7a;
   margin-right: 0.3em;
-}
-#contact .offices,
-#contact .data-contact,
-#contact .areas,
-#contact .maps,
-#taxes .data-contact,
-#taxes .tax-data {
-  font-weight: 300;
-  padding: 0 2em;
-}
-#contact .data-contact,
-#taxes .data-contact {
-  font-size: 1.2em;
-  margin: 2em 0 0 0;
-  vertical-align: middle;
-}
-#contact .data-contact a,
-#taxes .data-contact a {
-  color: #018d34;
-  border: 1px solid #fff;
-  border-radius: 3px;
-  font-weight: 400;
-  margin-left: 0.5em;
-  padding: 0.2em 0.3em;
-}
-#contact .data-contact a:hover,
-#taxes .data-contact a:hover {
-  border: 1px solid #018d34;
-}
-#contact .data-contact i.fa-ellipsis-v,
-#taxes .data-contact i.fa-ellipsis-v {
-  color: #018d34;
-  font-size: 1.4em;
-  margin-right: 0.3em;
-  vertical-align: middle;
-}
-#contact .offices h2,
-#contact .areas h2,
-#taxes .tax-data h2 {
-  margin: 1em 0 1.5em 0;
-  text-align: center;
 }
 #contact .offices {
   margin: 1em 0 2.5em 0;
