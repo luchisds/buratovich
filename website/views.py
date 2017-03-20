@@ -49,6 +49,9 @@ from models import Rain
 from models import RainDetail
 from tokens import account_activation_token
 
+from bh.settings import RS_USER, RS_PASS
+
+
 def handler404(request):
 	return render(request, '404.html')
 
@@ -60,14 +63,14 @@ def handler500(request):
 def dwldFile(request):
 	f = request.GET['f']
 	filename = f+'.pdf'
-	print filename
-	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth('xxxxxxxxxxx', 'xxxxxxxxxxx'))
-	length = r.headers['Content-Length']
+	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth(RS_USER, RS_PASS))
 
-	response = StreamingHttpResponse(r.content, content_type="application/pdf")
-	response['Content-Length'] = length
-	response['Content-Disposition'] = "attachment; filename='%s'" % filename
-	return response
+	if r.status_code == '200':
+		length = r.headers['Content-Length']
+		response = StreamingHttpResponse(r.content, content_type="application/pdf")
+		response['Content-Length'] = length
+		response['Content-Disposition'] = "attachment; filename='%s'" % filename
+		return response
 
 
 def index(request):

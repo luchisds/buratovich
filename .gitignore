@@ -13,6 +13,9 @@ lluvias.csv
 # Secret Key
 secret_key.txt
 
+# Remote Server
+remote_server.txt
+
 # Mac
 .DS_Store
 
