@@ -79,13 +79,18 @@
 							{% endif %}
 							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
 							{% if i.file %}
-								{% with 'ctacte/'|add:i.file as image_static %}
+								<!--{% with 'ctacte/'|add:i.file as image_static %}
 									<td class="center">
 										<a href="{% static image_static %}" target="_blank">
 											<img src="{% static "img/pdf2.png" %}" alt="">
 										</a>
 									</td>
-								{% endwith %}
+								{% endwith %}-->
+								<td class="center">
+									<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
+										<img src="{% static "img/pdf2.png" %}" alt="">
+									</a>
+								</td>
 							{% else %}
 								<td></td>
 							{% endif %}
