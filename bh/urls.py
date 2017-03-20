@@ -52,6 +52,8 @@ urlpatterns = [
 	url(r'^404/$', views.handler404, name='handler404'),
 	url(r'^500/$', views.handler500, name='handler500'),
 
+	url(r'^dwld/$', views.dwldFile, name='dwld'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler400 = 'website.views.handler404'
