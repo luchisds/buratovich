@@ -16,6 +16,9 @@ secret_key.txt
 # Remote Server
 remote_server.txt
 
+# Email account
+email_account.txt
+
 # Mac
 .DS_Store
 
