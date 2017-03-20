@@ -23,12 +23,15 @@ from django.db.models import Sum
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 
 import django_excel as excel
+import requests
+from requests.auth import HTTPBasicAuth
 
 from models import CtaCte
 from models import Deliveries
@@ -52,6 +55,19 @@ def handler404(request):
 
 def handler500(request):
 	return render(request, '500.html')
+
+
+def dwldFile(request):
+	f = request.GET['f']
+	filename = f+'.pdf'
+	print filename
+	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth('xxxxxxxxxxx', 'xxxxxxxxxxx'))
+	length = r.headers['Content-Length']
+
+	response = StreamingHttpResponse(r.content, content_type="application/pdf")
+	response['Content-Length'] = length
+	response['Content-Disposition'] = "attachment; filename='%s'" % filename
+	return response
 
 
 def index(request):
