@@ -1734,10 +1734,8 @@ footer .tax:not(.tax) span:hover .work {
   padding: 4em 0;
 }
 #historic-rain {
-  padding: 0 2em;
-}
-#historic-rain h2 {
-  margin-top: 1.7em;
+  background: url("../img/units/back.jpg") no-repeat top center;
+  padding: 1.7em 2em 0 2em;
 }
 #historic-rain table {
   margin: 2em 0 4em 0;
@@ -1747,6 +1745,7 @@ footer .tax:not(.tax) span:hover .work {
   font-weight: bold;
 }
 #company {
+  background: url("../img/units/back.jpg") no-repeat top center;
   overflow: hidden;
   position: relative;
 }
@@ -1900,7 +1899,7 @@ footer .tax:not(.tax) span:hover .work {
 #taxes .data-contact,
 #cv .data-contact {
   font-size: 1.2em;
-  margin: 2em 0 0 0;
+  padding: 2em 2em 0 2em;
   vertical-align: middle;
 }
 #contact .data-contact a,
@@ -1934,17 +1933,32 @@ footer .tax:not(.tax) span:hover .work {
   text-align: center;
 }
 #cv {
+  background: url("../img/units/back.jpg") no-repeat top center;
   font-weight: 400;
+  padding: 3em 5em;
 }
 #cv p {
   line-height: 1.3em;
-  margin: 0.5em;
+  margin: 1em 0.5em;
 }
 #cv p span:not(.bh) {
   font-weight: bold;
 }
 #cv p span.bh {
   color: #018d34;
+}
+#cv p.data-contact {
+  text-align: center;
+}
+#cv .img {
+  text-align: center;
+}
+#cv .img img {
+  border-radius: 3px;
+  max-width: 500px;
+}
+#taxes {
+  background: url("../img/units/back.jpg") no-repeat top center;
 }
 #taxes h2 {
   margin: 2em 0 1.5em 0 !important;
@@ -2038,6 +2052,9 @@ footer .tax:not(.tax) span:hover .work {
 #taxes .data-public li i {
   color: #065a7a;
   margin-right: 0.3em;
+}
+#contact {
+  background: url("../img/units/back.jpg") no-repeat top center;
 }
 #contact .offices {
   margin: 1em 0 2.5em 0;
