@@ -3,6 +3,10 @@
 
 {% block title %}Buratovich Hnos. - Empresa{% endblock %}
 
+{% block head %}
+	<link rel="stylesheet" href="{% static "js/jsOnlyLightbox/css/lightbox.css" %}">
+{% endblock %}
+
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
@@ -74,6 +78,40 @@
 		</div>
 	</div>
 	<div style="clear:both;"></div>
+	<article class="gallery">
+		<ul>
+			<li class="single">
+				<figure>
+					<a href="{% static "img/gallery/01.jpg" %}" data-jslghtbx="{% static "img/gallery/01.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/01.jpg" %}" alt=""></a>
+				</figure>
+			</li><!--
+			--><li class="double">
+				<figure>
+					<a href="{% static "img/gallery/02.jpg" %}" data-jslghtbx="{% static "img/gallery/02.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/02.jpg" %}" alt=""></a>
+				</figure>
+			</li><!--
+			--><li class="single">
+				<figure>
+					<a href="{% static "img/gallery/03.jpg" %}" data-jslghtbx="{% static "img/gallery/03.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/03.jpg" %}" alt=""></a>
+				</figure>
+			</li><!--
+			--><li class="single">
+				<figure>
+					<a href="{% static "img/gallery/04.jpg" %}" data-jslghtbx="{% static "img/gallery/04.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/04.jpg" %}" alt=""></a>
+				</figure>
+			</li><!--
+			--><li class="single">
+				<figure>
+					<a href="{% static "img/gallery/05.jpg" %}" data-jslghtbx="{% static "img/gallery/05.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/9.jpg" %}" alt=""></a>
+				</figure>
+			</li><!--
+			--><li class="double">
+				<figure>
+					<a href="{% static "img/gallery/06.jpg" %}" data-jslghtbx="{% static "img/gallery/06.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/5.jpg" %}" alt=""></a>
+				</figure>
+			</li>
+		</ul>		
+	</article>
 	<article class="video-company module">
 		<div>
 			<p>Conocé la historia de la empresa a traves de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generacion de la familia Buratovich:</p>
@@ -84,4 +122,12 @@
 		</div>
 	</article>
 </section>
+{% endblock %}
+
+{% block scriptjs %}
+	<script src="{% static "js/jsOnlyLightbox/js/lightbox.min.js" %}" type="text/javascript"></script>
+	<script>
+		var lightbox = new Lightbox();
+		lightbox.load();
+	</script>
 {% endblock %}
