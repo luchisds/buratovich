@@ -1794,28 +1794,27 @@ footer .tax:not(.tax) span:hover .work {
 }
 #company .gallery li figure {
   margin: 0;
-  left: 100%;
-  margin-left: -200%;
   position: relative;
 }
 #company .gallery li figure a {
   display: block;
 }
 #company .gallery li figure a img {
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  max-width: 310px;
-  vertical-align: middle;
+  text-align: center;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  vertical-align: middle;
 }
 #company .gallery li figure a:after {
   background: #fff;
   bottom: 0;
   content: '';
   left: 0;
+  margin: 0.3em;
   opacity: 0;
   position: absolute;
   right: 0;
