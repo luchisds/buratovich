@@ -460,14 +460,15 @@ footer
 	background url('../img/units/back.jpg') no-repeat top center
 	overflow hidden
 	position relative
-	.featured
-		padding 0 2em
-		font-size 1.1em
+	.featured, .gallery
 		h2
 			text-shadow 1px 1px 2px $midGrey
 			text-align center
 			font-size 1.6em
 			margin 2em 0 .8em 0
+	.featured
+		padding 0 2em
+		font-size 1.1em
 		ul
 			li
 				font-weight 300
@@ -482,49 +483,6 @@ footer
 					display inline-block
 					margin-left -1.3em /* same as padding-left set on li */
 					width 1.3em /* same as padding-left set on li */
-	.gallery
-		margin 2em auto
-		text-align center
-		ul
-			column-count 4
-			column-gap 0
-			margin 0 auto
-			max-width 1240px
-		li
-			overflow hidden
-			position relative
-			figure
-				// left 100%
-				margin 0
-				// margin-left -200%
-				position relative
-				a
-					display block
-					img
-						// max-width 310px
-						// width 296px
-						text-align center
-						//Fix blink behavior on hover
-						transform translateZ(0)
-						transform translate3d(0,0,0)
-						transition all .2s ease-in-out
-						//Fix img inline
-						vertical-align middle
-					&:after
-						background #FFF
-						bottom 0
-						content ''
-						left 0
-						margin .3em
-						opacity 0
-						position absolute
-						right 0
-						top 0
-						transition all .3s ease-in-out
-						z-index 1
-			&:hover
-				a:after
-					opacity .7
 	.imgs
 		text-align center
 		img
@@ -607,6 +565,64 @@ footer
 			.empty
 				height 100%
 
+/*#### GALERIA DE IMAGENES #############################################################*/
+
+#gallery,
+.gallery
+		margin 5em auto
+		text-align center
+		figure
+			display inline-block
+			margin 0
+			padding .4em .8em
+			width 25%
+			a
+				background-color white
+				border 1px solid $midGrey
+				border-radius 3px
+				display block
+				padding .4em
+				position relative
+				img
+					height auto
+					max-width 280px
+					// Fix blink behavior on hover
+					transform translateZ(0)
+					transform translate3d(0,0,0)
+					transition all .2s ease-in-out
+					// Fix img inline
+					vertical-align middle
+					width 100%
+				&:after
+					background #000
+					bottom 0
+					content ''
+					left 0
+					margin .4em
+					opacity 0
+					position absolute
+					right 0
+					top 0
+					transition all .3s ease-in-out
+					z-index 1
+				&:hover
+					&:after
+						opacity .6
+		.more
+			margin 2em 0 4em 0
+			text-align center
+			a
+				background-color $accentColor
+				border-radius 3px
+				color white
+				padding .3em .5em
+				&:hover
+					box-shadow 2px 2px 5px rgba(0,0,0,.5)
+
+#gallery
+	margin 3em auto 5em auto
+	h2
+		margin 1em 0
 
 
 /*#### CONTACT / INFORMACION IMPOSITIVA / CV ###########################################*/
