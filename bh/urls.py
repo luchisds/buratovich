@@ -18,6 +18,7 @@ urlpatterns = [
 
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),
+	url(r'^galeria/$', views.gallery, name='gallery'),
 	url(r'^contacto/$', views.contact, name='contact'),
 	url(r'^lluvias-historico/$', views.historic_rain, name='historic_rain'),
 	url(r'^impuestos/$', views.taxes, name='taxes'),

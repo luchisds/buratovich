@@ -480,6 +480,20 @@ video::-webkit-media-controls-fullscreen-button {
 .module {
   opacity: 0;
 }
+.jslghtbx-next,
+.jslghtbx-prev {
+  border-top: 40px solid transparent !important;
+  border-bottom: 40px solid transparent !important;
+}
+.jslghtbx-next {
+  border-left: 20px solid #fff !important;
+}
+.jslghtbx-prev {
+  border-right: 20px solid #fff !important;
+}
+.jslghtbx-close {
+  font-size: 1.5em !important;
+}
 @-webkit-keyframes come-in {
   to {
     -webkit-transform: translateY(0);
@@ -1749,15 +1763,16 @@ footer .tax:not(.tax) span:hover .work {
   overflow: hidden;
   position: relative;
 }
-#company .featured {
-  padding: 0 2em;
-  font-size: 1.1em;
-}
-#company .featured h2 {
+#company .featured h2,
+#company .gallery h2 {
   text-shadow: 1px 1px 2px #ccc;
   text-align: center;
   font-size: 1.6em;
   margin: 2em 0 0.8em 0;
+}
+#company .featured {
+  padding: 0 2em;
+  font-size: 1.1em;
 }
 #company .featured ul li {
   font-weight: 300;
@@ -1773,58 +1788,6 @@ footer .tax:not(.tax) span:hover .work {
   display: inline-block;
   margin-left: -1.3em /* same as padding-left set on li */;
   width: 1.3em /* same as padding-left set on li */;
-}
-#company .gallery {
-  margin: 2em auto;
-  text-align: center;
-}
-#company .gallery ul {
-  -webkit-column-count: 4;
-     -moz-column-count: 4;
-          column-count: 4;
-  -webkit-column-gap: 0;
-     -moz-column-gap: 0;
-          column-gap: 0;
-  margin: 0 auto;
-  max-width: 1240px;
-}
-#company .gallery li {
-  overflow: hidden;
-  position: relative;
-}
-#company .gallery li figure {
-  margin: 0;
-  position: relative;
-}
-#company .gallery li figure a {
-  display: block;
-}
-#company .gallery li figure a img {
-  text-align: center;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  vertical-align: middle;
-}
-#company .gallery li figure a:after {
-  background: #fff;
-  bottom: 0;
-  content: '';
-  left: 0;
-  margin: 0.3em;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  z-index: 1;
-}
-#company .gallery li:hover a:after {
-  opacity: 0.7;
 }
 #company .imgs {
   text-align: center;
@@ -1935,6 +1898,81 @@ footer .tax:not(.tax) span:hover .work {
 }
 #company .infography .row .empty {
   height: 100%;
+}
+#gallery,
+.gallery {
+  margin: 5em auto;
+  text-align: center;
+}
+#gallery figure,
+.gallery figure {
+  display: inline-block;
+  margin: 0;
+  padding: 0.4em 0.8em;
+  width: 25%;
+}
+#gallery figure a,
+.gallery figure a {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: block;
+  padding: 0.4em;
+  position: relative;
+}
+#gallery figure a img,
+.gallery figure a img {
+  height: auto;
+  max-width: 280px;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  vertical-align: middle;
+  width: 100%;
+}
+#gallery figure a:after,
+.gallery figure a:after {
+  background: #000;
+  bottom: 0;
+  content: '';
+  left: 0;
+  margin: 0.4em;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+#gallery figure a:hover:after,
+.gallery figure a:hover:after {
+  opacity: 0.6;
+}
+#gallery .more,
+.gallery .more {
+  margin: 2em 0 4em 0;
+  text-align: center;
+}
+#gallery .more a,
+.gallery .more a {
+  background-color: #065a7a;
+  border-radius: 3px;
+  color: #fff;
+  padding: 0.3em 0.5em;
+}
+#gallery .more a:hover,
+.gallery .more a:hover {
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+#gallery {
+  margin: 3em auto 5em auto;
+}
+#gallery h2 {
+  margin: 1em 0;
 }
 #contact .offices,
 #contact .data-contact,
