@@ -469,7 +469,6 @@ footer
 			font-size 1.6em
 			margin 2em 0 .8em 0
 		ul
-			// margin-left 1em
 			li
 				font-weight 300
 				line-height 1.4em
@@ -483,13 +482,55 @@ footer
 					display inline-block
 					margin-left -1.3em /* same as padding-left set on li */
 					width 1.3em /* same as padding-left set on li */
-
+	.gallery
+		margin 2em auto
+		text-align center
+		ul
+			column-count 4
+			column-gap 0
+			margin 0 auto
+			max-width 1240px
+		li
+			overflow hidden
+			position relative
+			figure
+				margin 0
+				left 100%
+				margin-left -200%
+				position relative
+				a
+					display block
+					img
+						transition all .2s ease-in-out
+						max-width 310px
+						// width 296px
+						//Fix img inline
+						vertical-align middle
+						//Fix blink behavior on hover
+						transform translateZ(0)
+						transform translate3d(0,0,0)
+					&:after
+						background #FFF
+						bottom 0
+						content ''
+						left 0
+						opacity 0
+						position absolute
+						right 0
+						top 0
+						transition all .3s ease-in-out
+						z-index 1
+			&:hover
+				// img
+				// 	// transform scale(1.1)
+				// 	width 100%
+				a:after
+					opacity .7
 	.imgs
 		text-align center
 		img
 			border-radius 3px
 			margin 1.5em .5em 0 .5em
-
 	.history
 		padding 2em
 		h2
@@ -501,8 +542,6 @@ footer
 			font-weight 300
 			line-height 1.3em
 			margin-bottom .8em
-
-
 	.video-company
 		margin-top 3em
 		text-align center
