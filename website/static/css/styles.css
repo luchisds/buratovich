@@ -1774,6 +1774,59 @@ footer .tax:not(.tax) span:hover .work {
   margin-left: -1.3em /* same as padding-left set on li */;
   width: 1.3em /* same as padding-left set on li */;
 }
+#company .gallery {
+  margin: 2em auto;
+  text-align: center;
+}
+#company .gallery ul {
+  -webkit-column-count: 4;
+     -moz-column-count: 4;
+          column-count: 4;
+  -webkit-column-gap: 0;
+     -moz-column-gap: 0;
+          column-gap: 0;
+  margin: 0 auto;
+  max-width: 1240px;
+}
+#company .gallery li {
+  overflow: hidden;
+  position: relative;
+}
+#company .gallery li figure {
+  margin: 0;
+  left: 100%;
+  margin-left: -200%;
+  position: relative;
+}
+#company .gallery li figure a {
+  display: block;
+}
+#company .gallery li figure a img {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  max-width: 310px;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+#company .gallery li figure a:after {
+  background: #fff;
+  bottom: 0;
+  content: '';
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+#company .gallery li:hover a:after {
+  opacity: 0.7;
+}
 #company .imgs {
   text-align: center;
 }
