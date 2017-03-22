@@ -494,26 +494,28 @@ footer
 			overflow hidden
 			position relative
 			figure
+				// left 100%
 				margin 0
-				left 100%
-				margin-left -200%
+				// margin-left -200%
 				position relative
 				a
 					display block
 					img
-						transition all .2s ease-in-out
-						max-width 310px
+						// max-width 310px
 						// width 296px
-						//Fix img inline
-						vertical-align middle
+						text-align center
 						//Fix blink behavior on hover
 						transform translateZ(0)
 						transform translate3d(0,0,0)
+						transition all .2s ease-in-out
+						//Fix img inline
+						vertical-align middle
 					&:after
 						background #FFF
 						bottom 0
 						content ''
 						left 0
+						margin .3em
 						opacity 0
 						position absolute
 						right 0
@@ -521,9 +523,6 @@ footer
 						transition all .3s ease-in-out
 						z-index 1
 			&:hover
-				// img
-				// 	// transform scale(1.1)
-				// 	width 100%
 				a:after
 					opacity .7
 	.imgs
