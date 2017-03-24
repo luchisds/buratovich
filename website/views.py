@@ -33,6 +33,7 @@ import django_excel as excel
 import requests
 from requests.auth import HTTPBasicAuth
 
+from forms import CP
 from models import CtaCte
 from models import Deliveries
 from models import Sales
@@ -58,6 +59,11 @@ def handler404(request):
 
 def handler500(request):
 	return render(request, '500.html')
+
+
+def cp(request):
+	form = CP()
+	return render(request, 'cp.html', {'form': form})
 
 
 def index(request):
