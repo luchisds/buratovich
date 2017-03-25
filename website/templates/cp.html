@@ -15,82 +15,158 @@
 {% endblock %}
 
 {% block content %}
-<section id="cp">
-	<form action="{% url 'cp' %}" method="post">
+<section id="cp" class="maxwidth">
+	<form action="{% url 'cp' %}" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
+		{{form.non_field_errors}}
+		<ul class="errors">
+			{% for field in form %}
+				{% if field.errors %}
+					<li>{{field.label_tag}} {{field.errors}}</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
 		<div class="box">
-			<h3>CARTA DE PORTE EN BLANCO</h3>
+			<div class="title">
+				<i class="fa fa-file-text" aria-hidden="true"></i>
+				<h3>1 - CARTA DE PORTE EN BLANCO</h3>
+			</div>
+			<p class="error">{{form.cp.errors}}</p>
 			<p>{{form.cp.label_tag}} {{form.cp}}</p>
 		</div>
 		<div class="box">
-			<h3>DATOS DE LA CARTA DE PORTE</h3>
-			<p>{{form.ownership_line.label_tag}} {{form.ownership_line}}</p>
+			<div class="title">
+				<i class="fa fa-align-left" aria-hidden="true"></i>
+				<h3>2 - DATOS DE LA CARTA DE PORTE</h3>
+			</div>
+			<p>{{form.ownership_line.label_tag}} {{form.ownership_line}} <span style="margin-left: 10px;">(marcar si el titular de la CP ocupa dos renglones)</span></p>
+			<p class="error">{{form.load_date.errors}}</p>
 			<p>{{form.load_date.label_tag}} {{form.load_date}}</p>
+			<p class="error">{{form.ctg.errors}}</p>
 			<p>{{form.ctg.label_tag}} {{form.ctg}}</p>
-			<h4>DATOS DE INTERVINIENTES EN EL TRASLADO DE GRANOS</h3>
-			<p>
+			<div class="subtitle">
+				<h4>1 - DATOS DE INTERVINIENTES EN EL TRASLADO DE GRANOS</h3>
+			</div>
+			<p class="error">
+				<p>{{form.intermediary.errors}}</p>
+				<p>{{form.intermediary_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.intermediary.label_tag}} {{form.intermediary}}</span>
 				<span>{{form.intermediary_cuit.label_tag}} {{form.intermediary_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.sender.errors}}</p>
+				<p>{{form.sender_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.sender.label_tag}} {{form.sender}}</span>
 				<span>{{form.sender_cuit.label_tag}} {{form.sender_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.broker.errors}}</p>
+				<p>{{form.broker_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.broker.label_tag}} {{form.broker}}</span>
 				<span>{{form.broker_cuit.label_tag}} {{form.broker_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.representative.errors}}</p>
+				<p>{{form.representative_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.representative.label_tag}} {{form.representative}}</span>
 				<span>{{form.representative_cuit.label_tag}} {{form.representative_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.addressee.errors}}</p>
+				<p>{{form.addressee_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.addressee.label_tag}} {{form.addressee}}</span>
 				<span>{{form.addressee_cuit.label_tag}} {{form.addressee_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.destination.errors}}</p>
+				<p>{{form.destination_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.destination.label_tag}} {{form.destination}}</span>
 				<span>{{form.destination_cuit.label_tag}} {{form.destination_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.carrier.errors}}</p>
+				<p>{{form.carrier_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.carrier.label_tag}} {{form.carrier}}</span>
 				<span>{{form.carrier_cuit.label_tag}} {{form.carrier_cuit}}</span>
 			</p>
-			<p>
+			<p class="error">
+				<p>{{form.driver.errors}}</p>
+				<p>{{form.driver_cuit.errors}}</p>
+			</p>
+			<p class="name">
 				<span>{{form.driver.label_tag}} {{form.driver}}</span>
 				<span>{{form.driver_cuit.label_tag}} {{form.driver_cuit}}</span>
 			</p>
-			<h4>DATOS DE LOS GRANOS / ESPECIES TRANSPORTADOS</h4>
+			<div class="subtitle">
+				<h4>2 - DATOS DE LOS GRANOS / ESPECIES TRANSPORTADOS</h4>
+			</div>
+			<p class="error">{{form.harvest.errors}}</p>
 			<p>{{form.harvest.label_tag}} {{form.harvest}}</p>
+			<p class="error">{{form.species.errors}}</p>
 			<p>{{form.species.label_tag}} {{form.species}}</p>
 			<p>{{form.species_type.label_tag}} {{form.species_type}}</p>
 			<p>{{form.contract.label_tag}} {{form.contract}}</p>
 			<p>{{form.destination_load.label_tag}} {{form.destination_load}}</p>
+			<p class="error">{{form.estimated_kg.errors}}</p>
 			<p>{{form.estimated_kg.label_tag}} {{form.estimated_kg}}</p>
-			<p>{{form.quality.label_tag}} {{form.quality}}</p>
+			<p class="error">{{form.quality.errors}}</p>
+			<p class="radio">
+				{{form.quality.label_tag}}
+				{% for r in form.quality %}
+					<span>{{r.choice_label}} {{r.tag}}</span>
+				{% endfor %}
+			</p>
+			<p class="error">{{form.gross_kg.errors}}</p>
 			<p>{{form.gross_kg.label_tag}} {{form.gross_kg}}</p>
+			<p class="error">{{form.tare_kg.errors}}</p>
 			<p>{{form.tare_kg.label_tag}} {{form.tare_kg}}</p>
+			<p class="error">{{form.net_kg.errors}}</p>
 			<p>{{form.net_kg.label_tag}} {{form.net_kg}}</p>
 			<p>{{form.observations.label_tag}} {{form.observations}}</p>
-			<h4>PROCEDENCIA DE LA MERCADERÍA</h4>
-			<p>{{form.stablishment.label_tag}} {{form.stablishment}}</p>
-			<p>{{form.address.label_tag}} {{form.address}}</p>
-			<p>{{form.city.label_tag}} {{form.city}}</p>
-			<p>{{form.state.label_tag}} {{form.state}}</p>
-			<h4>LUGAR DE DESTINO DE LOS GRANOS</h4>
-			<p>{{form.destination_address.label_tag}} {{form.destination_address}}</p>
-			<p>{{form.destination_city.label_tag}} {{form.destination_city}}</p>
-			<p>{{form.destination_state.label_tag}} {{form.destination_state}}</p>
-			<h4>DATOS DEL TRANSPORTE</h4>
-			<p>{{form.freight_payer.label_tag}} {{form.freight_payer}}</p>
+			<div class="subtitle">
+				<h4>3 - PROCEDENCIA DE LA MERCADERÍA</h4>
+			</div>
+			<p class="pro-des">{{form.stablishment.label_tag}} {{form.stablishment}}</p>
+			<p class="pro-des">{{form.address.label_tag}} {{form.address}}</p>
+			<p class="pro-des">{{form.city.label_tag}} {{form.city}}</p>
+			<p class="pro-des">{{form.state.label_tag}} {{form.state}}</p>
+			<div class="subtitle">
+				<h4>4 - LUGAR DE DESTINO DE LOS GRANOS</h4>
+			</div>
+			<p class="pro-des">{{form.destination_address.label_tag}} {{form.destination_address}}</p>
+			<p class="pro-des">{{form.destination_city.label_tag}} {{form.destination_city}}</p>
+			<p class="pro-des">{{form.destination_state.label_tag}} {{form.destination_state}}</p>
+			<div class="subtitle">
+				<h4>5 - DATOS DEL TRANSPORTE</h4>
+			</div>
+			<p class="pro-des">{{form.freight_payer.label_tag}} {{form.freight_payer}}</p>
 			<p>{{form.truck.label_tag}} {{form.truck}}</p>
 			<p>{{form.trailer.label_tag}} {{form.trailer}}</p>
 			<p>{{form.km.label_tag}} {{form.km}}</p>
-			<p>{{form.freight.label_tag}} {{form.freight}}</p>
+			<p class="radio">
+				{{form.freight.label_tag}}
+				{% for r in form.freight %}
+					<span>{{r.choice_label}} {{r.tag}}</span>
+				{% endfor %}
+			</p>
 			<p>{{form.ref_rate.label_tag}} {{form.ref_rate}}</p>
 			<p>{{form.rate.label_tag}} {{form.rate}}</p>
 		</div>
-		<input type="submit" value="Enviar" />
+		<input type="submit" value="Procesar Carta de Porte" />
 	</form>
 </section>
 {% endblock %}

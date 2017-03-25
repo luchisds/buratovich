@@ -2929,3 +2929,98 @@ footer .tax:not(.tax) span:hover .work {
   max-width: 500px;
   width: 100%;
 }
+#cp form {
+  display: table;
+  width: 100%;
+}
+#cp form div.title {
+  border-bottom: 1px solid #018d34;
+  border-radius: 3px;
+  margin-bottom: 2em;
+}
+#cp form div.title i,
+#cp form div.title h3 {
+  display: inline-block;
+  font-size: 1.2em;
+  vertical-align: baseline;
+}
+#cp form div.title i {
+  background-color: #018d34;
+  border-radius: 3px;
+  color: #fff;
+  margin-right: 0.5em;
+  padding: 0.4em 0.5em 0.3em 0.5em;
+}
+#cp form div.title h3 {
+  color: #018d34;
+}
+#cp form div.subtitle {
+  margin: 2em 0;
+}
+#cp form div.subtitle h4 {
+  background-color: #ccc;
+  border-radius: 3px;
+  color: #065a7a;
+  display: inline;
+  padding: 0.3em 1em;
+}
+#cp form p {
+  display: table-row;
+  font-size: 0.9em;
+}
+#cp form p.name span:nth-child(1) input {
+  width: 300px;
+}
+#cp form p.pro-des input {
+  width: 300px;
+}
+#cp form p.radio span {
+  margin: 0 1em;
+}
+#cp form p.radio span input {
+  margin-left: 0.5em;
+}
+#cp form p label {
+  display: table-cell;
+  padding: 0.5em 0.8em 0.5em 0;
+  text-align: right;
+  width: 200px;
+}
+#cp form p input {
+  display: table-cell;
+}
+#cp form p textarea {
+  display: table-cell;
+  height: 50px;
+  vertical-align: top;
+}
+#cp form p input:not([type='file']),
+#cp form p textarea,
+#cp form p select {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+#cp input[type='submit'] {
+  background-color: #018d34;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  margin: 1.5em auto 3em auto;
+  padding: 0.5em 0.8em;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+#cp input[type='submit']:hover {
+  background-color: #065a7a;
+}
+#cp .box {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 1em 2em;
+  padding: 1em;
+}
+#cp .error {
+  color: #f00;
+}

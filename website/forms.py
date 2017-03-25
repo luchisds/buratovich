@@ -4,14 +4,19 @@ from datetime import datetime
 from django import forms
 from django.core.validators import DecimalValidator, RegexValidator
 
+# Widget for input type date
+class DateInput(forms.DateInput):
+	input_type = 'date'
+
 class CP(forms.Form):
 
-	harvest_list = ()
+	harvest_list = (('0000', '------'),)
 	date = datetime.now().year
 	for year in range(date-3,date+1):
 		harvest_list += ((str(year)[-2:] + str(year+1)[-2:], str(year)[-2:] + '/' + str(year+1)[-2:]),)
 
 	SPECIES = (
+			('0000', '------'),
 			('ALGO', 'Algodón'), 
 			('AVEN', 'Avena'),
 			('CART', 'Cártamo'),
@@ -31,7 +36,7 @@ class CP(forms.Form):
 			('TRIG', 'Trigo'),
 			('TRIC', 'Trigo Candeal'),
 			('TRIP', 'Trigo Pan'),
-			('OTRO', 'Otro...'),
+			#('OTRO', 'Otro...'),
 	)
 
 	QUALITY = (
@@ -45,12 +50,11 @@ class CP(forms.Form):
 		('APAGAR', 'Flete A Pagar'),
 	)
 
-	numeric = RegexValidator(r'^[0-9]*$', 'Only numeric characters are allowed.')
+	numeric = RegexValidator(r'^[0-9]*$', 'Solo se permiten numeros')
 
-	ownership_line = forms.BooleanField(label='Marcar si el titular de la CP ocupa dos renglones')
-	load_date = forms.DateField(label='Fecha de Carga')
+	ownership_line = forms.BooleanField(label='Titular Carta de Porte')
+	load_date = forms.DateField(label='Fecha de Carga', widget=DateInput)
 	ctg = forms.CharField(label='C.T.G. Nro.', max_length=8, strip=True, validators=[numeric])
-	#ctg = forms.DecimalField(label='C.T.G. Nro.', max_digits=8, decimal_places=0, validators=[DecimalValidator(8, 0)])
 	intermediary = forms.CharField(label='Intermediario', max_length=45, strip=True)
 	intermediary_cuit = forms.CharField(label='CUIT', max_length=11, strip=True)
 	sender = forms.CharField(label='Remitente Comercial', max_length=45, strip=True)
@@ -66,14 +70,14 @@ class CP(forms.Form):
 	carrier = forms.CharField(label='Transportista', max_length=45, strip=True)
 	carrier_cuit = forms.CharField(label='CUIT', max_length=11, strip=True)
 	driver = forms.CharField(label='Chofer', max_length=45, strip=True)
-	driver_cuit = forms.CharField(label='CUIT', max_length=11, strip=True)
+	driver_cuit = forms.CharField(label='CUIT/CUIL', max_length=11, strip=True)
 	harvest = forms.ChoiceField(label='Cosecha', choices=harvest_list)
 	species = forms.ChoiceField(label='Grano/Especie', choices=SPECIES)
 	species_type = forms.CharField(label='Tipo', max_length=18, strip=True)
 	contract = forms.CharField(label='Contrato Nro.', max_length=17, strip=True)
-	destination_load = forms.BooleanField(label='La carga será pesada en destino?')
+	destination_load = forms.BooleanField(label='Peso en destino?')
 	estimated_kg = forms.CharField(label='Kilos Estimados', max_length=7, strip=True)
-	quality = forms.ChoiceField(label='', choices=QUALITY, widget=forms.RadioSelect)
+	quality = forms.ChoiceField(label='Calidad', choices=QUALITY, widget=forms.RadioSelect)
 	gross_kg = forms.CharField(label='Peso Bruto (Kgrs.)', max_length=7, strip=True)
 	tare_kg = forms.CharField(label='Peso Tara (Kgrs.)', max_length=7, strip=True)
 	net_kg = forms.CharField(label='Peso Neto (Kgrs.)', max_length=7, strip=True)
@@ -89,7 +93,7 @@ class CP(forms.Form):
 	truck = forms.CharField(label='Camión', max_length=7, strip=True)
 	trailer = forms.CharField(label='Acoplado', max_length=7, strip=True)
 	km = forms.CharField(label='Km a recorrer', max_length=4, strip=True)
-	freight = forms.ChoiceField(label='', choices=FREIGHT, widget=forms.RadioSelect)
+	freight = forms.ChoiceField(label='Flete', choices=FREIGHT, widget=forms.RadioSelect)
 	ref_rate = forms.CharField(label='Tarifa de Referencia', max_length=7, strip=True)
 	rate = forms.CharField(label='Tarifa', max_length=7, strip=True)
 	cp = forms.FileField(label='Carta de Porte')
