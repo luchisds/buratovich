@@ -5,10 +5,10 @@ from django import forms
 
 class CP(forms.Form):
 
-	harvests = ()
+	harvest_list = ()
 	date = datetime.now().year
 	for year in range(date-3,date+1):
-		harvests += ((str(year)[-2:] + str(year+1)[-2:], str(year)[-2:] + '/' + str(year+1)[-2:]),)
+		harvest_list += ((str(year)[-2:] + str(year+1)[-2:], str(year)[-2:] + '/' + str(year+1)[-2:]),)
 
 	SPECIES = (
 			('ALGO', 'Algodón'), 
@@ -33,7 +33,18 @@ class CP(forms.Form):
 			('OTRO', 'Otro...'),
 	)
 
-	ownership_line = forms.BooleanField()
+	QUALITY = (
+		('DECLARACION', 'Declaración de Calidad'),
+		('CONFORME', 'Conforme'),
+		('CONDICIONAL', 'Condicional'),
+	)
+
+	FREIGHT = (
+		('PAGADO', 'Flete Pagado'),
+		('APAGAR', 'Flete A Pagar'),
+	)
+
+	ownership_line = forms.BooleanField(label='Marcar si el Titular contiene 2 lineas')
 	load_date = forms.DateField()
 	ctg = forms.CharField()
 	intermediary = forms.CharField()
@@ -52,6 +63,29 @@ class CP(forms.Form):
 	carrier_cuit = forms.CharField()
 	driver = forms.CharField()
 	driver_cuit = forms.CharField()
-	harvest = forms.ChoiceField(choices=harvests)
+	harvest = forms.ChoiceField(choices=harvest_list)
 	species = forms.ChoiceField(choices=SPECIES)
 	species_type = forms.CharField()
+	contract = forms.CharField()
+	destination_load = forms.BooleanField()
+	estimated_kg = forms.CharField()
+	quality = forms.ChoiceField(choices=QUALITY, widget=forms.RadioSelect)
+	gross_kg = forms.CharField()
+	tare_kg = forms.CharField()
+	net_kg = forms.CharField()
+	observations = forms.CharField(widget=forms.Textarea)
+	stablishment = forms.CharField()
+	address = forms.CharField()
+	city = forms.CharField()
+	state = forms.CharField()
+	destination_address = forms.CharField()
+	destination_city = forms.CharField()
+	destination_state = forms.CharField()
+	freight_payer = forms.CharField()
+	truck = forms.CharField()
+	trailer = forms.CharField()
+	km = forms.CharField()
+	freight = forms.ChoiceField(choices=FREIGHT, widget=forms.RadioSelect)
+	ref_rate = forms.CharField()
+	rate = forms.CharField()
+	cp = forms.FileField()
