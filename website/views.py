@@ -62,7 +62,12 @@ def handler500(request):
 
 
 def cp(request):
-	form = CP()
+	if request.method == 'POST':
+		form = CP(request.POST)
+		if form.is_valid():
+			return HttpResponseRedirect('/')
+	else:
+		form = CP()
 	return render(request, 'cp.html', {'form': form})
 
 
