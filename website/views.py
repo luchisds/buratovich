@@ -16,6 +16,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.db.models import Q
@@ -62,9 +63,16 @@ def handler500(request):
 
 
 def cp(request):
+
+	def handle_uploaded_file(f):
+		fs = FileSystemStorage()
+		filename = fs.save(os.path.join('cponline',f.name), f)
+		# print fs.url(filename)
+
 	if request.method == 'POST':
-		form = CP(request.POST)
+		form = CP(request.POST, request.FILES)
 		if form.is_valid():
+			handle_uploaded_file(request.FILES['cp'])
 			return HttpResponseRedirect('/')
 	else:
 		form = CP()
