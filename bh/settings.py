@@ -161,6 +161,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 # AUTH_USER_MODEL = 'website.User'
 
 
+FILE_UPLOAD_HANDLERS = (
+	# Django-excel
+	'django_excel.ExcelMemoryFileUploadHandler',
+	'django_excel.TemporaryExcelFileUploadHandler',
+	# Django
+	# 'django.core.files.uploadhandler.MemoryFileUploadHandler',
+	# 'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+)
+
+
 # Redirect to this URL when try to access unauthorized user to extranet URL
 LOGIN_URL = '/login/requerido/'
 
@@ -169,10 +179,6 @@ LOGIN_REDIRECT_URL = '/extranet/'
 
 # Django El Pagination
 EL_PAGINATION_PER_PAGE = 50
-
-# Django-excel
-FILE_UPLOAD_HANDLERS = ('django_excel.ExcelMemoryFileUploadHandler',
-						'django_excel.TemporaryExcelFileUploadHandler')
 
 
 # EMAIL Configuration
