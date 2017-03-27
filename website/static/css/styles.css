@@ -2964,39 +2964,39 @@ footer .tax:not(.tax) span:hover .work {
   display: inline;
   padding: 0.3em 1em;
 }
-#cp form p {
+#cp form p:not(.errors-field) {
   display: table-row;
   font-size: 0.9em;
 }
-#cp form p.name span:nth-child(1) input {
+#cp form p:not(.errors-field).name span:nth-child(1) input {
   width: 300px;
 }
-#cp form p.pro-des input {
+#cp form p:not(.errors-field).pro-des input {
   width: 300px;
 }
-#cp form p.radio span {
+#cp form p:not(.errors-field).radio span {
   margin: 0 1em;
 }
-#cp form p.radio span input {
+#cp form p:not(.errors-field).radio span input {
   margin-left: 0.5em;
 }
-#cp form p label {
+#cp form p:not(.errors-field) label {
   display: table-cell;
   padding: 0.5em 0.8em 0.5em 0;
   text-align: right;
   width: 200px;
 }
-#cp form p input {
+#cp form p:not(.errors-field) input {
   display: table-cell;
 }
-#cp form p textarea {
+#cp form p:not(.errors-field) textarea {
   display: table-cell;
   height: 50px;
   vertical-align: top;
 }
-#cp form p input:not([type='file']),
-#cp form p textarea,
-#cp form p select {
+#cp form p:not(.errors-field) input:not([type='file']),
+#cp form p:not(.errors-field) textarea,
+#cp form p:not(.errors-field) select {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
@@ -3015,12 +3015,32 @@ footer .tax:not(.tax) span:hover .work {
 #cp input[type='submit']:hover {
   background-color: #065a7a;
 }
-#cp .box {
-  border: 1px solid #ccc;
+#cp .box,
+#cp .errors {
   border-radius: 3px;
   margin: 1em 2em;
   padding: 1em;
 }
-#cp .error {
-  color: #f00;
+#cp .box {
+  border: 1px solid #ccc;
+}
+#cp .errors {
+  background-color: rgba(255,0,0,0.1);
+  border: 1px solid rgba(255,0,0,0.3);
+  font-size: 0.9em;
+}
+#cp .errors p.errors-field {
+  margin: 0.4em 0;
+}
+#cp .errors p.errors-description {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 1.2em;
+}
+#cp .errors ul {
+  margin-bottom: 1.2em;
+  padding-left: 2em;
+}
+#cp .errors ul li {
+  list-style-type: disc;
 }

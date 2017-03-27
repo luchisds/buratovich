@@ -76,7 +76,7 @@ def cp(request):
 		can = canvas.Canvas(packet, pagesize=A4)
 
 		# Init fields through form data
-		if form['ownership_line'] == 'on':
+		if form['ownership_line']:
 			ownership_height = 20
 		else:
 			ownership_height = 0
@@ -175,6 +175,7 @@ def cp(request):
 		form = CP(request.POST, request.FILES)
 		if form.is_valid():
 			file = request.FILES['cp']
+			print file.size
 			cp = proccess_cp(file, request.POST)
 			name = file.name
 			response = StreamingHttpResponse(cp, content_type='application/pdf')
