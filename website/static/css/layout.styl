@@ -1403,7 +1403,7 @@ footer
 					color $accentColor
 					display inline
 					padding .3em 1em
-		p
+		p:not(.errors-field)
 			display table-row
 			font-size .9em
 			&.name
@@ -1444,10 +1444,25 @@ footer
 		transition 0.3s ease-out
 		&:hover
 			background-color $accentColor
-	.box
-		border 1px solid $midGrey
+	.box, .errors
 		border-radius 3px
 		margin 1em 2em
 		padding 1em
-	.error
-		color red
+	.box
+		border 1px solid $midGrey
+	.errors
+		background-color rgba(255,0,0,.1)
+		border 1px solid rgba(255,0,0,.3)
+		font-size .9em
+		p
+			&.errors-field
+				margin .4em 0
+			&.errors-description
+				display block
+				font-size 1.1em
+				margin-bottom 1.2em
+		ul
+			margin-bottom 1.2em
+			padding-left 2em
+			li
+				list-style-type disc

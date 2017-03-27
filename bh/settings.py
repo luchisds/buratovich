@@ -180,6 +180,9 @@ LOGIN_REDIRECT_URL = '/extranet/'
 # Django El Pagination
 EL_PAGINATION_PER_PAGE = 50
 
+# CP Online settings
+CP_CONTENT_TYPES = ['application/pdf',]
+CP_MAX_UPLOAD_SIZE = 2621440 #2.5 Mb
 
 # EMAIL Configuration
 with open(BASE_DIR+'/bh/email_account.txt') as f:
