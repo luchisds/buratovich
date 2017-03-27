@@ -4,6 +4,8 @@ import math
 import os
 import re
 import datetime
+import cStringIO
+from io import BytesIO
 from collections import OrderedDict
 
 from django.core import serializers
@@ -31,6 +33,9 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 
 import django_excel as excel
+from PyPDF2 import PdfFileWriter, PdfFileReader
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -64,16 +69,119 @@ def handler500(request):
 
 def cp(request):
 
-	def handle_uploaded_file(f):
-		fs = FileSystemStorage()
-		filename = fs.save(os.path.join('cponline',f.name), f)
-		# print fs.url(filename)
+	def proccess_cp(file, form):
+
+		# Init InMemory PDF file & canvas
+		packet = cStringIO.StringIO()
+		can = canvas.Canvas(packet, pagesize=A4)
+
+		# Init fields through form data
+		if form['ownership_line'] == 'on':
+			ownership_height = 20
+		else:
+			ownership_height = 0
+
+		fcarga_year = str(datetime.datetime.strptime(form['load_date'], "%Y-%m-%d").date().year)
+		fcarga_month = ('0'+str(datetime.datetime.strptime(form['load_date'], "%Y-%m-%d").date().month))[-2:]
+		fcarga_day = ('0'+str(datetime.datetime.strptime(form['load_date'], "%Y-%m-%d").date().day))[-2:]
+
+		observations = can.beginText()
+		observations.setTextOrigin(400, 459 - ownership_height)
+		observations.textLines(form['observations'])
+
+		# Write form fields to canvas
+		can.setFont('Helvetica', 12)
+		can.drawString(235, 753, form['ctg'])
+		can.setFont('Helvetica', 10)
+		can.drawString(506, 761, fcarga_day)
+		can.drawString(524, 761, fcarga_month)
+		can.drawString(541, 761, fcarga_year)
+		can.drawString(156, 663 - ownership_height, form['intermediary'])
+		can.drawString(156, 643 - ownership_height, form['sender'])
+		can.drawString(156, 623 - ownership_height, form['broker'])
+		can.drawString(156, 603 - ownership_height, form['representative'])
+		can.drawString(156, 583 - ownership_height, form['addressee'])
+		can.drawString(156, 563 - ownership_height, form['destination'])
+		can.drawString(156, 544 - ownership_height, form['carrier'])
+		can.drawString(156, 524 - ownership_height, form['driver'])
+		can.drawString(471, 664 - ownership_height, form['intermediary_cuit'])
+		can.drawString(471, 644 - ownership_height, form['sender_cuit'])
+		can.drawString(471, 624 - ownership_height, form['broker_cuit'])
+		can.drawString(471, 604 - ownership_height, form['representative_cuit'])
+		can.drawString(471, 584 - ownership_height, form['addressee_cuit'])
+		can.drawString(471, 564 - ownership_height, form['destination_cuit'])
+		can.drawString(471, 545 - ownership_height, form['carrier_cuit'])
+		can.drawString(471, 526 - ownership_height, form['driver_cuit'])
+		can.drawString(458, 504 - ownership_height, form['harvest'])
+		can.drawString(98, 486 - ownership_height, form['species'])
+		can.drawString(266, 486 - ownership_height, form['species_type'])
+		can.drawString(458, 487 - ownership_height, form['contract'])
+		if form['destination_load'] == 'on':
+			can.drawString(130, 461 - ownership_height, 'X')
+		can.drawString(102, 436 - ownership_height, form['estimated_kg'])
+		if form['quality'] == 'DECLARACION':
+			can.drawString(249, 469 - ownership_height, 'X')
+		elif form['quality'] == 'CONFORME':
+			can.drawString(249, 452 - ownership_height, 'X')
+		else:
+			can.drawString(249, 436 - ownership_height, 'X')
+		can.drawString(345, 469 - ownership_height, form['gross_kg'])
+		can.drawString(345, 452 - ownership_height, form['tare_kg'])
+		can.drawString(345, 436 - ownership_height, form['net_kg'])
+		can.drawText(observations)
+		can.drawString(415, 420 - ownership_height, form['stablishment'])
+		can.drawString(415, 403 - ownership_height, form['city'])
+		can.drawString(415, 385 - ownership_height, form['state'])
+		can.drawString(80, 394 - ownership_height, form['address'])
+		can.drawString(415, 349 - ownership_height, form['destination_city'])
+		can.drawString(415, 332 - ownership_height, form['destination_state'])
+		can.drawString(80, 340 - ownership_height, form['destination_address'])
+		can.drawString(345, 311 - ownership_height, form['freight_payer'])
+		can.drawString(95, 294 - ownership_height, form['truck'])
+		can.drawString(95, 277 - ownership_height, form['trailer'])
+		can.drawString(95, 260 - ownership_height, form['km'])
+		if form['freight'] == 'PAGADO':
+			can.drawString(195, 294 - ownership_height, 'X')
+		else:
+			can.drawString(277, 294 - ownership_height, 'X')
+		can.drawString(242, 277 - ownership_height, form['ref_rate'])
+		can.drawString(242, 260 - ownership_height, form['rate'])
+		can.save()
+
+		# Move to the beginning of the StringIO buffer
+		packet.seek(0)
+		new_pdf = PdfFileReader(packet)
+		# Get the canvas content
+		new_pdf_page = new_pdf.getPage(0)
+
+		existing_pdf = PdfFileReader(file)
+		output = PdfFileWriter()
+		for numpage in range(0, existing_pdf.getNumPages()):
+			page = existing_pdf.getPage(numpage)
+			# Merge uploaded PDF page with canvas content
+			page.mergePage(new_pdf_page)
+			page.compressContentStreams()
+			# Save pages to new PDF
+			output.addPage(page)
+
+		# Write final PDF to buffer
+		output.write(packet)
+
+		# Return buffer stream
+		return packet.getvalue()
+
 
 	if request.method == 'POST':
 		form = CP(request.POST, request.FILES)
 		if form.is_valid():
-			handle_uploaded_file(request.FILES['cp'])
-			return HttpResponseRedirect('/')
+			file = request.FILES['cp']
+			cp = proccess_cp(file, request.POST)
+			name = file.name
+			response = StreamingHttpResponse(cp, content_type='application/pdf')
+			# response['Content-Length'] = cp.len
+			response['Content-Disposition'] = 'attachment; filename="%s"' % name
+
+			return response
 	else:
 		form = CP()
 	return render(request, 'cp.html', {'form': form})
@@ -797,31 +905,6 @@ def downloadPDFExtranet(request):
 			return response
 		else:
 			raise Http404
-
-	# def search_file(voucher):
-	# 	voucher_list = voucher.split(' ')
-	# 	if vouchers.get(voucher_list[0], None) is None:
-	# 		return None
-	# 	else:
-	# 		separator = vouchers[voucher_list[0]]['separator']
-	# 		for c in vouchers[voucher_list[0]]['codigo']:
-	# 			file_name = c + separator + voucher_list[1] + separator + voucher_list[2] + '.pdf'
-	# 			file = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCtePesos', file_name)
-	# 			if os.path.isfile(file):
-	# 				return file_name
-
-	# if 'algoritmo_code' in request.session:
-	# 	f = request.GET['f']
-	# 	filename = f+'.pdf'
-	# 	r = requests.get('http://190.92.102.226:1500/'+f+'.pdf', auth=HTTPBasicAuth(RS_USER, RS_PASS))
-	# 	if r.status_code == 200:
-	# 		length = r.headers['Content-Length']
-	# 		response = StreamingHttpResponse(r.content, content_type="application/pdf")
-	# 		response['Content-Length'] = length
-	# 		response['Content-Disposition'] = "attachment; filename='%s'" % filename
-	# 		return response
-	# 	else:
-	# 		raise Http404
 
 
 @login_required
