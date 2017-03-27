@@ -71,15 +71,51 @@ def cp(request):
 
 	def proccess_cp(file, form):
 
+		#CONST
+		species_dict = {
+			'0000': '------',
+			'ALGO': 'Algodón', 
+			'AVEN': 'Avena',
+			'CART': 'Cártamo',
+			'CEBA': 'Cebada',
+			'CECE': 'Cebada Cervecera',
+			'COLZ': 'Colza',
+			'COL0': 'Colza Doble 00',
+			'CUAR': 'Cuarta de Cebada',
+			'GIRA': 'Girasol',
+			'LINO': 'Lino',
+			'MAIZ': 'Maíz',
+			'MAMA': 'Maíz Mav',
+			'MAPI': 'Maíz Pisingallo',
+			'MANI': 'Maní',
+			'SOJA': 'Soja',
+			'SORG': 'Sorgo',
+			'TRIG': 'Trigo',
+			'TRIC': 'Trigo Candeal',
+			'TRIP': 'Trigo Pan',
+		}
+
+		harvest_dict = {'0000': '------'}
+		date = datetime.datetime.now().year
+		for year in range(date-3,date+1):
+			harvest_dict[str(year)[-2:] + str(year+1)[-2:]] = str(year)[-2:] + '/' + str(year+1)[-2:]
+
 		# Init InMemory PDF file & canvas
 		packet = cStringIO.StringIO()
 		can = canvas.Canvas(packet, pagesize=A4)
 
 		# Init fields through form data
-		if form['ownership_line']:
+		ownership_line = form.get('ownership_line', None)
+		if ownership_line:
 			ownership_height = 20
 		else:
 			ownership_height = 0
+
+		destination_load = form.get('destination_load', None)
+
+		species = species_dict.get(form['species'], None)
+
+		harvest = harvest_dict.get(form['harvest'], None)
 
 		fcarga_year = str(datetime.datetime.strptime(form['load_date'], "%Y-%m-%d").date().year)
 		fcarga_month = ('0'+str(datetime.datetime.strptime(form['load_date'], "%Y-%m-%d").date().month))[-2:]
@@ -112,11 +148,11 @@ def cp(request):
 		can.drawString(471, 564 - ownership_height, form['destination_cuit'])
 		can.drawString(471, 545 - ownership_height, form['carrier_cuit'])
 		can.drawString(471, 526 - ownership_height, form['driver_cuit'])
-		can.drawString(458, 504 - ownership_height, form['harvest'])
-		can.drawString(98, 486 - ownership_height, form['species'])
+		can.drawString(458, 504 - ownership_height, harvest)
+		can.drawString(98, 486 - ownership_height, species.upper())
 		can.drawString(266, 486 - ownership_height, form['species_type'])
 		can.drawString(458, 487 - ownership_height, form['contract'])
-		if form['destination_load'] == 'on':
+		if destination_load:
 			can.drawString(130, 461 - ownership_height, 'X')
 		can.drawString(102, 436 - ownership_height, form['estimated_kg'])
 		if form['quality'] == 'DECLARACION':
@@ -175,7 +211,6 @@ def cp(request):
 		form = CP(request.POST, request.FILES)
 		if form.is_valid():
 			file = request.FILES['cp']
-			print file.size
 			cp = proccess_cp(file, request.POST)
 			name = file.name
 			response = StreamingHttpResponse(cp, content_type='application/pdf')
