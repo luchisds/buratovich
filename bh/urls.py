@@ -11,8 +11,11 @@ urlpatterns = [
 	# static.serve debe ser usado solo en dev environment Fuck!
 	# url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 
-	# Django-admin-tools URL's
-	url(r'^admin_tools/', include('admin_tools.urls')),
+	# Django JET URLS
+	#url(r'^jet/', include('jet.urls', 'jet')),
+
+	# Grappelli URLS
+	url(r'^grappelli/', include('grappelli.urls')), 
 
 	url(r'^admin/', admin.site.urls),
 

@@ -7,7 +7,7 @@ from django.forms import ModelForm
 from django import forms
 
 from website.models import UserInfo
-from website.models import CtaCte
+#from website.models import CtaCte
 from website.models import Notifications
 from website.models import ViewedNotifications
 from website.models import Currencies
@@ -99,7 +99,7 @@ class RainAdmin(admin.ModelAdmin):
 
 # Register models
 admin.site.register(User, UserAdmin)
-admin.site.register(CtaCte)
+#admin.site.register(CtaCte)
 admin.site.register(Notifications)
 admin.site.register(ViewedNotifications)
 admin.site.register(Currencies, CurrenciesAdmin)
