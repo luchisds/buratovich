@@ -327,33 +327,84 @@ ul li {
 fieldset {
   border: none;
 }
-.dashboard #grp-header #grp-navigation {
+#container #grp-header #grp-navigation {
   background-color: #fff !important;
   background-image: none !important;
 }
-.dashboard #grp-header #grp-navigation #grp-admin-title {
+#container #grp-header #grp-navigation #grp-admin-title {
   background: #fff url("../img/logo_bh_mini_color.png") no-repeat left center !important;
-  background-size: 35px !important;
   color: #3c433e !important;
   font-size: 2.2em !important;
   padding: 0.7em 0 0.7em 2em !important;
   text-transform: lowercase !important;
 }
-.dashboard #grp-header #grp-navigation #grp-user-tools {
-  border-left: 1px solid #018d34 !important;
+#container #grp-header #grp-navigation #grp-user-tools {
+  border-left: 1px solid #ccc !important;
   margin: 0 !important;
 }
-.dashboard #grp-header #grp-navigation ul#grp-user-tools > li {
-  border-left: 1px solid #018d34 !important;
-  border-right: 1px solid #018d34 !important;
+#container #grp-header #grp-navigation #grp-user-tools > li {
+  border-left: 1px solid #eee !important;
+  border-right: 1px solid #ccc !important;
 }
-.dashboard #grp-header #grp-navigation ul#grp-user-tools > li a {
+#container #grp-header #grp-navigation #grp-user-tools > li a {
   color: #065a7a !important;
   padding: 1.6em 10px !important;
+  text-transform: uppercase !important;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
-.dashboard #grp-header #grp-context-navigation {
+#container #grp-header #grp-navigation #grp-user-tools > li a:hover {
+  color: #018d34 !important;
+}
+#container #grp-header #grp-navigation #grp-user-tools > li .grp-user-options {
+  background: #fff !important;
+  border-top: 1px solid #ccc !important;
+  margin-left: -2px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+#container #grp-header #grp-navigation #grp-user-tools > li .grp-user-options li {
+  border-left: 1px solid #ccc !important;
+  border-right: 1px solid #ccc !important;
+  border-bottom: 1px solid #ccc !important;
+  border-top: 0 !important;
+}
+#container #grp-header #grp-navigation #grp-user-tools > li .grp-user-options li:last-child {
+  border-radius: 0 0 3px 3px !important;
+}
+#container #grp-header #grp-navigation #grp-user-tools > li .grp-user-options li:hover {
+  background-color: #018d34 !important;
+}
+#container #grp-header #grp-navigation #grp-user-tools > li .grp-user-options li:hover a {
+  color: #fff !important;
+}
+#container #grp-header #grp-context-navigation {
   background: #018d34 !important;
 }
-.dashboard #grp-content {
+#container #grp-header #grp-context-navigation li {
+  color: #fff !important;
+  font-size: 1.1em;
+  padding: 0.3em 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+  text-transform: uppercase !important;
+}
+#container #grp-content {
   top: 100px !important;
+}
+#container #grp-content .grp-module {
+  margin-bottom: 1.5em !important;
+}
+#container #grp-content .grp-module .grp-row a {
+  color: #065a7a !important;
+}
+#container #grp-content .grp-module .module_title {
+  text-transform: uppercase !important;
+}
+#container #grp-content .grp-module.link-list .module_title {
+  background-image: -webkit-linear-gradient(#00a85a, #018d34);
+  background-image: linear-gradient(#00a85a, #018d34);
+  background-color: #fff !important;
+  border: 1px solid #018d34 !important;
+  color: #fff !important;
+  text-shadow: none;
 }
