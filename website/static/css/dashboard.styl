@@ -1,0 +1,80 @@
+/* Libs */
+@import 'lib/normalize'
+
+/* Styles */
+@import 'variables'
+@import 'fonts'
+
+//Iinit styles
+
+body, html
+	margin 0
+	padding 0
+
+body
+	//max-width 1280px
+	min-width 320px
+
+html
+	box-sizing border-box
+	color $darkGreyGreen
+	font-family $textFont
+	font-size unit($fontSize, 'px')
+	text-rendering optimizeLegibility
+
+*
+:before
+:after
+	// box-sizing se define en el html, y se hereda en el resto de elementos.
+	// http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+	box-sizing inherit
+
+a
+	text-decoration none
+
+h1, h2, h3, h4, h5, h6
+	margin 0
+
+p
+	margin 0
+
+ul
+	margin 0
+	padding 0
+	li
+		list-style none
+
+fieldset
+	border none
+
+
+
+// DAHSBOARD ##################################################################
+
+.dashboard
+	#grp-header
+		#grp-navigation
+			background-color white !important
+			background-image none !important
+			#grp-admin-title
+				background white url('../img/logo_bh_mini_color.png') no-repeat left center !important
+				background-size 35px !important
+				color $darkGreyGreen !important
+				font-size 2.2em !important
+				// padding-left 2em !important
+				padding .7em 0 .7em 2em !important
+				text-transform lowercase !important
+			#grp-user-tools
+				border-left 1px solid $baseColor !important
+				margin 0 !important
+			&
+				ul#grp-user-tools > li
+					border-left 1px solid $baseColor !important
+					border-right 1px solid $baseColor !important
+					a
+						color $accentColor !important
+						padding 1.6em 10px !important
+		#grp-context-navigation
+			background $baseColor !important
+	#grp-content
+		top 100px !important
