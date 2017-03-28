@@ -21,13 +21,12 @@ ALLOWED_HOSTS = ['*','127.0.0.1', 'buratovich.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-	'admin_tools',
-	'admin_tools.theming',
-	'admin_tools.menu',
-	'admin_tools.dashboard',
+	'django.contrib.contenttypes',
+	#'jet',
+	'grappelli.dashboard',
+	'grappelli',
 	'django.contrib.admin',
 	'django.contrib.auth',
-	'django.contrib.contenttypes',
 	'django.contrib.humanize',
 	'django.contrib.sessions',
 	'django.contrib.messages',
@@ -35,6 +34,7 @@ INSTALLED_APPS = [
 	'website',
 	'el_pagination',
 	'mathfilters',
+	# 'admin_reorder',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = [
 	'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	# 'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 ROOT_URLCONF = 'bh.urls'
@@ -64,7 +65,6 @@ TEMPLATES = [
 				'django.contrib.messages.context_processors.messages',
 			],
 			'loaders': [
-				'admin_tools.template_loaders.Loader',
 				# When using loaders it is necessary to indicate the templates loaders for Django (filesystem and apps)
 				('django.template.loaders.cached.Loader', [
 				'django.template.loaders.filesystem.Loader',
@@ -179,6 +179,37 @@ LOGIN_REDIRECT_URL = '/extranet/'
 
 # Django El Pagination
 EL_PAGINATION_PER_PAGE = 50
+
+# Jeet Settings
+# JET_DEFAULT_THEME = 'light-green'
+# JET_THEMES = ''
+# JET_SIDE_MENU_COMPACT = True
+# JET_SIDE_MENU_CUSTOM_APPS = [
+# 	('auth', [
+# 		'User',
+# 	]),
+# 	('website', [
+# 		'Currencies',
+# 		'Board',
+# 		'Rain',
+# 		'City',
+# 		'CtaCte',
+# 		'Notifications',
+# 		'ViewedNotifications',
+# 	]),
+# ]
+
+# Grappelli Settings
+GRAPPELLI_ADMIN_TITLE = 'BURATOVICH HNOS.'
+GRAPPELLI_INDEX_DASHBOARD = 'website.dashboard.CustomIndexDashboard'
+
+# Admin Reorder Settings
+# ADMIN_REORDER = (
+# 	{'app': 'auth', 'label': 'Alta de Usuarios'},
+# 	{'app': 'website', 'label': 'Moneda y Pizarra', 'models': ('website.Currencies', 'website.Board')},
+# 	{'app': 'website', 'label': 'Lluvias', 'models': ('website.Rain', 'website.City')},
+# 	{'app': 'website', 'label': 'Notificaciones', 'models': ('website.Notifications', 'website.ViewedNotifications')},
+# )
 
 # CP Online settings
 CP_CONTENT_TYPES = ['application/pdf',]
