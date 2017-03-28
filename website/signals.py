@@ -60,4 +60,5 @@ def preSave_User(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def userLogged_In(sender, request, user, **kwargs):
-	rain = AccessLog.objects.create(user=user, algoritmo_code=user.userinfo.algoritmo_code)
+	if not user.is_staff:
+		AccessLog.objects.create(user=user, algoritmo_code=user.userinfo.algoritmo_code)
