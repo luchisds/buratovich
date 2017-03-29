@@ -86,6 +86,11 @@ class CustomIndexDashboard(Dashboard):
             column=2,
             children=[
                 {
+                    'title': _('ACTUALIZAR EXTRANET'),
+                    'url': reverse('importdata', args=['all']),
+                    'external': False,
+                },
+                {
                     'title': _('Actualizar Cta. Cte. en Pesos'),
                     'url': reverse('importdata', args=['ctacte']),
                     'external': False,
