@@ -1,14 +1,307 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<title>Nuevo Usuario</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<title>Buratovich Hnos. - Activación de Cuenta</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+	<!--  General CSS  -->
+	<style type="text/css">
+		html{
+			width: 100%; 
+		}
+
+		body{
+			color: #3c433e;
+			width: 100%;  
+			margin:0; 
+			padding:0; 
+			-webkit-font-smoothing: antialiased;
+			font-family: 'Lato', sans-serif;
+			mso-margin-top-alt:0px; 
+			mso-margin-bottom-alt:0px; 
+			mso-padding-alt: 0px 0px 0px 0px;
+			/*background: #E7E7E7;*/
+		}
+
+		p,h1,h2,h3,h4{
+			margin-top:0;
+			margin-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}
+
+		table{
+			font-size: 16px;
+			border: 0;
+		}
+
+		img{
+			border: none!important;
+		}
+	</style>
+
+	<!--  Responsive CSS  -->
+	<style type="text/css">
+		@media only screen and (max-width: 800px) {
+			body[yahoo] .quote_full_width {width:100% !important;}
+			body[yahoo] .quote_content_width {width:90% !important;}
+		}
+
+		@media only screen and (max-width: 640px) {
+			body[yahoo] .full_width {width:100% !important;}
+			body[yahoo] .content_width{width:80% !important;}
+			body[yahoo] .center_txt {text-align: center!important;}
+			body[yahoo] .post_sep {width:100% !important; height:60px !important;}
+			body[yahoo] .gal_sep {width:100% !important; height:40px !important;}
+			body[yahoo] .gal_img {width:100% !important;}
+			body[yahoo] .bb_space {height:90px !important;}
+		}
+	</style>
+
 </head>
-<body>
-	<p>Nuevo usuario creado:</p>
-	<p>User name: {{data.username}}</p>
-	<p>Password: {{data.password}}</p>
-	<p>Link de activacion:</p>
-	<a href="http://127.0.0.1:8000{% url 'activate_account' data.uidb64 data.token %}">Activar la cuenta</a>
+<body style="margin: 0; padding: 0;" yahoo="fix">
+
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="background-color:#ffffff;">
+		<!--  header  -->
+		<tr>
+			<td>
+				<table width="600" cellpadding="0" cellspacing="0" align="center" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:center;" class="content_width">    
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="40">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+
+					<!--  Logo  -->
+					<tr> 
+						<td>
+							<img src="https://k60.kn3.net/E/3/E/C/7/5/205.png" alt="" title="" border="0" style="border:0; display:inline_block; vertical-align: middle;"/>
+							<h1 style="display: inline-block; vertical-align: middle; padding-left: 15px;">buratovich hnos.</h1>
+						</td>
+					</tr>
+					<!--  end logo  -->
+
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="25">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+				</table>
+			</td>
+			<tr>
+				<td width="100%" height="300" background="https://k61.kn3.net/E/D/2/1/3/2/28F.jpg" style="background-image:url('https://k61.kn3.net/E/D/2/1/3/2/28F.jpg'); background-size: cover; -webkit-background-size: cover; -moz-background-size: cover -o-background-size: cover; background-position: bottom center; background-repeat: no-repeat;">&nbsp;</td>
+			</tr>
+
+			<!--  spacing  -->
+			<tr>
+				<td width="100%" height="20">&nbsp;</td>
+			</tr>
+			<!--  end spacing  -->
+
+			<!--  vertical separator  -->
+			<tr>
+				<td>
+					<table width="600" height="1" align="center" bgcolor="#cccccc" border="0"  cellpadding="0" cellspacing="0"style="height:1px!important; width:600px; background-color:#cccccc; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<!--  end vertical separator  -->
+
+		</tr>
+		<!--  end header  -->
+	</table>
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+		<!--  spacing  -->    
+		<tr>
+			<td height="20">&nbsp;</td>
+		</tr>
+		<!--  end spacing  -->
+		<tr>
+			<td>
+				<table width="600" cellpadding="0" cellspacing="0" align="center" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:left;" class="content_width"> 
+					<!--  section title  -->
+					<tr>
+						<td style="color: #69C374; font-size: 30px; font-weight: 700; letter-spacing:.5px;">Sres. {{data.company_name}}</td>
+					</tr>
+					<!--  end section title  -->
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="25">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<!-- copy -->
+					<tr>
+						<td style="font-weight: bold;">Para tener acceso a su nueva cuenta de <span style="border-bottom: 1px dashed #018d34; color: #69C374;">BURATOVICH.COM</span> solo es necesario que siga estos simples pasos:</td>
+					</tr>
+					<!-- end copy -->
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="30">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<!--  title  -->
+					<tr>
+						<td style="font-size: 28px; font-weight: 400; letter-spacing:.5px;">1. Active su cuenta</td>
+					</tr>
+					<!--  title  -->
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>Por seguridad su cuenta permanece inactiva. Por favor, activela clickeando en el botón de abajo o ingresando con la contraseña temporal:</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td style="font-size: 13px;"><span style="font-weight: bold;">Usuario: </span>{{data.username}}</td>
+					</tr>
+					<tr>
+						<td style="font-size: 13px;"><span style="font-weight: bold">Contraseña: </span>{{data.password}}</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="5">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>
+							<table width="200" cellpadding="0" cellspacing="0" align="left" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:left;" class="content_width">
+								<tr>
+									<td align="center" bgcolor="#ffffff" style="width: 20%;">
+										<div>
+											<div align="center">
+												<a target="_blank" href="http://127.0.0.1:8000{% url 'activate_account' data.uidb64 data.token %}" style="color:#ffffff; text-decoration: none; background:#69C374; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; display: block;">Activar Cuenta</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="50">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<!--  title  -->
+					<tr>
+						<td style="font-size: 28px; font-weight: 400; letter-spacing:.5px;">2. Cambie la contraseña</td>
+					</tr>
+					<!--  title  -->
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>Durante el proceso de alta se le asigno una contraseña aleatoria, por favor cambiela para mayor seguridad.</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>
+							<table width="200" cellpadding="0" cellspacing="0" align="left" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:left;" class="content_width">
+								<tr>
+									<td align="center" bgcolor="#ffffff" style="width: 20%;">
+										<div>
+											<div align="center">
+												<a target="_blank" href="http://127.0.0.1:8000{% url 'change_password' %}" style="color:#69C374; text-decoration: none; padding:15px 18px; display: block; background:#ffffff; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: 1px solid #69C374;">Cambiar Contraseña</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="50">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<!--  title  -->
+					<tr>
+						<td style="font-size: 28px; font-weight: 400; letter-spacing:.5px;">3. Comience a consultar su información</td>
+					</tr>
+					<!--  title  -->
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>Conozca la <span style="color: #69C374;">Extranet de clientes</span> donde tendrá acceso a toda su información, como Cuentas Corrientes, Comprobantes, Entregas y Calidad, Ventas, etc.</td>
+					</tr>
+					<!--  spacing  -->
+					<tr>
+						<td width="100%" height="6">&nbsp;</td>
+					</tr>
+					<!--  end spacing  -->
+					<tr>
+						<td>
+							<table width="200" cellpadding="0" cellspacing="0" align="left" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:left;" class="content_width">
+								<tr>
+									<td align="center" bgcolor="#ffffff" style="width: 20%;">
+										<div>
+											<div align="center">
+												<a target="_blank" href="http://127.0.0.1:8000{% url 'extranet' %}" style="color:#69C374; text-decoration: none; padding:15px 18px; display: block; background:#ffffff; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: 1px solid #69C374;">Ir a la Extranet</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+		<!--  spacing  -->    
+		<tr>
+			<td height="50">&nbsp;</td>
+		</tr>
+		<!--  end spacing  -->
+		<!--  vertical separator  -->
+		<tr>
+			<td>
+				<table width="600" height="1" align="center" bgcolor="#cccccc" border="0"  cellpadding="0" cellspacing="0"style="height:1px!important; width:600px; background-color:#cccccc; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!--  end vertical separator  -->
+		<!--  spacing  -->    
+		<tr>
+			<td height="3">&nbsp;</td>
+		</tr>
+		<!--  end spacing  -->
+		<table width="600" cellpadding="0" cellspacing="0" align="center" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; border:0; text-align:left;" class="content_width"> 
+			<tr>
+				<td style="text-align:left;">Muchas gracias, <span style="color: #69C374;">Buratovich Hnos.</span></td>
+				<td style="text-align:right; font-size: 14px; font-weight: bold;"><a target="_blank" href="http://www.buratovich.com" style="color: #69C374; text-decoration: none;">WWW.BURATOVICH.COM</a></td>
+			</tr>
+		</table>
+	</table>
+
 </body>
 </html>

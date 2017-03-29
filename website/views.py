@@ -59,6 +59,9 @@ import import_tasks
 
 from bh.settings import RS_USER, RS_PASS
 
+# def email(request):
+# 	return render(request, 'email_new_user.html')
+
 
 def handler404(request):
 	return render(request, '404.html')
