@@ -3044,3 +3044,37 @@ footer .tax:not(.tax) span:hover .work {
 #cp .errors ul li {
   list-style-type: disc;
 }
+#updated .text {
+  padding-top: 8em;
+}
+#updated .text p {
+  text-align: center;
+  font-size: 2em;
+  color: #ccc;
+}
+#updated .back {
+  margin: 5em 0 15em 0;
+  text-align: center;
+}
+#updated .back a {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #ccc;
+  padding: 0.7em;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+  vertical-align: middle;
+}
+#updated .back a i {
+  font-size: 2em;
+  margin: 0 0.4em 2px 0;
+  vertical-align: middle;
+}
+#updated .back a:hover {
+  background-color: #018d34;
+  border: 1px solid #018d34;
+  color: #fff;
+}
+#updated .back a:hover i {
+  color: #fff;
+}
