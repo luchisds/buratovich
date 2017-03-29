@@ -17,7 +17,7 @@ urlpatterns = [
 	# Grappelli URLS
 	url(r'^grappelli/', include('grappelli.urls')), 
 
-	url(r'^admin/', admin.site.urls),
+	url(r'^admin/', admin.site.urls, name='admin'),
 
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),

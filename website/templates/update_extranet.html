@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Buratovich Hnos. - Extranet Actualizada{% endblock %}
+
+{% block path %}
+<div class="path maxwidth">
+	<div class="path-container">
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Actualización de Extranet</span></div>
+		{% if user.is_authenticated %}
+			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section id="updated" class="updated maxwidth">
+	<!--<h3>Actualización de Extranet</h3>-->
+	<div class="text">
+		<p>La Extranet se actualizo correctamente</p>
+	</div>
+	<div class="back">
+		<a href="/admin/"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> VOLVER AL <span>ADMINISTRADOR</span></a>
+	</div>
+</section>
+{% endblock %}
