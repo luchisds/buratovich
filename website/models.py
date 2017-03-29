@@ -14,6 +14,13 @@ class UserInfo(models.Model):
 	account_confirmed = models.BooleanField(default=False)
 	random_password = models.BooleanField(default=True)
 
+	def __unicode__(self):
+		return self.company_name
+
+	class Meta:
+		verbose_name = 'Usuario'
+		verbose_name_plural = 'Usuarios'
+
 
 class Analysis(models.Model):
 	entry_point = models.IntegerField(verbose_name='Punto de Ingreso')
@@ -380,6 +387,9 @@ class Currencies(models.Model):
 	dn_sell = models.FloatField(verbose_name='Dolar Nación')
 	dl_sell = models.FloatField(blank=True, null=True, default=None, verbose_name='Dolar Libre')
 
+	def __unicode__(self):
+		return self.date.strftime('%m/%d/%Y')
+
 	class Meta:
 		verbose_name = 'Moneda'
 		verbose_name_plural = 'Monedas'
@@ -411,6 +421,9 @@ class Board(models.Model):
 	sorghum_bas = models.FloatField(blank=True, null=True, default=None, verbose_name='Sorgo')
 	sorghum_qq = models.FloatField(blank=True, null=True, default=None, verbose_name='Sorgo')
 	sorghum_bb = models.FloatField(blank=True, null=True, default=None, verbose_name='Sorgo')
+
+	def __unicode__(self):
+		return self.date.strftime('%m/%d/%Y')
 
 	class Meta:
 		verbose_name = 'Pizarra'
@@ -449,6 +462,9 @@ class RainDetail(models.Model):
 	city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Ciudad')
 	mm = models.FloatField(verbose_name='Milimetros')
 
+	def __unicode__(self):
+		return unicode(self.city)
+
 	class Meta:
 		verbose_name = 'Detalle'
 		verbose_name_plural = 'Detalles'
@@ -463,6 +479,9 @@ class Notifications(models.Model):
 	date_from = models.DateField(verbose_name='Vigencia Desde')
 	date_to = models.DateField(verbose_name='Vigencia Hasta')
 
+	def __unicode__(self):
+		return unicode(self.title)
+
 	class Meta:
 		verbose_name = 'Notificación'
 		verbose_name_plural = 'Notificaciones'
@@ -472,6 +491,9 @@ class ViewedNotifications(models.Model):
 	notification = models.ForeignKey(Notifications, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	viewed = models.BooleanField(verbose_name='Notificación vista', default=False)
+
+	def __unicode__(self):
+		return unicode(self.user.userinfo.company_name)
 
 	class Meta:
 		verbose_name = 'Notificación por Usuario'
