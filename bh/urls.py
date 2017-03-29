@@ -19,6 +19,8 @@ urlpatterns = [
 
 	url(r'^admin/', admin.site.urls, name='admin'),
 
+	# url(r'^email/$', views.email, name='email'),
+
 	url(r'^$', views.index, name='home'),
 	url(r'^empresa/$', views.company, name='company'),
 	url(r'^galeria/$', views.gallery, name='gallery'),

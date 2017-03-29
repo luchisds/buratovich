@@ -30,6 +30,7 @@ def postSave_User(sender, instance, created, **kwargs):
 		from_email = 'notificaciones@buratovich.com'
 
 		data = {
+			'company_name': instance.userinfo.company_name,
 			'username': instance.username,
 			'password': instance._pswd,
 			'uidb64': uidb64,
