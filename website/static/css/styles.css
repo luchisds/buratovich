@@ -1514,7 +1514,7 @@ footer .tax:not(.tax) span:hover .work {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
   margin: 0 auto;
-  overflow: auto;
+  overflow: hidden;
   padding: 3.5em 2.5em;
 }
 #home .services article {
