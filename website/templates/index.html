@@ -314,12 +314,6 @@
 					</div>
 				</article>
 				<article id="wcontent" class="weather rwcontent">
-					<!--<h3 class="utils-title">
-						<span class="title">
-							<span><i class="fa fa-cloud" aria-hidden="true"></i></span>
-							<span>Clima</span>
-						</span>
-					</h3>-->
 					<div class="container">
 						<ul class="tab h-list">
 							<li><a href="#" class="tablinks arrecifes active">Arrecifes</a></li><!--
@@ -339,6 +333,29 @@
 				</article>
 			</article>
 		</div>
+	</section>
+	<section class="misc">
+		<div>
+			<div class="cponline module">
+				<div>
+					<i class="fa fa-file-text" aria-hidden="true"></i>
+					<span>
+						<a href="{% url 'cp' %}" class="work">Carta de Porte Online</a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="tax module">
+				<div>
+					<i class="fa fa-folder-open" aria-hidden="true"></i>
+					<span>
+						<a href="{% url 'taxes' %}" class="work">Información Impositiva</a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
 	</section>
 </section>
 {% endblock %}
@@ -377,7 +394,6 @@
 	});
 </script>
 <script>
-
 	var csrftoken = Cookies.get('csrftoken');
 
 	var request = ajax({
@@ -533,6 +549,5 @@
 			return null;
 		}
 	}
-
 </script>
 {% endblock %}

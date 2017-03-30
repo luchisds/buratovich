@@ -100,21 +100,7 @@ footer
 					padding 1em
 					&:hover
 						color $baseColor
-	.foot
-		background-color $baseColor
-		border-top 1px solid $midGrey
-		color $lightGrey
-		font-size .8em
-		padding 1em 2.5em
-		text-align right
-		p
-			margin-right 1em
-			span
-				font-weight bold
-	.tax
-		border-right 1px solid $midGrey
-		margin-right .4em !important
-	.cv, .tax
+	.cv
 		margin-top 1.8em
 		max-height 230px
 		min-height 60px
@@ -124,7 +110,6 @@ footer
 			border-radius 3px
 			bottom 0
 			font-size 1.1em
-			// margin-top .8em
 			overflow hidden
 			position absolute
 			right .8em
@@ -155,7 +140,7 @@ footer
 					transition 0.5s ease-out
 					&.send-cv
 						opacity 0
-		&:not(.tax)
+		&
 			span
 				&:hover
 					transform translateY(-50%)
@@ -163,6 +148,17 @@ footer
 						opacity 1
 					.work
 						opacity 0
+	.foot
+		background-color $baseColor
+		border-top 1px solid $midGrey
+		color $lightGrey
+		font-size .8em
+		padding 1em 2.5em
+		text-align right
+		p
+			margin-right 1em
+			span
+				font-weight bold
 
 .customer
 	display none
@@ -196,7 +192,6 @@ footer
 
 #home
 	.business-units
-		// height 480px
 		overflow hidden
 		position relative
 		.carousel
@@ -440,6 +435,53 @@ footer
 			&.board-error
 				td
 					padding 4em 0
+	.misc
+		background-color $baseColor
+		border-top 6px solid white
+		overflow hidden
+		.cponline
+			border-right 1px solid $midGrey
+			margin-right .4em !important
+		.tax, .cponline
+			margin-top 1.8em
+			max-height 230px
+			min-height 60px
+			position relative
+			div
+				background-color $midGrey
+				border-radius 3px
+				bottom 0
+				font-size 1.1em
+				overflow hidden
+				position absolute
+				right .8em
+				text-align right
+				top 0
+				&:hover
+					i
+						color $baseColor
+				i
+					color $accentColor
+					font-size 2em
+					left 10%
+					position absolute
+					transition 0.5s ease-out
+					top 22%
+				span
+					display inline-block
+					height 200%
+					margin-left 35%
+					text-align left
+					transition 0.3s ease-out
+					width 65%
+					a
+						display block
+						color $darkGreyGreen
+						height 50%
+						padding .5em
+						transition 0.5s ease-out
+						&.send-cv
+							opacity 0
 
 
 /*#### HISTORIC RAIN ################################################################*/
