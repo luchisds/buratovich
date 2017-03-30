@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 # Signals
 from django.contrib.auth.signals import user_logged_in
 from django.db.models.signals import post_save
@@ -26,7 +28,7 @@ def postSave_User(sender, instance, created, **kwargs):
 		uidb64 = urlsafe_base64_encode(str(instance.pk))
 
 		# Send email
-		subject = 'Correo de prueba'
+		subject = 'Activación de Cuenta | Buratovich Hnos.'
 		from_email = 'notificaciones@buratovich.com'
 
 		data = {
