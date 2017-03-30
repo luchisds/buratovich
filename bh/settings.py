@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 import os
 from datetime import datetime
 
@@ -15,14 +17,14 @@ with open(BASE_DIR+'/bh/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','127.0.0.1', 'buratovich.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'buratovich.herokuapp.com', 'buratovich.com']
 
+ADMINS = [('Luciano Muñoz', 'hola@luciano.im'),]
+MANAGERS = [('Luciano Muñoz', 'hola@luciano.im'),]
 
 # Application definition
-
 INSTALLED_APPS = [
 	'django.contrib.contenttypes',
-	#'jet',
 	'grappelli.dashboard',
 	'grappelli',
 	'django.contrib.admin',
@@ -34,7 +36,6 @@ INSTALLED_APPS = [
 	'website',
 	'el_pagination',
 	'mathfilters',
-	# 'admin_reorder',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -46,7 +47,6 @@ MIDDLEWARE_CLASSES = [
 	'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	# 'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 ROOT_URLCONF = 'bh.urls'
@@ -85,20 +85,9 @@ DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
 		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+		'CONN_MAX_AGE': 60,
 	}
 }
-
-# DATABASES = {
-# 	'default': {
-# 		'ENGINE': 'django.db.backends.postgresql',
-# 		'NAME': 'buratovich',
-# 		'USER': 'postgres',
-# 		'PASSWORD': 'luciano',
-# 		'HOST': 'localhost',
-# 		'PORT': '5432',
-# 	}
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -157,19 +146,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
-# Custom User model
-# AUTH_USER_MODEL = 'website.User'
-
-
 FILE_UPLOAD_HANDLERS = (
 	# Django-excel
 	'django_excel.ExcelMemoryFileUploadHandler',
 	'django_excel.TemporaryExcelFileUploadHandler',
-	# Django
-	# 'django.core.files.uploadhandler.MemoryFileUploadHandler',
-	# 'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 )
-
 
 # Redirect to this URL when try to access unauthorized user to extranet URL
 LOGIN_URL = '/login/requerido/'
@@ -180,36 +161,9 @@ LOGIN_REDIRECT_URL = '/extranet/'
 # Django El Pagination
 EL_PAGINATION_PER_PAGE = 50
 
-# Jeet Settings
-# JET_DEFAULT_THEME = 'light-green'
-# JET_THEMES = ''
-# JET_SIDE_MENU_COMPACT = True
-# JET_SIDE_MENU_CUSTOM_APPS = [
-# 	('auth', [
-# 		'User',
-# 	]),
-# 	('website', [
-# 		'Currencies',
-# 		'Board',
-# 		'Rain',
-# 		'City',
-# 		'CtaCte',
-# 		'Notifications',
-# 		'ViewedNotifications',
-# 	]),
-# ]
-
 # Grappelli Settings
 GRAPPELLI_ADMIN_TITLE = 'BURATOVICH HNOS.'
 GRAPPELLI_INDEX_DASHBOARD = 'website.dashboard.CustomIndexDashboard'
-
-# Admin Reorder Settings
-# ADMIN_REORDER = (
-# 	{'app': 'auth', 'label': 'Alta de Usuarios'},
-# 	{'app': 'website', 'label': 'Moneda y Pizarra', 'models': ('website.Currencies', 'website.Board')},
-# 	{'app': 'website', 'label': 'Lluvias', 'models': ('website.Rain', 'website.City')},
-# 	{'app': 'website', 'label': 'Notificaciones', 'models': ('website.Notifications', 'website.ViewedNotifications')},
-# )
 
 # CP Online settings
 CP_CONTENT_TYPES = ['application/pdf',]
@@ -229,3 +183,6 @@ with open(BASE_DIR+'/bh/remote_server.txt') as f:
 	rs = f.read().strip().split(':')
 	RS_USER = rs[0]
 	RS_PASS = rs[1]
+
+# Extranet files
+EXTRANET_DIR = os.path.join(BASE_DIR, 'FTP')

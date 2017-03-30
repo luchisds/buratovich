@@ -42,7 +42,7 @@ def evalText(text):
 
 
 def importRemittances():
-	txt = os.path.join(settings.BASE_DIR, 'FTP', 'Remesas.txt')
+	txt = os.path.join(settings.EXTRANET_DIR, 'Remesas.txt')
 	if os.path.isfile(txt):
 		if Remittances.objects.count() > 0:
 			Remittances.objects.all().delete()
@@ -85,7 +85,7 @@ def importRemittances():
 
 
 def importAnalysis():
-	txt = os.path.join(settings.BASE_DIR, 'FTP', 'Analisis.txt')
+	txt = os.path.join(settings.EXTRANET_DIR, 'Analisis.txt')
 	if os.path.isfile(txt):
 		if Analysis.objects.count() > 0:
 			Analysis.objects.all().delete()
@@ -133,7 +133,7 @@ def importAnalysis():
 
 
 def importApplied():
-	txt = os.path.join(settings.BASE_DIR, 'FTP', 'APLICADA.txt')
+	txt = os.path.join(settings.EXTRANET_DIR, 'APLICADA.txt')
 	if os.path.isfile(txt):
 		if Applied.objects.count() > 0:
 			Applied.objects.all().delete()
@@ -210,7 +210,7 @@ def importApplied():
 
 
 def importCtaCteP():
-	txt = os.path.join(settings.BASE_DIR, 'FTP', 'CtaCteP.txt')
+	txt = os.path.join(settings.EXTRANET_DIR, 'CtaCteP.txt')
 	if os.path.isfile(txt):
 		if CtaCte.objects.count() > 0:
 			CtaCte.objects.all().delete()
@@ -308,7 +308,7 @@ def importCtaCteP():
 
 
 def importKilos():
-	txt = os.path.join(settings.BASE_DIR, 'FTP', 'Web.txt')
+	txt = os.path.join(settings.EXTRANET_DIR, 'Web.txt')
 	if os.path.isfile(txt):
 		if Deliveries.objects.count() > 0:
 			Deliveries.objects.all().delete()
