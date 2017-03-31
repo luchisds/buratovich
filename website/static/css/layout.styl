@@ -436,49 +436,55 @@ footer
 				td
 					padding 4em 0
 	.misc
-		background-color $baseColor
+		background $midGrey url('../img/soy2.jpg') top center no-repeat
 		border-top 6px solid white
 		overflow hidden
 		.cponline
 			border-right 1px solid $midGrey
-			margin-right .4em !important
+			div
+				right 3em
+		.tax
+			div
+				left 3em
 		.tax, .cponline
-			margin-top 1.8em
+			margin 3em 0
 			max-height 230px
 			min-height 60px
 			position relative
 			div
-				background-color $midGrey
+				background-color white
 				border-radius 3px
 				bottom 0
 				font-size 1.1em
 				overflow hidden
 				position absolute
-				right .8em
 				text-align right
 				top 0
+				width 250px
 				&:hover
+					box-shadow 2px 2px 3px rgba(0,0,0,.7)
 					i
 						color $baseColor
 				i
 					color $accentColor
 					font-size 2em
-					left 10%
+					left 5%
 					position absolute
 					transition 0.5s ease-out
 					top 22%
 				span
 					display inline-block
-					height 200%
-					margin-left 35%
+					height 100%
+					margin-left 20%
 					text-align left
 					transition 0.3s ease-out
-					width 65%
+					width 80%
 					a
 						display block
 						color $darkGreyGreen
-						height 50%
-						padding .5em
+						height 100%
+						line-height 3.5em
+						padding-left .5em
 						transition 0.5s ease-out
 						&.send-cv
 							opacity 0
