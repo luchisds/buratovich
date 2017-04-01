@@ -4,7 +4,7 @@ staticfiles/
 # Fixtures and initial data
 data.json
 db_dumps/
-cuentas.csv
+cuentas.txt
 lluvias.csv
 
 # Sqlite
