@@ -14,6 +14,11 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 		file = os.path.join(settings.BASE_DIR, 'lluvias.csv')
+		if RainDetail.objects.count() > 0:
+			RainDetail.objects.all().delete()
+		if Rain.objects.count() > 0:
+			Rain.objects.all().delete()
+
 		with open(file, 'r') as rain:
 
 			reader = csv.reader(rain, delimiter=';')
