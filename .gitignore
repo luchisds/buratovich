@@ -5,6 +5,7 @@ staticfiles/
 data.json
 db_dumps/
 cuentas.txt
+new_accounts.txt
 lluvias.csv
 
 # Sqlite
