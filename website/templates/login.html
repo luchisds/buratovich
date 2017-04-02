@@ -19,13 +19,13 @@
 	<div class="state">
 		{% if login %}
 			<p>Acceso para clientes</p>
-			<p class="legend">Nos sentimos en la obligacion de facilitarle el acceso a la información y la transparencia de nuestras operaciones, motivo por el cual agredecemos que nos envie sus criticas y/o sugerencias via correo electrónico a <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
+			<p class="legend">Nos sentimos en la obligación de facilitarle el acceso a la información y la transparencia de nuestras operaciones, motivo por el cual agradecemos que nos envíe sus criticas y/o sugerencias via correo electrónico a <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
 		{% else %}
 			{% if inactive_account %}
-				<p>Su cuenta aún no ha sido activada. Ingrese al link de activación que recibio por correo.</p>
+				<p>Su cuenta aún no ha sido activada. Ingrese al link de activación que recibió por correo.</p>
 			{% else %}
 				{% if login_invalid %}
-					<p>¡Ops! parece que su usuario y contraseña no son validos. Intentelo nuevamente.</p>
+					<p>¡Ops! parece que su usuario y contraseña no son validos. Inténtelo nuevamente.</p>
 				{% else %}
 					{% if login_required %}
 						<p>Es necesario que ingrese con su usuario y contraseña para acceder esta pagina.</p>
