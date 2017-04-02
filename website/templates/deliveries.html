@@ -9,7 +9,7 @@
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <a href="{% url 'extranet' %}">Extranet</a> <span class="chevron">></span> <span class="current">Cuenta Corriente en Kilos</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <a href="{% url 'extranet' %}">Extranet</a> <span class="chevron">></span> <span class="current">Entregas</span></div>
 		{% if user.is_authenticated %}
 			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 		{% endif %}
@@ -21,7 +21,7 @@
 
 	<section id="ctacte" class="kilos maxwidth">
 
-		<h3>Cuenta Corriente en Kilos</h3>
+		<h3>Entregas</h3>
 
 		{% if species %}
 
@@ -73,7 +73,7 @@
 								<th rowspan="2">Netos</th>
 								<th rowspan="2">Factor</th>
 								<th rowspan="2">Grado</th>
-								<th rowspan="2">Analisis</th>
+								<th rowspan="2">Análisis</th>
 								<th rowspan="2">Nº 1116A</th>
 								<th rowspan="2">CP</th>
 								<th rowspan="2"	>Transportista</th>
@@ -127,7 +127,7 @@
 												<table class="analysis-detail">
 													<thead>
 														<tr>
-															<th colspan="2">Analisis: {{detail.0.analysis}}</th>
+															<th colspan="2">Análisis: {{detail.0.analysis}}</th>
 															<th>C. Proteico: {{detail.0.protein|intcomma}}</th>
 															<th>Gluten: {{detail.0.gluten|intcomma}}</th>
 															<th>Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
