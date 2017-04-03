@@ -1014,11 +1014,58 @@ footer
 			&::after
 				background url('../img/units/unit_commer.jpg') no-repeat fixed bottom left
 			.content
-				position relative
-				top 50%
-				transform translateY(-50%)
 				& > div
 					overflow hidden
+	.agro
+		.separator
+			width 8em
+		.main
+			&::after
+				background url('../img/units/unit_agro.jpg') no-repeat fixed center left
+			.box
+				height auto !important
+				margin 1.2em !important
+			.infography
+				//border-left 2px solid $accentColor
+				margin 0 auto
+				width 150px
+				.row
+					color white
+					margin 0 auto
+					padding 1em 0
+					position relative
+					text-align center
+					div
+						display inline
+						i
+							background-color rgba(255,255,255,.7)
+							border-radius 50%
+							color $accentColor
+							margin-left -.5em
+						span
+							background-color rgba(255,255,255,.7)
+							// border-top 2px dashed $darkGreyGreen
+							// border-right 2px dashed $darkGreyGreen
+							// border-bottom 2px dashed $darkGreyGreen
+							color $accentColor
+							//margin-left -.55em
+							//padding .3em 3em .4em 1em
+							//position relative
+							//z-index -2
+					.divisor
+						height 10px
+						background-color $baseColor
+						display block
+						margin .8em auto 2em auto
+						width 2px
+	.breeding
+		.separator
+			width 6em
+	.export
+		.separator
+			width 9em
+	.commer, .agro
+		.main
 			.box
 				background-color white
 				border 1px dashed $midGrey
@@ -1028,23 +1075,16 @@ footer
 				float none
 				font-size 1.2em
 				height 6em
+				line-height 1.5em
 				margin 1.2em 2em
 				padding .7em
 				text-align left
 				vertical-align top
 				width 13em
-	.agro
-		.separator
-			width 8em
-		.main
-			&::after
-				background url('../img/units/unit_agro.jpg') no-repeat fixed center left
-	.breeding
-		.separator
-			width 6em
-	.export
-		.separator
-			width 9em
+			.content
+				position relative
+				top 50%
+				transform translateY(-50%)
 
 
 /*#### LOGIN & CHANGE PASSWORD ###########################################################*/
