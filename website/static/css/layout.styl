@@ -1022,42 +1022,49 @@ footer
 		.main
 			&::after
 				background url('../img/units/unit_agro.jpg') no-repeat fixed center left
+			.content
+				height 100%
+				.col-34, .infography
+					position relative
+					top 50%
+					transform translateY(-50%)
+				.col-4
+					// background-color rgba(255,255,255,.5)
+					background-color rgba(255,255,255,.4)
+					height 100%
 			.box
 				height auto !important
 				margin 1.2em !important
 			.infography
-				//border-left 2px solid $accentColor
 				margin 0 auto
-				width 150px
+				padding .5em 0
+				width 120px
 				.row
 					color white
 					margin 0 auto
-					padding 1em 0
 					position relative
 					text-align center
-					div
-						display inline
+					div:not(.divisor)
+						background-color rgba(255,255,255,.3)
+						border-bottom 2px solid $accentColor
+						border-right 2px solid $accentColor
+						border-top 1px solid $accentColor
+						border-left 1px solid $accentColor
+						border-radius 5px
+						padding .3em 1em
 						i
 							background-color rgba(255,255,255,.7)
 							border-radius 50%
 							color $accentColor
 							margin-left -.5em
 						span
-							background-color rgba(255,255,255,.7)
-							// border-top 2px dashed $darkGreyGreen
-							// border-right 2px dashed $darkGreyGreen
-							// border-bottom 2px dashed $darkGreyGreen
 							color $accentColor
-							//margin-left -.55em
-							//padding .3em 3em .4em 1em
-							//position relative
-							//z-index -2
 					.divisor
-						height 10px
-						background-color $baseColor
+						background url('../img/minibull.png')
+						height 34px
 						display block
-						margin .8em auto 2em auto
-						width 2px
+						margin 0 auto 0 auto
+						width 17px
 	.breeding
 		.separator
 			width 6em
