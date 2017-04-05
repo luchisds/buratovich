@@ -1017,7 +1017,6 @@ footer
 					top 50%
 					transform translateY(-50%)
 				.col-4
-					// background-color rgba(255,255,255,.5)
 					background-color rgba(255,255,255,.4)
 					height 100%
 			.box
@@ -1062,33 +1061,47 @@ footer
 		.main
 			&::after
 				background url('../img/units/unit_expo.jpg') no-repeat fixed bottom right
-			.box
-				height auto !important
-				margin 1.2em !important
-				width 15em !important
-			.commodities
-				.product
-					margin-bottom 1.5em
-					img
-						border 2px dashed white
-						border-radius 50%
-						height auto
-						width 100px
-					p
-						border-top 2px solid white
-						border-bottom 2px solid white
-						border-radius 3px
-						margin 0 .8em
-						margin-top -1em
-						span
-							background-color rgba(255,255,255,.7)
+			.content
+				height 100%
+				.col-4
+					background-color rgba(255,255,255,.4)
+					height 100%
+					.box
+						height auto !important
+						margin 1.2em !important
+						width 15em !important
+				.commodities
+					padding 3em
+					position relative
+					top 50%
+					transform translateY(-50%)
+					.product
+						margin-bottom 1.5em
+						img
+							background-color white
+							border 1px dashed $midGrey
+							border-radius 50%
+							height auto
+							padding 5px
+							width 100px
+						p
+							//border-top 2px solid white
+							//border-bottom 2px solid white
 							border-radius 3px
-							color $baseColor
-							display block
-							font-weight bold
-							margin 5px
-							padding .6em 0 .3em 0
-							
+							background-color white
+							margin 0 2em
+							margin-top -1em
+							padding .3em
+							span
+								//background-color rgba(255,255,255,.7)
+								//border-radius 3px
+								background-color white
+								border 1px dashed $midGrey
+								color $baseColor
+								display block
+								font-weight bold
+								//margin 5px
+								padding .6em 0 .3em 0	
 				
 	.commer, .agro, .export
 		.main
