@@ -71,13 +71,13 @@
 			</div>
 		</div>
 		<div class="related">
-			<article>
+			<article class="col-2">
 				<img src="{% static "img/units/acopio/logistic.jpg" %}" alt="">
 				<div>
 					<p>A través de una importante flota de camiones contratados brindamos servicio de logística a nuestros clientes a lo largo de todo el año.</p>
 				</div>
 			</article>
-			<article>
+			<article class="col-2">
 				<img src="{% static "img/units/acopio/plants.jpg" %}" alt="">
 				<div>
 					<p>La estratégica ubicación de nuestras plantas de acopio nos permite operar con los principales puertos del país.</p>
@@ -211,6 +211,26 @@
 							</p>
 						</div>
 						<div class="product">
+							<img src="{% static "img/units/expo/soja.jpg" %}" alt="">
+							<p>
+								<span>Soja</span>
+							</p>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="product">
+							<img src="{% static "img/units/expo/semilla_algodon.jpg" %}" alt="">
+							<p>
+								<span>Semilla de Algodon</span>
+							</p>
+						</div>
+						<div class="product">
+							<img src="{% static "img/units/expo/maiz.jpg" %}" alt="">
+							<p>
+								<span>Maiz</span>
+							</p>
+						</div>
+						<div class="product">
 							<img src="{% static "img/units/expo/baso.jpg" %}" alt="">
 							<p>
 								<span>Balanced Soybean Meal</span>
@@ -225,29 +245,9 @@
 							</p>
 						</div>
 						<div class="product">
-							<img src="{% static "img/units/expo/maiz.jpg" %}" alt="">
-							<p>
-								<span>Maiz</span>
-							</p>
-						</div>
-						<div class="product">
 							<img src="{% static "img/units/expo/maiz_q.jpg" %}" alt="">
 							<p>
 								<span>Maiz Quebrado</span>
-							</p>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="product">
-							<img src="{% static "img/units/expo/semilla_algodon.jpg" %}" alt="">
-							<p>
-								<span>Semilla de Algodon</span>
-							</p>
-						</div>
-						<div class="product">
-							<img src="{% static "img/units/expo/soja.jpg" %}" alt="">
-							<p>
-								<span>Soja</span>
 							</p>
 						</div>
 						<div class="product">
@@ -261,19 +261,25 @@
 			</div>
 		</div>
 		<div class="related">
-			<article>
+			<article class="col-3">
 				<img src="{% static "img/units/expo/container.jpg" %}" alt="">
-				<img src="{% static "img/units/expo/container2.jpg" %}" alt="">
-				<img src="{% static "img/units/expo/container3.jpg" %}" alt="">
-			</article>
-			<article>
 				<div>
-					<p>Hemos creado vinculos comerciales con clientes de <strong>mas de 20 paises</strong>.</p>
+					<p>Hemos creado vinculos comerciales con clientes de <strong>mas de 20 paises</strong> alrededor de todo el mundo.</p>
 				</div>
+			</article>
+			<article class="col-3">
+				<img src="{% static "img/units/expo/container2.jpg" %}" alt="">
 				<div>
 					<p>Exportamos una variedad de commodities agrícolas como <strong>Arveja, Algodon, Semilla de Algodon, Maiz, Maiz Quebrado, Soja, Harina de Soja Balanceada, Trigo y Cebada</strong>.</p>
 				</div>
 			</article>
+			<article class="col-3">
+				<img src="{% static "img/units/expo/container3.jpg" %}" alt="">
+				<div>
+					<p>Estamos presentes en cada eslabon de la actividad agropecuaria, para controlar y asegurar la calidad de los productos que exportamos.</p>
+				</div>
+			</article>
+			<div style="clear:both;"></div>
 	</article>
 </section>
 {% endblock %}
