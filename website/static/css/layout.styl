@@ -1063,15 +1063,15 @@ footer
 				background url('../img/units/unit_expo.jpg') no-repeat fixed bottom right
 			.content
 				height 100%
-				.col-4
-					background-color rgba(255,255,255,.4)
+				& > .col-3
+					//background-color rgba(255,255,255,.4)
 					height 100%
 					.box
 						height auto !important
 						margin 1.2em !important
 						width 15em !important
 				.commodities
-					padding 3em
+					// padding 0 2em
 					position relative
 					top 50%
 					transform translateY(-50%)
@@ -1101,8 +1101,10 @@ footer
 								display block
 								font-weight bold
 								//margin 5px
-								padding .6em 0 .3em 0	
-				
+								padding .6em 0 .3em 0
+		.related
+			img
+				border-radius 50%
 	.commer, .agro, .export
 		.main
 			.box
