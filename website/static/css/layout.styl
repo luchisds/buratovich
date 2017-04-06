@@ -1013,44 +1013,34 @@ footer
 				background url('../img/units/unit_agro.jpg') no-repeat fixed center left
 			.content
 				height 100%
-				.col-34, .infography
+				.boxes
 					position relative
 					top 50%
 					transform translateY(-50%)
-				.col-4
-					background-color rgba(255,255,255,.4)
-					height 100%
 			.box
 				height auto !important
-				margin 1.2em !important
+				margin 1.2em 2em !important
+		.related
+			margin-top 4em
+			padding 0 10%
+			h3
+				text-transform uppercase
+				margin-bottom 1em
 			.infography
-				margin 0 auto
-				padding .5em 0
-				width 120px
 				.row
-					color white
-					margin 0 auto
-					position relative
-					text-align center
-					div:not(.divisor)
-						background-color rgba(255,255,255,.3)
-						border-bottom 2px solid $accentColor
-						border-right 2px solid $accentColor
-						border-top 1px solid $accentColor
-						border-left 1px solid $accentColor
-						border-radius 5px
-						padding .3em 1em
-						i
-							background-color rgba(255,255,255,.7)
-							border-radius 50%
-							color $accentColor
-							margin-left -.5em
+					display inline-block
+					div
+						display inline-block
+						vertical-align middle
 						span
-							color $accentColor
+							font-size 1.3em
+							margin 0 .8em
+							transition all .3s
+							&:hover
+								padding-right .5em
 					.divisor
-						background url('../img/minibull.png')
+						background url('../img/minibull_grey.png') no-repeat center center
 						height 34px
-						display block
 						margin 0 auto 0 auto
 						width 17px
 	.breeding
