@@ -58,20 +58,6 @@ document.onreadystatechange = function () {
 
 		/// Login Form ////////////////////////////////////////////////////////////////////////////////
 
-		var nav = document.getElementsByTagName('nav')[0];
-		login = nav.getElementsByClassName('login-btn')[0];
-		if(login) {
-			login.addEventListener('click', function(event) {
-				event.preventDefault();
-				toggleClass(this, 'active');
-				if(hasClass(this, 'active')) {
-					Velocity(document.getElementsByClassName('customer')[0], 'slideDown', { duration: 500 });
-				} else {
-					Velocity(document.getElementsByClassName('customer')[0], 'slideUp', { duration: 500 });
-				}
-			});
-		}
-
 		var inputClass = document.getElementsByClassName('input');
 		for (var i = 0; i < inputClass.length; i++) {
 			inputClass[i].addEventListener('focusin', function() {
