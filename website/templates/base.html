@@ -46,7 +46,6 @@
 					<img src="{% static "img/logo_bh_2.png" %}" alt="Buratovich Hnos. S.A.">
 					<h1>
 						<span>buratovich hnos.</span>
-						<!--<span>hnos.</span>-->
 					</h1>
 				</div>
 			</a>
@@ -81,31 +80,31 @@
 		</div>
 	</header>
 	<div class="customer maxwidth">
-			<form action="{% url 'login' %}" class="login-extranet" method="post">
-			{% csrf_token %}
-				<i class="fa fa-caret-up" aria-hidden="true"></i>
-				<fieldset>
-					<div class="input">
-						<input type="text" name="username" placeholder="Usuario">
-						<span class="icon">
-							<i class="fa fa-user" aria-hidden="true"></i>
-						</span>
-					</div>
-					<div class="input">
-						<input class="password" type="password" name="password" placeholder="Contraseña">
-						<span class="icon">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-						<span class="eye">
-							<i class="fa fa-eye" aria-hidden="true"></i>
-						</span>
-					</div>
-					<button type="submit" class="submit">
-						<i class="fa fa-sign-in" aria-hidden="true"></i>
-					</button>
-					<input type="hidden" name="next" value="{{ next }}" />
-				</fieldset>
-			</form>
+		<form action="{% url 'login' %}" class="login-extranet" method="post">
+		{% csrf_token %}
+			<i class="fa fa-caret-up" aria-hidden="true"></i>
+			<fieldset>
+				<div class="input">
+					<input type="text" name="username" placeholder="Usuario">
+					<span class="icon">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</span>
+				</div>
+				<div class="input">
+					<input class="password" type="password" name="password" placeholder="Contraseña">
+					<span class="icon">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+					<span class="eye">
+						<i class="fa fa-eye" aria-hidden="true"></i>
+					</span>
+				</div>
+				<button type="submit" class="submit">
+					<i class="fa fa-sign-in" aria-hidden="true"></i>
+				</button>
+				<input type="hidden" name="next" value="{{ next }}" />
+			</fieldset>
+		</form>
 		<div style="clear:both;"></div>
 	</div>
 	{% block path %}{% endblock %}
@@ -136,14 +135,6 @@
 						<li><a href="{% url 'contact' %}">Contacto</a></li>
 					</ul>
 				</nav>
-				<!--<div class="tax">
-					<div>
-						<i class="fa fa-folder-open" aria-hidden="true"></i>
-						<span>
-							<a href="{% url 'taxes' %}" class="work">Información Impositiva</a>
-						</span>
-					</div>
-				</div>-->
 				<div class="cv">
 					<div>
 						<i class="fa fa-cogs" aria-hidden="true"></i>
