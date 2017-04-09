@@ -72,41 +72,13 @@
 						</li>
 					{% else %}
 						<li>
-							<a href="#" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> Clientes</a>
+							<a href="{% url 'login' %}" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> Clientes</a>
 						</li>
 					{% endif %}
 				</ul>
 			</nav>
 		</div>
 	</header>
-	<div class="customer maxwidth">
-		<form action="{% url 'login' %}" class="login-extranet" method="post">
-		{% csrf_token %}
-			<i class="fa fa-caret-up" aria-hidden="true"></i>
-			<fieldset>
-				<div class="input">
-					<input type="text" name="username" placeholder="Usuario">
-					<span class="icon">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</span>
-				</div>
-				<div class="input">
-					<input class="password" type="password" name="password" placeholder="Contraseña">
-					<span class="icon">
-						<i class="fa fa-lock" aria-hidden="true"></i>
-					</span>
-					<span class="eye">
-						<i class="fa fa-eye" aria-hidden="true"></i>
-					</span>
-				</div>
-				<button type="submit" class="submit">
-					<i class="fa fa-sign-in" aria-hidden="true"></i>
-				</button>
-				<input type="hidden" name="next" value="{{ next }}" />
-			</fieldset>
-		</form>
-		<div style="clear:both;"></div>
-	</div>
 	{% block path %}{% endblock %}
 	{% block content %}{% endblock %}
 	{% block scriptjs %}{% endblock %}
