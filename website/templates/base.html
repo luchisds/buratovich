@@ -81,9 +81,6 @@
 	</header>
 	{% block path %}{% endblock %}
 	{% block content %}{% endblock %}
-	{% block scriptjs %}{% endblock %}
-	<script src="{% static "js/js.min.js" %}" type="text/javascript"></script>
-	<script src="{% static "js/velocity.min.js" %}"></script>
 	<footer>
 		<div id="top">
 			<a href=""><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
@@ -122,5 +119,8 @@
 			<p class="maxwidth"><span>OFICINA CENTRAL:</span> Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)</p>
 		</div>
 	</footer>
+	{% block scriptjs %}{% endblock %}
+	<script src="{% static "js/velocity.min.js" %}"></script>
+	<script src="{% static "js/js.min.js" %}" type="text/javascript"></script>
 </body>
 </html>
