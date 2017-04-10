@@ -7,7 +7,7 @@ document.onreadystatechange = function () {
 		var html = document.documentElement;
 		var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 		var viewportHeight = Math.max(html.clientHeight, window.innerHeight || 0);
-		const HEIGHT_FOR_TOP = 1000;
+		var HEIGHT_FOR_TOP = 1000;
 
 		var allMods = document.getElementsByClassName('module');
 		var top = document.getElementById('top');
