@@ -364,9 +364,10 @@
 
 <script src="{% static "js/js.cookie.js" %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
+
+<!--[if gte IE 9]><!-->
 <script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>
 <script>
-
 	var carousel = document.querySelector('.carousel');
 	var flkty = new Flickity(carousel, {
 		cellSelector: '.carousel-cell',
@@ -393,6 +394,8 @@
 		});
 	});
 </script>
+<!--<![endif]-->
+
 <script>
 	var csrftoken = Cookies.get('csrftoken');
 
