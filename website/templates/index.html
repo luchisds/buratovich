@@ -5,7 +5,12 @@
 {% block title %}Buratovich Hnos.{% endblock %}
 
 {% block head %}
+<!--[if IE]>
+<link rel="stylesheet" href="{% static "js/flickity/flickity.min.v1.css" %}">
+<![endif]-->
+<!--[if !IE]><!-->
 <link rel="stylesheet" href="{% static "js/flickity/flickity.min.css" %}">
+<!--<![endif]-->
 {% endblock %}
 
 {% block path %}
@@ -362,10 +367,10 @@
 
 {% block scriptjs %}
 
-<script src="{% static "js/js.cookie.js" %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
-
-<!--[if gt IE 9]><!--> <!--<![endif]-->
+<!--[if IE]>
+<script src="{% static "js/flickity/flickity.pkgd.min.v1.js" %}"></script>
+<![endif]-->
+<!--[if !IE]><!-->
 <script src="{% static "js/flickity/flickity.pkgd.min.js" %}"></script>
 <script>
 	var carousel = document.querySelector('.carousel');
@@ -394,6 +399,10 @@
 		});
 	});
 </script>
+<!--<![endif]-->
+
+<script src="{% static "js/js.cookie.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fdaciuk-ajax/2.1.2/ajax.min.js"></script>
 <script>
 	var csrftoken = Cookies.get('csrftoken');
 
