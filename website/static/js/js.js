@@ -1,273 +1,293 @@
-document.onreadystatechange = function () {
-	if(document.readyState === 'interactive') {
+var ie = detectIE();
 
-		/// Scroll actions ////////////////////////////////////////////////////////////////////////////////
+document.onreadystatechange = function() {
+	if(ie == 9) {
+		if(document.readyState === 'complete') {
+			init();
+		}
+	} else {
+		if(document.readyState === 'interactive') {
+			init();
+		}
+	}
+}
 
-		var body = document.body;
-		var html = document.documentElement;
-		var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-		var viewportHeight = Math.max(html.clientHeight, window.innerHeight || 0);
-		var HEIGHT_FOR_TOP = 1000;
+function init() {
 
-		var allMods = document.getElementsByClassName('module');
-		var top = document.getElementById('top');
-		window.onscroll = function() {
-			// Show modules
-			for (var i = 0; i < allMods.length; i++) {
-				if (visibleEl(allMods[i])) {
-					addClass(allMods[i], 'come-in');
+	/// Scroll actions ////////////////////////////////////////////////////////////////////////////////
+	var body = document.body;
+	var html = document.documentElement;
+	var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+	var viewportHeight = Math.max(html.clientHeight, window.innerHeight || 0);
+	var HEIGHT_FOR_TOP = 1000;
+
+	//Create array from HTMLCollection for manipulation
+	var allMods = Array.prototype.slice.call(document.getElementsByClassName('module'));
+	var top = document.getElementById('top');
+
+	window.onscroll = function() {
+		// Show modules
+		showModules();
+
+		// Show top btn
+		if(height > HEIGHT_FOR_TOP && height > viewportHeight) {
+			if (visibleEl(top)) {
+				if(!hasClass(top, 'top-show')) {
+					addClass(top, 'top-show');
 				}
-			}
-
-			// Show top btn
-			if(height > HEIGHT_FOR_TOP && height > viewportHeight) {
-				if (visibleEl(top)) {
-					if(!hasClass(top, 'top-show')) {
-						addClass(top, 'top-show');
-					}
-				} else {
-					if(hasClass(top, 'top-show')) {
-						removeClass(top, 'top-show');
-					}
+			} else {
+				if(hasClass(top, 'top-show')) {
+					removeClass(top, 'top-show');
 				}
 			}
 		}
+	}
 
-		// ------------- Fade In
-		function visibleEl(element) {
-			var rect = element.getBoundingClientRect();
-			var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
-			return (
-				totalScroll >= (document.scrollingElement.scrollTop + rect.top)
-			);
-		}
-
-		// To make visible all modules that are visible when page load
+	// show visible Modules
+	function showModules() {
 		for (var i = 0; i < allMods.length; i++) {
 			if (visibleEl(allMods[i])) {
-				addClass(allMods[i], 'come-in');
+				if(ie <= 9 && ie !== false) {
+					Velocity(allMods[i], {opacity: 1}, 800);
+				} else {
+					addClass(allMods[i], 'come-in');
+				}
+				// delete Module when become visible
+				allMods.splice(i,1);
 			}
 		}
+	}
 
-		// ------------- Go to TOP
-		top.addEventListener('click', function(event) {
-			event.preventDefault();
-			Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
+	// ------------- Fade In
+	function visibleEl(element) {
+		var rect = element.getBoundingClientRect();
+		var totalScroll = document.documentElement.clientHeight + document.scrollingElement.scrollTop;
+		return (
+			totalScroll >= (document.scrollingElement.scrollTop + rect.top)
+		);
+	}
+
+	// ------------- Go to TOP
+	top.addEventListener('click', function(event) {
+		event.preventDefault();
+		Velocity(html, 'scroll', {offset: '0px', mobileHA: false, duration: 750});
+	});
+
+	// To make visible all modules that are visible when page load
+	showModules(allMods);
+
+
+	/// Login Form ////////////////////////////////////////////////////////////////////////////////
+
+	var inputClass = document.getElementsByClassName('input');
+	for (var i = 0; i < inputClass.length; i++) {
+		inputClass[i].addEventListener('focusin', function() {
+			addClass(this.children[0], 'focused');
+			this.children[1].style.opacity = 0;
+		});
+	}
+	for (var i = 0; i < inputClass.length; i++) {
+		inputClass[i].addEventListener('focusout', function() {
+			removeClass(this.children[0], 'focused');
+			this.children[1].style.opacity = 1;
+		});
+	}
+
+	var eye = document.getElementsByClassName('eye');
+	for (var i = 0; i < eye.length; i++) {
+		eye[i].addEventListener('mousedown', function() {
+			var target = findParent(this, 'input');
+			for (var i = 0; i < target.childNodes.length; i++) {
+				if (hasClass(target.childNodes[i], 'password')) {
+					// Change password input type
+					pwd = target.childNodes[i];
+				}
+			}
+			pwd.setAttribute('type', 'text');
+			addClass(this, 'selected');
 		});
 
+		eye[i].addEventListener('mouseup', function() {
+			pwd.setAttribute('type', 'password');
+			removeClass(this, 'selected');
+		});
+	}
 
-		/// Login Form ////////////////////////////////////////////////////////////////////////////////
+	function findParent(el, cls) {
+		while ((el = el.parentElement) && !el.classList.contains(cls));
+		return el;
+	}
 
-		var inputClass = document.getElementsByClassName('input');
-		for (var i = 0; i < inputClass.length; i++) {
-			inputClass[i].addEventListener('focusin', function() {
-				addClass(this.children[0], 'focused');
-				this.children[1].style.opacity = 0;
-			});
+
+	//## INDEX ##################################################################################
+	var home = document.getElementById('home');
+	if (home) {
+
+		/// Carousel ////////////////////////////////////////////////////////////////////////////////
+		var currentSlide = '';
+
+		flkty.on('settle', function() {
+			addClass(currentSlide, 'move-in');
+		});
+
+		// autoplay on left-right arrow click
+		var carousel = document.getElementsByClassName('carousel')[0];
+		carousel.addEventListener('click', function(event) {
+			enableAutoPlay(event);
+		});
+
+		// autoplay after drag slide
+		flkty.on('dragEnd', function(){
+			flkty.playPlayer();
+		});
+
+		// change btn on slide autoplay
+		flkty.on('select', function() {
+			if (currentSlide) {
+				removeClass(currentSlide, 'move-in');
+			}
+			currentSlide = document.getElementsByClassName('is-selected')[0];
+			var selector = currentSlide.className.split(' ')[1];
+			changeCurrentBtnSlide('.'+selector);
+		});
+
+		// change slide on btn click
+		var buttonGroup = document.getElementsByClassName('units')[0];
+		buttonGroup.addEventListener('click', function(event) {
+			event.preventDefault();
+			changeSlide(event);
+		});
+
+		function changeSlide(event) {
+			// filter for button clicks
+			if (!matchesSelector(event.target, '.slide')) {
+				return;
+			}
+			var selector = event.target.getAttribute('data-selector');
+			flkty.selectCell(selector);
+
+			changeCurrentBtnSlide(selector);
 		}
-		for (var i = 0; i < inputClass.length; i++) {
-			inputClass[i].addEventListener('focusout', function() {
-				removeClass(this.children[0], 'focused');
-				this.children[1].style.opacity = 1;
-			});
+
+		function changeCurrentBtnSlide(selector) {
+			var current = document.querySelectorAll('[data-selector="' + selector + '"]')[0];
+			var old = buttonGroup.getElementsByClassName('current')[0];
+			if (old) {
+				removeClass(old, 'current');
+			}
+			addClass(current, 'current');
 		}
 
-		var eye = document.getElementsByClassName('eye');
-		for (var i = 0; i < eye.length; i++) {
-			eye[i].addEventListener('mousedown', function() {
-				var target = findParent(this, 'input');
-				for (var i = 0; i < target.childNodes.length; i++) {
-					if (hasClass(target.childNodes[i], 'password')) {
-						// Change password input type
-						pwd = target.childNodes[i];
-					}
-				}
-				pwd.setAttribute('type', 'text');
-				addClass(this, 'selected');
-			});
-
-			eye[i].addEventListener('mouseup', function() {
-				pwd.setAttribute('type', 'password');
-				removeClass(this, 'selected');
-			});
+		function enableAutoPlay(event) {
+			if(!matchesSelector(event.target, 'svg') && !matchesSelector(event.target, 'img')) {
+				return;
+			}
+			flkty.playPlayer();
 		}
 
-		function findParent(el, cls) {
+
+		/// Rain-Weather /////////////////////////////////////////////////////////////////////////////////////
+
+		var tabTitle = document.getElementsByClassName('tab-title')[0];
+		tabTitle.addEventListener('click', function(event){
+			event.preventDefault();
+			var target = findRwLinks(event.target, 'rwlinks');
+			var rwcontent = document.getElementsByClassName('rwcontent');
+			for (i = 0; i < rwcontent.length; i++) {
+				rwcontent[i].style.display = 'none';
+			}
+			var rwlinks = document.getElementsByClassName('rwlinks');
+			for (i = 0; i < rwlinks.length; i++) {
+				rwlinks[i].className = rwlinks[i].className.replace(' active', '');
+			}
+			document.getElementById(target.className.split(' ')[1]).style.display = 'block';
+			addClass(target, 'active');
+		});
+
+		function findRwLinks(el, cls) {
 			while ((el = el.parentElement) && !el.classList.contains(cls));
 			return el;
 		}
 
 
-		//## INDEX ##################################################################################
-		var home = document.getElementById('home');
-		if (home) {
+		/// Weather //////////////////////////////////////////////////////////////////////////////////////////
 
-			/// Carousel ////////////////////////////////////////////////////////////////////////////////
-			var currentSlide = '';
+		var tab = document.getElementsByClassName('tab')[0];
+		tab.addEventListener('click', function(event){
+			event.preventDefault();
+			if (!matchesSelector(event.target, '.tablinks')) {
+				return;
+			}
+			var tabcontent = document.getElementsByClassName('tabcontent');
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = 'none';
+			}
+			var tablinks = document.getElementsByClassName('tablinks');
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(' active', '');
+			}
+			document.getElementById(event.target.className.split(' ')[1]).style.display = 'block';
+			addClass(event.target, 'active');
+		});
+	}
 
-			flkty.on('settle', function() {
-				addClass(currentSlide, 'move-in');
-			});
 
-			// autoplay on left-right arrow click
-			var carousel = document.getElementsByClassName('carousel')[0];
-			carousel.addEventListener('click', function(event) {
-				enableAutoPlay(event);
-			});
+	/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
-			// autoplay after drag slide
-			flkty.on('dragEnd', function(){
-				flkty.playPlayer();
-			});
-
-			// change btn on slide autoplay
-			flkty.on('select', function() {
-				if (currentSlide) {
-					removeClass(currentSlide, 'move-in');
-				}
-				currentSlide = document.getElementsByClassName('is-selected')[0];
-				var selector = currentSlide.className.split(' ')[1];
-				changeCurrentBtnSlide('.'+selector);
-			});
-
-			// change slide on btn click
-			var buttonGroup = document.getElementsByClassName('units')[0];
-			buttonGroup.addEventListener('click', function(event) {
+	var ctaCteKg = document.getElementById('ctacte');
+	if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
+		var showAnalysis = ctaCteKg.getElementsByClassName('show-analysis');
+		for (i = 0; i < showAnalysis.length; i++) {
+			showAnalysis[i].addEventListener('click', function(event) {
 				event.preventDefault();
-				changeSlide(event);
+				addClass(this.parentElement.parentElement.nextElementSibling, 'show');
+				toggleClass(this, 'hide-btn');
+				toggleClass(this.nextElementSibling, 'hide-btn');
 			});
-
-			function changeSlide(event) {
-				// filter for button clicks
-				if (!matchesSelector(event.target, '.slide')) {
-					return;
-				}
-				var selector = event.target.getAttribute('data-selector');
-				flkty.selectCell(selector);
-
-				changeCurrentBtnSlide(selector);
-			}
-
-			function changeCurrentBtnSlide(selector) {
-				var current = document.querySelectorAll('[data-selector="' + selector + '"]')[0];
-				var old = buttonGroup.getElementsByClassName('current')[0];
-				if (old) {
-					removeClass(old, 'current');
-				}
-				addClass(current, 'current');
-			}
-
-			function enableAutoPlay(event) {
-				if(!matchesSelector(event.target, 'svg') && !matchesSelector(event.target, 'img')) {
-					return;
-				}
-				flkty.playPlayer();
-			}
-
-
-			/// Rain-Weather /////////////////////////////////////////////////////////////////////////////////////
-
-			var tabTitle = document.getElementsByClassName('tab-title')[0];
-			tabTitle.addEventListener('click', function(event){
+		}
+		var hideAnalysis = ctaCteKg.getElementsByClassName('hide-analysis');
+		for (i = 0; i < hideAnalysis.length; i++) {
+			hideAnalysis[i].addEventListener('click', function(event) {
 				event.preventDefault();
-				var target = findRwLinks(event.target, 'rwlinks');
-				var rwcontent = document.getElementsByClassName('rwcontent');
-				for (i = 0; i < rwcontent.length; i++) {
-					rwcontent[i].style.display = 'none';
-				}
-				var rwlinks = document.getElementsByClassName('rwlinks');
-				for (i = 0; i < rwlinks.length; i++) {
-					rwlinks[i].className = rwlinks[i].className.replace(' active', '');
-				}
-				document.getElementById(target.className.split(' ')[1]).style.display = 'block';
-				addClass(target, 'active');
-			});
-
-			function findRwLinks(el, cls) {
-				while ((el = el.parentElement) && !el.classList.contains(cls));
-				return el;
-			}
-
-
-			/// Weather //////////////////////////////////////////////////////////////////////////////////////////
-
-			var tab = document.getElementsByClassName('tab')[0];
-			tab.addEventListener('click', function(event){
-				event.preventDefault();
-				if (!matchesSelector(event.target, '.tablinks')) {
-					return;
-				}
-				var tabcontent = document.getElementsByClassName('tabcontent');
-				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = 'none';
-				}
-				var tablinks = document.getElementsByClassName('tablinks');
-				for (i = 0; i < tablinks.length; i++) {
-					tablinks[i].className = tablinks[i].className.replace(' active', '');
-				}
-				document.getElementById(event.target.className.split(' ')[1]).style.display = 'block';
-				addClass(event.target, 'active');
+				removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
+				toggleClass(this, 'hide-btn');
+				toggleClass(this.previousElementSibling, 'hide-btn');
 			});
 		}
+	}
 
 
-		/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
+	/// CLASSES Functions ////////////////////////////////////////////////////////////////////////////////
 
-		var ctaCteKg = document.getElementById('ctacte');
-		if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
-			var showAnalysis = ctaCteKg.getElementsByClassName('show-analysis');
-			for (i = 0; i < showAnalysis.length; i++) {
-				showAnalysis[i].addEventListener('click', function(event) {
-					event.preventDefault();
-					addClass(this.parentElement.parentElement.nextElementSibling, 'show');
-					toggleClass(this, 'hide-btn');
-					toggleClass(this.nextElementSibling, 'hide-btn');
-				});
-			}
-			var hideAnalysis = ctaCteKg.getElementsByClassName('hide-analysis');
-			for (i = 0; i < hideAnalysis.length; i++) {
-				hideAnalysis[i].addEventListener('click', function(event) {
-					event.preventDefault();
-					removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
-					toggleClass(this, 'hide-btn');
-					toggleClass(this.previousElementSibling, 'hide-btn');
-				});
-			}
+	function hasClass(elem, className) {
+		return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+	}
+
+	function addClass(elem, className) {
+		if (!hasClass(elem, className)) {
+			elem.className += ' ' + className;
 		}
+	}
 
-
-		/// CLASSES Functions ////////////////////////////////////////////////////////////////////////////////
-
-		function hasClass(elem, className) {
-			return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-		}
-
-		function addClass(elem, className) {
-			if (!hasClass(elem, className)) {
-				elem.className += ' ' + className;
+	function removeClass(elem, className) {
+		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+		if (hasClass(elem, className)) {
+			while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+				newClass = newClass.replace(' ' + className + ' ', ' ');
 			}
+			elem.className = newClass.replace(/^\s+|\s+$/g, '');
 		}
+	}
 
-		function removeClass(elem, className) {
-			var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-			if (hasClass(elem, className)) {
-				while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-					newClass = newClass.replace(' ' + className + ' ', ' ');
-				}
-				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+	function toggleClass(elem, className) {
+		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ' ) + ' ';
+		if (hasClass(elem, className)) {
+			while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+				newClass = newClass.replace( ' ' + className + ' ' , ' ' );
 			}
-		}
-
-		function toggleClass(elem, className) {
-			var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ' ) + ' ';
-			if (hasClass(elem, className)) {
-				while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-					newClass = newClass.replace( ' ' + className + ' ' , ' ' );
-				}
-				elem.className = newClass.replace(/^\s+|\s+$/g, '');
-			} else {
-				elem.className += ' ' + className;
-			}
+			elem.className = newClass.replace(/^\s+|\s+$/g, '');
+		} else {
+			elem.className += ' ' + className;
 		}
 	}
 }
