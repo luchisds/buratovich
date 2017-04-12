@@ -38,7 +38,7 @@ header
 					a:not(.login-btn)
 						color $lightGrey
 						background-color $baseColor
-						i
+						i.fa-caret-down
 							bottom -10px !important
 							opacity 1 !important
 					a.login-btn
@@ -51,15 +51,14 @@ header
 					padding .5em .7em
 					position relative
 					transition 0.3s ease-out
-					&:not(.login-btn):not(.extranet-btn)
-						i
-							bottom 0px
-							color $baseColor
-							left 0
-							opacity 0
-							position absolute
-							right 0
-							transition 0.3s ease-out
+					i.fa-caret-down
+						bottom 0px
+						color $baseColor
+						left 0
+						opacity 0
+						position absolute
+						right 0
+						transition 0.3s ease-out
 					&.login-btn, &.extranet-btn
 						background-color $baseColor
 						color $lightGrey
@@ -70,8 +69,11 @@ header
 					&.logout
 						i
 							margin 0
-					& span.text-icon
-						display none
+					&.home-btn
+						.home-icon
+							display none
+				&.burger
+					display none
 
 footer
 	border-top 10px solid $accentColor
