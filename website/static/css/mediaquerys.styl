@@ -1,3 +1,16 @@
-@media screen and (max-width: 1000px)
-	body
-		font-size 5em
+@media screen and (max-width: 1125px)
+	.logo
+		column(9/25, gutter: 0)
+	nav
+		column(16/25, gutter:0)
+		font-size .9em
+		a
+			span
+				&.home-text
+					display none
+				&.home-icon
+					display block
+					padding .5em
+					i
+						color $darkGreyGreen !important
+						opacity 1 !important

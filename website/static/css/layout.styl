@@ -6,7 +6,7 @@ header
 	& > div
 		overflow hidden
 	.logo
-		padding 0 1em
+		padding 0 0 0 1em
 		img, h1
 			display inline-block
 			position relative
@@ -30,6 +30,8 @@ header
 			li
 				margin 0 1%
 				text-align center
+				&:first-child
+					margin-left 0
 				&:last-child
 					margin-right 0
 				&:hover
@@ -68,6 +70,8 @@ header
 					&.logout
 						i
 							margin 0
+					& span.text-icon
+						display none
 
 footer
 	border-top 10px solid $accentColor
