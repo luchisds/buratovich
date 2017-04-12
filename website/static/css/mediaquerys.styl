@@ -1,16 +1,24 @@
 @media screen and (max-width: 1125px)
 	.logo
-		column(9/25, gutter: 0)
+		width 37% !important
 	nav
-		column(16/25, gutter:0)
 		font-size .9em
-		a
+		width 63% !important
+		.home-btn
 			span
 				&.home-text
 					display none
 				&.home-icon
-					display block
-					padding .5em
-					i
-						color $darkGreyGreen !important
-						opacity 1 !important
+					display block !important
+
+@media screen and (max-width: 1024px)
+	.logo
+		width 80% !important
+	nav
+		font-size 1.2em
+		width 20% !important
+		li
+			&.burger
+				display inline-block !important
+			&:not(.burger)
+				display none
