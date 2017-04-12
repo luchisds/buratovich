@@ -19,14 +19,14 @@
 {% endblock %}
 
 {% block content %}
-<section id="company">
-	<div class="imgs maxwidth">
+<section id="company" class="maxwidth">
+	<div class="imgs">
 		<img src="{% static "img/mini_ruta8.jpg" %}" alt="">
 		<img src="{% static "img/mini_field.jpg" %}" alt="">
 		<img src="{% static "img/mini_silos.jpg" %}" alt="">
 		<img src="{% static "img/mini_cows.jpg" %}" alt="">
 	</div>
-	<div class="history-info maxwidth">
+	<div class="history-info">
 		<div class="first-col">
 			<article class="featured">
 				<h2>Nuestra empresa</h2>
@@ -81,7 +81,7 @@
 		</div>
 		<div style="clear:both;"></div>
 	</div>
-	<article class="gallery maxwidth">
+	<article class="gallery">
 		<h2>Galería de Imágenes</h2>
 		<figure>
 			<a href="{% static "img/gallery/01.jpg" %}" data-jslghtbx="{% static "img/gallery/01.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/01.jpg" %}" alt=""></a>
@@ -111,7 +111,7 @@
 			<a href="{% url 'gallery' %}" class="input">VER MAS IMÁGENES</a>
 		</div>
 	</article>
-	<article class="video-company module maxwidth">
+	<article class="video-company module">
 		<div>
 			<p>Si es de vuestro interes, conozca la historia de la empresa a través de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generación de la familia Buratovich:</p>
 			<video width="720" controls poster="{% static "img/video_poster.jpg" %}">
