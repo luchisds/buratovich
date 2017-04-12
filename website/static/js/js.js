@@ -234,7 +234,7 @@ function init() {
 		var tab = document.getElementsByClassName('tab')[0];
 		tab.addEventListener('click', function(event){
 			event.preventDefault();
-			if (!matchesSelector(event.target, '.tablinks')) {
+			if (!matches.call(event.target, '.tablinks')) {
 				return;
 			}
 			var tabcontent = document.getElementsByClassName('tabcontent');

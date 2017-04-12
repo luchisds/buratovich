@@ -1,5 +1,6 @@
-# Staticfiles
+# Staticfiles & mediafiles
 staticfiles/
+mediafiles/
 
 # Fixtures and initial data
 data.json
