@@ -131,7 +131,6 @@ function init() {
 	var navBurgerIcon = navBurger.querySelectorAll('i')[0];
 	navBurger.addEventListener('click', function(event) {
 		event.preventDefault();
-		toggleClass(navMain, 'open');
 		if(hasClass(navMain, 'open')) {
 			Velocity(navMain, 'slideUp', {stagger: 40});
 			removeClass(navBurgerIcon, 'fa-times');
@@ -141,6 +140,7 @@ function init() {
 			removeClass(navBurgerIcon, 'fa-bars');
 			addClass(navBurgerIcon, 'fa-times');
 		}
+		toggleClass(navMain, 'open');
 	});
 
 
