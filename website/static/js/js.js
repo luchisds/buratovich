@@ -208,12 +208,16 @@ function init() {
 		}
 
 		function changeCurrentBtnSlide(selector) {
-			var current = document.querySelectorAll('[data-selector="' + selector + '"]')[0];
+			var current = document.querySelectorAll('a[data-selector="' + selector + '"]')[0];
+			var currentUnitName = document.querySelectorAll('li[data-selector="' + selector + '"]')[0];
 			var old = buttonGroup.getElementsByClassName('current')[0];
+			var oldUnitName = document.querySelectorAll('.unit-names li.current')[0];
 			if (old) {
 				removeClass(old, 'current');
+				removeClass(oldUnitName, 'current');
 			}
 			addClass(current, 'current');
+			addClass(currentUnitName, 'current');
 		}
 
 		function enableAutoPlay(event) {
