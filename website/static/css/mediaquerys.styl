@@ -21,22 +21,21 @@
 			li
 				i
 					font-size 1.5em
-		&:not(.burger)
-			display none !important
+		&.main
+			display none
 			padding 0
 			width 100% !important
-			stack()
 			li
 				display block
 				margin 0
 				a
-					border-bottom 1px solid $midGrey
+					border-bottom 1px dotted $midGrey
 					border-radius 0
 					i.fa-caret-down
 						display none
 				&:first-child
 					a
-						border-top 1px solid $midGrey
+						border-top 1px dotted $midGrey
 				.home-btn
 					span
 						&.home-text
