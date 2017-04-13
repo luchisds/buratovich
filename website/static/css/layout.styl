@@ -69,6 +69,8 @@ header
 					&.logout
 						i
 							margin 0
+						.logout-text
+							display none
 					&.home-btn
 						.home-icon
 							display none
@@ -170,7 +172,7 @@ footer
 
 #home
 	.business-units
-		overflow hidden
+		// overflow hidden
 		position relative
 		.carousel
 			.carousel-cell
@@ -200,6 +202,8 @@ footer
 						p
 							opacity 1
 							transform translateY(-10px)
+			.flickity-page-dots
+				display none
 		.units
 			border-bottom 1px solid $midGrey
 			//fix 3px top border
@@ -227,11 +231,16 @@ footer
 						background-color $midGrey
 					&.current
 						background-color $baseColor
-						border-top 1px solid $midGrey
+						// border-top 1px solid $midGrey
 						color white
 						height 3em
 						line-height 3em
 						margin-top 0
+		.unit-names
+			display none
+			text-align center
+			li:not(.current)
+				display none
 
 	.services
 		background-color $lightGrey
