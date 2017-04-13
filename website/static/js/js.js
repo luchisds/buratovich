@@ -124,6 +124,11 @@ function init() {
 		return el;
 	}
 
+	/// Burger Nav ////////////////////////////////////////////////////////////////////////////////
+
+	var burger = document.getElementById('nav');
+	console.log(burger);
+
 
 	//## INDEX ##################################################################################
 	var home = document.getElementById('home');

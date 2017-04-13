@@ -16,10 +16,30 @@
 		width 80% !important
 	nav
 		width 20% !important
-		ul
-			&.burger
-				display inline-block !important
-				li
-					font-size 1.2em
-			&:not(.burger)
-				display none
+		&.burger
+			display inline-block !important
+			li
+				i
+					font-size 1.5em
+		&:not(.burger)
+			display none !important
+			padding 0
+			width 100% !important
+			stack()
+			li
+				display block
+				margin 0
+				a
+					border-bottom 1px solid $midGrey
+					border-radius 0
+					i.fa-caret-down
+						display none
+				&:first-child
+					a
+						border-top 1px solid $midGrey
+				.home-btn
+					span
+						&.home-text
+							display block
+						&.home-icon
+							display none !important
