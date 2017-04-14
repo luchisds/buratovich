@@ -17,9 +17,9 @@
 
 @media screen and (max-width: 1024px)
 	.logo
-		width 80% !important
+		width 88% !important
 	nav
-		width 20% !important
+		width 12% !important
 		&.burger
 			display inline-block !important
 			li
@@ -70,9 +70,6 @@
 	#home
 		.business-units
 			.carousel
-				// .carousel-cell
-				// 	.unit-name
-				// 		display block
 				.flickity-page-dots
 					display block
 			.units
@@ -80,11 +77,42 @@
 			.unit-names
 				display block
 
-// @media screen and (max-width: 750px)
-// 	#home
-// 		.business-units
-// 			.carousel
-// 				.carousel-cell
-// 					div
-// 						p
-// 							font-size .9em
+@media screen and (max-width: 630px)
+	#home
+		.business-units
+			.carousel
+				.carousel-cell
+					div
+						p
+							font-size 1em
+
+@media screen and (max-width: 460px)
+	header
+		.logo
+			h1
+				font-size 1.9em !important
+			img
+				width 45px
+	#home
+		.business-units
+			.carousel
+				.flickity-prev-next-button
+					display none
+					// height 25px
+					// width 25px
+
+@media screen and (max-width: 360px)
+	header
+		.logo, .burger
+			width 100% !important
+		.burger
+			padding 0
+			ul
+				text-align center
+	#home
+		.business-units
+			.carousel
+				.carousel-cell
+					div
+						p
+							font-size .9em
