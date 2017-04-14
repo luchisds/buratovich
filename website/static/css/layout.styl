@@ -172,6 +172,7 @@ footer
 
 #home
 	.business-units
+		background-color $lightGrey
 		// overflow hidden
 		position relative
 		.carousel
@@ -204,6 +205,7 @@ footer
 							transform translateY(-10px)
 			.flickity-page-dots
 				display none
+				margin-bottom -2.5em
 		.units
 			border-bottom 1px solid $midGrey
 			//fix 3px top border
@@ -238,14 +240,19 @@ footer
 						margin-top 0
 		.unit-names
 			display none
+			font-family $merriweatherFont
+			font-size 1.5em
+			font-weight bold
+			margin-top .6em
 			text-align center
+			text-shadow 1px 1px 2px $midGrey
 			li:not(.current)
 				display none
 
 	.services
 		background-color $lightGrey
 		border-bottom 1px solid $midGrey
-		border-top 1px solid $midGrey
+		// border-top 1px solid $midGrey
 		margin 0 auto
 		overflow hidden
 		padding 3.5em 2.5em
