@@ -253,11 +253,12 @@ footer
 		border-bottom 1px solid $midGrey
 		margin 0 auto
 		overflow hidden
-		// padding 3.5em 2.5em
-		padding 3.5em 2%
+		padding 4.5em .5em 3.5em .5em
+		& > div
+			overflow hidden
 		article
 			border-radius 5px
-			padding 1em
+			padding 0 1em
 			text-align center
 			a
 				color $baseColor
@@ -274,6 +275,9 @@ footer
 				font-size 1.5em
 			img
 				border-radius 3px
+				height auto
+				max-width 342px
+				width 100%
 			p
 				margin-bottom 1.2em
 				padding .2em 0
@@ -292,7 +296,11 @@ footer
 		background-attachment fixed
 		background-size cover
 		overflow hidden
-		padding 3em 2.5em
+		padding 3em .5em
+		& > div
+			overflow hidden
+			article:not(.rain):not(.weather)
+				padding 0 1em
 		.container
 			background-color white
 			border-radius 3px 3px 0 0
@@ -399,6 +407,12 @@ footer
 					display none
 					&#arrecifes
 						display block
+					& > div
+						width 100% !important
+						iframe
+							width 100% !important
+							table
+								width 100% !important
 		form
 			margin-top .2em
 			text-align center
