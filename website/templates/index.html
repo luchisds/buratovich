@@ -80,22 +80,28 @@
 	<section class="services">
 		<div class="maxwidth">
 			<article class="module">
-				<img src="{% static "img/centenaria.jpg" %}" alt="">
-				<h3>Una empresa centenaria</h3>
-				<p>Conoce los valores que nos mantiene en constante crecimiento luego de un siglo de actividad.</p>
-				<a href="{% url 'company' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				<img src="{% static "img/centenaria.jpg" %}" alt=""><!--
+				--><div class="service-info">
+					<h3>Una empresa centenaria</h3>
+					<p>Conoce los valores que nos mantiene en constante crecimiento luego de un siglo de actividad.</p>
+					<a href="{% url 'company' %}" class="service-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				</div>
 			</article>
 			<article class="center module">
-				<img src="{% static "img/zonas.jpg" %}" alt="">
-				<h3>Contacto y Zonas de Influencia</h3>
-				<p>Operamos en las provincias de Buenos Aires y Chaco. Conoce como podes contactarnos.</p>
-				<a href="{% url 'contact' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				<img src="{% static "img/zonas.jpg" %}" alt=""><!--
+				--><div class="service-info">
+					<h3>Contacto y Zonas de Influencia</h3>
+					<p>Operamos en las provincias de Buenos Aires y Chaco. Conoce como podes contactarnos.</p>
+					<a href="{% url 'contact' %}" class="service-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				</div>
 			</article>
 			<article class="module">
-				<img src="{% static "img/unidades.jpg" %}" alt="">
-				<h3>Unidades de Negocio</h3>
-				<p>Acopio y Acondicionamiento, Comercialización, Producción Agrícola, Exportación, entre otros.</p>
-				<a href="{% url 'units' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				<img src="{% static "img/unidades.jpg" %}" alt=""><!--
+				--><div class="service-info">
+					<h3>Unidades de Negocio</h3>
+					<p>Acopio y Acondicionamiento, Comercialización, Producción Agrícola, Exportación, entre otros.</p>
+					<a href="{% url 'units' %}" class="service-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+				</div>
 			</article>
 		</div>
 	</section>

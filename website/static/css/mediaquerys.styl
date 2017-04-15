@@ -61,10 +61,31 @@
 						p
 							font-size 1.2em
 
+@media screen and (max-width: 930px) and (min-width: 630px)
+	#home
+		.services
+			article
+				padding 1em 0
+				width 100%
+				img, .service-info
+					display inline-block
+					vertical-align top
+				img
+					width 40%
+				.service-info
+					padding-left 1em
+					width 60%
+					h3, p
+						text-align left
+					h3
+						margin-top 0
+
 @media screen and (max-width: 800px)
 	#home
 		.business-units
 			font-size .8em
+		.quote
+			font-size 1.4em
 
 @media screen and (max-width: 720px)
 	#home
@@ -85,6 +106,12 @@
 					div
 						p
 							font-size 1em
+		.quote
+			font-size 1.2em
+		.services
+			article
+				margin-top 1.5em
+				width 100%
 
 @media screen and (max-width: 460px)
 	header
@@ -100,6 +127,8 @@
 					display none
 					// height 25px
 					// width 25px
+		.quote
+			font-size 1.1em
 
 @media screen and (max-width: 360px)
 	header
