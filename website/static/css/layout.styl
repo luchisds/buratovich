@@ -118,6 +118,7 @@ footer
 			border-radius 3px
 			bottom 0
 			font-size 1.1em
+			max-width 177px
 			overflow hidden
 			position absolute
 			right .8em
@@ -167,6 +168,8 @@ footer
 			margin-right 1em
 			span
 				font-weight bold
+	.footer-info-responsive
+		display none
 
 /*#### HOME ################################################################*/
 
@@ -299,149 +302,158 @@ footer
 		padding 3em .5em
 		& > div
 			overflow hidden
-			article:not(.rain):not(.weather)
-				padding 0 1em
-		.container
-			background-color white
-			border-radius 3px 3px 0 0
-		.data
-			display block
-			font-size .8em
-			padding 1.2em .8em 0 .8em
-			text-align right
-			span
-				border-bottom 1px dotted $baseColor
-				color $baseColor
-		.utils-title
-			background-color rgba(255,255,255,.6)
-			border-radius 3px 3px 0 0
-			margin-bottom .5em
-			padding-bottom .3em
-			position relative
-			text-align center
-			.title
-				font-size 1.5em
-				padding 0 .7em
-				vertical-align middle
-				span
-					display inline-block
-					position relative
-					vertical-align middle
-					&:nth-child(1)
-						line-height .8em
-					i
-						font-size .8em
-						margin-right .5em
-		.utils-subtitle
-			margin-bottom .5em
-		.rain-weather
-			.utils-title
-				background-color rgba(255,255,255,.3)
-				padding-bottom 0
-				li
-					display inline-block
-					width 50%
-					a
-						color #dedede
-						display block
-						padding-bottom .35em
-						transition 0.3s ease-out
-						h3
-							font-weight 400
-						&:not(.active):hover
-							color #bbb
-						&.active
-							background-color rgba(255,255,255,.3)
-							color $darkGreyGreen
-					&:nth-child(1)
-						border-radius 3px 0 0 0
-					&:nth-child(2)
-						border-radius 0 3px 0 0
-			.rain
-				.historic-rain
-					background-color $midGrey
-					padding .7em 0 1em 0
-					text-align center
-					a
-						border-bottom 1px dotted transparent
-						color $baseColor
-						padding .3em .5em
-						i
-							color $baseColor
-							margin-right .3em
-							transition 0.3s ease-out
-						&:hover
-							border-bottom 1px dotted $midGrey
-							i
-								transform rotate(-360deg)
-			.weather
-				display none
-				.tab
-					background-color #1b1e24
-					border-bottom 4px solid #9ea7af
-					border-radius 3px 3px 0 0
-					text-align center
-					li
-						width 33.33%
-						&:first-child
+			article
+				&:not(.rain):not(.weather)
+					padding 0 1em
+					&:first-child
+						padding-left 0
+					&:last-child
+						padding-right 0
+				&.pizarras
+					.utils-title, .container
+						margin 0 auto
+						max-width 800px
+				&.currencies, &.rain-weather
+					.utils-title, .container
+						margin 0 auto
+						max-width 384px
+				&.rain-weather
+					.utils-title
+						background-color rgba(255,255,255,.3)
+						padding-bottom 0
+						li
+							display inline-block
+							width 50%
 							a
-								border-top-left-radius 3px
-						&:last-child
-							a
-								border-top-right-radius 3px
-						&:not(:last-child)
-							border-right 1px solid #343a45
-						a
-							color #d5dde5
-							display block
-							font-size .8em
-							font-weight bold
-							padding 15px 0
+								color #dedede
+								display block
+								padding-bottom .35em
+								transition 0.3s ease-out
+								h3
+									font-weight 400
+								&:not(.active):hover
+									color #bbb
+								&.active
+									background-color rgba(255,255,255,.3)
+									color $darkGreyGreen
+							&:nth-child(1)
+								border-radius 3px 0 0 0
+							&:nth-child(2)
+								border-radius 0 3px 0 0
+					.rain
+						.historic-rain
+							background-color $midGrey
+							padding .7em 0 1em 0
 							text-align center
-							text-decoration none
-							transition 0.3s
-							&:hover, &:focus, &.active
-								background-color #4E5066
-				.tabcontent
-					animation fadeEffect 1s
-					display none
-					&#arrecifes
-						display block
-					& > div
-						width 100% !important
-						iframe
-							width 100% !important
-							table
+							a
+								border-bottom 1px dotted transparent
+								color $baseColor
+								padding .3em .5em
+								i
+									color $baseColor
+									margin-right .3em
+									transition 0.3s ease-out
+								&:hover
+									border-bottom 1px dotted $midGrey
+									i
+										transform rotate(-360deg)
+					.weather
+						display none
+						.tab
+							background-color #1b1e24
+							border-bottom 4px solid #9ea7af
+							border-radius 3px 3px 0 0
+							text-align center
+							li
+								width 33.33%
+								&:first-child
+									a
+										border-top-left-radius 3px
+								&:last-child
+									a
+										border-top-right-radius 3px
+								&:not(:last-child)
+									border-right 1px solid #343a45
+								a
+									color #d5dde5
+									display block
+									font-size .8em
+									font-weight bold
+									padding 15px 0
+									text-align center
+									text-decoration none
+									transition 0.3s
+									&:hover, &:focus, &.active
+										background-color #4E5066
+						.tabcontent
+							animation fadeEffect 1s
+							display none
+							&#arrecifes
+								display block
+							& > div
 								width 100% !important
-		form
-			margin-top .2em
-			text-align center
-			fieldset
-				margin-top .7em
-				legend
-					display inline-block
-				.input
-					display inline-block
-					font-size .9em
-					width 180px
-				button
-					background-color transparent
-					border none
-					color $baseColor
-					cursor pointer
-					display inline-block
-					font-size 1.1em
-		.data-table
-			&.currency-error, &.board-error, &.rain-error
-				display none
-				td
-					color $midGrey
-					font-size 1.5em
-					padding 1em 0
+								iframe
+									width 100% !important
+				.utils-title
+					background-color rgba(255,255,255,.6)
+					border-radius 3px 3px 0 0
+					// margin-bottom .5em
+					padding-bottom .3em
+					position relative
 					text-align center
-			&.board-error
-				td
-					padding 4em 0
+					.title
+						font-size 1.5em
+						padding 0 .7em
+						vertical-align middle
+						span
+							display inline-block
+							position relative
+							vertical-align middle
+							&:nth-child(1)
+								line-height .8em
+							i
+								font-size .8em
+								margin-right .5em
+				.container
+					background-color white
+					border-radius 3px 3px 0 0
+					.data
+						display block
+						font-size .8em
+						padding 1.2em .8em 0 .8em
+						text-align right
+						span
+							border-bottom 1px dotted $baseColor
+							color $baseColor
+					form
+						margin-top .2em
+						text-align center
+						fieldset
+							margin-top .7em
+							legend
+								display inline-block
+							.input
+								display inline-block
+								font-size .9em
+								width 180px
+							button
+								background-color transparent
+								border none
+								color $baseColor
+								cursor pointer
+								display inline-block
+								font-size 1.1em
+					.data-table
+						&.currency-error, &.board-error, &.rain-error
+							display none
+							td
+								color $midGrey
+								font-size 1.5em
+								padding 1em 0
+								text-align center
+						&.board-error
+							td
+								padding 4em 0
 	.misc
 		background $midGrey url('../img/soy.jpg') top center no-repeat
 		border-top 6px solid white

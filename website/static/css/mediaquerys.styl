@@ -1,56 +1,101 @@
 @media screen and (max-width: 1125px)
-	.logo
-		width 37% !important
-	nav
-		font-size .9em
-		width 63% !important
-		.home-btn
-			span
-				&.home-text
-					display none
-				&.home-icon
-					display block !important
+	header
+		.logo
+			width 37% !important
+		nav
+			font-size .9em
+			width 63% !important
+			.home-btn
+				span
+					&.home-text
+						display none
+					&.home-icon
+						display block !important
+	#home
+		.utils
+			div > article
+				&.pizarras
+					stack()
+					margin-bottom 2em
+					padding 0 !important
+				&.currencies, &.rain-weather
+					column(1/2, gutter:0)
+				&.currencies
+					padding-left 0 !important
+					.utils-title, .container
+						margin-right 0
+				&.rain-weather
+					.utils-title, .container
+						margin-left 0
+	footer
+		div:not(.top):not(.foot)
+			.logo, .contact
+				display none
+			.nav
+				stack()
+				margin-bottom 1em
+				nav
+					text-align center
+				.cv
+					margin-top 1em
+					div
+						left 0
+						margin 0 auto
+						right 0
+			.footer-info-responsive
+				display block
+				overflow hidden
+				.logo, .contact
+					display block
+				.contact
+					text-align right
+					width 75%
+					p
+						display inline-block
+						margin-left 1em
 
 @media screen and (min-width: 1025px)
-	nav.main
-		display block !important
+	header
+		nav.main
+			display block !important
 
 @media screen and (max-width: 1024px)
-	.logo
-		width 88% !important
-	nav
-		width 12% !important
-		&.burger
-			display inline-block !important
-			li
-				i
-					font-size 1.5em
-		&.main
-			display none
-			padding 0
-			width 100% !important
-			li
-				display block
-				margin 0
-				a
-					border-bottom 1px dotted $midGrey
-					border-radius 0
-					i.fa-caret-down
-						display none
-				&:first-child
-					a
-						border-top 1px dotted $midGrey
-				.home-btn
-					span
-						&.home-text
-							display block
-						&.home-icon
-							display none !important
-				.logout
+	header
+		.logo
+			width 88% !important
+		nav
+			width 12% !important
+			&.burger
+				display inline-block !important
+				li
 					i
-						margin-right .3em
-					.logout-text
-						display inline
+						font-size 1.5em
+			&.main
+				display none
+				padding 0
+				width 100% !important
+				li
+					display block
+					margin 0
+					a
+						border-bottom 1px dotted $midGrey
+						border-radius 0
+						i.fa-caret-down
+							display none
+					&:first-child
+						a
+							border-top 1px dotted $midGrey
+					.home-btn
+						span
+							&.home-text
+								display block
+							&.home-icon
+								display none !important
+					.logout
+						i
+							margin-right .3em
+						.logout-text
+							display inline
 
 @media screen and (max-width: 930px)
 	#home
@@ -97,6 +142,15 @@
 				display none
 			.unit-names
 				display block
+		.utils
+			div > article
+				&.currencies, &.rain-weather
+					stack()
+					padding 0 !important
+					.utils-title, .container
+						margin 0 auto
+				&.currencies
+					margin-bottom 2em
 
 @media screen and (max-width: 630px)
 	#home
@@ -112,6 +166,25 @@
 			article
 				margin-top 1.5em
 				width 100%
+		.misc
+			padding 1.7em
+			& > div
+				stack()
+				margin 0 auto
+				text-align center
+				&:first-child
+					margin-bottom 1.3em
+			.cponline
+				border 0
+			.cponline, .tax
+				font-size .9em
+				margin 0 auto
+				min-height 0
+				div
+					left 0
+					margin 0 auto
+					position relative
+					right 0
 
 @media screen and (max-width: 460px)
 	header
@@ -129,6 +202,17 @@
 					// width 25px
 		.quote
 			font-size 1.1em
+		.utils
+			font-size .9em
+			td
+				padding 7px 10px
+
+@media screen and (max-width: 380px)
+	#home
+		.utils
+			font-size .8em
+			td
+				padding 6px 6px
 
 @media screen and (max-width: 360px)
 	header
