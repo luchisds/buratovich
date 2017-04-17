@@ -28,31 +28,19 @@
 					.utils-title, .container
 						margin-left 0
 	footer
-		div:not(.top):not(.foot)
-			.logo, .contact
+		.nav
+			nav
 				display none
-			.nav
-				stack()
-				margin-bottom 1em
-				nav
-					text-align center
-				.cv
-					margin-top 1em
-					div
-						left 0
-						margin 0 auto
-						right 0
-			.footer-info-responsive
-				display block
-				overflow hidden
-				.logo, .contact
-					display block
-				.contact
-					text-align right
-					width 75%
-					p
-						display inline-block
-						margin-left 1em
+			.cv
+				margin 0
+		.footer-rd-nav
+			display block
+			nav
+				text-align center
+				margin-bottom 2.5em
+		.logo, .contact, .nav
+			column(1/3, gutter:0)
+			text-align center
 
 @media screen and (min-width: 1025px)
 	header
