@@ -571,12 +571,12 @@ footer
 			line-height 1.3em
 			margin-bottom .8em
 	.video-company
-		margin-top 3em
 		text-align center
 		p
 			padding 0 2em
 			color $baseColor
 			font-size 1.2em
+			line-height 1.3em
 			text-align left
 			margin-bottom 2em
 		div
@@ -585,6 +585,9 @@ footer
 			padding 3em 0
 			video
 				background-color white
+				height auto
+				max-width 720px
+				width 100%
 	
 	.second-col
 		padding-right 2em
@@ -593,9 +596,8 @@ footer
 		border-radius 3px
 		font-size .8em
 		line-height 1.6em
-		// margin-top 3.5em
 		margin 3.5em auto 0 auto
-		max-width 480px
+		max-width 900px
 		overflow hidden
 		padding 3em 0
 		position relative
@@ -646,6 +648,7 @@ footer
 		figure
 			display inline-block
 			margin 0
+			max-width 320px
 			padding .4em .8em
 			width 25%
 			a
@@ -681,7 +684,7 @@ footer
 					&:after
 						opacity .6
 		.more
-			margin 2em 0 4em 0
+			margin 2em 0 3em 0
 			text-align center
 			a
 				background-color $accentColor

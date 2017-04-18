@@ -109,6 +109,10 @@
 					div
 						p
 							font-size 1.2em
+	#company
+		.gallery
+			figure
+				width 33.33%
 
 @media screen and (max-width: 930px) and (min-width: 630px)
 	#home
@@ -180,6 +184,17 @@
 			.second-col
 				.infography
 					margin-top 0
+		.gallery
+			margin-bottom 3em
+			figure
+				width 50%
+		.video-company
+			div
+				padding 2em 0
+				p
+					font-size 1em
+					padding 0 1em
+					//line-height 1.5em
 
 @media screen and (max-width: 630px)
 	footer
@@ -201,6 +216,8 @@
 				margin 0
 				padding 0
 				text-align center
+	.path
+		font-size .9em
 	#home
 		.business-units
 			.carousel
@@ -247,6 +264,11 @@
 					li
 						padding .5em 0
 						width 50%
+	.path
+		font-size .8em
+		.path-container
+			.hi
+				text-align left
 
 @media screen and (max-width: 460px)
 	header
@@ -255,6 +277,20 @@
 				font-size 1.9em !important
 			img
 				width 45px
+	footer
+		.footer-rd-nav
+			nav
+				ul
+					li
+						width 100%
+		.foot
+			padding 1em 1.5em
+			p
+				span
+					display block
+	.path
+		font-size .7em
+		padding 0 .5em
 	#home
 		.business-units
 			.carousel
@@ -268,20 +304,13 @@
 			font-size .9em
 			td
 				padding 7px 10px
-	footer
-		.footer-rd-nav
-			nav
-				ul
-					li
-						width 100%
-		.foot
-			padding 1em 1.5em
-			p
-				span
-					display block
 	#company
 		.imgs
 			display none
+		.gallery
+			text-align center
+			figure
+				width 100%
 
 @media screen and (max-width: 380px)
 	#home
@@ -293,6 +322,10 @@
 		.history-info
 			& > .second-col
 				display none
+		.gallery
+			margin-top .5em
+			h2
+				margin-top .5em
 
 @media screen and (max-width: 360px)
 	header

@@ -97,9 +97,11 @@ triangle(type = '', color = '', top = '', right = '', bottom = '', left = '')
 	overflow hidden
 	padding 0 1.5em
 	.path-container
-		border-top 1px solid $midGrey
+		border-bottom 1px solid $midGrey
 		overflow hidden
 		padding .3em .5em
+		&:nth-child(2)
+			border-bottom none
 		.route
 			display inline-block
 			float left
