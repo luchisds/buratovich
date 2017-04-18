@@ -8,10 +8,12 @@
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <a href="{% url 'extranet' %}">Extranet</a> <span class="chevron">></span> <span class="current">Cuenta Corriente Aplicada</span></div>
 		{% if user.is_authenticated %}
 			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 		{% endif %}
+	</div>
+	<div class="path-container">
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <a href="{% url 'extranet' %}">Extranet</a> <span class="chevron">></span> <span class="current">Cuenta Corriente Aplicada</span></div>
 	</div>
 </div>
 {% endblock %}

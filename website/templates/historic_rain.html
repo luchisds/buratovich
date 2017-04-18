@@ -11,10 +11,12 @@
 {% block path %}
 <div class="path maxwidth">
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Historico de Lluvias</span></div>
 		{% if user.is_authenticated %}
 			<div class="hi">Bienvenido, <span class="customer-name">{{user.userinfo.company_name}}</span></div>
 		{% endif %}
+	</div>
+	<div class="path-container">
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Historico de Lluvias</span></div>
 	</div>
 </div>
 {% endblock %}
