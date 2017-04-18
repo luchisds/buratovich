@@ -11,22 +11,6 @@
 						display none
 					&.home-icon
 						display block !important
-	#home
-		.utils
-			div > article
-				&.pizarras
-					stack()
-					margin-bottom 2em
-					padding 0 !important
-				&.currencies, &.rain-weather
-					column(1/2, gutter:0)
-				&.currencies
-					padding-left 0 !important
-					.utils-title, .container
-						margin-right 0
-				&.rain-weather
-					.utils-title, .container
-						margin-left 0
 	footer
 		.nav
 			nav
@@ -46,6 +30,33 @@
 			border-left 1px dotted $midGrey
 			border-right 1px dotted $midGrey
 			text-align center
+	#home
+		.utils
+			div > article
+				&.pizarras
+					stack()
+					margin-bottom 2em
+					padding 0 !important
+				&.currencies, &.rain-weather
+					column(1/2, gutter:0)
+				&.currencies
+					padding-left 0 !important
+					.utils-title, .container
+						margin-right 0
+				&.rain-weather
+					.utils-title, .container
+						margin-left 0
+	#company
+		.history-info
+			& > .first-col, & > .second-col
+				stack()
+				padding 0
+
+@media screen and (max-width: 1080px)
+	#company
+		.imgs
+			img:first-child
+				display none
 
 @media screen and (min-width: 1025px)
 	header
@@ -135,6 +146,10 @@
 			font-size .8em
 		.quote
 			font-size 1.4em
+	#company
+		.imgs
+			img
+				width 30%
 
 @media screen and (max-width: 720px)
 	#home
@@ -155,8 +170,37 @@
 						margin 0 auto
 				&.currencies
 					margin-bottom 2em
+	#company
+		.imgs
+			img
+				width 45%
+				&:last-child
+					display none
+		.history-info
+			.second-col
+				.infography
+					margin-top 0
 
 @media screen and (max-width: 630px)
+	footer
+		.maxwidth
+			padding 2em 1em 1em 1em;
+			.logo, .contact
+				stack()
+				text-align center
+			.contact
+				border none
+			.nav
+				.cv
+					div
+						right 0
+						left 0
+						margin 0 auto
+		.foot
+			p
+				margin 0
+				padding 0
+				text-align center
 	#home
 		.business-units
 			.carousel
@@ -189,25 +233,11 @@
 					margin 0 auto
 					position relative
 					right 0
-	footer
-		.maxwidth
-			padding 2em 1em 1em 1em;
-			.logo, .contact
-				stack()
-				text-align center
-			.contact
-				border none
-			.nav
-				.cv
-					div
-						right 0
-						left 0
-						margin 0 auto
-		.foot
-			p
-				margin 0
-				padding 0
-				text-align center
+	#company
+		.first-col
+			.featured, .history
+				li, p
+					font-size .9em
 
 @media screen and (max-width: 525px)
 	footer
@@ -249,6 +279,9 @@
 			p
 				span
 					display block
+	#company
+		.imgs
+			display none
 
 @media screen and (max-width: 380px)
 	#home
@@ -256,6 +289,10 @@
 			font-size .8em
 			td
 				padding 6px 6px
+	#company
+		.history-info
+			& > .second-col
+				display none
 
 @media screen and (max-width: 360px)
 	header
