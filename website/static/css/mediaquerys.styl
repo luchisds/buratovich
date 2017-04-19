@@ -225,6 +225,7 @@
 		.maps
 			padding 0 .5em
 		.areas
+			padding 0 1em
 			.contact-buttons, .contact-columns
 				display inline-block
 				vertical-align top
@@ -233,8 +234,19 @@
 				width 50%
 			.column
 				stack()
-				& > div:not(.contact-acopio)
+				& > div:not(#contact-acopio)
 					display none
+				& > .unit
+					h3
+						margin-top 0
+
+@media screen and (min-width: 720px)
+	#contact
+		.areas
+			.contact-columns
+				.column
+					.unit
+						display block !important
 
 @media screen and (max-width: 630px)
 	footer
@@ -321,6 +333,19 @@
 		.path-container
 			.hi
 				text-align left
+	#contact
+		.areas
+			.contact-buttons, .contact-columns
+				display block
+			.contact-buttons
+				li
+					margin 0 auto .5em auto
+					a +	i
+						display none !important
+			.contact-columns
+				margin 2em auto 0 auto
+				padding 0
+				width 60%
 
 @media screen and (max-width: 460px)
 	header

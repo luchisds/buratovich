@@ -282,10 +282,19 @@ function init() {
 		for (i = 0; i < contactButtons.length; i++) {
 			contactButtons[i].addEventListener('click', function(event) {
 				event.preventDefault();
-				var active = document.querySelectorAll('.contact-btn.active');
-				toggleClass(active[0], 'active');
+				toggleClass(document.querySelectorAll('.contact-btn.active')[0], 'active');
 				toggleClass(this, 'active');
-				//Velocity(contactUnits, 'slideUp', {stagger: 40});
+				var unitEl = document.getElementById('contact-'+event.target.className.split(' ')[1]);
+				for (j = 0; j < contactUnits.length; j++) {
+					if (hasClass(contactUnits[j], 'active') && contactUnits[j] != unitEl) {
+						Velocity(contactUnits[j], 'slideUp', {stagger: 40});
+						removeClass(contactUnits[j], 'active');
+					}
+				}
+				if(!hasClass(unitEl, 'active')) {
+					Velocity(unitEl, 'slideDown', {stagger: 40});
+					addClass(unitEl, 'active');
+				}
 			});
 		}
 	}
