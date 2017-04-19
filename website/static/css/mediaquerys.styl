@@ -125,6 +125,18 @@
 		.gallery
 			figure
 				width 33.33%
+	#contact
+		.offices
+			padding 0 .5em
+			.offices-bas, .offices-cha
+				width 49%
+				img, .office-info
+					display block
+					margin 0 auto
+					text-align center
+					width 100%
+			.offices-bas
+				margin-right 2%
 
 @media screen and (max-width: 930px) and (min-width: 630px)
 	#home
@@ -166,6 +178,10 @@
 		.imgs
 			img
 				width 30%
+	#contact
+		.areas
+			.column
+				column(1/2, gutter:0)
 
 @media screen and (max-width: 720px)
 	#home
@@ -206,7 +222,9 @@
 				p
 					font-size 1em
 					padding 0 1em
-					//line-height 1.5em
+	#contact
+		.maps
+			padding 0 .5em
 
 @media screen and (max-width: 630px)
 	footer
@@ -267,6 +285,18 @@
 			.featured, .history
 				li, p
 					font-size .9em
+	#contact
+		.data-contact
+			text-align center
+		.offices
+			.offices-bas, .offices-cha
+				& > div
+					padding-bottom .5em
+					.office-info
+						.map-link
+							display block
+		.maps
+			display none
 
 @media screen and (max-width: 525px)
 	footer
@@ -323,6 +353,18 @@
 			text-align center
 			figure
 				width 100%
+	#contact
+		.data-contact
+			font-size 1.1em
+			padding 2em 1em 0 1em
+		.offices
+			.offices-bas, .offices-cha
+				margin 0
+				width 100%
+				& > div
+					margin-bottom 2em
+					&:first-child
+						margin-bottom 2em
 
 @media screen and (max-width: 380px)
 	#home
@@ -338,6 +380,10 @@
 			margin-top .5em
 			h2
 				margin-top .5em
+	#contact
+		.data-contact
+			font-size 1em
+			padding 2em .5em 0 .5em
 
 @media screen and (max-width: 360px)
 	header
