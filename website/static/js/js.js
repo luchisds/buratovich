@@ -278,12 +278,14 @@ function init() {
 	var contact = document.getElementById('contact');
 	if (contact) {
 		var contactButtons = document.getElementsByClassName('contact-btn');
+		var contactUnits = document.getElementsByClassName('unit');
 		for (i = 0; i < contactButtons.length; i++) {
 			contactButtons[i].addEventListener('click', function(event) {
 				event.preventDefault();
 				var active = document.querySelectorAll('.contact-btn.active');
-				toggleClass(active, 'active');
+				toggleClass(active[0], 'active');
 				toggleClass(this, 'active');
+				//Velocity(contactUnits, 'slideUp', {stagger: 40});
 			});
 		}
 	}
