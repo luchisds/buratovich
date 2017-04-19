@@ -273,6 +273,20 @@ function init() {
 		});
 	}
 
+	/// CONTACT ////////////////////////////////////////////////////////////////////////////////////
+
+	var contact = document.getElementById('contact');
+	if (contact) {
+		var contactButtons = document.getElementsByClassName('contact-btn');
+		for (i = 0; i < contactButtons.length; i++) {
+			contactButtons[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				var active = document.querySelectorAll('.contact-btn.active');
+				toggleClass(active, 'active');
+				toggleClass(this, 'active');
+			});
+		}
+	}
 
 	/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
