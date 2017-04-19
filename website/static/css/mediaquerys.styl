@@ -180,8 +180,16 @@
 				width 30%
 	#contact
 		.areas
+			.contact-buttons
+				display inline-block
+				width 30%
 			.column
-				column(1/2, gutter:0)
+				stack()
+				width 70%
+	// 			column(1/2, gutter:0)
+	// 			&:last-child
+	// 				stack()
+	// 				width 50%
 
 @media screen and (max-width: 720px)
 	#home
