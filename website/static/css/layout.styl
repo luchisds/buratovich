@@ -989,86 +989,6 @@ footer
 			margin .8em auto 2em auto
 		.unit-title
 			font-size 2.7em
-	// .acopio
-	// 	.separator
-	// 		width 3em
-	// 	.main
-	// 		&::after
-	// 			background url('../img/units/unit_acopio.jpg') no-repeat fixed top right
-	// 		.map-container
-	// 			padding 1em 0 0 1em
-	// 			position relative
-	// 			text-align left
-	// 			.map
-	// 				width 60%
-	// 				z-index 1
-	// 			.marker, .line
-	// 				position absolute
-	// 				z-index 2
-	// 			.gp
-	// 				left 34%
-	// 				top 15%
-	// 			.ar
-	// 				left 36%
-	// 				top 35%
-	// 			.gp-line
-	// 				left 39%
-	// 				top 17%
-	// 			.ar-line
-	// 				left 41%
-	// 				top 37%
-	// 		.location
-	// 			overflow hidden
-	// 			position relative
-	// 			.plant
-	// 				position relative
-	// 				text-align left
-	// 				width 320px
-	// 				z-index 3
-	// 				.detail
-	// 					background-color $midGrey
-	// 					border 6px solid white
-	// 					border-radius 3px
-	// 					padding 10px
-	// 					img
-	// 						border-radius 3px
-	// 						display inline-block
-	// 						width 45%
-	// 					div
-	// 						display inline-block
-	// 						font-size .85em
-	// 						margin-left .5em
-	// 						vertical-align top
-	// 						h3
-	// 							color $accentColor
-	// 							margin-bottom .5em
-	// 						p
-	// 							margin .4em 0
-	// 							a
-	// 								border-bottom 1px dashed $baseColor
-	// 								color $baseColor
-	// 							i
-	// 								margin-right .3em
-	// 				.line-v
-	// 					height 15px
-	// 			.ar
-	// 				margin 5% auto auto 15%
-	// 				.detail:nth-child(2)
-	// 					margin-top 15px
-	// 			.gp
-	// 				margin 10% auto auto 0
-	// 	.related
-	// 		margin-top 4em
-	// 		padding 0 10%
-	// 		article
-	// 			img
-	// 				border-radius 50%
-	// 				//width 35%
-	// 				width 190px
-	// 			div
-	// 				font-size 1.1em
-	// 				line-height 1.5em
-	// 				padding 1.5em 2.5em 0 2.5em
 	.acopio
 		.separator
 			width 3em
@@ -1142,11 +1062,12 @@ footer
 								height 15px
 		.related
 			margin-top 4em
-			padding 0 10%
 			article
 				img
 					border-radius 50%
-					width 190px
+					height auto
+					max-width 190px
+					width 100%
 				div
 					font-size 1.1em
 					line-height 1.5em
@@ -1159,8 +1080,9 @@ footer
 				background url('../img/units/unit_commer.jpg') no-repeat fixed bottom left
 				background-size cover
 			.content
-				& > div
+				& > .row
 					overflow hidden
+					padding 1em 0
 	.agro
 		.separator
 			width 8em
@@ -1262,7 +1184,8 @@ footer
 				font-size 1.2em
 				height 6em
 				line-height 1.5em
-				margin 1.2em 2em
+				//margin 1.2em 2em
+				margin .5em
 				padding .7em
 				text-align left
 				vertical-align top
