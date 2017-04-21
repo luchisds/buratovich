@@ -176,6 +176,10 @@
 				.main
 					.box
 						font-size 1em
+			&.agro
+				.main
+					.box
+						font-size 1em
 
 @media screen and (max-width: 800px)
 	#home
@@ -286,6 +290,15 @@
 				.main
 					.box
 						width 11em
+			&.agro
+				.main
+					.boxes
+						div
+							stack()
+							&:not(:last-child)
+								margin-bottom 1em
+							.box
+								width 90%
 			.unit-title
 				font-size 2.5em
 			.quote
@@ -409,6 +422,10 @@
 							.col-3
 								stack()
 								padding-bottom .8em
+			&.agro
+				.main
+					.box
+						font-size .9em
 
 @media screen and (max-width: 550px)
 	#bussines-units
@@ -557,6 +574,11 @@
 							width 15em
 							.sign
 								display inline-block
+			&.agro
+				.main
+					.boxes
+						div:last-child
+							display none
 
 @media screen and (max-width: 380px)
 	#home
