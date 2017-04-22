@@ -7,8 +7,9 @@ import re
 
 from django.conf import settings
 
-from models import Analysis
-from models import Remittances
+# from django.db import connection
+
+from models import TicketsAnalysis
 from models import CtaCte
 from models import Deliveries
 from models import Sales
@@ -51,11 +52,11 @@ def evalTextUTF8(text):
 	return unicode(text.strip(' ').decode('utf-8'))
 
 
-def importRemittances():
-	txt = os.path.join(settings.EXTRANET_DIR, 'Remesas.txt')
+def importTicketsAnalysis():
+	txt = os.path.join(settings.EXTRANET_DIR, 'Analisis_Tickets.txt')
 	if os.path.isfile(txt):
-		if Remittances.objects.count() > 0:
-			Remittances.objects.all().delete()
+		if TicketsAnalysis.objects.count() > 0:
+			TicketsAnalysis.objects.all().delete()
 
 		with open(txt, 'r') as file:
 			record = []
@@ -67,79 +68,36 @@ def importRemittances():
 				line = line.replace('\n', '').replace('\r', '')
 				if len(line) > 0:
 					data = re.split('\t', line)
-					#print r
-					# Certified True or False
-					if evalText(data[20]) == u'Sí':
-						is_certified = True
-					else:
-						is_certified = False
+					# print r
 					record.append(
-						Remittances(
+						TicketsAnalysis(
 							entry_point = evalInt(data[0]),
-							analysis_number = evalInt(data[1]),
-							analysis = evalText(data[2]),
-							date = evalDate(data[3]),
-							entry_point_ticket = evalInt(data[18]),
-							ticket_number = evalInt(data[19]),
-							certified = is_certified,
-							ticket = 'TK ' + evalText(data[21][:5]+data[21][7:]),
-							ticket_date = evalDateHour(data[22]),
-							net_kg = evalInt(data[23])
+							entry_number = evalInt(data[1]),
+							entry_point_ticket = evalInt(data[2]),
+							ticket_number = evalInt(data[3]),
+							ticket_date = evalDateHour(data[4]),
+							ticket = 'TK ' + evalText(data[5]),
+							field = evalInt(data[6]),
+							lot = evalText(data[7]),
+							field_description = evalText(data[8]),
+							species = evalText(data[9]),
+							harvest = evalText(data[10]),
+							grade = evalInt(data[11]),
+							factor = evalFloat(data[12]),
+							analysis_costs = evalFloat(data[13]),
+							gluten = evalInt(data[14]),
+							analysis_item = evalInt(data[15]),
+							percentage = evalFloat(data[16]),
+							bonus = evalFloat(data[17]),
+							reduction = evalFloat(data[18]),
+							item_descripcion = evalTextUTF8(data[19])
 						)
 					)
 				r = r + 1
 
 			# break batch in small batches of 999 objects
 			for j in range(0, len(record), BULK_SIZE):
-				Remittances.objects.bulk_create(record[j:j+BULK_SIZE])
-
-
-def importAnalysis():
-	txt = os.path.join(settings.EXTRANET_DIR, 'Analisis.txt')
-	if os.path.isfile(txt):
-		if Analysis.objects.count() > 0:
-			Analysis.objects.all().delete()
-
-		with open(txt, 'r') as file:
-			record = []
-			r = 0
-			# Exclude header
-			file.next()
-			for line in file:
-				# Delete new line character
-				line = line.replace('\n', '').replace('\r', '')
-				if len(line) > 0:
-					data = re.split('\t', line)
-					#print r
-					record.append(
-						Analysis(
-							entry_point = evalInt(data[0]),
-							analysis_number = evalInt(data[1]),
-							analysis = evalText(data[2]),
-							date = evalDate(data[3]),
-							newsletter_number = evalText(data[4]),
-							field = evalInt(data[5]),
-							lot = evalText(data[6]),
-							field_description = evalText(data[7]),
-							species = evalText(data[8]),
-							harvest = evalText(data[9]),
-							protein = evalFloat(data[11]),
-							grade = evalInt(data[12]),
-							factor = evalFloat(data[13]),
-							analysis_costs = evalFloat(data[14]),
-							gluten = evalInt(data[15]),
-							analysis_item = evalInt(data[18]),
-							percentage = evalFloat(data[19]),
-							bonus = evalFloat(data[20]),
-							reduction = evalFloat(data[21]),
-							item_descripcion = evalTextUTF8(data[22])
-						)
-					)
-				r = r + 1
-
-			# break batch in small batches of 999 objects
-			for j in range(0, len(record), BULK_SIZE):
-				Analysis.objects.bulk_create(record[j:j+BULK_SIZE])
+				TicketsAnalysis.objects.bulk_create(record[j:j+BULK_SIZE])
 
 
 def importApplied():

@@ -27,13 +27,7 @@ class Command(BaseCommand):
 			self.stdout.write(self.style.ERROR('Could not update Cta Cte Kilos'))
 
 		try:
-			import_tasks.importAnalysis()
+			import_tasks.importTicketsAnalysis()
 			self.stdout.write(self.style.SUCCESS('Successfully updated Analisis de Calidad'))
 		except:
 			self.stdout.write(self.style.ERROR('Could not update Analisis de Calidad'))
-
-		try:
-			import_tasks.importRemittances()
-			self.stdout.write(self.style.SUCCESS('Successfully updated Remesas de Analisis'))
-		except:
-			self.stdout.write(self.style.ERROR('Could not update Remesas de Analisis'))
