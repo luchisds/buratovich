@@ -22,18 +22,18 @@ class UserInfo(models.Model):
 		verbose_name_plural = 'Usuarios'
 
 
-class Analysis(models.Model):
+class TicketsAnalysis(models.Model):
 	entry_point = models.IntegerField(verbose_name='Punto de Ingreso')
-	analysis_number = models.IntegerField(verbose_name='Numero de Analisis')
-	analysis = models.CharField(max_length=13, verbose_name='Analisis')
-	date = models.DateField(verbose_name='Fecha de Analisis')
-	newsletter_number = models.CharField(max_length=20, verbose_name='Numero de Boletin')
+	entry_number = models.IntegerField(verbose_name='Numero de Ingreso')
+	entry_point_ticket = models.IntegerField(verbose_name='Punto de Ingreso Ticket')
+	ticket_number = models.IntegerField(verbose_name='Numero de Ticket')
+	ticket_date = models.DateField(verbose_name='Fecha de Ticket')
+	ticket = models.CharField(max_length=16, verbose_name='Ticket')
 	field = models.IntegerField(verbose_name='Campo')
 	lot = models.CharField(max_length=10, verbose_name='Lote')
 	field_description = models.CharField(max_length=100, verbose_name='Nombre de Campo')
 	species = models.CharField(max_length=4, verbose_name='Especie')
 	harvest = models.CharField(max_length=4, verbose_name='Cosecha')
-	protein = models.FloatField(verbose_name='Contenido Proteico')
 	grade = models.IntegerField(verbose_name='Grado')
 	factor = models.FloatField(verbose_name='Factor')
 	analysis_costs = models.FloatField(verbose_name='Gastos de Analisis')
@@ -45,24 +45,7 @@ class Analysis(models.Model):
 	item_descripcion = models.CharField(max_length=100, verbose_name='Descripcion')
 
 	class Meta:
-		verbose_name = 'Analisis'
-
-
-class Remittances(models.Model):
-	entry_point = models.IntegerField(verbose_name='Punto de Ingreso')
-	analysis_number = models.IntegerField(verbose_name='Numero de Analisis')
-	analysis = models.CharField(max_length=13, verbose_name='Analisis')
-	date = models.DateField(verbose_name='Fecha de Analisis')
-	entry_point_ticket = models.IntegerField(verbose_name='Punto de Ingreso Ticket')
-	ticket_number = models.IntegerField(verbose_name='Numero de Ticket')
-	certified = models.BooleanField(verbose_name='Certificado', default=True)
-	ticket = models.CharField(max_length=16, verbose_name='Ticket')
-	ticket_date = models.DateField(verbose_name='Fecha de Ticket')
-	net_kg = models.IntegerField(verbose_name='Kilos Netos')
-
-	class Meta:
-		verbose_name = 'Remesa'
-		verbose_name_plural = 'Remesas'
+		verbose_name = 'Analisis por Ticket'
 
 
 class Deliveries(models.Model):

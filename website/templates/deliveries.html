@@ -140,7 +140,7 @@
 									<td colspan="16">{{j.name}}</td>
 								</tr>
 								{% for a, b in j.tickets.items %}
-									{% get_analysis ticket_analysis analysis_detail b.voucher as detail %}
+									{% get_analysis ticket_analysis b.voucher as detail %}
 									<tr>
 										<td class="center">{{b.date|date:"d-m-Y"}}</td>
 										<td>{{b.voucher}}</td>
@@ -174,10 +174,8 @@
 												<table class="analysis-detail">
 													<thead>
 														<tr>
-															<th colspan="2">Análisis: {{detail.0.analysis}}</th>
-															<th>C. Proteico: {{detail.0.protein|intcomma}}</th>
-															<th>Gluten: {{detail.0.gluten|intcomma}}</th>
-															<th>Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
+															<th colspan="3">Gluten: {{detail.0.gluten}}</th>
+															<th colspan="2">Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
 														</tr>
 														<tr>
 															<th colspan="2">Item</th>

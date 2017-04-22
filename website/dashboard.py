@@ -106,13 +106,8 @@ class CustomIndexDashboard(Dashboard):
                     'external': False,
                 },
                 {
-                    'title': _('Actualizar Analisis'),
+                    'title': _('Actualizar Analisis de Calidad'),
                     'url': reverse('importdata', args=['analysis']),
-                    'external': False,
-                },
-                {
-                    'title': _('Actualizar Remesas'),
-                    'url': reverse('importdata', args=['remittances']),
                     'external': False,
                 },
             ]

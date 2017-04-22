@@ -49,8 +49,7 @@ from models import Notifications
 from models import ViewedNotifications
 from models import Currencies
 from models import Board
-from models import Analysis
-from models import Remittances
+from models import TicketsAnalysis
 from models import City
 from models import Rain
 from models import RainDetail
@@ -644,19 +643,16 @@ def deliveries(request):
 									tickets_by_field[sd][f['field']]['total_net'] = total_net
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
-				# Get ticket and analysis
-				remittances = Remittances.objects.filter(ticket__in = tickets_for_analysis).values('ticket', 'analysis')
+				# Get ticket analysis
+				# remittances = Remittances.objects.filter(ticket__in = tickets_for_analysis).values('ticket', 'analysis')
+				remittances = TicketsAnalysis.objects.filter(ticket__in = tickets_for_analysis).values('ticket').distinct()
 				# dict [Ticket] --> [Analysis]
 				ticket_analysis = {}
-				# dict [Analysis] --> [Analysis detail]
-				analysis_detail = {}
 				for i in remittances:
-					ticket_analysis[i['ticket']] = i['analysis']
-					if analysis_detail.get(i['analysis'], None) is None:
-						analysis = Analysis.objects.filter(analysis = i['analysis']).exclude(percentage=0).values('analysis', 'date', 'protein', 'analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('analysis', 'item_descripcion')
-						analysis_detail[i['analysis']] = analysis
+					analysis = TicketsAnalysis.objects.filter(ticket = i['ticket']).values('analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('item_descripcion')
+					ticket_analysis[i['ticket']] = analysis
 
-				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis, 'analysis_detail': analysis_detail})
+				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis})
 
 			else:
 				# If request is GET
@@ -1083,15 +1079,12 @@ def importdata(request, datatype):
 	elif datatype == 'applied':
 		import_tasks.importApplied()
 	elif datatype == 'analysis':
-		import_tasks.importAnalysis()
-	elif datatype == 'remittances':
-		import_tasks.importRemittances()
+		import_tasks.importTicketsAnalysis()
 	elif datatype == 'all':
 		import_tasks.importCtaCteP()
 		import_tasks.importKilos()
 		import_tasks.importApplied()
-		import_tasks.importAnalysis()
-		import_tasks.importRemittances()
+		import_tasks.importTicketsAnalysis()
 	else:
 		raise Http404()
 
