@@ -3,6 +3,7 @@
 {% load humanize %}
 {% load l10n %}
 {% load complete_tablecol %}
+{% load complete_tablerow %}
 {% load rain_average %}
 
 {% block title %}Buratovich Hnos. - Registro Historico de Lluvias{% endblock %}
@@ -32,7 +33,7 @@
 		</button>
 	</div>
 
-	<table class="data-table">
+	<table class="data-table complete">
 		<thead>
 			<tr>
 				<th>AÑO</th>
@@ -54,9 +55,9 @@
 		<tbody>
 			{% for k, v in history.items %}
 				<tr>
-					<td>{{k|unlocalize}}</td>
+					<td class="center">{{k|unlocalize}}</td>
 					{% for l, m in v.rain.items %}
-						<td class="right">{{m}}</td>
+						<td class="right">{{m.mm}}</td>
 					{% endfor %}
 					{% if v.rain|length < 12 %}
 						{% complete_tablecol v.rain|length 12 as cols %}
@@ -75,6 +76,115 @@
 				{% endfor %}
 				<td></td>
 			</tr>
+		</tbody>
+	</table>
+
+	<table class="data-table partial">
+		<thead>
+			<tr>
+				<th>AÑO</th>
+				<th>Total</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for k, v in history.items %}
+				<tr>
+					<td class="center">{{k|unlocalize}}</td>
+					<td class="right total">{{v.total|floatformat:2|intcomma}}</td>
+					<td class="center">
+						<a href="#" class="show-detail">
+							<i class="fa fa-search-plus" aria-hidden="true"></i> Detalle
+						</a>
+						<a href="#" class="hide-detail hide-btn">
+							<i class="fa fa-search-minus" aria-hidden="true"></i> Detalle
+						</a>
+					</td>
+				</tr>
+				<tr class="detail">
+					<td colspan="12">
+						<table class="data-table">
+							<thead>
+								<tr>
+									<th>Ene</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Abr</th>
+									<th>May</th>
+									<th>Jun</th>
+									<th>Jul</th>
+									<th>Ago</th>
+									<th>Sep</th>
+									<th>Oct</th>
+									<th>Nov</th>
+									<th>Dic</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									{% for l, m in v.rain.items %}
+										<td class="right">{{m.mm}}</td>
+									{% endfor %}
+									{% if v.rain|length < 12 %}
+										{% complete_tablecol v.rain|length 12 as cols %}
+										{{cols|safe}}
+									{% endif %}
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<table class="data-table responsive">
+		<thead>
+			<tr>
+				<th>AÑO</th>
+				<th>Total</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for k, v in history.items %}
+				<tr>
+					<td class="center">{{k|unlocalize}}</td>
+					<td class="right total">{{v.total|floatformat:2|intcomma}}</td>
+					<td class="center">
+						<a href="#" class="show-detail">
+							<i class="fa fa-search-plus" aria-hidden="true"></i> Detalle
+						</a>
+						<a href="#" class="hide-detail hide-btn">
+							<i class="fa fa-search-minus" aria-hidden="true"></i> Detalle
+						</a>
+					</td>
+				</tr>
+				<tr class="detail">
+					<td colspan="12">
+						<table class="data-table">
+							<thead>
+								<tr>
+									<th>Mes</th>
+									<th>mm</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for l, m in v.rain.items %}
+									<tr>
+										<td>{{m.name}}</td>
+										<td class="right">{{m.mm}}</td>
+									</tr>
+								{% endfor %}
+								{% if v.rain|length < 12 %}
+									{% complete_tablerow v.rain|length 2 months as rows %}
+									{{rows|safe}}
+								{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </section>
