@@ -766,10 +766,12 @@ footer
 #cv
 	background url('../img/units/back.jpg') no-repeat top center
 	font-weight 400
-	padding 3em 5em
+	padding 3em
 	p
 		line-height 1.3em
 		margin 1em .5em
+		&:first-child
+			margin-top 0
 		span
 			&:not(.bh)
 				font-weight bold
@@ -777,11 +779,14 @@ footer
 				color $baseColor
 		&.data-contact
 			text-align center
+			padding 2em 0 0 0
 	.img
 		text-align center
 		img
 			border-radius 3px
+			height auto
 			max-width 500px
+			width 100%
 
 #taxes
 	background url('../img/units/back.jpg') no-repeat top center
