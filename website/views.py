@@ -274,6 +274,7 @@ def get_rain(request):
 
 
 def historic_rain(request):
+	months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 	# Filter City = 1 only por Arrecifes
 	rain = RainDetail.objects.filter(city=1).extra(select={'month':connection.ops.date_trunc_sql('month', '"website_raindetail"."rain_id"'), 'year':connection.ops.date_trunc_sql('year', '"website_raindetail"."rain_id"')}).values('month', 'year').annotate(mmsum=Sum('mm')).order_by('-year', 'month')
 	history = OrderedDict()
@@ -297,24 +298,40 @@ def historic_rain(request):
 
 		if year == prev_year or prev_year == 0:
 			if prev_month + 1 == month or prev_month == 0:
-				history[year]['rain'][month] = r['mmsum']
+				# history[year]['rain'][month] = r['mmsum']
+				history[year]['rain'][month] = OrderedDict()
+				history[year]['rain'][month]['name'] = months[month-1]
+				history[year]['rain'][month]['mm'] = r['mmsum']
+
 				history[year]['total'] += r['mmsum']
 				month_avg[month]['sum'] += r['mmsum']
 				month_avg[month]['count'] += 1
 			else:
 				for i in range(prev_month+1, month):
-					history[year]['rain'][datetime.datetime(year,i,1).date().month] = 0
+					# history[year]['rain'][datetime.datetime(year,i,1).date().month] = 0
+					history[year]['rain'][datetime.datetime(year,i,1).date().month] = OrderedDict()
+					history[year]['rain'][datetime.datetime(year,i,1).date().month]['name'] = months[datetime.datetime(year,i,1).date().month - 1]
+					history[year]['rain'][datetime.datetime(year,i,1).date().month]['mm'] = 0
+
 					if month_avg.get(datetime.datetime(year,i,1).date().month, None) is None:
 						month_avg[datetime.datetime(year,i,1).date().month] = OrderedDict()
 						month_avg[datetime.datetime(year,i,1).date().month]['sum'] = 0
 						month_avg[datetime.datetime(year,i,1).date().month]['count'] = 0
 					month_avg[datetime.datetime(year,i,1).date().month]['count'] += 1
-				history[year]['rain'][month] = r['mmsum']
+				# history[year]['rain'][month] = r['mmsum']
+				history[year]['rain'][month] = OrderedDict()
+				history[year]['rain'][month]['name'] = months[month-1]
+				history[year]['rain'][month]['mm'] = r['mmsum']
+
 				history[year]['total'] += r['mmsum']
 				month_avg[month]['sum'] += r['mmsum']
 				month_avg[month]['count'] += 1
 		else:
-			history[year]['rain'][month] = r['mmsum']
+			# history[year]['rain'][month] = r['mmsum']
+			history[year]['rain'][month] = OrderedDict()
+			history[year]['rain'][month]['name'] = months[month-1]
+			history[year]['rain'][month]['mm'] = r['mmsum']
+
 			history[year]['total'] += r['mmsum']
 			month_avg[month]['sum'] += r['mmsum']
 			month_avg[month]['count'] += 1
@@ -322,7 +339,7 @@ def historic_rain(request):
 		prev_year = year
 		prev_month = month
 
-	return render(request, 'historic_rain.html', {'history':history, 'month_avg':month_avg})
+	return render(request, 'historic_rain.html', {'history':history, 'month_avg':month_avg, 'months': months})
 
 
 def company(request):

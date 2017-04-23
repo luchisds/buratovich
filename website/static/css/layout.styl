@@ -514,12 +514,31 @@ footer
 #historic-rain
 	background url('../img/units/back.jpg') no-repeat top center
 	padding 1.7em 2em 0 2em
-	// h2
-	// 	margin-top 1.7em
-	table
-		margin 2em 0 4em 0
-		.total, .avg
-			font-weight bold
+	h2
+		margin-bottom 2em
+	.data-table
+		&.complete, &.partial, &.responsive
+			margin 2em 0 4em 0
+			.total, .avg
+				font-weight bold
+		&.partial, &.responsive
+			display none
+			tr.detail
+				display none
+				font-size 1.1em
+				&.show
+					display table-row
+			tr
+				td
+					& .hide-btn
+						display none
+					& .show-detail, .hide-detail
+						color $baseColor
+						font-size 1.1em
+					& .hide-detail
+						color $accentColor
+						&:hover
+							color white
 
 /*#### COMPANY ################################################################*/
 
