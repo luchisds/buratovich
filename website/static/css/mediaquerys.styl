@@ -504,6 +504,10 @@
 				font-size 2.2em
 			.quote
 				font-size 1em
+	#extranet
+		padding-bottom 5em
+		.extranet-nav
+			padding-top 0
 
 @media screen and (max-width: 580px)
 	#bussines-units
@@ -682,11 +686,22 @@
 			.unit-title
 				font-size 1.9em
 	#extranet
-		.row
-			li:nth-child(1)
-				margin-left 0
-			li:nth-child(2)
-				margin-right 0
+		padding 1em 0 3.5em 0
+		.extranet-nav
+			.row, .row:nth-child(1), .row:nth-child(2)
+				display block
+				li
+					font-size .9em
+					height 90px
+					margin-top .5em
+					margin-bottom .5em
+					width 160px
+				li:nth-child(1)
+					margin-left 0
+					margin-right .5em
+				li:nth-child(2)
+					margin-left .5em
+					margin-right 0
 
 @media screen and (max-width: 420px)
 	#bussines-units
@@ -708,10 +723,6 @@
 					.boxes
 						div:last-child
 							display none
-	#extranet
-		.row, .row:nth-child(1), .row:nth-child(2)
-			li
-				display block
 
 @media screen and (max-width: 380px)
 	#home
@@ -749,6 +760,13 @@
 							width 50%
 	#cv
 		padding 3em 1em
+	#extranet
+		.extranet-nav
+			.row, .row:nth-child(1), .row:nth-child(2)
+				li
+					display block !important
+					// font-size .8em
+					margin .8em auto !important
 
 @media screen and (max-width: 360px)
 	header
