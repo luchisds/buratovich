@@ -44,8 +44,8 @@ class Command(BaseCommand):
 					cod = data[0]
 					name = data[1]
 					user = data[2]
-					# Get the first email account
-					email = data[5].replace('"', '')
+					# Get the first email account if there is more than one
+					email = data[3].replace('"', '')
 					email = re.split(';', email)
 					email = email[0]
 					try:
