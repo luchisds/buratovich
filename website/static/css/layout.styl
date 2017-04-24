@@ -1353,21 +1353,23 @@ footer
 
 #extranet, #ctacte
 	.extranet-nav
-		.row
-			margin-top 2em
+		padding-top 2em
+		.row:nth-child(1), .row:nth-child(2)
+			display inline-block
 		ul
 			text-align center
 			li
 				background-color $baseColor
 				border-radius 3px
 				height 100px
+				margin 1em
 				text-align center
 				transition 0.3s ease-out
 				width 180px
 				&:hover
 					background-color $accentColor
-				&:not(:nth-child(1))
-					margin-left 2em
+				// &:not(:nth-child(1))
+				// 	margin-left 2em
 				a
 					color white
 					display block
