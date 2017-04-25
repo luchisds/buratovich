@@ -387,6 +387,15 @@
 				a
 					img
 						padding-left 0
+	#ctacte
+		table
+			font-size .75em
+			padding 0 .3em
+			tr
+				th.date-v, td.date-v,
+				th.debe, td.debe,
+				th.haber, td.haber
+					display none
 
 @media screen and (min-width: 720px)
 	#contact
@@ -508,6 +517,17 @@
 		padding-bottom 5em
 		.extranet-nav
 			padding-top 0
+	#ctacte
+		.extranet-nav
+			margin-top 1em
+			padding 0
+			.row
+				&:nth-child(1)
+					li
+						margin-bottom .5em
+				&:nth-child(2)
+					li
+						margin-top .5em
 
 @media screen and (max-width: 580px)
 	#bussines-units
@@ -783,3 +803,9 @@
 					div
 						p
 							font-size .9em
+	#ctacte
+		.extranet-nav
+			.row
+				li
+					display block
+					margin 0 auto .8em auto !important
