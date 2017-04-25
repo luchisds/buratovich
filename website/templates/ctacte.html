@@ -19,51 +19,47 @@
 {% endblock %}
 
 {% block content %}
-	
+
 	<section id="ctacte" class="pesos maxwidth">
 		<nav class="extranet-nav">
 			<ul class="h-list">
-				<li>
-					<a href="{% url 'extranet' %}">
-						<div>
-							<span>
-								<img src="{% static "img/return-arrow.png" %}">
-							</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'applied' %}">
-						<div>
-							<span>Cta. Cte.</span>
-							<span>Aplicada</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'deliveries' %}">
-						<div>
-							<span>Entregas</span>
-							<span><i class="fa fa-truck" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'sales' %}">
-						<div>
-							<span>Ventas</span>
-							<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				<li>
-					<a href="{% url 'logout' %}">
-						<div>
-							<span>Salir</span>
-							<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li>-->
+				<div class="row">
+					<li class="back">
+						<a href="{% url 'extranet' %}">
+							<div>
+								<span>
+									<img src="{% static "img/return-arrow.png" %}">
+								</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'applied' %}">
+							<div>
+								<span>Cta. Cte.</span>
+								<span>Aplicada</span>
+							</div>
+						</a>
+					</li>
+				</div>
+				<div class="row">
+					<li>
+						<a href="{% url 'deliveries' %}">
+							<div>
+								<span>Entregas</span>
+								<span><i class="fa fa-truck" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'sales' %}">
+							<div>
+								<span>Ventas</span>
+								<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li>
+				</div>
 			</ul>
 		</nav>
 
@@ -88,11 +84,11 @@
 						<th>Fecha Vto.</th>
 						<th>Comprobante</th>
 						<th>Observaciones</th>
-						<th>Fecha Emi.</th>
-						<th>Debe</th>
-						<th>Haber</th>
+						<th class="date-v">Fecha Emi.</th>
+						<th class="debe">Debe</th>
+						<th class="haber">Haber</th>
 						<th>Saldo</th>
-						<th>Descarga</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -103,9 +99,9 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
-								<td></td>
-								<td>Saldo Inicial:</td>
+								<td class="date-v"></td>
+								<td class="debe"></td>
+								<td class="haber">Saldo Inicial:</td>
 								<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
 								<td></td>
 							</tr>
@@ -116,24 +112,17 @@
 							<td class="center">{{i.obj.date_2|date:"d-m-Y"}}</td>
 							<td>{{i.obj.voucher}}</td>
 							<td>{{i.obj.concept}}</td>
-							<td class="center">{{i.obj.date_1|date:"d-m-Y"}}</td>
+							<td class="center date-v">{{i.obj.date_1|date:"d-m-Y"}}</td>
 							{% if i.obj.movement_type == "Debito" %}
-								<td class="right">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
-								<td></td>
+								<td class="right debe">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+								<td class="haber"></td>
 							{% else %}
-								<td></td>
-								<td class="right">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
+								<td class="debe"></td>
+								<td class="right haber">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
 							{% endif %}
 							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
 							{% if i.file %}
-								<!--{% with 'ctacte/'|add:i.file as image_static %}
-									<td class="center">
-										<a href="{% static image_static %}" target="_blank">
-											<img src="{% static "img/pdf2.png" %}" alt="">
-										</a>
-									</td>
-								{% endwith %}-->
-								<td class="center">
+								<td class="center voucher">
 									<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
 										<img src="{% static "img/pdf2.png" %}" alt="">
 									</a>
@@ -148,9 +137,9 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td></td>
-							<td></td>
-							<td>Total Gral.:</td>
+							<td class="date-v"></td>
+							<td class="debe"></td>
+							<td class="haber">Total Gral.:</td>
 							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
 							<td></td>
 						</tr>

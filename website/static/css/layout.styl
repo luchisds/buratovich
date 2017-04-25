@@ -1341,7 +1341,6 @@ footer
 			line-height 1.8em
 			a
 				border 1px solid $baseColor
-				// background-color $baseColor
 				border-radius 3px
 				color $baseColor
 				padding 0 .4em .1em .4em
@@ -1368,8 +1367,6 @@ footer
 				width 180px
 				&:hover
 					background-color $accentColor
-				// &:not(:nth-child(1))
-				// 	margin-left 2em
 				a
 					color white
 					display block
@@ -1381,8 +1378,6 @@ footer
 						top 50%
 						transform translateY(-50%)
 						span
-							// top 50%
-							// transform translateY(-25%)
 							display block
 							&:nth-child(1)
 								font-size 1.2em
@@ -1393,19 +1388,19 @@ footer
 #ctacte
 	.extranet-nav
 		border-bottom 1px solid $midGrey
-		margin-top 2em
+		margin 2em 1.5em 0 1.5em
 		padding .5em
 		ul
 			font-size .9em
 			//text-align left
 			li
 				height auto
+				margin 1em .45em
 				vertical-align top
 				width auto
-				&:not(:nth-child(1))
-					margin-left .5em
-				&:nth-child(1)
+				&.back
 					background-color $accentColor
+					max-width 63px
 					img
 						width 24px
 						// Fix img inline
@@ -1427,20 +1422,24 @@ footer
 /*#### CTA CTE $ / KG ################################################################*/
 
 #ctacte
-	padding 0 1.5em
 	h3
 		font-size 1.5em
-		margin 1.2em 0 .5em 0
+		margin 1.2em 0 .5em 1.5em
+		& + div
+			margin 0 1.5em
 	table
 		border-spacing 1px
 		font-size .8em
 		margin 0 auto
 		margin-bottom 2.5em
+		padding 0 1.5em
 		width 100%
 		td
 			border-bottom 1px solid $midGrey
 			height 23px
 			padding .2em 0
+			&.voucher
+				padding .2em .3em
 			&.right
 				text-align right
 			&.center
