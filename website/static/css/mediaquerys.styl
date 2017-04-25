@@ -387,15 +387,6 @@
 				a
 					img
 						padding-left 0
-	#ctacte
-		table
-			font-size .75em
-			padding 0 .3em
-			tr
-				th.date-v, td.date-v,
-				th.debe, td.debe,
-				th.haber, td.haber
-					display none
 
 @media screen and (min-width: 720px)
 	#contact
@@ -523,15 +514,9 @@
 			padding-top 0
 	#ctacte
 		.extranet-nav
+			font-size .9em
 			margin-top 1em
 			padding 0
-			.row
-				&:nth-child(1)
-					li
-						margin-bottom .5em
-				&:nth-child(2)
-					li
-						margin-top .5em
 
 @media screen and (max-width: 580px)
 	#bussines-units
@@ -561,6 +546,16 @@
 				display none
 			&.responsive
 				display table
+	#ctacte
+		.extranet-nav
+			.row
+				display block !important
+				&:nth-child(1)
+					li
+						margin-bottom .5em
+				&:nth-child(2)
+					li
+						margin-top .5em
 
 @media screen and (max-width: 550px)
 	#bussines-units
@@ -650,6 +645,17 @@
 		padding-left 0
 		padding-right 0
 
+@media screen and (max-width: 480px)
+	#extranet
+		.extranet-nav
+			ul
+				li
+					height 80px
+					margin .4em
+					width 140px
+					a
+						font-size .8em
+
 @media screen and (max-width: 460px)
 	header
 		.logo
@@ -669,15 +675,13 @@
 				span
 					display block
 	.path
-		font-size .7em
+		//font-size .7em
 		padding 0 .5em
 	#home
 		.business-units
 			.carousel
 				.flickity-prev-next-button
 					display none
-					// height 25px
-					// width 25px
 		.quote
 			font-size 1.1em
 		.utils
@@ -709,23 +713,6 @@
 			margin-top 4em
 			.unit-title
 				font-size 1.9em
-	#extranet
-		padding 1em 0 3.5em 0
-		.extranet-nav
-			.row, .row:nth-child(1), .row:nth-child(2)
-				display block
-				li
-					font-size .9em
-					height 90px
-					margin-top .5em
-					margin-bottom .5em
-					width 160px
-				li:nth-child(1)
-					margin-left 0
-					margin-right .5em
-				li:nth-child(2)
-					margin-left .5em
-					margin-right 0
 
 @media screen and (max-width: 420px)
 	#bussines-units
@@ -784,13 +771,6 @@
 							width 50%
 	#cv
 		padding 3em 1em
-	#extranet
-		.extranet-nav
-			.row, .row:nth-child(1), .row:nth-child(2)
-				li
-					display block !important
-					// font-size .8em
-					margin .8em auto !important
 
 @media screen and (max-width: 360px)
 	header
@@ -813,3 +793,15 @@
 				li
 					display block
 					margin 0 auto .8em auto !important
+
+@media screen and (min-width: 320px)
+	#ctacte
+		font-size 1em
+		table
+			font-size .7em
+			padding 0 .3em
+			th.observations, td.observations,
+			th.date-v, td.date-v,
+			th.debe, td.debe,
+			th.haber, td.haber
+				display none
