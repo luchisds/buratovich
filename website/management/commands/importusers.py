@@ -22,6 +22,14 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 
+		def evalText(text):
+			# Decode text in latin iso-8859-1 like (0xd1 --> ñ)
+			return unicode(text.strip(' ').decode('iso-8859-1'))
+
+		def evalTextEncode(text):
+			texto = text.strip(' ').encode('iso-8859-1')
+			return texto
+
 		# Disconnect signals
 		pre_save.disconnect(receiver= preSave_User, sender=User, dispatch_uid='website.signals.preSave_User')
 		post_save.disconnect(receiver= postSave_User, sender=User, dispatch_uid='website.signals.postSave_User')
@@ -42,22 +50,22 @@ class Command(BaseCommand):
 				if len(line) > 0:
 					data = re.split('\t', line)
 					cod = data[0]
-					name = data[1]
-					user = data[2]
+					name = evalText(data[1])
+					user = evalText(data[2])
 					# Get the first email account if there is more than one
 					email = data[3].replace('"', '')
 					email = re.split(';', email)
-					email = email[0]
+					email = evalText(email[0])
 					try:
 						# User
 						passw = User.objects.make_random_password(8)
-						print cod, name, user, email, passw
+						#print cod, name, user, email, passw
 						user = User.objects.create_user(user, email, passw)
-						print "user created"
+						#print "user created"
 						user.is_staff = False
 						user.is_active = False
 						user.save()
-						print "user saved"
+						#print "user saved"
 
 						# UserInfo
 						userinfo = UserInfo(user_id=user.id)
@@ -66,13 +74,13 @@ class Command(BaseCommand):
 						userinfo.account_confirmed = False
 						userinfo.random_password = True
 						userinfo.save()
-						print "userinfo created"
+						#print "userinfo created"
 
 						# Token
 						token = account_activation_token.make_token(user)
 						uidb64 = urlsafe_base64_encode(str(user.pk))
 
-						new_line = cod + '\t' + name + '\t' + user.username + '\t' + email + '\t' + passw + '\t' + token + '\t' + uidb64 + '\n'
+						new_line = cod + '\t' + evalTextEncode(name) + '\t' + evalTextEncode(user.username) + '\t' + evalTextEncode(email) + '\t' + evalTextEncode(passw) + '\t' + evalTextEncode(token) + '\t' + evalTextEncode(uidb64) + '\n'
 						new_accounts.write(new_line)
 
 						self.stdout.write(self.style.SUCCESS('Successfully created user "%s"' % name))
