@@ -323,6 +323,30 @@ function init() {
 		}
 	}
 
+	/// Cta. Cte. Pesos ////////////////////////////////////////////////////////////////////////////////////
+
+	var ctaCte = document.getElementById('ctacte');
+	if(ctaCte && hasClass(ctaCte, 'pesos')) {
+		var showDetail = ctaCte.getElementsByClassName('show-detail');
+		for (i = 0; i < showDetail.length; i++) {
+			showDetail[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				addClass(this.parentElement.parentElement.nextElementSibling, 'show');
+				toggleClass(this, 'hide-btn');
+				toggleClass(this.nextElementSibling, 'hide-btn');
+			});
+		}
+		var hideDetail = ctaCte.getElementsByClassName('hide-detail');
+		for (i = 0; i < hideDetail.length; i++) {
+			hideDetail[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
+				toggleClass(this, 'hide-btn');
+				toggleClass(this.previousElementSibling, 'hide-btn');
+			});
+		}
+	}
+
 	/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
 
 	var ctaCteKg = document.getElementById('ctacte');

@@ -796,12 +796,20 @@
 
 @media screen and (min-width: 320px)
 	#ctacte
-		font-size 1em
+		font-size .95em
 		table
 			font-size .7em
 			padding 0 .3em
-			th.observations, td.observations,
-			th.date-v, td.date-v,
-			th.debe, td.debe,
-			th.haber, td.haber
+			td
+				.show-detail
+					i
+						padding 0 .3em
+			&.complete
 				display none
+			&.responsive
+				display table
+				// th.observations, td.observations,
+				// th.date-v, td.date-v,
+				// th.debe, td.debe,
+				// th.haber, td.haber
+				// 	display none
