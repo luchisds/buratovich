@@ -163,7 +163,7 @@
 						<th class="haber">Haber</th>
 						<th>Saldo</th>
 						<th class="voucher"><i class="fa fa-file-text" aria-hidden="true"></i></th>
-						<th class="detail"></th>
+						<th class="detail" colspan="3"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -181,7 +181,7 @@
 								<td class="haber">Saldo Inicial:</td>
 								<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
 								<td class="voucher"></td>
-								<td class="detail"></td>
+								<td class="detail" colspan="3"></td>
 							</tr>
 						{% endif %}
 					{% endfor %}
@@ -215,7 +215,7 @@
 							{% else %}
 								<td class="voucher"></td>
 							{% endif %}
-							<td class="center detail">
+							<td class="center detail" colspan="3">
 								<a href="#" class="show-detail">
 									<i class="fa fa-search-plus" aria-hidden="true"></i>
 								</a>
@@ -263,7 +263,7 @@
 							<td class="haber">Total Gral.:</td>
 							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
 							<td class="voucher"></td>
-							<td></td>
+							<td colspan="3"></td>
 						</tr>
 					{% endif %}
 				</tbody>
