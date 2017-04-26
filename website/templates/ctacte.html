@@ -109,10 +109,10 @@
 					{% endfor %}
 					{% for i in ctacte %}
 						<tr>
-							<td class="center">{{i.obj.date_2|date:"d-m-Y"}}</td>
+							<td class="center">{{i.obj.date_2|date:"d/m/Y"}}</td>
 							<td>{{i.obj.voucher}}</td>
 							<td class="observations">{{i.obj.concept}}</td>
-							<td class="center date-v">{{i.obj.date_1|date:"d-m-Y"}}</td>
+							<td class="center date-v">{{i.obj.date_1|date:"d/m/Y"}}</td>
 							{% if i.obj.movement_type == "Debito" %}
 								<td class="right debe">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
 								<td class="haber"></td>
@@ -155,12 +155,15 @@
 					<tr>
 						<th>Fecha Vto.</th>
 						<th>Comprobante</th>
-						<!--<th class="observations">Observaciones</th>
-						<th class="date-v">Fecha Emi.</th>
-						<th class="dh">D/H</th>-->
+						<th class="observations">Observaciones</th>
+						<th class="date-e">Fecha Emi.</th>
+						<th class="dh">D/H</th>
 						<th class="amount">Importe</th>
+						<th class="debe">Debe</th>
+						<th class="haber">Haber</th>
 						<th>Saldo</th>
-						<th></th>
+						<th class="voucher"><i class="fa fa-file-text" aria-hidden="true"></i></th>
+						<th class="detail"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -170,30 +173,49 @@
 							<tr class="initial-balance">
 								<td></td>
 								<td></td>
-								<!--<td class="observations"></td>
-								<td class="date-v"></td>
-								<td class="dh"></td>-->
+								<td class="observations"></td>
+								<td class="date-e"></td>
+								<td class="dh"></td>
 								<td class="amount">Saldo Inicial:</td>
+								<td class="debe"></td>
+								<td class="haber">Saldo Inicial:</td>
 								<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
-								<td></td>
+								<td class="voucher"></td>
+								<td class="detail"></td>
 							</tr>
 						{% endif %}
 					{% endfor %}
 					{% for i in ctacte %}
 						<tr>
-							<td class="center">{{i.obj.date_2|date:"d-m-Y"}}</td>
+							<td class="center">{{i.obj.date_2|date:"d/m/Y"}}</td>
 							<td>{{i.obj.voucher}}</td>
-							<!--<td class="observations">{{i.obj.concept}}</td>
-							<td class="center date-v">{{i.obj.date_1|date:"d-m-Y"}}</td>-->
+							<td class="observations">{{i.obj.concept}}</td>
+							<td class="center date-e">{{i.obj.date_1|date:"d/m/Y"}}</td>
 							{% if i.obj.movement_type == "Debito" %}
-								<!--<td class="center dh">D</td>-->
+								<td class="center dh">D</td>
 								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
 							{% else %}
-								<!--<td class="center dh">H</td>-->
+								<td class="center dh">H</td>
 								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
 							{% endif %}
+							{% if i.obj.movement_type == "Debito" %}
+								<td class="right debe">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+								<td class="haber"></td>
+							{% else %}
+								<td class="debe"></td>
+								<td class="right haber">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
+							{% endif %}
 							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
-							<td class="center">
+							{% if i.file %}
+								<td class="center voucher">
+									<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
+										<img src="{% static "img/pdf2.png" %}" alt="">
+									</a>
+								</td>
+							{% else %}
+								<td class="voucher"></td>
+							{% endif %}
+							<td class="center detail">
 								<a href="#" class="show-detail">
 									<i class="fa fa-search-plus" aria-hidden="true"></i>
 								</a>
@@ -203,12 +225,12 @@
 							</td>
 						</tr>
 						<tr class="detail">
-							<td colspan="5">
+							<td colspan="7">
 								<table>
 									<thead>
 										<tr>
-											<th>Observaciones</th>
-											<th></th>
+											<th class="observations">Observaciones</th>
+											<th class="voucher"><i class="fa fa-file-text" aria-hidden="true"></i></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -221,7 +243,7 @@
 													</a>
 												</td>
 											{% else %}
-												<td></td>
+												<td class="voucher"></td>
 											{% endif %}
 										</tr>
 									</tbody>
@@ -233,11 +255,14 @@
 						<tr class="total">
 							<td></td>
 							<td></td>
-							<!--<td class="observations"></td>
-							<td class="date-v"></td>
-							<td class="dh"></td>-->
+							<td class="observations"></td>
+							<td class="date-e"></td>
+							<td class="dh"></td>
 							<td class="amount">Total Gral.:</td>
+							<td class="debe"></td>
+							<td class="haber">Total Gral.:</td>
 							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
+							<td class="voucher"></td>
 							<td></td>
 						</tr>
 					{% endif %}
