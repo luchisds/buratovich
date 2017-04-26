@@ -514,7 +514,7 @@
 			padding-top 0
 	#ctacte
 		.extranet-nav
-			font-size .9em
+			//font-size .9em
 			margin-top 1em
 			padding 0
 
@@ -796,20 +796,102 @@
 
 @media screen and (min-width: 320px)
 	#ctacte
-		font-size .95em
-		table
-			font-size .7em
-			padding 0 .3em
-			td
-				.show-detail
-					i
-						padding 0 .3em
-			&.complete
-				display none
-			&.responsive
-				display table
-				// th.observations, td.observations,
-				// th.date-v, td.date-v,
-				// th.debe, td.debe,
-				// th.haber, td.haber
-				// 	display none
+		h3
+			margin-left 0
+			margin-right 0
+			text-align center
+		.export-data
+			text-align center
+		&.pesos
+			font-size .95em
+			table
+				font-size .7em
+				padding 0 .3em
+				td
+					.show-detail
+						i
+							padding 0 .3em
+				&.complete
+					display none
+				&.responsive
+					display table
+					tr
+						th, td
+							&.dh, &.voucher, &.observations, &.date-e, &.debe, &.haber
+								display none
+						&.detail
+							th, td
+								&.voucher, &.observations
+									display table-cell
+
+@media screen and (min-width: 360px)
+	#ctacte
+		&.pesos
+			table
+				&.responsive
+					tr
+						th, td
+							&.dh
+								display table-cell
+
+@media screen and (min-width: 390px)
+	#ctacte
+		h3
+			margin-left 1.5em
+			text-align left
+		.export-data
+			text-align right
+		&.pesos
+			font-size 1em
+			table
+				&.responsive
+					tr
+						th, td
+							&.voucher
+								display table-cell
+						&.detail
+							th, td
+								&.voucher
+									display none
+
+@media screen and (min-width: 600px)
+	#ctacte
+		&.pesos
+			table
+				&.responsive
+					tr
+						th, td
+							&.observations
+								display table-cell
+							&.detail
+								display none
+						&.detail
+							display none !important
+
+@media screen and (min-width: 720px)
+	#ctacte
+		&.pesos
+			table
+				&.responsive
+					tr
+						th, td
+							&.date-e
+								display table-cell
+
+@media screen and (min-width: 768px)
+	#ctacte
+		&.pesos
+			font-size 1.1em
+			table
+				&.responsive
+					tr
+						th, td
+							&.debe, &.haber
+								display table-cell
+							&.dh, &.amount
+								display none
+
+@media screen and (min-width: 1024px)
+	#ctacte
+		&.pesos
+			font-size 1.2em
