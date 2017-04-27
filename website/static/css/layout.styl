@@ -1466,7 +1466,8 @@ footer
 						text-align center
 					& .hide-btn
 						display none
-					& .show-analysis, & .hide-analysis, & .show-detail, & .hide-detail
+					//& .show-analysis, & .hide-analysis, & .show-detail, & .hide-detail
+					& .show-detail, & .hide-detail
 						i
 							color $baseColor
 							font-size 1.1em
@@ -1542,11 +1543,10 @@ footer
 		table
 			tbody
 				tr
-					&.analysis
+					&.analysis, &.detail
 						display none
-						& .analysis-detail, & .ticket-detail
+						table
 							font-size .9em
-							//font-size 1em
 							margin auto 0 auto auto
 							td, th
 								padding .4em
