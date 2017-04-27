@@ -824,7 +824,7 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 12px
 							width 22px
-		&.kilos
+		&.kilos, &.sales
 			.harvest-selector
 				form
 					width 100%
@@ -837,6 +837,8 @@
 			table
 				font-size .62em
 				padding 0
+		&.kilos
+			table
 				tr
 					th, td
 						&.voucher, &.hum.kg, &.zar, &.vol, &.factor, &.grade, &.analysis, &.cd, &.driver
@@ -848,6 +850,39 @@
 						.ticket-detail
 							th, td
 								&.factor, &.grade, &.driver
+									display table-cell
+		&.sales
+			table
+				&.sales
+					tr
+						th, td
+							&.from-to-date, &.ex, &.settled
+								display none
+						th.currency
+							display none
+						th.currency.responsive
+							display table-cell
+						&.detail
+							th, td
+								&.from-to-date, &.ex, &.settled
+									display table-cell
+				&.to-fix
+					tr
+						th, td
+							&.from-to-date
+								display none
+						&.detail
+							th, td
+								&.from-to-date
+									display table-cell
+				&.others
+					tr
+						th, td
+							&.voucher, &.observations, &.in, &.out
+								display none
+						&.detail
+							th, td
+								&.voucher, &.observations
 									display table-cell
 
 @media screen and (min-width: 360px)
@@ -866,7 +901,7 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 13px
 							width 25px
-		&.kilos
+		&.kilos, &.sales
 			table
 				font-size .7em
 
@@ -896,12 +931,41 @@
 
 @media screen and (min-width: 550px)
 	#ctacte
-		&.kilos
+		&.kilos, &.sales
 			.harvest-selector
 				form
 					width auto
 					div
 						width auto
+		&.sales
+			table
+				&.sales
+					tr
+						th, td
+							&.from-to-date
+								display table-cell
+						&.detail
+							th, td
+								&.from-to-date
+									display none
+				&.to-fix
+					tr
+						th, td
+							&.from-to-date
+								display table-cell
+							&.detail
+								display none
+						&.detail
+							display none
+				&.others
+					tr
+						th, td
+							&.voucher
+								display table-cell
+						&.detail
+							th, td
+								&.voucher
+									display none
 
 @media screen and (min-width: 600px)
 	#ctacte
@@ -926,6 +990,10 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 14px
 							width 36px
+		&.kilos, &.sales
+			h4
+				padding-left .5em
+				text-align left
 		&.kilos
 			table
 				tr
@@ -957,13 +1025,39 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 16px
 							width 42px
-		&.kilos
+		&.kilos, &.sales
 			table
 				font-size .75em
+		&.kilos
+			table
 				tr
 					th, td
 						&.voucher
 							display table-cell
+		&.sales
+			table
+				&.sales
+					tr
+						th, td
+							&.ex, &.settled
+								display table-cell
+							&.detail
+								display none
+						th.currency
+							display table-cell
+						th.currency.responsive
+							display none
+						&.detail
+							display none !important
+				&.others
+					tr
+						th, td
+							&.observations
+								display table-cell
+							&.detail
+								display none
+						&.detail
+							display none
 
 @media screen and (min-width: 768px)
 	#ctacte
@@ -984,9 +1078,11 @@
 
 @media screen and (min-width: 800px)
 	#ctacte
-		&.kilos
+		&.kilos, &.sales
 			table
 				font-size .78em
+		&.kilos
+			table
 				tr
 					th, td
 						&.cd
@@ -998,12 +1094,23 @@
 		&.pesos, &.applied
 			table
 				font-size .82em
-		&.kilos
+		&.kilos, &.sales
 			table
 				font-size .78em
+		&.kilos
+			table
 				tr
 					th, td
 						&.zar, &.vol, &.hum.kg, &.hum.per
 							display table-cell
 						&.hum
 							display none
+		&.sales
+			table
+				&.others
+					tr
+						th, td
+							&.in, &.out
+								display table-cell
+							&.kg
+								display none

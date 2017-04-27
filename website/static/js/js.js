@@ -323,10 +323,11 @@ function init() {
 		}
 	}
 
-	/// Cta. Cte. Pesos ////////////////////////////////////////////////////////////////////////////////////
+	/// Cta. Cte. Pesos / Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////
 
 	var ctaCte = document.getElementById('ctacte');
-	if(ctaCte && (hasClass(ctaCte, 'pesos') || hasClass(ctaCte, 'applied'))) {
+	var ctaCteKg = document.getElementById('ctacte');
+	if((ctaCte && (hasClass(ctaCte, 'pesos') || hasClass(ctaCte, 'applied'))) || (ctaCteKg && (hasClass(ctaCteKg, 'kilos') || hasClass(ctaCteKg, 'sales')))) {
 		var showDetail = ctaCte.getElementsByClassName('show-detail');
 		for (i = 0; i < showDetail.length; i++) {
 			showDetail[i].addEventListener('click', function(event) {
@@ -339,30 +340,6 @@ function init() {
 		var hideDetail = ctaCte.getElementsByClassName('hide-detail');
 		for (i = 0; i < hideDetail.length; i++) {
 			hideDetail[i].addEventListener('click', function(event) {
-				event.preventDefault();
-				removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
-				toggleClass(this, 'hide-btn');
-				toggleClass(this.previousElementSibling, 'hide-btn');
-			});
-		}
-	}
-
-	/// Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////////////////////
-
-	var ctaCteKg = document.getElementById('ctacte');
-	if(ctaCteKg && hasClass(ctaCteKg, 'kilos')) {
-		var showAnalysis = ctaCteKg.getElementsByClassName('show-analysis');
-		for (i = 0; i < showAnalysis.length; i++) {
-			showAnalysis[i].addEventListener('click', function(event) {
-				event.preventDefault();
-				addClass(this.parentElement.parentElement.nextElementSibling, 'show');
-				toggleClass(this, 'hide-btn');
-				toggleClass(this.nextElementSibling, 'hide-btn');
-			});
-		}
-		var hideAnalysis = ctaCteKg.getElementsByClassName('hide-analysis');
-		for (i = 0; i < hideAnalysis.length; i++) {
-			hideAnalysis[i].addEventListener('click', function(event) {
 				event.preventDefault();
 				removeClass(this.parentElement.parentElement.nextElementSibling, 'show');
 				toggleClass(this, 'hide-btn');

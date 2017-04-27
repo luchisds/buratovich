@@ -141,7 +141,7 @@
 								{% for a, b in j.tickets.items %}
 									{% get_analysis ticket_analysis b.voucher as detail %}
 									<tr>
-										<td class="center date">{{b.date|date:"d-m-Y"}}</td>
+										<td class="center date">{{b.date|date:"d/m/Y"}}</td>
 										<td class="voucher">{{b.voucher}}</td>
 										<td class="center cp">{{b.external_voucher_number|stringformat:'s'}}</td>
 										<td class="right hum per">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
@@ -156,10 +156,10 @@
 										<td class="center grade">{{b.grade}}</td>
 										<td class="center detail analysis">
 											{% if detail %}
-												<a href="#" class="show-analysis">
+												<a href="#" class="show-detail">
 													<i class="fa fa-search-plus" aria-hidden="true"></i>
 												</a>
-												<a href="#" class="hide-analysis hide-btn">
+												<a href="#" class="hide-detail hide-btn">
 													<i class="fa fa-search-minus" aria-hidden="true"></i>
 												</a>
 											{% endif %}
@@ -168,33 +168,33 @@
 										{% truncate_chars b.driver_name 20 as driver %}
 										<td class="driver">{{driver}}</td>
 										<td colspan="16" class="center detail">
-											<a href="#" class="show-analysis">
+											<a href="#" class="show-detail">
 												<i class="fa fa-search-plus" aria-hidden="true"></i>
 											</a>
-											<a href="#" class="hide-analysis hide-btn">
+											<a href="#" class="hide-detail hide-btn">
 												<i class="fa fa-search-minus" aria-hidden="true"></i>
 											</a>
 										</td>
 									</tr>
-									{% if detail %}
-										<tr class="analysis">
-											<td colspan="16">
-												<table class="ticket-detail">
-													<thead>
-														<tr>
-															<th class="center factor">Factor</th>
-															<th class="center grade">Grado</th>
-															<th class="driver">Chofer</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center factor">{{b.factor|intcomma}}</td>
-															<td class="center grade">{{b.grade}}</td>
-															<td class="driver">{{driver}}</td>
-														</tr>
-													</tbody>
-												</table>
+									<tr class="analysis">
+										<td colspan="16">
+											<table class="ticket-detail">
+												<thead>
+													<tr>
+														<th class="center factor">Factor</th>
+														<th class="center grade">Grado</th>
+														<th class="driver">Chofer</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center factor">{{b.factor|intcomma}}</td>
+														<td class="center grade">{{b.grade}}</td>
+														<td class="driver">{{driver}}</td>
+													</tr>
+												</tbody>
+											</table>
+											{% if detail %}
 												<table class="analysis-detail">
 													<thead>
 														<tr>
@@ -219,9 +219,9 @@
 														{% endfor %}
 													</tbody>
 												</table>
-											</td>
-										</tr>
-									{% endif %}
+											{% endif %}
+										</td>
+									</tr>
 								{% endfor %}
 								<tr class="total">
 									<td class="center date"><span>Entregas: {{j.tickets_count}}</span></td>

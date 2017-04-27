@@ -2,6 +2,8 @@
 {% load static %}
 {% load mathfilters %}
 {% load humanize %}
+{% load truncatechars %}
+{% load voucher %}
 
 {% block title %}Buratovich Hnos. - Ventas por Cosecha{% endblock %}
 
@@ -253,21 +255,23 @@
 				{% for k, v in sales.items  %}
 					<h4 class="harvest-title">{{k}}</h4>
 					{% if v.sales %}
-						<table>
+						<table class="sales">
 							<thead>
 								<tr class="sales-type">
-									<th colspan="10">VENTAS</th>
+									<th colspan="11">VENTAS</th>
 								</tr>
 								<tr>
 									<th rowspan="2" class="date">Fecha</th>
-									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="voucher">Venta</th>
 									<th rowspan="2" class="field">Destino</th>
 									<th colspan="2" class="from-to-date">Fecha de Entrega</th>
 									<th rowspan="2" class="gross">Kilos</th>
 									<th rowspan="2" class="ex">Pend. TC</th>
 									<th rowspan="2" class="settled">Liquidados</th>
-									<th rowspan="2" class="price">Precio por QQ.</th>
+									<th rowspan="2" class="price">Precio</th>
+									<th rowspan="2" class="currency responsive">$</th>
 									<th rowspan="2" class="currency">Moneda</th>
+									<th colspan="3" rowspan="2" class="detail"></th>
 								</tr>
 								<tr>
 									<th colspan="1" class="from-to-date">Desde</th>
@@ -277,31 +281,63 @@
 							<tbody>
 								{% for i, j in v.sales.vouchers.items %}
 									<tr>
-										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center voucher">{{j.voucher}}</td>
-										<td class="field">{{j.field_description}}</td>
-										<td class="center from-to-date">{{j.service_billing_date|date:"d-m-Y"}}</td>
-										<td class="center from-to-date">{{j.to_date|date:"d-m-Y"}}</td>
+										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
+										{% voucher j.voucher 'False' as voucher %}
+										<td class="center voucher">{{voucher}}</td>
+										{% truncate_chars j.field_description 20 as field %}
+										<td class="field">{{field}}</td>
+										<td class="center from-to-date">{{j.service_billing_date|date:"d/m/Y"}}</td>
+										<td class="center from-to-date">{{j.to_date|date:"d/m/Y"}}</td>
 										<td class="right gross">{{j.gross_kg|intcomma}}</td>
 										<td class="right ex">{{j.service_billing_number|intcomma}}</td>
-										<td class="center settled">{{j.number_1116A|intcomma}}</td>
+										<td class="right settled">{{j.number_1116A|intcomma}}</td>
 										<td class="right price">{{j.price_per_yard|floatformat:2|intcomma}}</td>
 										{% if j.grade == 1 %}
-											<td class="center currency">USD Comprador</td>
+											<td class="center currency">D</td>
 										{% else %}
 											{% if j.grade == 'D' %}
-												<td class="center currency">USD Vendedor</td>
+												<td class="center currency">D</td>
 											{% else %}
 												{% if j.grade == 0 %}
-													<td class="center currency">Pesos</td>
+													<td class="center currency">P</td>
 												{% endif %}
 											{% endif %}
 										{% endif %}
+										<td class="center detail">
+											<a href="#" class="show-detail">
+												<i class="fa fa-search-plus" aria-hidden="true"></i>
+											</a>
+											<a href="#" class="hide-detail hide-btn">
+												<i class="fa fa-search-minus" aria-hidden="true"></i>
+											</a>
+										</td>
+									</tr>
+									<tr class="detail">
+										<td colspan="10">
+											<table>
+												<thead>
+													<tr>
+														<th class="from-to-date">Entrega Desde</th>
+														<th class="from-to-date">Entrega Hasta</th>
+														<th class="ex">Pend. TC</th>
+														<th class="settled">Liquidados</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center from-to-date">{{j.service_billing_date|date:"d/m/Y"}}</td>
+														<td class="center from-to-date">{{j.to_date|date:"d/m/Y"}}</td>
+														<td class="right ex">{{j.service_billing_number|intcomma}}</td>
+														<td class="center settled">{{j.number_1116A|intcomma}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
 									</tr>
 								{% endfor %}
 								<tr class="total">
-									<td class="center date"><span>Comprobantes: {{v.sales.count_sales}}</span></td>
-									<td class="voucher"></td>
+									<td colspan="2" class="center date"><span>Comprobantes: {{v.sales.count_sales}}</span></td>
+									<!--<td class="voucher"></td>-->
 									<td class="field"></td>
 									<td class="from-to-date"></td>
 									<td class="from-to-date"></td>
@@ -310,22 +346,24 @@
 									<td class="center settled"><span>{{v.sales.total_l_sales|intcomma}}</span></td>
 									<td class="price"></td>
 									<td class="currency"></td>
+									<td class="detail"></td>
 								</tr>
 							</tbody>
 						</table>
 					{% endif %}
 					{% if v.to_set %}
-						<table>
+						<table class="to-fix">
 							<thead>
 								<tr class="sales-type">
 									<th colspan="6">A FIJAR</th>
 								</tr>
 								<tr>
 									<th rowspan="2" class="date">Fecha</th>
-									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="voucher">Venta</th>
 									<th rowspan="2" class="field">Destino</th>
 									<th colspan="2" class="from-to-date">Fecha de Entrega</th>
 									<th rowspan="2" class="gross">Kilos</th>
+									<th colspan="3" rowspan="2" class="detail"></th>
 								</tr>
 								<tr>
 									<th colspan="1" class="from-to-date">Desde</th>
@@ -335,46 +373,84 @@
 							<tbody>
 								{% for i, j in v.to_set.vouchers.items %}
 									<tr>
-										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center voucher">{{j.voucher}}</td>
-										<td class="field">{{j.field_description}}</td>
-										<td class="center from-to-date">{{j.service_billing_date|date:"d-m-Y"}}</td>
-										<td class="center from-to-date">{{j.to_date|date:"d-m-Y"}}</td>
+										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
+										{% voucher j.voucher 'False' as voucher %}
+										<td class="center voucher">{{voucher}}</td>
+										{% truncate_chars j.field_description 20 as field %}
+										<td class="field">{{field}}</td>
+										<td class="center from-to-date">{{j.service_billing_date|date:"d/m/Y"}}</td>
+										<td class="center from-to-date">{{j.to_date|date:"d/m/Y"}}</td>
 										<td class="right gross">{{j.gross_kg|intcomma}}</td>
+										<td class="center detail">
+											<a href="#" class="show-detail">
+												<i class="fa fa-search-plus" aria-hidden="true"></i>
+											</a>
+											<a href="#" class="hide-detail hide-btn">
+												<i class="fa fa-search-minus" aria-hidden="true"></i>
+											</a>
+										</td>
+									</tr>
+									<tr class="detail">
+										<td colspan="6">
+											<table>
+												<thead>
+													<tr>
+														<th class="from-to-date">Entrega Desde</th>
+														<th class="from-to-date">Entrega Hasta</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center from-to-date">{{j.service_billing_date|date:"d/m/Y"}}</td>
+														<td class="center from-to-date">{{j.to_date|date:"d/m/Y"}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
 									</tr>
 								{% endfor %}
 								<tr class="total">
-									<td class="center date"><span>Comprobantes: {{v.to_set.count_to_set}}</span></td>
-									<td class="voucher"></td>
+									<td colspan="2" class="center date"><span>Comprobantes: {{v.to_set.count_to_set}}</span></td>
+									<!--<td class="voucher"></td>-->
 									<td class="field"></td>
 									<td class="from-to-date"></td>
 									<td class="from-to-date"></td>
 									<td class="center gross"><span>{{v.to_set.total_g_to_set|intcomma}}</span></td>
+									<td class="detail"></td>
 								</tr>
 							</tbody>
 						</table>
 					{% endif %}
 					{% if v.others %}
-						<table>
+						<table class="others">
 							<thead>
 								<tr class="sales-type">
 									<th colspan="6">OTROS</th>
 								</tr>
 								<tr>
 									<th rowspan="2" class="date">Fecha</th>
-									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="voucher">Venta</th>
 									<th rowspan="2" class="name">Productor / Receptor</th>
+									<th rowspan="2" class="kg">Kilos</th>
 									<th rowspan="2" class="in">Entradas</th>
 									<th rowspan="2" class="out">Salidas</th>
 									<th rowspan="2" class="observations">Observaciones</th>
+									<th colspan="3" rowspan="2" class="detail"></th>
 								</tr>
 							</thead>
 							<tbody>
 								{% for i, j in v.others.vouchers.items %}
 									<tr>
-										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center voucher">{{j.voucher}}</td>
-										<td class="name">{{j.driver_name}}</td>
+										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
+										{% voucher j.voucher 'False' as voucher %}
+										<td class="center voucher">{{voucher}}</td>
+										{% truncate_chars j.driver_name 20 as name %}
+										<td class="name">{{name}}</td>
+										{% if j.gross_kg > 0 %}
+											<td class="right kg">{{j.gross_kg|intcomma}}</td>
+										{% else %}
+											<td class="right kg">{{j.gross_kg|abs|intcomma}}</td>
+										{% endif %}
 										{% if j.gross_kg > 0 %}
 											<td class="right in">{{j.gross_kg|intcomma}}</td>
 											<td class="out"></td>
@@ -383,15 +459,43 @@
 											<td class="right out">{{j.gross_kg|abs|intcomma}}</td>
 										{% endif %}
 										<td class="observations">{{j.observations}}</td>
+										<td class="center detail">
+											<a href="#" class="show-detail">
+												<i class="fa fa-search-plus" aria-hidden="true"></i>
+											</a>
+											<a href="#" class="hide-detail hide-btn">
+												<i class="fa fa-search-minus" aria-hidden="true"></i>
+											</a>
+										</td>
+									</tr>
+									<tr class="detail">
+										<td colspan="7">
+											<table>
+												<thead>
+													<tr>
+														<th rowspan="2" class="voucher">Venta</th>
+														<th class="observations">Observaciones</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center voucher">{{voucher}}</td>
+														<td class="observations">{{j.observations}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
 									</tr>
 								{% endfor %}
 								<tr class="total">
-									<td class="center date"><span>Comprobantes: {{v.others.count_others}}</span></td>
-									<td class="voucher"></td>
+									<td colspan="2" class="center date"><span>Comprobantes: {{v.others.count_others}}</span></td>
+									<!--<td class="voucher"></td>-->
 									<td class="name"></td>
+									<td class="center kg"><span>{{v.others.total_i_others|sub:v.others.total_o_others|intcomma}}</span></td>
 									<td class="center in"><span>{{v.others.total_i_others|intcomma}}</span></td>
 									<td class="center out"><span>{{v.others.total_o_others|intcomma}}</span></td>
 									<td class="observations"></td>
+									<td class="detail"></td>
 								</tr>
 							</tbody>
 						</table>
