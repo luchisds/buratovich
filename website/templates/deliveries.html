@@ -24,47 +24,43 @@
 	<section id="ctacte" class="kilos maxwidth">
 		<nav class="extranet-nav">
 			<ul class="h-list">
-				<li>
-					<a href="{% url 'extranet' %}">
-						<div>
-							<span>
-								<img src="{% static "img/return-arrow.png" %}">
-							</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'ctacte' %}">
-						<div>
-							<span>Cuenta Corriente</span>
-							<span>$</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'applied' %}">
-						<div>
-							<span>Cta. Cte.</span>
-							<span>Aplicada</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'sales' %}">
-						<div>
-							<span>Ventas</span>
-							<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				<li>
-					<a href="{% url 'logout' %}">
-						<div>
-							<span>Salir</span>
-							<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li>-->
+				<div class="row">
+					<li class="back">
+						<a href="{% url 'extranet' %}">
+							<div>
+								<span>
+									<img src="{% static "img/return-arrow.png" %}">
+								</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'sales' %}">
+							<div>
+								<span>Ventas</span>
+								<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li>
+				</div>
+				<div class="row">
+					<li>
+						<a href="{% url 'ctacte' %}">
+							<div>
+								<span>Cuenta Corriente</span>
+								<span>$</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'applied' %}">
+							<div>
+								<span>Cta. Cte.</span>
+								<span>Aplicada</span>
+							</div>
+						</a>
+					</li>
+				</div>
 			</ul>
 		</nav>
 
@@ -106,7 +102,7 @@
 					</button>-->
 				</div>
 
-				{% for k, v in tickets.items  %}
+				<!--{% for k, v in tickets.items  %}
 					<h4 class="harvest-title">{{k}}</h4>
 					<table>
 						<thead>
@@ -220,7 +216,126 @@
 							{% endfor %}
 						</tbody>
 					</table>
+				{% endfor %}-->
+
+
+				{% for k, v in tickets.items  %}
+					<h4 class="harvest-title">{{k}}</h4>
+					<table>
+						<thead>
+							<tr>
+								<th rowspan="2" class="date">Fecha</th>
+								<th rowspan="2" class="voucher">Comprobante</th>
+								<th rowspan="2" class="gross">Brutos</th>
+								<th colspan="2" class="hum">Hum.</th>
+								<th colspan="2" class="zar">Zar.</th>
+								<th colspan="2" class="vol">Vol.</th>
+								<th rowspan="2" class="net">Netos</th>
+								<th rowspan="2" class="factor">Factor</th>
+								<th rowspan="2" class="grade">Grado</th>
+								<th rowspan="2" class="analysis">Análisis</th>
+								<th rowspan="2" class="cd">Nº 1116A</th>
+								<th rowspan="2" class="cp">CP</th>
+								<th rowspan="2"	class="driver">Transportista</th>
+							</tr>
+							<tr>
+								<th colspan="1" class="hum">%</th>
+								<th colspan="1" class="hum">Kg.</th>
+								<th colspan="1" class="zar">%</th>
+								<th colspan="1" class="zar">Kg.</th>
+								<th colspan="1" class="vol">%</th>
+								<th colspan="1" class="vol">Kg.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i, j in v.items %}
+								<tr class="field-name">
+									<td colspan="16">{{j.name}}</td>
+								</tr>
+								{% for a, b in j.tickets.items %}
+									{% get_analysis ticket_analysis b.voucher as detail %}
+									<tr>
+										<td class="center date">{{b.date|date:"d-m-Y"}}</td>
+										<td>{{b.voucher}}</td>
+										<td class="right gross">{{b.gross_kg|intcomma}}</td>
+										<td class="right hum">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
+										<td class="right hum">{{b.humidity_kg|intcomma}}</td>
+										<td class="right zar">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
+										<td class="right zar">{{b.shaking_kg|intcomma}}</td>
+										<td class="right vol">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
+										<td class="right vol">{{b.volatile_kg|intcomma}}</td>
+										<td class="right net">{{b.net_weight|intcomma}}</td>
+										<td class="center factor">{{b.factor|intcomma}}</td>
+										<td class="center grade">{{b.grade}}</td>
+										<td class="center analysis">
+											{% if detail %}
+												<a href="#" class="show-analysis">
+													<i class="fa fa-search-plus" aria-hidden="true"></i>
+												</a>
+												<a href="#" class="hide-analysis hide-btn">
+													<i class="fa fa-search-minus" aria-hidden="true"></i>
+												</a>
+											{% endif %}
+										</td>
+										<td class="center cd">{{b.number_1116A}}</td>
+										<td class="center cp">{{b.external_voucher_number}}</td>
+										<td class="driver">{{b.driver_name}}</td>
+									</tr>
+									{% if detail %}
+										<tr class="analysis">
+											<td colspan="16">
+												<table class="analysis-detail">
+													<thead>
+														<tr>
+															<th colspan="3">Gluten: {{detail.0.gluten}}</th>
+															<th colspan="2">Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
+														</tr>
+														<tr>
+															<th colspan="2">Item</th>
+															<th>%</th>
+															<th>Bonificación</th>
+															<th>Rebaja</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for z in detail %}
+															<tr>
+																<td colspan="2">{{z.item_descripcion}}</td>
+																<td class="right">{{z.percentage|floatformat:2|intcomma}}</td>
+																<td class="right">{{z.bonus|floatformat:2|intcomma}}</td>
+																<td class="right">{{z.reduction|floatformat:2|intcomma}}</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+								<tr class="total">
+									<td class="center date"><span>Entregas: {{j.tickets_count}}</span></td>
+									<td class="voucher"></td>
+									<td class="right gross"><span>{{j.total_gross}}</span></td>
+									<td class="hum"></td>
+									<td class="right hum"><span>{{j.total_hum}}</span></td>
+									<td class="zar"></td>
+									<td class="right zar"><span>{{j.total_sha}}</span></td>
+									<td class="vol"></td>
+									<td class="right vol"><span>{{j.total_vol}}</span></td>
+									<td class="right net"><span>{{j.total_net}}</span></td>
+									<td class="factor"></td>
+									<td class="grade"></td>
+									<td class="analysis"></td>
+									<td class="cd"></td>
+									<td class="cp"></td>
+									<td class="driver"></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				{% endfor %}
+
+
 				<div class="total-received">
 					<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>
 				</div>

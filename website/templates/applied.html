@@ -2,6 +2,7 @@
 {% load static %}
 {% load mathfilters %}
 {% load humanize %}
+{% load truncatechars %}
 
 {% block title %}Buratovich Hnos. - Cuenta Corriente Aplicada{% endblock %}
 
@@ -23,47 +24,43 @@
 	<section id="ctacte" class="applied maxwidth">
 		<nav class="extranet-nav">
 			<ul class="h-list">
-				<li>
-					<a href="{% url 'extranet' %}">
-						<div>
-							<span>
-								<img src="{% static "img/return-arrow.png" %}">
-							</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'ctacte' %}">
-						<div>
-							<span>Cuenta Corriente</span>
-							<span>$</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'deliveries' %}">
-						<div>
-							<span>Entregas</span>
-							<span><i class="fa fa-truck" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'sales' %}">
-						<div>
-							<span>Ventas</span>
-							<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				<li>
-					<a href="{% url 'logout' %}">
-						<div>
-							<span>Salir</span>
-							<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li>-->
+				<div class="row">
+					<li class="back">
+						<a href="{% url 'extranet' %}">
+							<div>
+								<span>
+									<img src="{% static "img/return-arrow.png" %}">
+								</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'ctacte' %}">
+							<div>
+								<span>Cuenta Corriente</span>
+								<span>$</span>
+							</div>
+						</a>
+					</li>
+				</div>
+				<div class="row">
+					<li>
+						<a href="{% url 'deliveries' %}">
+							<div>
+								<span>Entregas</span>
+								<span><i class="fa fa-truck" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'sales' %}">
+							<div>
+								<span>Ventas</span>
+								<span><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li>
+				</div>
 			</ul>
 		</nav>
 
@@ -82,7 +79,7 @@
 					<a href="/downloadtxt/applied/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
 				</button>-->
 			</div>
-			<table>
+			<!--<table>
 				<thead>
 					<tr>
 						<th>Fecha Vto.</th>
@@ -134,6 +131,104 @@
 							<td></td>
 							<td>Total Gral.:</td>
 							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>-->
+
+			<table>
+				<thead>
+					<tr>
+						<th>Fecha Vto.</th>
+						<th>Comprobante</th>
+						<th class="observations">Observaciones</th>
+						<th class="date-e">Fecha Emi.</th>
+						<th class="dh">D/H</th>
+						<th class="amount">Importe</th>
+						<th class="debe">Debe</th>
+						<th class="haber">Haber</th>
+						<th>Saldo</th>
+						<th class="detail" colspan="3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% show_current_number as page_number %}
+					{% for j in page_balance %}
+						{% if j.page == page_number %}
+							<tr class="initial-balance">
+								<td></td>
+								<td></td>
+								<td class="observations"></td>
+								<td class="date-e"></td>
+								<td class="dh"></td>
+								<td class="amount">S. Inicial:</td>
+								<td class="debe"></td>
+								<td class="haber">S. Inicial:</td>
+								<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
+								<td class="detail" colspan="3"></td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					{% for i in applied %}
+						<tr>
+							<td class="center">{{i.obj.expiration_date|date:"d/m/Y"}}</td>
+							<td>{{i.obj.voucher}}</td>
+							{% truncate_chars i.obj.concept 40 as concept %}
+							<td class="observations">{{concept}}</td>
+							<td class="center date-e">{{i.obj.issue_date|date:"d/m/Y"}}</td>
+							{% if i.obj.movement_type == "Debito" %}
+								<td class="center dh">D</td>
+								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+							{% else %}
+								<td class="center dh">H</td>
+								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+							{% endif %}
+							{% if i.obj.movement_type == "Debito" %}
+								<td class="right debe">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
+								<td class="haber"></td>
+							{% else %}
+								<td class="debe"></td>
+								<td class="right haber">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
+							{% endif %}
+							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
+							<td class="center detail" colspan="3">
+								<a href="#" class="show-detail">
+									<i class="fa fa-search-plus" aria-hidden="true"></i>
+								</a>
+								<a href="#" class="hide-detail hide-btn">
+									<i class="fa fa-search-minus" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+						<tr class="detail">
+							<td colspan="7">
+								<table>
+									<thead>
+										<tr>
+											<th class="observations">Observaciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="observations">{{i.obj.concept}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					{% endfor %}
+					{% if page_number == 1 %}
+						<tr class="total">
+							<td></td>
+							<td></td>
+							<td class="observations"></td>
+							<td class="date-e"></td>
+							<td class="dh"></td>
+							<td class="amount">Total Gral.:</td>
+							<td class="debe"></td>
+							<td class="haber">Total Gral.:</td>
+							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
+							<td colspan="3"></td>
 						</tr>
 					{% endif %}
 				</tbody>

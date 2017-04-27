@@ -326,7 +326,7 @@ function init() {
 	/// Cta. Cte. Pesos ////////////////////////////////////////////////////////////////////////////////////
 
 	var ctaCte = document.getElementById('ctacte');
-	if(ctaCte && hasClass(ctaCte, 'pesos')) {
+	if(ctaCte && (hasClass(ctaCte, 'pesos') || hasClass(ctaCte, 'applied'))) {
 		var showDetail = ctaCte.getElementsByClassName('show-detail');
 		for (i = 0; i < showDetail.length; i++) {
 			showDetail[i].addEventListener('click', function(event) {
