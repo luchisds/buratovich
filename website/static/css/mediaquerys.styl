@@ -824,6 +824,31 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 12px
 							width 22px
+		&.kilos
+			.harvest-selector
+				form
+					width 100%
+					div
+						width 100%
+			.no-species
+				font-size .8em
+			h4
+				text-align center
+			table
+				font-size .62em
+				padding 0
+				tr
+					th, td
+						&.voucher, &.hum.kg, &.zar, &.vol, &.factor, &.grade, &.analysis, &.cd, &.driver
+							display none
+					td.detail
+						padding .2em .5em
+						width auto
+					&.analysis
+						.ticket-detail
+							th, td
+								&.factor, &.grade, &.driver
+									display table-cell
 
 @media screen and (min-width: 360px)
 	#ctacte
@@ -841,6 +866,9 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 13px
 							width 25px
+		&.kilos
+			table
+				font-size .7em
 
 @media screen and (min-width: 400px)
 	#ctacte
@@ -854,6 +882,26 @@
 						th, td
 							&.voucher
 								display none
+		&.kilos
+			table
+				tr
+					th, td
+						&.factor, &.grade
+							display table-cell
+					&.analysis
+						.ticket-detail
+							th, td
+								&.factor, &.grade
+									display none
+
+@media screen and (min-width: 550px)
+	#ctacte
+		&.kilos
+			.harvest-selector
+				form
+					width auto
+					div
+						width auto
 
 @media screen and (min-width: 600px)
 	#ctacte
@@ -878,6 +926,21 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 14px
 							width 36px
+		&.kilos
+			table
+				tr
+					th, td
+						&.driver, &.detail.analysis
+							display table-cell
+						&.detail
+							display none
+					&.analysis
+						.ticket-detail
+							display none
+						.analysis-detail
+							width auto
+							td, th
+								padding .4em 1em !important
 
 @media screen and (min-width: 720px)
 	#ctacte
@@ -894,6 +957,13 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							font-size 16px
 							width 42px
+		&.kilos
+			table
+				font-size .75em
+				tr
+					th, td
+						&.voucher
+							display table-cell
 
 @media screen and (min-width: 768px)
 	#ctacte
@@ -912,9 +982,28 @@
 						&.endless_page_current, &.endless_page_link, &.endless_separator
 							width 50px
 
+@media screen and (min-width: 800px)
+	#ctacte
+		&.kilos
+			table
+				font-size .78em
+				tr
+					th, td
+						&.cd
+							display table-cell
+
 @media screen and (min-width: 1024px)
 	#ctacte
 		padding 0 1em
 		&.pesos, &.applied
 			table
 				font-size .82em
+		&.kilos
+			table
+				font-size .78em
+				tr
+					th, td
+						&.zar, &.vol, &.hum.kg, &.hum.per
+							display table-cell
+						&.hum
+							display none

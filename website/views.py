@@ -778,8 +778,8 @@ def sales(request):
 										sales[sd]['sales']['total_l_sales'] = total_l_sales
 										sales[sd]['sales']['count_sales'] = count_sales
 									if sales[sd].get('to_set', None) <> None:
-										print count_to_set
-										print total_g_to_set
+										#print count_to_set
+										#print total_g_to_set
 										sales[sd]['to_set']['total_g_to_set'] = total_g_to_set
 										sales[sd]['to_set']['count_to_set'] = count_to_set
 									if sales[sd].get('others', None) <> None:

@@ -23,47 +23,43 @@
 	<section id="ctacte" class="sales maxwidth">
 		<nav class="extranet-nav">
 			<ul class="h-list">
-				<li>
-					<a href="{% url 'extranet' %}">
-						<div>
-							<span>
-								<img src="{% static "img/return-arrow.png" %}">
-							</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'ctacte' %}">
-						<div>
-							<span>Cuenta Corriente</span>
-							<span>$</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'applied' %}">
-						<div>
-							<span>Cta. Cte.</span>
-							<span>Aplicada</span>
-						</div>
-					</a>
-				</li><!--
-				--><li>
-					<a href="{% url 'deliveries' %}">
-						<div>
-							<span>Entregas</span>
-							<span><i class="fa fa-truck" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li><!--
-				<li>
-					<a href="{% url 'logout' %}">
-						<div>
-							<span>Salir</span>
-							<span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-						</div>
-					</a>
-				</li>-->
+				<div class="row">
+					<li class="back">
+						<a href="{% url 'extranet' %}">
+							<div>
+								<span>
+									<img src="{% static "img/return-arrow.png" %}">
+								</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'deliveries' %}">
+							<div>
+								<span>Entregas</span>
+								<span><i class="fa fa-truck" aria-hidden="true"></i></span>
+							</div>
+						</a>
+					</li>
+				</div>
+				<div class="row">
+					<li>
+						<a href="{% url 'applied' %}">
+							<div>
+								<span>Cta. Cte.</span>
+								<span>Aplicada</span>
+							</div>
+						</a>
+					</li><!--
+					--><li>
+						<a href="{% url 'ctacte' %}">
+							<div>
+								<span>Cuenta Corriente</span>
+								<span>$</span>
+							</div>
+						</a>
+					</li>
+				</div>
 			</ul>
 		</nav>
 
@@ -105,7 +101,7 @@
 					</button>-->
 				</div>
 
-				{% for k, v in sales.items  %}
+				<!--{% for k, v in sales.items  %}
 					<h4 class="harvest-title">{{k}}</h4>
 					{% if v.sales %}
 						<table>
@@ -251,7 +247,157 @@
 							</tbody>
 						</table>
 					{% endif %}
+				{% endfor %}-->
+
+
+				{% for k, v in sales.items  %}
+					<h4 class="harvest-title">{{k}}</h4>
+					{% if v.sales %}
+						<table>
+							<thead>
+								<tr class="sales-type">
+									<th colspan="10">VENTAS</th>
+								</tr>
+								<tr>
+									<th rowspan="2" class="date">Fecha</th>
+									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="field">Destino</th>
+									<th colspan="2" class="from-to-date">Fecha de Entrega</th>
+									<th rowspan="2" class="gross">Kilos</th>
+									<th rowspan="2" class="ex">Pend. TC</th>
+									<th rowspan="2" class="settled">Liquidados</th>
+									<th rowspan="2" class="price">Precio por QQ.</th>
+									<th rowspan="2" class="currency">Moneda</th>
+								</tr>
+								<tr>
+									<th colspan="1" class="from-to-date">Desde</th>
+									<th colspan="1" class="from-to-date">Hasta</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for i, j in v.sales.vouchers.items %}
+									<tr>
+										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
+										<td class="center voucher">{{j.voucher}}</td>
+										<td class="field">{{j.field_description}}</td>
+										<td class="center from-to-date">{{j.service_billing_date|date:"d-m-Y"}}</td>
+										<td class="center from-to-date">{{j.to_date|date:"d-m-Y"}}</td>
+										<td class="right gross">{{j.gross_kg|intcomma}}</td>
+										<td class="right ex">{{j.service_billing_number|intcomma}}</td>
+										<td class="center settled">{{j.number_1116A|intcomma}}</td>
+										<td class="right price">{{j.price_per_yard|floatformat:2|intcomma}}</td>
+										{% if j.grade == 1 %}
+											<td class="center currency">USD Comprador</td>
+										{% else %}
+											{% if j.grade == 'D' %}
+												<td class="center currency">USD Vendedor</td>
+											{% else %}
+												{% if j.grade == 0 %}
+													<td class="center currency">Pesos</td>
+												{% endif %}
+											{% endif %}
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr class="total">
+									<td class="center date"><span>Comprobantes: {{v.sales.count_sales}}</span></td>
+									<td class="voucher"></td>
+									<td class="field"></td>
+									<td class="from-to-date"></td>
+									<td class="from-to-date"></td>
+									<td class="center gross"><span>{{v.sales.total_g_sales|intcomma}}</span></td>
+									<td class="center ex"><span>{{v.sales.total_p_sales|intcomma}}</span></td>
+									<td class="center settled"><span>{{v.sales.total_l_sales|intcomma}}</span></td>
+									<td class="price"></td>
+									<td class="currency"></td>
+								</tr>
+							</tbody>
+						</table>
+					{% endif %}
+					{% if v.to_set %}
+						<table>
+							<thead>
+								<tr class="sales-type">
+									<th colspan="6">A FIJAR</th>
+								</tr>
+								<tr>
+									<th rowspan="2" class="date">Fecha</th>
+									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="field">Destino</th>
+									<th colspan="2" class="from-to-date">Fecha de Entrega</th>
+									<th rowspan="2" class="gross">Kilos</th>
+								</tr>
+								<tr>
+									<th colspan="1" class="from-to-date">Desde</th>
+									<th colspan="1" class="from-to-date">Hasta</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for i, j in v.to_set.vouchers.items %}
+									<tr>
+										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
+										<td class="center voucher">{{j.voucher}}</td>
+										<td class="field">{{j.field_description}}</td>
+										<td class="center from-to-date">{{j.service_billing_date|date:"d-m-Y"}}</td>
+										<td class="center from-to-date">{{j.to_date|date:"d-m-Y"}}</td>
+										<td class="right gross">{{j.gross_kg|intcomma}}</td>
+									</tr>
+								{% endfor %}
+								<tr class="total">
+									<td class="center date"><span>Comprobantes: {{v.to_set.count_to_set}}</span></td>
+									<td class="voucher"></td>
+									<td class="field"></td>
+									<td class="from-to-date"></td>
+									<td class="from-to-date"></td>
+									<td class="center gross"><span>{{v.to_set.total_g_to_set|intcomma}}</span></td>
+								</tr>
+							</tbody>
+						</table>
+					{% endif %}
+					{% if v.others %}
+						<table>
+							<thead>
+								<tr class="sales-type">
+									<th colspan="6">OTROS</th>
+								</tr>
+								<tr>
+									<th rowspan="2" class="date">Fecha</th>
+									<th rowspan="2" class="voucher">Comprobante</th>
+									<th rowspan="2" class="name">Productor / Receptor</th>
+									<th rowspan="2" class="in">Entradas</th>
+									<th rowspan="2" class="out">Salidas</th>
+									<th rowspan="2" class="observations">Observaciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for i, j in v.others.vouchers.items %}
+									<tr>
+										<td class="center date">{{j.date|date:"d-m-Y"}}</td>
+										<td class="center voucher">{{j.voucher}}</td>
+										<td class="name">{{j.driver_name}}</td>
+										{% if j.gross_kg > 0 %}
+											<td class="right in">{{j.gross_kg|intcomma}}</td>
+											<td class="out"></td>
+										{% else %}
+											<td class="in"></td>
+											<td class="right out">{{j.gross_kg|abs|intcomma}}</td>
+										{% endif %}
+										<td class="observations">{{j.observations}}</td>
+									</tr>
+								{% endfor %}
+								<tr class="total">
+									<td class="center date"><span>Comprobantes: {{v.others.count_others}}</span></td>
+									<td class="voucher"></td>
+									<td class="name"></td>
+									<td class="center in"><span>{{v.others.total_i_others|intcomma}}</span></td>
+									<td class="center out"><span>{{v.others.total_o_others|intcomma}}</span></td>
+									<td class="observations"></td>
+								</tr>
+							</tbody>
+						</table>
+					{% endif %}
 				{% endfor %}
+
 
 				<div class="total-received">
 					<p>Total Ventas: <span>{% if not total.sales.net_weight__sum %} 0 {% else %} {{total.sales.net_weight__sum|intcomma}} {% endif %}</span></p>

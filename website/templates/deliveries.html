@@ -3,6 +3,7 @@
 {% load mathfilters %}
 {% load humanize %}
 {% load analysis %}
+{% load truncatechars %}
 
 {% block title %}Buratovich Hnos. - Entregas por Cosecha{% endblock %}
 
@@ -102,123 +103,6 @@
 					</button>-->
 				</div>
 
-				<!--{% for k, v in tickets.items  %}
-					<h4 class="harvest-title">{{k}}</h4>
-					<table>
-						<thead>
-							<tr>
-								<th rowspan="2">Fecha</th>
-								<th rowspan="2">Comprobante</th>
-								<th rowspan="2">Brutos</th>
-								<th colspan="2">Hum.</th>
-								<th colspan="2">Zar.</th>
-								<th colspan="2">Vol.</th>
-								<th rowspan="2">Netos</th>
-								<th rowspan="2">Factor</th>
-								<th rowspan="2">Grado</th>
-								<th rowspan="2">Análisis</th>
-								<th rowspan="2">Nº 1116A</th>
-								<th rowspan="2">CP</th>
-								<th rowspan="2"	>Transportista</th>
-							</tr>
-							<tr>
-								<th colspan="1">%</th>
-								<th colspan="1">Kg.</th>
-								<th colspan="1">%</th>
-								<th colspan="1">Kg.</th>
-								<th colspan="1">%</th>
-								<th colspan="1">Kg.</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for i, j in v.items %}
-								<tr class="field-name">
-									<td colspan="16">{{j.name}}</td>
-								</tr>
-								{% for a, b in j.tickets.items %}
-									{% get_analysis ticket_analysis b.voucher as detail %}
-									<tr>
-										<td class="center">{{b.date|date:"d-m-Y"}}</td>
-										<td>{{b.voucher}}</td>
-										<td class="right">{{b.gross_kg|intcomma}}</td>
-										<td class="right">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
-										<td class="right">{{b.humidity_kg|intcomma}}</td>
-										<td class="right">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
-										<td class="right">{{b.shaking_kg|intcomma}}</td>
-										<td class="right">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
-										<td class="right">{{b.volatile_kg|intcomma}}</td>
-										<td class="right">{{b.net_weight|intcomma}}</td>
-										<td class="center">{{b.factor|intcomma}}</td>
-										<td class="center">{{b.grade}}</td>
-										<td class="center">
-											{% if detail %}
-												<a href="#" class="show-analysis">
-													<i class="fa fa-search-plus" aria-hidden="true"></i>
-												</a>
-												<a href="#" class="hide-analysis hide-btn">
-													<i class="fa fa-search-minus" aria-hidden="true"></i>
-												</a>
-											{% endif %}
-										</td>
-										<td class="center">{{b.number_1116A}}</td>
-										<td class="center">{{b.external_voucher_number}}</td>
-										<td>{{b.driver_name}}</td>
-									</tr>
-									{% if detail %}
-										<tr class="analysis">
-											<td colspan="16">
-												<table class="analysis-detail">
-													<thead>
-														<tr>
-															<th colspan="3">Gluten: {{detail.0.gluten}}</th>
-															<th colspan="2">Importe de Gastos: $ {{detail.0.analysis_costs|floatformat:2|intcomma}}</th>
-														</tr>
-														<tr>
-															<th colspan="2">Item</th>
-															<th>%</th>
-															<th>Bonificación</th>
-															<th>Rebaja</th>
-														</tr>
-													</thead>
-													<tbody>
-														{% for z in detail %}
-															<tr>
-																<td colspan="2">{{z.item_descripcion}}</td>
-																<td class="right">{{z.percentage|floatformat:2|intcomma}}</td>
-																<td class="right">{{z.bonus|floatformat:2|intcomma}}</td>
-																<td class="right">{{z.reduction|floatformat:2|intcomma}}</td>
-															</tr>
-														{% endfor %}
-													</tbody>
-												</table>
-											</td>
-										</tr>
-									{% endif %}
-								{% endfor %}
-								<tr class="total">
-									<td class="center"><span>Entregas: {{j.tickets_count}}</span></td>
-									<td></td>
-									<td class="right"><span>{{j.total_gross}}</span></td>
-									<td></td>
-									<td class="right"><span>{{j.total_hum}}</span></td>
-									<td></td>
-									<td class="right"><span>{{j.total_sha}}</span></td>
-									<td></td>
-									<td class="right"><span>{{j.total_vol}}</span></td>
-									<td class="right"><span>{{j.total_net}}</span></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				{% endfor %}-->
-
-
 				{% for k, v in tickets.items  %}
 					<h4 class="harvest-title">{{k}}</h4>
 					<table>
@@ -226,21 +110,23 @@
 							<tr>
 								<th rowspan="2" class="date">Fecha</th>
 								<th rowspan="2" class="voucher">Comprobante</th>
-								<th rowspan="2" class="gross">Brutos</th>
-								<th colspan="2" class="hum">Hum.</th>
+								<th rowspan="2" class="cp">CP</th>
+								<th colspan="2" class="hum kg">Hum.</th>
+								<th class="hum">Hum.</th>
 								<th colspan="2" class="zar">Zar.</th>
 								<th colspan="2" class="vol">Vol.</th>
+								<th rowspan="2" class="gross">Brutos</th>
 								<th rowspan="2" class="net">Netos</th>
 								<th rowspan="2" class="factor">Factor</th>
 								<th rowspan="2" class="grade">Grado</th>
-								<th rowspan="2" class="analysis">Análisis</th>
+								<th rowspan="2" class="detail analysis">Análisis</th>
 								<th rowspan="2" class="cd">Nº 1116A</th>
-								<th rowspan="2" class="cp">CP</th>
 								<th rowspan="2"	class="driver">Transportista</th>
+								<th colspan="16" rowspan="2" class="detail"></th>
 							</tr>
 							<tr>
-								<th colspan="1" class="hum">%</th>
-								<th colspan="1" class="hum">Kg.</th>
+								<th colspan="1" class="hum per">%</th>
+								<th colspan="1" class="hum kg">Kg.</th>
 								<th colspan="1" class="zar">%</th>
 								<th colspan="1" class="zar">Kg.</th>
 								<th colspan="1" class="vol">%</th>
@@ -256,18 +142,19 @@
 									{% get_analysis ticket_analysis b.voucher as detail %}
 									<tr>
 										<td class="center date">{{b.date|date:"d-m-Y"}}</td>
-										<td>{{b.voucher}}</td>
-										<td class="right gross">{{b.gross_kg|intcomma}}</td>
-										<td class="right hum">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
-										<td class="right hum">{{b.humidity_kg|intcomma}}</td>
+										<td class="voucher">{{b.voucher}}</td>
+										<td class="center cp">{{b.external_voucher_number|stringformat:'s'}}</td>
+										<td class="right hum per">{{b.humidity_percentage|floatformat:2|intcomma}}</td>
+										<td class="right hum kg">{{b.humidity_kg|intcomma}}</td>
 										<td class="right zar">{{b.shaking_reduction|floatformat:2|intcomma}}</td>
 										<td class="right zar">{{b.shaking_kg|intcomma}}</td>
 										<td class="right vol">{{b.volatile_reduction|floatformat:2|intcomma}}</td>
 										<td class="right vol">{{b.volatile_kg|intcomma}}</td>
+										<td class="right gross">{{b.gross_kg|intcomma}}</td>
 										<td class="right net">{{b.net_weight|intcomma}}</td>
 										<td class="center factor">{{b.factor|intcomma}}</td>
 										<td class="center grade">{{b.grade}}</td>
-										<td class="center analysis">
+										<td class="center detail analysis">
 											{% if detail %}
 												<a href="#" class="show-analysis">
 													<i class="fa fa-search-plus" aria-hidden="true"></i>
@@ -277,13 +164,37 @@
 												</a>
 											{% endif %}
 										</td>
-										<td class="center cd">{{b.number_1116A}}</td>
-										<td class="center cp">{{b.external_voucher_number}}</td>
-										<td class="driver">{{b.driver_name}}</td>
+										<td class="center cd">{{b.number_1116A|stringformat:'s'}}</td>
+										{% truncate_chars b.driver_name 20 as driver %}
+										<td class="driver">{{driver}}</td>
+										<td colspan="16" class="center detail">
+											<a href="#" class="show-analysis">
+												<i class="fa fa-search-plus" aria-hidden="true"></i>
+											</a>
+											<a href="#" class="hide-analysis hide-btn">
+												<i class="fa fa-search-minus" aria-hidden="true"></i>
+											</a>
+										</td>
 									</tr>
 									{% if detail %}
 										<tr class="analysis">
 											<td colspan="16">
+												<table class="ticket-detail">
+													<thead>
+														<tr>
+															<th class="center factor">Factor</th>
+															<th class="center grade">Grado</th>
+															<th class="driver">Chofer</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center factor">{{b.factor|intcomma}}</td>
+															<td class="center grade">{{b.grade}}</td>
+															<td class="driver">{{driver}}</td>
+														</tr>
+													</tbody>
+												</table>
 												<table class="analysis-detail">
 													<thead>
 														<tr>
@@ -315,26 +226,26 @@
 								<tr class="total">
 									<td class="center date"><span>Entregas: {{j.tickets_count}}</span></td>
 									<td class="voucher"></td>
-									<td class="right gross"><span>{{j.total_gross}}</span></td>
-									<td class="hum"></td>
-									<td class="right hum"><span>{{j.total_hum}}</span></td>
+									<td class="cp"></td>
+									<td class="hum per"></td>
+									<td class="right hum kg"><span>{{j.total_hum}}</span></td>
 									<td class="zar"></td>
 									<td class="right zar"><span>{{j.total_sha}}</span></td>
 									<td class="vol"></td>
 									<td class="right vol"><span>{{j.total_vol}}</span></td>
+									<td class="right gross"><span>{{j.total_gross}}</span></td>
 									<td class="right net"><span>{{j.total_net}}</span></td>
 									<td class="factor"></td>
 									<td class="grade"></td>
-									<td class="analysis"></td>
+									<td class="detail analysis"></td>
 									<td class="cd"></td>
-									<td class="cp"></td>
 									<td class="driver"></td>
+									<td colspan="16" class="detail"></td>
 								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
 				{% endfor %}
-
 
 				<div class="total-received">
 					<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>

@@ -1544,15 +1544,17 @@ footer
 				tr
 					&.analysis
 						display none
-						& .analysis-detail
+						& .analysis-detail, & .ticket-detail
 							font-size .9em
+							//font-size 1em
 							margin auto 0 auto auto
-							width auto
 							td, th
-								padding .4em 1em
+								padding .4em
 							th
 								background-color $midGrey
 								color $accentColor
+						& .analysis-detail
+							border-bottom 1px solid $darkGreyGreen
 			tbody, thead
 				tr
 					&.field-name, &.sales-type
@@ -1590,10 +1592,13 @@ footer
 					input
 						margin-right 5px
 				.harvest-detail
+					overflow hidden
 					div
-						float left
-						&:not(:last-child)
-							margin-right 2em
+						//float left
+						display inline-block
+						padding 0 1em
+						// &:not(:last-child)
+						// 	margin-right 2em
 				.submit
 					border 1px solid $baseColor
 					display inline-block
