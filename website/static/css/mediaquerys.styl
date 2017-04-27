@@ -802,92 +802,119 @@
 			text-align center
 		.export-data
 			text-align center
-		&.pesos
-			font-size .95em
+		&.pesos, &.applied
 			table
-				font-size .7em
-				padding 0 .3em
-				td
-					.show-detail
-						i
-							padding 0 .3em
-				&.complete
-					display none
-				&.responsive
-					display table
-					tr
+				font-size .62em
+				padding 0
+				tr
+					th, td
+						&.dh, &.voucher, &.observations, &.date-e, &.debe, &.haber
+							display none
+					td
+						.show-detail
+							i
+								padding 0 .3em
+					&.detail
 						th, td
-							&.dh, &.voucher, &.observations, &.date-e, &.debe, &.haber
-								display none
-						&.detail
-							th, td
-								&.voucher, &.observations
-									display table-cell
+							&.voucher, &.observations
+								display table-cell
+			.pagination
+				.wrapper
+					span, a
+						&.endless_page_current, &.endless_page_link, &.endless_separator
+							font-size 12px
+							width 22px
 
 @media screen and (min-width: 360px)
 	#ctacte
-		&.pesos
+		&.pesos, &.applied
 			table
-				font-size .78em
+				font-size .7em
 				// &.responsive
 				// 	tr
 				// 		th, td
 				// 			&.dh
 				// 				display table-cell
+			.pagination
+				.wrapper
+					span, a
+						&.endless_page_current, &.endless_page_link, &.endless_separator
+							font-size 13px
+							width 25px
 
 @media screen and (min-width: 400px)
 	#ctacte
-		&.pesos
+		&.pesos, &.applied
 			table
-				&.responsive
-					tr
+				tr
+					th, td
+						&.voucher
+							display table-cell
+					&.detail
 						th, td
 							&.voucher
-								display table-cell
-						&.detail
-							th, td
-								&.voucher
-									display none
+								display none
 
 @media screen and (min-width: 600px)
 	#ctacte
-		&.pesos
+		h3
+			margin-left 1.5em
+			text-align left
+		.export-data
+			text-align right
+		&.pesos, &.applied
 			table
-				&.responsive
-					tr
-						th, td
-							&.observations
-								display table-cell
-							&.detail
-								display none
+				tr
+					th, td
+						&.observations
+							display table-cell
 						&.detail
-							display none !important
+							display none
+					&.detail
+						display none !important
+			.pagination
+				.wrapper
+					span, a
+						&.endless_page_current, &.endless_page_link, &.endless_separator
+							font-size 14px
+							width 36px
 
 @media screen and (min-width: 720px)
 	#ctacte
-		&.pesos
+		&.pesos, &.applied
 			table
-				font-size .82em
-				&.responsive
-					tr
-						th, td
-							&.date-e
-								display table-cell
+				font-size .75em
+				tr
+					th, td
+						&.date-e
+							display table-cell
+			.pagination
+				.wrapper
+					span, a
+						&.endless_page_current, &.endless_page_link, &.endless_separator
+							font-size 16px
+							width 42px
 
 @media screen and (min-width: 768px)
 	#ctacte
-		&.pesos
-			font-size .94em
+		&.pesos, &.applied
 			table
-				&.responsive
-					tr
-						th, td
-							&.debe, &.haber
-								display table-cell
-							&.dh, &.amount
-								display none
+				font-size .78em
+				tr
+					th, td
+						&.debe, &.haber
+							display table-cell
+						&.dh, &.amount
+							display none
+			.pagination
+				.wrapper
+					span, a
+						&.endless_page_current, &.endless_page_link, &.endless_separator
+							width 50px
 
 @media screen and (min-width: 1024px)
 	#ctacte
-		&.pesos
-			font-size 1.1em
+		padding 0 1em
+		&.pesos, &.applied
+			table
+				font-size .82em
