@@ -3,6 +3,7 @@
 {% load mathfilters %}
 {% load humanize %}
 {% load truncatechars %}
+{% load voucher %}
 
 {% block title %}Buratovich Hnos. - Cuenta Corriente en Peso{% endblock %}
 
@@ -117,7 +118,8 @@
 					{% for i in ctacte %}
 						<tr>
 							<td class="center">{{i.obj.date_2|date:"d/m/Y"}}</td>
-							<td>{{i.obj.voucher}}</td>
+							{% voucher i.obj.voucher 'S' as voucher %}
+							<td>{{voucher}}</td>
 							{% truncate_chars i.obj.concept 40 as concept %}
 							<td class="observations">{{concept}}</td>
 							<td class="center date-e">{{i.obj.date_1|date:"d/m/Y"}}</td>

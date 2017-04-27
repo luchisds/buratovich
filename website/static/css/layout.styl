@@ -1441,6 +1441,16 @@ footer
 		width 100%
 		tbody
 			tr
+				&.detail, &.analysis
+					display none
+					table
+						font-size .9em
+						margin auto 0 auto auto
+						td, th
+							padding .4em
+						th
+							background-color $midGrey
+							color $accentColor
 				&.show
 					display table-row !important
 				&.total
@@ -1466,7 +1476,6 @@ footer
 						text-align center
 					& .hide-btn
 						display none
-					//& .show-analysis, & .hide-analysis, & .show-detail, & .hide-detail
 					& .show-detail, & .hide-detail
 						i
 							color $baseColor
@@ -1496,18 +1505,8 @@ footer
 						padding .2em .3em
 				tr
 					&.detail
-						display none
 						table
-							font-size 1em
-							margin 0
-							tr
-								td, th
-									padding .1em 0
-								td
-									border-bottom none
-								th
-									background-color $midGrey
-									color $darkGreyGreen
+							border-bottom 1px solid $darkGreyGreen
 					&.initial-balance
 						font-weight bold
 		.pagination
@@ -1543,18 +1542,8 @@ footer
 		table
 			tbody
 				tr
-					&.analysis, &.detail
-						display none
-						table
-							font-size .9em
-							margin auto 0 auto auto
-							td, th
-								padding .4em
-							th
-								background-color $midGrey
-								color $accentColor
-						& .analysis-detail
-							border-bottom 1px solid $darkGreyGreen
+					&.analysis .analysis-detail, &.detail table
+						border-bottom 1px solid $darkGreyGreen
 			tbody, thead
 				tr
 					&.field-name, &.sales-type
@@ -1594,11 +1583,9 @@ footer
 				.harvest-detail
 					overflow hidden
 					div
-						//float left
 						display inline-block
 						padding 0 1em
-						// &:not(:last-child)
-						// 	margin-right 2em
+						vertical-align top
 				.submit
 					border 1px solid $baseColor
 					display inline-block

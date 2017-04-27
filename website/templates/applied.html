@@ -3,6 +3,7 @@
 {% load mathfilters %}
 {% load humanize %}
 {% load truncatechars %}
+{% load voucher %}
 
 {% block title %}Buratovich Hnos. - Cuenta Corriente Aplicada{% endblock %}
 
@@ -79,62 +80,6 @@
 					<a href="/downloadtxt/applied/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
 				</button>-->
 			</div>
-			<!--<table>
-				<thead>
-					<tr>
-						<th>Fecha Vto.</th>
-						<th>Comprobante</th>
-						<th>Observaciones</th>
-						<th>Fecha Emi.</th>
-						<th>Debe</th>
-						<th>Haber</th>
-						<th>Saldo</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% show_current_number as page_number %}
-					{% for j in page_balance %}
-						{% if j.page == page_number %}
-							<tr class="initial-balance">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>Saldo Inicial:</td>
-								<td class="right">{{j.balance|floatformat:2|intcomma}}</td>
-							</tr>
-						{% endif %}
-					{% endfor %}
-					{% for i in applied %}
-						<tr>
-							<td class="center">{{i.obj.expiration_date|date:"d-m-Y"}}</td>
-							<td>{{i.obj.voucher}}</td>
-							<td>{{i.obj.concept}}</td>
-							<td class="center">{{i.obj.issue_date|date:"d-m-Y"}}</td>
-							{% if i.obj.movement_type == "Debito" %}
-								<td class="right">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
-								<td></td>
-							{% else %}
-								<td></td>
-								<td class="right">{{i.obj.amount_sign|abs|floatformat:2|intcomma}}</td>
-							{% endif %}
-							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
-						</tr>
-					{% endfor %}
-					{% if page_number == 1 %}
-						<tr class="total">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>Total Gral.:</td>
-							<td class="right">{{total_sum.amount_sign__sum|floatformat:2|intcomma}}</td>
-						</tr>
-					{% endif %}
-				</tbody>
-			</table>-->
 
 			<table>
 				<thead>
@@ -172,7 +117,8 @@
 					{% for i in applied %}
 						<tr>
 							<td class="center">{{i.obj.expiration_date|date:"d/m/Y"}}</td>
-							<td>{{i.obj.voucher}}</td>
+							{% voucher i.obj.voucher 'S' as voucher %}
+							<td>{{voucher}}</td>
 							{% truncate_chars i.obj.concept 40 as concept %}
 							<td class="observations">{{concept}}</td>
 							<td class="center date-e">{{i.obj.issue_date|date:"d/m/Y"}}</td>

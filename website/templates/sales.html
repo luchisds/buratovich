@@ -103,155 +103,6 @@
 					</button>-->
 				</div>
 
-				<!--{% for k, v in sales.items  %}
-					<h4 class="harvest-title">{{k}}</h4>
-					{% if v.sales %}
-						<table>
-							<thead>
-								<tr class="sales-type">
-									<th colspan="10">VENTAS</th>
-								</tr>
-								<tr>
-									<th rowspan="2">Fecha</th>
-									<th rowspan="2">Comprobante</th>
-									<th rowspan="2">Destino</th>
-									<th colspan="2">Fecha de Entrega</th>
-									<th rowspan="2">Kilos</th>
-									<th rowspan="2">Pend. TC</th>
-									<th rowspan="2">Liquidados</th>
-									<th rowspan="2">Precio por QQ.</th>
-									<th rowspan="2">Moneda</th>
-								</tr>
-								<tr>
-									<th colspan="1">Desde</th>
-									<th colspan="1">Hasta</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for i, j in v.sales.vouchers.items %}
-									<tr>
-										<td class="center">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center">{{j.voucher}}</td>
-										<td>{{j.field_description}}</td>
-										<td class="center">{{j.service_billing_date|date:"d-m-Y"}}</td>
-										<td class="center">{{j.to_date|date:"d-m-Y"}}</td>
-										<td class="right">{{j.gross_kg|intcomma}}</td>
-										<td class="right">{{j.service_billing_number|intcomma}}</td>
-										<td class="center">{{j.number_1116A|intcomma}}</td>
-										<td class="right">{{j.price_per_yard|floatformat:2|intcomma}}</td>
-										{% if j.grade == 1 %}
-											<td class="center">USD Comprador</td>
-										{% else %}
-											{% if j.grade == 'D' %}
-												<td class="center">USD Vendedor</td>
-											{% else %}
-												{% if j.grade == 0 %}
-													<td class="center">Pesos</td>
-												{% endif %}
-											{% endif %}
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr class="total">
-									<td class="center"><span>Comprobantes: {{v.sales.count_sales}}</span></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td class="center"><span>{{v.sales.total_g_sales|intcomma}}</span></td>
-									<td class="center"><span>{{v.sales.total_p_sales|intcomma}}</span></td>
-									<td class="center"><span>{{v.sales.total_l_sales|intcomma}}</span></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					{% endif %}
-					{% if v.to_set %}
-						<table>
-							<thead>
-								<tr class="sales-type">
-									<th colspan="6">A FIJAR</th>
-								</tr>
-								<tr>
-									<th rowspan="2">Fecha</th>
-									<th rowspan="2">Comprobante</th>
-									<th rowspan="2">Destino</th>
-									<th colspan="2">Fecha de Entrega</th>
-									<th rowspan="2">Kilos</th>
-								</tr>
-								<tr>
-									<th colspan="1">Desde</th>
-									<th colspan="1">Hasta</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for i, j in v.to_set.vouchers.items %}
-									<tr>
-										<td class="center">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center">{{j.voucher}}</td>
-										<td>{{j.field_description}}</td>
-										<td class="center">{{j.service_billing_date|date:"d-m-Y"}}</td>
-										<td class="center">{{j.to_date|date:"d-m-Y"}}</td>
-										<td class="right">{{j.gross_kg|intcomma}}</td>
-									</tr>
-								{% endfor %}
-								<tr class="total">
-									<td class="center"><span>Comprobantes: {{v.to_set.count_to_set}}</span></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td class="center"><span>{{v.to_set.total_g_to_set|intcomma}}</span></td>
-								</tr>
-							</tbody>
-						</table>
-					{% endif %}
-					{% if v.others %}
-						<table>
-							<thead>
-								<tr class="sales-type">
-									<th colspan="6">OTROS</th>
-								</tr>
-								<tr>
-									<th rowspan="2">Fecha</th>
-									<th rowspan="2">Comprobante</th>
-									<th rowspan="2">Productor / Receptor</th>
-									<th rowspan="2">Entradas</th>
-									<th rowspan="2">Salidas</th>
-									<th rowspan="2">Observaciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for i, j in v.others.vouchers.items %}
-									<tr>
-										<td class="center">{{j.date|date:"d-m-Y"}}</td>
-										<td class="center">{{j.voucher}}</td>
-										<td>{{j.driver_name}}</td>
-										{% if j.gross_kg > 0 %}
-											<td class="right">{{j.gross_kg|intcomma}}</td>
-											<td></td>
-										{% else %}
-											<td></td>
-											<td class="right">{{j.gross_kg|abs|intcomma}}</td>
-										{% endif %}
-										<td>{{j.observations}}</td>
-									</tr>
-								{% endfor %}
-								<tr class="total">
-									<td class="center"><span>Comprobantes: {{v.others.count_others}}</span></td>
-									<td></td>
-									<td></td>
-									<td class="center"><span>{{v.others.total_i_others|intcomma}}</span></td>
-									<td class="center"><span>{{v.others.total_o_others|intcomma}}</span></td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					{% endif %}
-				{% endfor %}-->
-
-
 				{% for k, v in sales.items  %}
 					<h4 class="harvest-title">{{k}}</h4>
 					{% if v.sales %}
@@ -282,7 +133,7 @@
 								{% for i, j in v.sales.vouchers.items %}
 									<tr>
 										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
-										{% voucher j.voucher 'False' as voucher %}
+										{% voucher j.voucher 'N' as voucher %}
 										<td class="center voucher">{{voucher}}</td>
 										{% truncate_chars j.field_description 20 as field %}
 										<td class="field">{{field}}</td>
@@ -374,7 +225,7 @@
 								{% for i, j in v.to_set.vouchers.items %}
 									<tr>
 										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
-										{% voucher j.voucher 'False' as voucher %}
+										{% voucher j.voucher 'N' as voucher %}
 										<td class="center voucher">{{voucher}}</td>
 										{% truncate_chars j.field_description 20 as field %}
 										<td class="field">{{field}}</td>
@@ -442,7 +293,7 @@
 								{% for i, j in v.others.vouchers.items %}
 									<tr>
 										<td class="center date">{{j.date|date:"d/m/Y"}}</td>
-										{% voucher j.voucher 'False' as voucher %}
+										{% voucher j.voucher 'N' as voucher %}
 										<td class="center voucher">{{voucher}}</td>
 										{% truncate_chars j.driver_name 20 as name %}
 										<td class="name">{{name}}</td>

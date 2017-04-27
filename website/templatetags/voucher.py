@@ -9,7 +9,7 @@ def voucher(voucher, with_cod):
 	suc = str(int(voucher[1]))
 	nro = str(int(voucher[2]))
 
-	if with_cod == True:
+	if with_cod == 'S':
 		return cod + ' ' + suc + '-' + nro
-	else:
+	elif with_cod == 'N':
 		return suc + '-' + nro
