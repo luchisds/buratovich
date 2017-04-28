@@ -1384,9 +1384,8 @@ footer
 						transform translateY(-50%)
 						span
 							display block
-							&:nth-child(1)
-								font-size 1.2em
-							&:nth-child(2)
+							font-size 1.2em
+							&:last-child
 								font-size 2em
 								margin-top .2em
 
@@ -1397,19 +1396,27 @@ footer
 		padding .5em
 		ul
 			font-size .8em
-			//text-align left
 			li
-				height auto
+				height 40px
 				margin 1em .45em
 				vertical-align top
 				width auto
 				&.back
 					background-color $accentColor
 					max-width 63px
-					img
-						width 24px
-						// Fix img inline
-						vertical-align middle
+					div
+						position relative
+						top 50%
+						transform translateY(-50%)
+						span
+							margin 0 !important
+							img
+								width 24px
+								Fix img inline
+								vertical-align middle
+				&.ctacte-pesos
+					.full
+						display none
 				a
 					padding .8em 1.3em
 					div
@@ -1418,7 +1425,7 @@ footer
 						span
 							display inline-block
 							vertical-align middle
-							&:nth-child(2)
+							&:last-child
 								font-size 1.5em
 								margin-top 0
 								margin-left .2em
