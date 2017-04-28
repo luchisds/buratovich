@@ -517,18 +517,12 @@
 			font-size .9em
 			margin-top 1em
 			padding 0
-			// ul
-			// 	li
-			// 		a
-			// 			div
-			// 				span
-			// 					display block
-			// 		&.ctacte-pesos
-			// 			span
-			// 				&.full
-			// 					display none
-			// 				&.short
-			// 					display block
+			ul
+				li.back
+					div
+						span
+							img
+								width 20px
 
 @media screen and (max-width: 580px)
 	#bussines-units
@@ -648,18 +642,20 @@
 		padding-right 0
 	#ctacte
 		.extranet-nav
+			margin-left 1em
+			margin-right 1em
 			ul
 				li
-					div
-						a
-							span
-								display block !important
-					// &:nth-child(1)
-					// 	li
-					// 		margin-bottom .5em
-					// &:nth-child(2)
-					// 	li
-					// 		margin-top .5em
+					height 45px
+					width 87px
+					&.back
+						max-width 50px
+					a
+						padding .4em .8em
+						span:not(.full)
+							display block !important
+							&:last-child
+								margin-top .1em
 
 @media screen and (max-width: 480px)
 	#extranet
@@ -750,6 +746,17 @@
 					.boxes
 						div:last-child
 							display none
+	#ctacte
+		.extranet-nav
+			ul
+				.row, .row:nth-child(1)
+					display block
+					li
+						&.back
+							max-width 87px
+				.row:nth-child(1)
+					li
+						margin-bottom 0
 
 @media screen and (max-width: 380px)
 	#home
@@ -803,12 +810,12 @@
 					div
 						p
 							font-size .9em
-	#ctacte
-		.extranet-nav
-			.row
-				li
-					display block
-					margin 0 auto .8em auto !important
+	// #ctacte
+	// 	.extranet-nav
+	// 		.row
+	// 			li
+	// 				display block
+	// 				margin 0 auto .8em auto !important
 
 @media screen and (min-width: 320px)
 	#ctacte
