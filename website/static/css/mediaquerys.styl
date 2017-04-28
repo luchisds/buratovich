@@ -514,9 +514,21 @@
 			padding-top 0
 	#ctacte
 		.extranet-nav
-			//font-size .9em
+			font-size .9em
 			margin-top 1em
 			padding 0
+			// ul
+			// 	li
+			// 		a
+			// 			div
+			// 				span
+			// 					display block
+			// 		&.ctacte-pesos
+			// 			span
+			// 				&.full
+			// 					display none
+			// 				&.short
+			// 					display block
 
 @media screen and (max-width: 580px)
 	#bussines-units
@@ -546,16 +558,6 @@
 				display none
 			&.responsive
 				display table
-	#ctacte
-		.extranet-nav
-			.row
-				display block !important
-				&:nth-child(1)
-					li
-						margin-bottom .5em
-				&:nth-child(2)
-					li
-						margin-top .5em
 
 @media screen and (max-width: 550px)
 	#bussines-units
@@ -644,6 +646,20 @@
 	#extranet
 		padding-left 0
 		padding-right 0
+	#ctacte
+		.extranet-nav
+			ul
+				li
+					div
+						a
+							span
+								display block !important
+					// &:nth-child(1)
+					// 	li
+					// 		margin-bottom .5em
+					// &:nth-child(2)
+					// 	li
+					// 		margin-top .5em
 
 @media screen and (max-width: 480px)
 	#extranet
