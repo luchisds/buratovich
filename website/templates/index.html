@@ -375,6 +375,24 @@
 
 {% block scriptjs %}
 
+<script>
+	var dateInput = document.getElementById('date');
+	var dateUsd = document.getElementById('usd');
+	var dateRain = document.getElementById('rain-date');
+	if(dateInput.type === 'text') {
+		document.write('<link rel="stylesheet" href="{% static "js/pikaday/css/pikaday.css" %}">');
+		document.write('<script src="{% static "js/pikaday/pikaday.js" %}" type="text/javascript"><\/script>');
+		console.log(dateInput.type);
+	}
+</script>
+<script>
+	if(dateInput.type === 'text') {
+		var pikDateInput = new Pikaday({ field: dateInput });
+		var pikDateUsd = new Pikaday({ field: dateUsd });
+		var pikDateRain = new Pikaday({ field: dateRain });
+	}
+</script>
+
 <!--[if IE]>
 <script src="{% static "js/flickity/flickity.pkgd.min.v1.js" %}"></script>
 <![endif]-->
