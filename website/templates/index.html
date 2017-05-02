@@ -42,7 +42,7 @@
 			<div class="carousel-cell cell3">
 				<img src="{% static "img/agro.jpg" %}" alt="">
 				<div>
-					<p>Desarrollamos la producción agrícola en distintas regiones de las provincias de Buenos Aires y Chaco. Nuestros principales cultivos son la <span class="highlight">Arveja</span>, <span class="highlight">Trigo</span>, <span class="highlight">Maíz</span>, <span class="highlight">Soja</span>, <span class="highlight">Sorgo</span>, <span class="highlight">Girasol</span> y <span class="highlight">Algodón</span>.</p>
+					<p>Desarrollamos la producción agrícola en distintas regiones de las provincias de Buenos Aires y Chaco. Nuestros principales cultivos son el <span class="highlight">Maíz</span>, <span class="highlight">Girasol</span>, <span class="highlight">Trigo</span>, <span class="highlight">Cebada</span>, <span class="highlight">Arveja</span>, <span class="highlight">Lenteja</span>, <span class="highlight">Soja</span>, <span class="highlight">Sorgo</span> y <span class="highlight">Algodón</span>.</p>
 				</div>
 			</div>
 			<div class="carousel-cell cell4">
@@ -462,6 +462,11 @@
 	});
 
 	function getCurrencyAjax(date) {
+		// If date have '-' then is using input type="date" else is using input type="text"
+		if (date.indexOf('-') === -1) {
+			// format date to YYYY-MM-DD
+			date = moment(date).format('YYYY-MM-DD');
+		}
 		request.post("{% url 'currency' %}", {cDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
@@ -489,6 +494,11 @@
 	}
 
 	function getBoardAjax(date) {
+		// If date have '-' then is using input type="date" else is using input type="text"
+		if (date.indexOf('-') === -1) {
+			// format date to YYYY-MM-DD
+			date = moment(date).format('YYYY-MM-DD');
+		}
 		request.post("{% url 'board' %}", {bDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
@@ -536,6 +546,11 @@
 	}
 
 	function getRainAjax(date) {
+		// If date have '-' then is using input type="date" else is using input type="text"
+		if (date.indexOf('-') === -1) {
+			// format date to YYYY-MM-DD
+			date = moment(date).format('YYYY-MM-DD');
+		}
 		request.post("{% url 'rain' %}", {rDate:date}).then(function(response, xhr){
 			var obj = JSON.parse(response.data);
 			if(obj) {
