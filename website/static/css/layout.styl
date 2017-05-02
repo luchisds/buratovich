@@ -178,7 +178,6 @@ footer
 #home
 	.business-units
 		background-color $lightGrey
-		// overflow hidden
 		position relative
 		.carousel
 			.carousel-cell
@@ -1522,6 +1521,25 @@ footer
 							border-bottom 1px solid $darkGreyGreen
 					&.initial-balance
 						font-weight bold
+		#filter-date, .filter-date-title
+			margin-left .5em
+		#filter-date
+			font-size .9em
+			margin-bottom 1em
+			.input-el
+				display inline-block
+				vertical-align middle
+				& > div
+					display inline-block
+					&.to
+						margin-left .2em
+			button, .input
+				display inline-block
+				margin 0 .2em
+				vertical-align middle
+		.filter-date-title
+			color $baseColor
+			margin-bottom 1em
 		.pagination
 			font-size .9em
 			margin 0 0 5em 0
