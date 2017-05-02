@@ -61,7 +61,6 @@ from bh.settings import RS_USER, RS_PASS
 # def email(request):
 # 	return render(request, 'email_new_user.html')
 
-
 def handler404(request):
 	return render(request, '404.html')
 
@@ -506,21 +505,46 @@ def ctacte(request):
 
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		# Queryset with cta cte data
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-		# If exist data
-		if data:
+		if request.POST:
+			# Get dates from POST
+			from_date = request.POST.get('from')
+			to_date = request.POST.get('to')
+			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
+			try:
+				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
+			except ValueError:
+				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
+				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
+			# Save dates in session to use in defaul input value
+			request.session['from_date'] = request.POST.get('from')
+			request.session['to_date'] = request.POST.get('to')
+			# Request data
+			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+			ib = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=from_date).aggregate(Sum('amount_sign'))
+			if ib['amount_sign__sum']:
+				ib = ib['amount_sign__sum']
+			else:
+				ib = 0
+			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
+		else:
+			# Queryset with cta cte data
+			from_date = False
+			to_date = False
+			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+			ib = 0
 			# Total amount
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
+		# If exist data
+		if data:
+
 			#### Add balance for every record in "data" queryset
-			balance = 0
+			balance = ib
 			records = []
 			for d in data:
 				balance += d['amount_sign']
 				tmp_dict = {}
 				tmp_dict['obj'] = d
-				#tmp_dict['file'] = search_file(d['voucher'])
 				if d['voucher'].split(' ')[0] in vouchers:
 					tmp_dict['file'] = d['voucher']
 				else:
@@ -550,6 +574,8 @@ def ctacte(request):
 			ib_records = 0
 			remainder = total_records % limit
 			initial_balance = []
+			# Add initial balance
+			initial_balance.append(ib)
 			page_balance = []
 			while ib_records < total_records:
 				if ib_records == 0:
@@ -572,9 +598,108 @@ def ctacte(request):
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
-			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+			if from_date and to_date:
+				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			else:
+				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
 		else:
 			return render(request, 'ctacte.html')
+
+
+@login_required
+def applied(request):
+
+	if 'algoritmo_code' in request.session:
+		if request.POST:
+			from_date = request.POST.get('from')
+			to_date = request.POST.get('to')
+			try:
+				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
+			except ValueError:
+				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
+				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
+			request.session['from_date'] = request.POST.get('from')
+			request.session['to_date'] = request.POST.get('to')
+			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__range=[from_date, to_date]).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+			ib = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
+			if ib['amount_sign__sum']:
+				ib = ib['amount_sign__sum']
+			else:
+				ib = 0
+			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=to_date).aggregate(Sum('amount_sign'))
+		else:
+			# Queryset with cta cte data
+			from_date = False
+			to_date = False
+			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+			ib = 0
+			# Total amount
+			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
+
+		# If no data
+		if data:
+
+			#### Add balance for every record in "data" queryset
+			balance = ib
+			records = []
+			for d in data:
+				balance += d['amount_sign']
+				tmp_dict = {}
+				tmp_dict['obj'] = d
+				tmp_dict['balance'] = balance
+				records.append(tmp_dict)
+
+			#### Create a new sorted queryset/list
+			limit = settings.EL_PAGINATION_PER_PAGE
+			total_records = len(records)
+			applied_ctacte = []
+
+			page_records = total_records
+			while page_records >= 0:
+				if page_records - limit < 0:
+					tmp = records[0:page_records]
+				else:
+					tmp = records[page_records-limit:page_records]
+
+				for obj in tmp:
+					applied_ctacte.append(obj)
+
+				page_records -= limit
+
+			#### Initial balance
+			ib_records = 0
+			remainder = total_records % limit
+			initial_balance = []
+			# Add initial balance
+			initial_balance.append(ib)
+			page_balance = []
+			while ib_records < total_records:
+				if ib_records == 0:
+					tmp = records[0:remainder]
+					ib_records += remainder
+				else:
+					tmp = records[0:ib_records+limit]
+					ib_records += limit
+
+				partial_balance = 0
+				for obj in tmp:
+					partial_balance += obj['obj']['amount_sign']
+
+				initial_balance.append(partial_balance)
+
+			# Scroll the list from first item to last-1 (is the cta cte total amount)
+			for n in range(0,len(initial_balance)-1):
+				tmp_dict = {}
+				tmp_dict['page'] = len(initial_balance)-1-n
+				tmp_dict['balance'] = initial_balance[n]
+				page_balance.append(tmp_dict)
+
+			if from_date and to_date:
+				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			else:
+				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+		else:
+			return render(request, 'applied.html')
 
 
 @login_required
@@ -794,74 +919,6 @@ def sales(request):
 				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'sales.html')
-
-
-@login_required
-def applied(request):
-	if 'algoritmo_code' in request.session:
-		# Queryset with cta cte data
-		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-		# If no data
-		if data:
-			# Total amount
-			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
-
-			#### Add balance for every record in "data" queryset
-			balance = 0
-			records = []
-			for d in data:
-				balance += d['amount_sign']
-				tmp_dict = {}
-				tmp_dict['obj'] = d
-				tmp_dict['balance'] = balance
-				records.append(tmp_dict)
-
-			#### Create a new sorted queryset/list
-			limit = settings.EL_PAGINATION_PER_PAGE
-			total_records = len(records)
-			applied_ctacte = []
-
-			page_records = total_records
-			while page_records >= 0:
-				if page_records - limit < 0:
-					tmp = records[0:page_records]
-				else:
-					tmp = records[page_records-limit:page_records]
-
-				for obj in tmp:
-					applied_ctacte.append(obj)
-
-				page_records -= limit
-
-			#### Initial balance
-			ib_records = 0
-			remainder = total_records % limit
-			initial_balance = []
-			page_balance = []
-			while ib_records < total_records:
-				if ib_records == 0:
-					tmp = records[0:remainder]
-					ib_records += remainder
-				else:
-					tmp = records[0:ib_records+limit]
-					ib_records += limit
-
-				partial_balance = 0
-				for obj in tmp:
-					partial_balance += obj['obj']['amount_sign']
-
-				initial_balance.append(partial_balance)
-
-			# Scroll the list from first item to last-1 (is the cta cte total amount)
-			for n in range(0,len(initial_balance)-1):
-				tmp_dict = {}
-				tmp_dict['page'] = len(initial_balance)-1-n
-				tmp_dict['balance'] = initial_balance[n]
-				page_balance.append(tmp_dict)
-
-			return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
-		else:
-			return render(request, 'applied.html')
 
 
 def downloadRainExcel(request):
