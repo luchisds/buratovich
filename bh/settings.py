@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 	'django.contrib.humanize',
 	'django.contrib.sessions',
 	'django.contrib.messages',
+	# WhiteNoise in dev environment need manage.py runserver --nostatic option. This app do it for us.
+	'whitenoise.runserver_nostatic',
 	'django.contrib.staticfiles',
 	'website',
 	'el_pagination',
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
 	'django.middleware.security.SecurityMiddleware',
+	# WhiteNoise middleware to serve static files
+	'whitenoise.middleware.WhiteNoiseMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,6 +145,9 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = [
 	('ctacte', os.path.join(BASE_DIR, 'FTP', 'CtaCtePesos')),
 ]
+
+# WhiteNoise storage backend to serve compressed and cached static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
