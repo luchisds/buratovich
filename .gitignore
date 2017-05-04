@@ -4,6 +4,7 @@ node_modules/
 # Staticfiles & mediafiles
 staticfiles/
 mediafiles/
+static/
 
 # Fixtures and initial data
 data.json

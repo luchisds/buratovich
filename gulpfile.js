@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var del = require('del');
 var gulpif = require('gulp-if');
-var spawn = require('child_process').spawn;
 var argv = require('yargs').argv;
 
 var stylus = require('gulp-stylus');
@@ -21,8 +21,8 @@ var imagemin = require('gulp-imagemin');
 // --------------------------
 
 // Routes
-var source = 'website/static/';
-var build = 'website/build/';
+var source = 'website/src/';
+var static = 'website/static/';
 
 // gulp build --production
 var production = !!argv.production;
@@ -38,27 +38,28 @@ var clean = build ? ['clean'] : [];
 
 // Clean 
 gulp.task('clean', function() {
-	del([build]);
+	del([static]);
 });
 
 // Copy assets
 gulp.task('assets', clean, function() {
 	gulp.src(source + 'assets/**/*')
-		.pipe(gulp.dest(build + 'assets/'));
+		.pipe(gulp.dest(static + 'assets/'));
 	gulp.src(source + 'taxes/**/*')
-		.pipe(gulp.dest(build + 'taxes/'));
+		.pipe(gulp.dest(static + 'taxes/'));
 	gulp.src(source + 'video/**/*')
-		.pipe(gulp.dest(build + 'video/'));
+		.pipe(gulp.dest(static + 'video/'));
 });
 
 // Minify HTML
 gulp.task('templates', clean, function() {
-	gulp.src('website/templates/*.html')
-		.pipe(htmlmin({
-			collapseWhitespace: true, 
-			empty: true
-		}))
-		.pipe(gulp.dest(build + 'templates/'));
+	// gulp.src('website/templates/*.html')
+	// 	// Errors to minify Django templates
+	// 	// .pipe(htmlmin({
+	// 	// 	collapseWhitespace: true, 
+	// 	// 	empty: true
+	// 	// }))
+	// 	.pipe(gulp.dest(static + 'templates/'));
 });
 
 // Process Stylus and compress CSS
@@ -68,24 +69,28 @@ gulp.task('css', clean, function() {
 			compress: production ? true : false,
 			use: [jeet(), autoprefixer({browsers:['last 3 versions']})]
 		}))
-		.pipe(gulp.dest(build + 'css/'));
+		.pipe(gulp.dest(static + 'css/'));
 });
 
 // Minify JS
 gulp.task('js', clean, function(){
 	gulp.src(source + 'js/**/*.js')
 		.pipe(gulpif(production, uglify()))
-		.pipe(gulp.dest(build + 'js/'));
+		.pipe(gulp.dest(static + 'js/'));
 });
 
 // Optimize Images
 gulp.task('images', clean, function() {
 	gulp.src(source + 'img/**/*.*')
-		.pipe(changed(build + 'img/'))
-		.pipe(imagemin({
+		.pipe(changed(static + 'img/'))
+		.pipe(imagemin([
+			imagemin.jpegtran({progressive: true}),
+			imagemin.optipng({optimizationLevel: 5})
+		],
+		{
 			verbose: true
 		}))
-		.pipe(gulp.dest(build + 'img/'));
+		.pipe(gulp.dest(static + 'img/'));
 });
 
 
@@ -96,7 +101,7 @@ gulp.task('images', clean, function() {
 // WATCH task
 gulp.task('watch', ['assets', 'templates', 'css', 'js', 'images'], function() {
 	//Watch changes in styles, js, html and images
-	gulp.watch(source + 'css/*.styl', ['styles']);
+	gulp.watch(source + 'css/*.styl', ['css']);
 	gulp.watch(source + 'js/**/*.js', ['js']);
 	gulp.watch(source + 'img/**/*.*', ['img']);
 	gulp.watch('website/templates/*.html', ['html']);
@@ -110,7 +115,11 @@ gulp.task('build', ['assets', 'templates', 'css', 'js', 'images']);
 gulp.task('default', ['watch']);
 
 
+// --------------------------
+// RUN DJANGO MANAGE.PY RUNSERVER
+// --------------------------
 
+//var spawn = require('child_process').spawn;
 
 // gulp.task('default', function() {
 // 	// gulp.start('serve:backend');
