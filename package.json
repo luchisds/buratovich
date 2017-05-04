@@ -19,8 +19,12 @@
   "dependencies": {
     "autoprefixer-stylus": "^0.13.0",
     "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.2.0",
     "gulp-stylus": "^2.6.0",
     "gulp-uglify": "^2.1.2",
-    "jeet": "^7.1.0"
+    "jeet": "^7.1.0",
+    "yargs": "^8.0.1"
   }
 }
