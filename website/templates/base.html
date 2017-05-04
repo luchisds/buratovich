@@ -14,7 +14,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather:400i" rel="stylesheet">
 	<link rel="stylesheet" href="{% static "css/styles.css" %}">
-	<!--<link rel="stylesheet" href="{% static "css/font-awesome-4.7.0/css/font-awesome.min.css" %}">-->
+	<!--<link rel="stylesheet" href="{% static "assets/css/font-awesome-4.7.0/css/font-awesome.min.css" %}">-->
 
 	<script src="https://use.fontawesome.com/f345cc1188.js"></script>
 
@@ -172,16 +172,15 @@
 			return false;
 		}
 		if (detectIE()) {
-			document.write('<script src="{% static "js/scrollingelement.js" %}" type="text/javascript"><\/script>');
-			document.write('<script src="{% static "js/classList.min.js" %}" type="text/javascript"><\/script>');
+			document.write('<script src="{% static "assets/js/scrollingelement.js" %}" type="text/javascript"><\/script>');
+			document.write('<script src="{% static "assets/js/classList.min.js" %}" type="text/javascript"><\/script>');
 		}
 	</script>
 	<!-- End -->
-	<!--<script src="{% static "js/velocity.min.js" %}"></script>-->
+	<!--<script src="{% static "assets/js/velocity.min.js" %}"></script>-->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.ui.min.js"></script>
 	<script src="{% static "js/js.js" %}" type="text/javascript"></script>
-	<!--<script src="{% static "js/js.min.js" %}" type="text/javascript"></script>-->
 	{% block scriptjs %}{% endblock %}
 </body>
 </html>
