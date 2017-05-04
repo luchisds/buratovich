@@ -1,0 +1,26 @@
+{
+  "name": "bh",
+  "version": "1.0.0",
+  "description": "Buratovich Hnos",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luchisds/buratovich.git"
+  },
+  "author": "Luciano Muñoz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luchisds/buratovich/issues"
+  },
+  "homepage": "https://github.com/luchisds/buratovich#readme",
+  "dependencies": {
+    "autoprefixer-stylus": "^0.13.0",
+    "gulp": "^3.9.1",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^2.1.2",
+    "jeet": "^7.1.0"
+  }
+}
