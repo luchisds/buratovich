@@ -19,6 +19,7 @@
   "dependencies": {
     "autoprefixer-stylus": "^0.13.0",
     "del": "^2.2.2",
+    "event-stream": "^3.3.4",
     "gulp": "^3.9.1",
     "gulp-changed": "^3.1.0",
     "gulp-htmlmin": "^3.0.0",

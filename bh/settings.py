@@ -142,10 +142,6 @@ STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-STATICFILES_DIRS = [
-	('ctacte', os.path.join(BASE_DIR, 'FTP', 'CtaCtePesos')),
-]
-
 # WhiteNoise storage backend to serve compressed and cached static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
