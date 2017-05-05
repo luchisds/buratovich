@@ -51,6 +51,9 @@ MIDDLEWARE_CLASSES = [
 	'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	# HTMLMin middlewares
+	'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'bh.urls'
@@ -168,6 +171,10 @@ EL_PAGINATION_PER_PAGE = 50
 # Grappelli Settings
 GRAPPELLI_ADMIN_TITLE = 'BURATOVICH HNOS.'
 GRAPPELLI_INDEX_DASHBOARD = 'website.dashboard.CustomIndexDashboard'
+
+# HTMLMin Settings
+HTML_MINIFY = True  #To minify with DEBUG = True
+KEEP_COMMENTS_ON_MINIFYING = True
 
 # CP Online settings
 CP_CONTENT_TYPES = ['application/pdf',]
