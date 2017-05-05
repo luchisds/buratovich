@@ -15,6 +15,8 @@ var htmlmin = require('gulp-htmlmin');
 
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
+var jpegoptim = require('imagemin-jpegoptim');
+var pngquant = require('imagemin-pngquant');
 
 
 // --------------------------
@@ -86,8 +88,16 @@ gulp.task('images', clean, function() {
 	return gulp.src(source + 'img/**/*.*')
 		.pipe(changed(static + 'img/'))
 		.pipe(imagemin([
-			imagemin.jpegtran({progressive: true}),
-			imagemin.optipng({optimizationLevel: 5})
+			imagemin.gifsicle(), 
+			imagemin.svgo(),
+			jpegoptim({
+				progressive: true,
+				max: 80
+			}),
+			pngquant({
+				quality: 80,
+				verbose: true
+			})
 		],
 		{
 			verbose: true
