@@ -11,8 +11,6 @@ var autoprefixer = require('autoprefixer-stylus');
 
 var uglify = require('gulp-uglify');
 
-var htmlmin = require('gulp-htmlmin');
-
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
 var jpegoptim = require('imagemin-jpegoptim');
@@ -55,26 +53,29 @@ gulp.task('assets', clean, function() {
 	return es.merge(assets, taxes, video);
 });
 
-// Minify HTML
-gulp.task('templates', clean, function() {
-	// return gulp.src('website/templates/*.html')
-	//	// Errors to minify Django templates
-	// 	.pipe(htmlmin({
-	// 		collapseWhitespace: true, 
-	// 		empty: true
-	// 	}))
-	// 	.pipe(gulp.dest(static + 'templates/'));
-});
-
 // Process Stylus and compress CSS
 gulp.task('css', clean, function() {
 	return gulp.src(source + 'css/styles.styl')
 		.pipe(stylus({
-			compress: production ? true : false,
-			use: [jeet(), autoprefixer({browsers:['last 3 versions']})]
+			use: [
+				autoprefixer(['iOS >= 7', 'ie >= 9']),
+				jeet()
+			]
 		}))
 		.pipe(gulp.dest(static + 'css/'));
 });
+
+// gulp.task('css', clean, function() {
+// 	return gulp.src(source + 'css/styles.styl')
+// 		.pipe(stylus({
+// 			use: [
+// 				jeet()
+// 			], 
+// 			compress: production ? true : false
+// 		}))
+// 		.pipe(autoprefixer({browsers: ['last 3 version']}))
+// 		.pipe(gulp.dest(static + 'css/'));
+// });
 
 // Minify JS
 gulp.task('js', clean, function(){
@@ -111,17 +112,16 @@ gulp.task('images', clean, function() {
 // --------------------------
 
 // WATCH task
-gulp.task('watch', ['assets', 'templates', 'css', 'js', 'images'], function() {
+gulp.task('watch', ['assets', 'css', 'js', 'images'], function() {
 	//Watch changes in styles, js, html and images
 	gulp.watch(source + 'css/*.styl', ['css']);
 	gulp.watch(source + 'js/**/*.js', ['js']);
 	gulp.watch(source + 'img/**/*.*', ['img']);
-	gulp.watch('website/templates/*.html', ['html']);
 	gutil.log(gutil.colors.bgGreen('Watching for changes...'));
 });
 
 // BUILD task
-gulp.task('build', ['assets', 'templates', 'css', 'js', 'images']);
+gulp.task('build', ['assets', 'css', 'js', 'images']);
 
 // DEFAULT task
 gulp.task('default', ['watch']);
