@@ -3,6 +3,7 @@ var gutil = require('gulp-util');
 var del = require('del');
 var gulpif = require('gulp-if');
 var argv = require('yargs').argv;
+var es = require('event-stream')
 
 var stylus = require('gulp-stylus');
 var jeet = require('jeet');
@@ -38,33 +39,34 @@ var clean = build ? ['clean'] : [];
 
 // Clean 
 gulp.task('clean', function() {
-	del([static]);
+	return del([static]);
 });
 
 // Copy assets
 gulp.task('assets', clean, function() {
-	gulp.src(source + 'assets/**/*')
+	var assets = gulp.src(source + 'assets/**/*')
 		.pipe(gulp.dest(static + 'assets/'));
-	gulp.src(source + 'taxes/**/*')
+	var taxes = gulp.src(source + 'taxes/**/*')
 		.pipe(gulp.dest(static + 'taxes/'));
-	gulp.src(source + 'video/**/*')
+	var video = gulp.src(source + 'video/**/*')
 		.pipe(gulp.dest(static + 'video/'));
+	return es.merge(assets, taxes, video);
 });
 
 // Minify HTML
 gulp.task('templates', clean, function() {
-	// gulp.src('website/templates/*.html')
-	// 	// Errors to minify Django templates
-	// 	// .pipe(htmlmin({
-	// 	// 	collapseWhitespace: true, 
-	// 	// 	empty: true
-	// 	// }))
+	// return gulp.src('website/templates/*.html')
+	//	// Errors to minify Django templates
+	// 	.pipe(htmlmin({
+	// 		collapseWhitespace: true, 
+	// 		empty: true
+	// 	}))
 	// 	.pipe(gulp.dest(static + 'templates/'));
 });
 
 // Process Stylus and compress CSS
 gulp.task('css', clean, function() {
-	gulp.src(source + 'css/styles.styl')
+	return gulp.src(source + 'css/styles.styl')
 		.pipe(stylus({
 			compress: production ? true : false,
 			use: [jeet(), autoprefixer({browsers:['last 3 versions']})]
@@ -74,14 +76,14 @@ gulp.task('css', clean, function() {
 
 // Minify JS
 gulp.task('js', clean, function(){
-	gulp.src(source + 'js/**/*.js')
+	return gulp.src(source + 'js/**/*.js')
 		.pipe(gulpif(production, uglify()))
 		.pipe(gulp.dest(static + 'js/'));
 });
 
 // Optimize Images
 gulp.task('images', clean, function() {
-	gulp.src(source + 'img/**/*.*')
+	return gulp.src(source + 'img/**/*.*')
 		.pipe(changed(static + 'img/'))
 		.pipe(imagemin([
 			imagemin.jpegtran({progressive: true}),
