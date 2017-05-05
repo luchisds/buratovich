@@ -28,6 +28,8 @@
     "gulp-stylus": "^2.6.0",
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8",
+    "imagemin-jpegoptim": "^5.0.0",
+    "imagemin-pngquant": "^5.0.0",
     "jeet": "^7.1.0",
     "yargs": "^8.0.1"
   }
