@@ -44,6 +44,8 @@ MIDDLEWARE_CLASSES = [
 	'django.middleware.security.SecurityMiddleware',
 	# WhiteNoise middleware to serve static files
 	'whitenoise.middleware.WhiteNoiseMiddleware',
+	# HTMLMin middlewares
+	'htmlmin.middleware.HtmlMinifyMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,7 +54,6 @@ MIDDLEWARE_CLASSES = [
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	# HTMLMin middlewares
-	'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
