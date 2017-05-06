@@ -29,7 +29,7 @@
     "gulp-util": "^3.0.8",
     "imagemin-jpegoptim": "^5.0.0",
     "imagemin-pngquant": "^5.0.0",
-    "jeet": "^7.1.0",
+    "jeet": "^6.1.5",
     "yargs": "^8.0.1"
   }
 }
