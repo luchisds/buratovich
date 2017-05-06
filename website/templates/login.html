@@ -21,7 +21,6 @@
 	<div class="state">
 		{% if login %}
 			<p>Acceso para clientes</p>
-			<p class="legend">Nos sentimos en la obligación de facilitarle el acceso a la información y la transparencia de nuestras operaciones, motivo por el cual agradecemos que nos envíe sus criticas y/o sugerencias via correo electrónico a <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
 		{% else %}
 			{% if inactive_account %}
 				<p>Su cuenta aún no ha sido activada. Ingrese al link de activación que recibió por correo.</p>
@@ -61,5 +60,9 @@
 			<input type="hidden" name="next" value="{{ next }}" />
 		</fieldset>
 	</form>
+
+	{% if login %}
+		<p class="legend">Agradecemos que nos envíe sus criticas y/o sugerencias al correo electrónico <a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a> con el fin de seguir mejorando el acceso a la información y la transparencia en nuestras operaciones.</p>
+	{% endif %}
 </section>
 {% endblock %}

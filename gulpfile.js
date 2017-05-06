@@ -58,24 +58,12 @@ gulp.task('css', clean, function() {
 	return gulp.src(source + 'css/styles.styl')
 		.pipe(stylus({
 			use: [
-				autoprefixer(['iOS >= 7', 'ie >= 9']),
-				jeet()
+				jeet(),
+				autoprefixer(['iOS >= 7', 'Explorer >= 9', 'Edge >= 12', 'Firefox >= 30', 'Chrome >= 40', 'Safari >= 7', 'Opera >= 40', 'OperaMini >= 22', 'ChromeAndroid >= 40', 'UCAndroid >= 10'])
 			]
 		}))
 		.pipe(gulp.dest(static + 'css/'));
 });
-
-// gulp.task('css', clean, function() {
-// 	return gulp.src(source + 'css/styles.styl')
-// 		.pipe(stylus({
-// 			use: [
-// 				jeet()
-// 			], 
-// 			compress: production ? true : false
-// 		}))
-// 		.pipe(autoprefixer({browsers: ['last 3 version']}))
-// 		.pipe(gulp.dest(static + 'css/'));
-// });
 
 // Minify JS
 gulp.task('js', clean, function(){
