@@ -104,7 +104,7 @@ gulp.task('watch', ['assets', 'css', 'js', 'images'], function() {
 	//Watch changes in styles, js, html and images
 	gulp.watch(source + 'css/*.styl', ['css']);
 	gulp.watch(source + 'js/**/*.js', ['js']);
-	gulp.watch(source + 'img/**/*.*', ['img']);
+	gulp.watch(source + 'img/**/*.*', ['images']);
 	gutil.log(gutil.colors.bgGreen('Watching for changes...'));
 });
 
