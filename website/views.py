@@ -603,7 +603,10 @@ def ctacte(request):
 			else:
 				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
 		else:
-			return render(request, 'ctacte.html')
+			if from_date and to_date:
+				return render(request, 'ctacte.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			else:
+				return render(request, 'ctacte.html')
 
 
 @login_required
@@ -699,7 +702,10 @@ def applied(request):
 			else:
 				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
 		else:
-			return render(request, 'applied.html')
+			if from_date and to_date:
+				return render(request, 'applied.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			else:
+				return render(request, 'applied.html')
 
 
 @login_required

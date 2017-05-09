@@ -99,31 +99,6 @@ function init() {
 		});
 	}
 
-	var eye = document.getElementsByClassName('eye');
-	for (var i = 0; i < eye.length; i++) {
-		eye[i].addEventListener('mousedown', function() {
-			var target = findParent(this, 'input');
-			for (var i = 0; i < target.childNodes.length; i++) {
-				if (hasClass(target.childNodes[i], 'password')) {
-					// Change password input type
-					pwd = target.childNodes[i];
-				}
-			}
-			pwd.setAttribute('type', 'text');
-			addClass(this, 'selected');
-		});
-
-		eye[i].addEventListener('mouseup', function() {
-			pwd.setAttribute('type', 'password');
-			removeClass(this, 'selected');
-		});
-	}
-
-	function findParent(el, cls) {
-		while ((el = el.parentElement) && !el.classList.contains(cls));
-		return el;
-	}
-
 	/// Burger Nav ////////////////////////////////////////////////////////////////////////////////
 
 	var navBurger = document.querySelectorAll('.burger .burger-btn')[0];
