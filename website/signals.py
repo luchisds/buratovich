@@ -23,7 +23,7 @@ from models import AccessLog
 # Signal sent after a user is created
 @receiver(post_save, sender=User, dispatch_uid='website.signals.postSave_User')
 def postSave_User(sender, instance, created, **kwargs):
-	if created == True:
+	if created == True and not instance.is_staff:
 		token = account_activation_token.make_token(instance)
 		uidb64 = urlsafe_base64_encode(str(instance.pk))
 
@@ -54,7 +54,7 @@ def postSave_User(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=User, dispatch_uid='website.signals.preSave_User')
 def preSave_User(sender, instance, **kwargs):
 	# If instance have a 'pk' then is not a new user
-	if instance.pk is None:
+	if instance.pk is None and not instance.is_staff:
 		# Create a random password 8 char length
 		password = User.objects.make_random_password(8)
 		instance._pswd = password
