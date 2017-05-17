@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import csv
+import datetime
 import os
 
 from django.conf import settings
@@ -30,7 +31,7 @@ class Command(BaseCommand):
 				city_cod = row[3]
 				mm = row[4].replace(',','.')
 				try:
-					rain = Rain.objects.create(date=date)
+					rain = Rain.objects.create(date=datetime.datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d"))
 					city = City.objects.get(id=city_cod)
 					raindetail = RainDetail.objects.create(rain=rain, city=city, mm=mm)
 				except IntegrityError:
