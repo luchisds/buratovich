@@ -12,6 +12,7 @@ db_dumps/
 cuentas.txt
 new_accounts.txt
 lluvias.csv
+FTP/bash.script
 
 # Sqlite
 *.sqlite3

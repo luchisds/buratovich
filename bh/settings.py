@@ -200,6 +200,16 @@ with open(BASE_DIR+'/bh/remote_server.txt') as f:
 EXTRANET_DIR = os.path.join(BASE_DIR, 'FTP')
 
 
+# Security Settings
+SECURE_CONTENT_TYPE_NOSNSIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = 'DENY'
+
+
+
 LOGGING = {
 	'version': 1,
 	'disable_existing_loggers': False,
