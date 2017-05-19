@@ -37,7 +37,7 @@ var clean = build ? ['clean'] : [];
 // CUSTOMS TASKS
 // --------------------------
 
-// Clean 
+// Clean
 gulp.task('clean', function() {
 	return del([static]);
 });
@@ -50,6 +50,8 @@ gulp.task('assets', clean, function() {
 		.pipe(gulp.dest(static + 'taxes/'));
 	var video = gulp.src(source + 'video/**/*')
 		.pipe(gulp.dest(static + 'video/'));
+	var css = gulp.src(source + 'css/*.css')
+		.pipe(gulp.dest(static + 'css/'));
 	return es.merge(assets, taxes, video);
 });
 
@@ -77,7 +79,7 @@ gulp.task('images', clean, function() {
 	return gulp.src(source + 'img/**/*.*')
 		.pipe(changed(static + 'img/'))
 		.pipe(imagemin([
-			imagemin.gifsicle(), 
+			imagemin.gifsicle(),
 			imagemin.svgo(),
 			jpegoptim({
 				progressive: true,
