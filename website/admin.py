@@ -118,18 +118,27 @@ class BoardAdmin(admin.ModelAdmin):
 			'fields': ('date',),
 		}),
 		('Rosario', {
-			'fields': (('wheat_ros', 'wheat12_ros', 'corn_ros', 'sunflower_ros', 'soy_ros', 'sorghum_ros'),),
+			'classes': ('species',),
+			'fields': (('wheat_ros', 'corn_ros', 'sunflower_ros', 'soy_ros', 'sorghum_ros'),),
 		}),
 		('Buenos Aires', {
-			'fields': (('wheat_bas', 'wheat12_bas', 'corn_bas', 'sunflower_bas', 'soy_bas', 'sorghum_bas'),),
+			'classes': ('species',),
+			'fields': (('wheat_bas', 'corn_bas', 'sunflower_bas', 'soy_bas', 'sorghum_bas'),),
 		}),
 		('Bahia Blanca', {
-			'fields': (('wheat_bb', 'wheat12_bb', 'corn_bb', 'sunflower_bb', 'soy_bb', 'sorghum_bb'),),
+			'classes': ('species',),
+			'fields': (('wheat_bb', 'corn_bb', 'sunflower_bb', 'soy_bb', 'sorghum_bb'),),
 		}),
 		('Quequen', {
-			'fields': (('wheat_qq', 'wheat12_qq', 'corn_qq', 'sunflower_qq', 'soy_qq', 'sorghum_qq'),),
+			'classes': ('species',),
+			'fields': (('wheat_qq', 'corn_qq', 'sunflower_qq', 'soy_qq', 'sorghum_qq'),),
 		}),
 	)
+
+	class Media:
+		css = {
+			'all': ('css/board.css',)
+		}
 
 
 class RainDetailInline(admin.StackedInline):
