@@ -54,11 +54,10 @@ def evalTextUTF8(text):
 
 def importTicketsAnalysis():
 	txt = os.path.join(settings.EXTRANET_DIR, 'Analisis_Tickets.txt')
-	if os.path.isfile(txt):
-		if TicketsAnalysis.objects.count() > 0:
-			TicketsAnalysis.objects.all().delete()
-
+	try:
 		with open(txt, 'r') as file:
+			if TicketsAnalysis.objects.count() > 0:
+				TicketsAnalysis.objects.all().delete()
 			record = []
 			r = 0
 			# Exclude header
@@ -99,14 +98,16 @@ def importTicketsAnalysis():
 			for j in range(0, len(record), BULK_SIZE):
 				TicketsAnalysis.objects.bulk_create(record[j:j+BULK_SIZE])
 
+	except IOError as e:
+		print "I/O error({0}): {1}".format(e.errno, e.strerror)
+
 
 def importApplied():
-	txt = os.path.join(settings.EXTRANET_DIR, 'APLICADA.txt')
-	if os.path.isfile(txt):
-		if Applied.objects.count() > 0:
-			Applied.objects.all().delete()
-
+	txt = os.path.join(settings.EXTRANET_DIR, 'Aplicada.TXT')
+	try:
 		with open(txt, 'r') as file:
+			if Applied.objects.count() > 0:
+				Applied.objects.all().delete()
 			record = []
 			r = 0
 			for line in file:
@@ -176,14 +177,16 @@ def importApplied():
 			for j in range(0, len(record), BULK_SIZE):
 				Applied.objects.bulk_create(record[j:j+BULK_SIZE])
 
+	except IOError as e:
+		print "I/O error({0}): {1}".format(e.errno, e.strerror)
+
 
 def importCtaCteP():
-	txt = os.path.join(settings.EXTRANET_DIR, 'CtaCteP.txt')
-	if os.path.isfile(txt):
-		if CtaCte.objects.count() > 0:
-			CtaCte.objects.all().delete()
-
+	txt = os.path.join(settings.EXTRANET_DIR, 'CtaCteP.TXT')
+	try:
 		with open(txt, 'r') as file:
+			if CtaCte.objects.count() > 0:
+				CtaCte.objects.all().delete()
 			record = []
 			r = 0
 			for line in file:
@@ -274,16 +277,18 @@ def importCtaCteP():
 			for j in range(0, len(record), BULK_SIZE):
 				CtaCte.objects.bulk_create(record[j:j+BULK_SIZE])
 
+	except IOError as e:
+		print "I/O error({0}): {1}".format(e.errno, e.strerror)
+
 
 def importKilos():
-	txt = os.path.join(settings.EXTRANET_DIR, 'Web.txt')
-	if os.path.isfile(txt):
-		if Deliveries.objects.count() > 0:
-			Deliveries.objects.all().delete()
-		if Sales.objects.count() > 0:
-			Sales.objects.all().delete()
-
+	txt = os.path.join(settings.EXTRANET_DIR, 'Web.TXT')
+	try:
 		with open(txt, 'r') as file:
+			if Deliveries.objects.count() > 0:
+				Deliveries.objects.all().delete()
+			if Sales.objects.count() > 0:
+				Sales.objects.all().delete()
 			record_deliveries = []
 			record_sales = []
 			r = 0
@@ -478,3 +483,6 @@ def importKilos():
 			# break batch in small batches of 999 objects
 			for j in range(0, len(record_sales), BULK_SIZE):
 				Sales.objects.bulk_create(record_sales[j:j+BULK_SIZE])
+
+	except IOError as e:
+		print "I/O error({0}): {1}".format(e.errno, e.strerror)
