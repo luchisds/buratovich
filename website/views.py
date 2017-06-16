@@ -452,11 +452,13 @@ def change_password(request):
 				if user is not None and user.is_active == True:
 					login(request, user)
 					request.session['algoritmo_code'] = request.user.userinfo.algoritmo_code
-					return render(request, 'change_password.html', {'changed':'changed'})
+					return redirect(reverse('extranet'))
 				else:
 					print 'Usuario no encontrado'
 			except:
 				print 'No se pudede cambiar el password'
+		else:
+			return render(request, 'change_password.html', {'account_confirmed': True, 'pass_not_match': True})
 	else:
 		return render(request, 'change_password.html')
 
