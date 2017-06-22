@@ -18,6 +18,10 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 
+		def evalText(text):
+			# Decode text in latin iso-8859-1 like (0xd1 --> ñ)
+			return unicode(text.strip(' ').decode('iso-8859-1'))
+
 		txt = os.path.join(settings.BASE_DIR, 'new_accounts.txt')
 
 		with open(txt, 'r') as accounts:
@@ -31,12 +35,12 @@ class Command(BaseCommand):
 				if len(line) > 0:
 					data = re.split('\t', line)
 					cod = data[0]
-					name = data[1]
-					user = data[2]
-					email = data[3]
-					passw = data[4]
-					token = data[5]
-					uid = data[6]
+					name = evalText(data[1])
+					user = evalText(data[2])
+					email = evalText(data[3])
+					passw = evalText(data[4])
+					token = evalText(data[5])
+					uid = evalText(data[6])
 
 					# Send email
 					subject = 'Activación de Cuenta | Buratovich Hnos.'
