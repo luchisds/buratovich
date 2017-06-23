@@ -1365,6 +1365,38 @@ footer
 				&:hover
 					background-color $baseColor
 					color white
+	#client-select
+		border 1px solid $baseColor
+		border-radius 3px
+		margin 0 auto
+		padding 1em
+		width 80%
+		& >
+			button, select, span
+				display inline-block
+				vertical-align middle
+			button, span
+				margin-left .5em
+			select
+				border 1px solid $baseColor
+				border-radius 3px
+				padding 2px
+			span
+				color red
+				font-size .9em
+		.client-selected
+			margin-top 1em
+			p
+				background-color rgba(1,141,52,.6)
+				border-radius 3px
+				color $accentColor
+				font-size 1em
+				font-weight bold
+				padding 5px
+				span
+					border-radius 5px
+					color white
+					margin-right .5em
 
 
 #extranet, #ctacte
@@ -1517,6 +1549,10 @@ footer
 		padding 15em 0 15em 0
 	.no-species
 		padding 2.5em 0 5em 0
+	.client-selected
+		color $baseColor
+		font-size 1em
+		margin 2em 0 -1.5em .5em
 	&.pesos, &.applied
 		table
 			tbody

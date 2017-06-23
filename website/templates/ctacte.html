@@ -67,6 +67,12 @@
 
 		<h3>Cuenta Corriente en Pesos</h3>
 		
+		{% if user.userinfo.is_commercial %}
+			{% if request.session.algoritmo_code %}
+				<h4 class="client-selected">{{request.session.algoritmo_code|slugify}} - {{request.session.company_name|upper}}</h4>
+			{% endif %}
+		{% endif %}
+
 		<form id="filter-date" action="{% url 'ctacte' %}" method="post">
 			{% csrf_token %}
 			<div class="input-el">
@@ -250,7 +256,11 @@
 		{% else %}
 
 			<div class="no-data">
-				<p>No se encontraron movimientos.</p>
+				{% if request.session.algoritmo_code %}
+					<p>No se encontraron movimientos.</p>
+				{% else %}
+					<p>Debe seleccionar un Cliente.</p>
+				{% endif %}
 			</div>
 
 		{% endif %}
