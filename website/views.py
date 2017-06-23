@@ -406,8 +406,9 @@ def auth_login(request):
 
 				user_code = User.objects.get(username=request.POST['username'])
 				algoritmo_code = UserInfo.objects.get(user=user_code.id)
-				# Save algoritmo_code on session
-				request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
+				if not algoritmo_code.is_commercial:
+					# Save algoritmo_code on session if user is not commercial
+					request.session['algoritmo_code'] = algoritmo_code.algoritmo_code
 
 				return redirect(settings.LOGIN_REDIRECT_URL)
 			else:
@@ -451,7 +452,8 @@ def change_password(request):
 				user = authenticate(username=request.user.username, password=password1)
 				if user is not None and user.is_active == True:
 					login(request, user)
-					request.session['algoritmo_code'] = request.user.userinfo.algoritmo_code
+					if not user.userinfo.is_commercial:
+						request.session['algoritmo_code'] = request.user.userinfo.algoritmo_code
 					return redirect(reverse('extranet'))
 				else:
 					print 'Usuario no encontrado'
@@ -471,6 +473,7 @@ def auth_logout(request):
 
 @login_required
 def extranet(request):
+	# Notifications list
 	notifications = Notifications.objects.filter(active=True, date_to__gte=datetime.date.today())
 	notifications_list = []
 	notifications_id = []
@@ -483,8 +486,22 @@ def extranet(request):
 
 	if len(notifications_id) > 0:
 		request.session['notifications'] = notifications_id
-	
-	return render(request, 'extranet.html', {'notifications': notifications_list})
+
+	if request.user.userinfo.is_commercial:
+		clients = User.objects.filter(is_staff=False, userinfo__is_commercial=False).values('userinfo__algoritmo_code', 'userinfo__company_name').order_by('userinfo__company_name')
+		if request.POST:
+			if request.POST.get('client'):
+				client_selected = UserInfo.objects.filter(algoritmo_code=request.POST.get('client')).values('algoritmo_code', 'company_name')
+				for d in client_selected:
+					request.session['algoritmo_code'] = d['algoritmo_code']
+					request.session['company_name'] = d['company_name']
+				return render(request, 'extranet.html', {'notifications': notifications_list, 'clients': clients})
+			else:
+				return render(request, 'extranet.html', {'notifications': notifications_list, 'clients': clients, 'errors': 'Debe seleccionar un Cliente'})
+		else:
+			return render(request, 'extranet.html', {'notifications': notifications_list, 'clients': clients})
+	else:
+		return render(request, 'extranet.html', {'notifications': notifications_list})
 
 
 @login_required
@@ -609,6 +626,8 @@ def ctacte(request):
 				return render(request, 'ctacte.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
 			else:
 				return render(request, 'ctacte.html')
+	else:
+		return render(request, 'ctacte.html')
 
 
 @login_required
@@ -708,6 +727,8 @@ def applied(request):
 				return render(request, 'applied.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
 			else:
 				return render(request, 'applied.html')
+	else:
+		return render(request, 'applied.html')
 
 
 @login_required
@@ -809,6 +830,8 @@ def deliveries(request):
 				return render(request, 'deliveries.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'deliveries.html')
+	else:
+		return render(request, 'deliveries.html')
 
 
 @login_required
@@ -927,6 +950,8 @@ def sales(request):
 				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'sales.html')
+	else:
+		return render(request, 'sales.html')
 
 
 def downloadRainExcel(request):

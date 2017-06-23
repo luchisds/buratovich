@@ -39,6 +39,28 @@
 				<p>Para ello puede acceder <a href="{% url 'change_password' %}">aquí</a>.</p>
 			</div>
 		{% endif %}
+		{% if user.userinfo.is_commercial %}
+			<form id="client-select" action="{% url 'extranet' %}" method="post">
+				{% csrf_token %}
+				<select name="client" id="client">
+					<option value="">- - - - - -</option>
+					{% for client in clients %}
+						<option value="{{client.userinfo__algoritmo_code|slugify}}" {% if client.userinfo__algoritmo_code = request.session.algoritmo_code %}selected{% endif %}>{{client.userinfo__company_name|upper}}</option>
+					{% endfor %}
+				</select>
+				<button type="submit" class="submit">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+				{% if errors %}<span>{{errors}}</span>{% endif %}
+				<div class="client-selected">
+					{% if request.session.algoritmo_code %}
+						<p><span>Cliente:</span> {{request.session.algoritmo_code|slugify}} - {{request.session.company_name|upper}}</p>
+					{% else %}
+						<p><span>Cliente:</span></p>
+					{% endif %}
+				</div>
+			</form>
+		{% endif %}
 		<nav class="extranet-nav">
 			<ul class="h-list">
 				<div class="row">
