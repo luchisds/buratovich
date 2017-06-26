@@ -538,18 +538,19 @@ def ctacte(request):
 			request.session['from_date'] = request.POST.get('from')
 			request.session['to_date'] = request.POST.get('to')
 			# Request data
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-			ib = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=from_date).aggregate(Sum('amount_sign'))
+			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+			ib = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
+			print "SALDO INCIALLLLL: ", ib['amount_sign__sum']
 			if ib['amount_sign__sum']:
 				ib = ib['amount_sign__sum']
 			else:
 				ib = 0
-			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
+			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))
 		else:
 			# Queryset with cta cte data
 			from_date = False
 			to_date = False
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
 			ib = 0
 			# Total amount
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
@@ -1054,17 +1055,17 @@ def downloadPDFExtranet(request):
 def downloadexcel(request, module):
 
 	def getPesosExcel():
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
 
 		balance = 0
 		records = []
 		for d in data:
 			balance += d['amount_sign']
 			tmp_dict = OrderedDict()
-			tmp_dict['Fecha Vencimiento'] = d['date_1']
+			tmp_dict['Fecha Vencimiento'] = d['date_2']
 			tmp_dict['Comprobante'] = d['voucher']
 			tmp_dict['Observaciones'] = d['concept']
-			tmp_dict['Fecha Emision'] = d['date_2']
+			tmp_dict['Fecha Emision'] = d['date_1']
 			if d['movement_type'] == 'Debito':
 				tmp_dict['Debe'] = d['amount_sign']
 				tmp_dict['Haber'] = 0

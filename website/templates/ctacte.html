@@ -5,7 +5,7 @@
 {% load truncatechars %}
 {% load voucher %}
 
-{% block title %}Buratovich Hnos. - Cuenta Corriente en Peso{% endblock %}
+{% block title %}Buratovich Hnos. - Cuenta Corriente en Pesos{% endblock %}
 
 {% block path %}
 <div class="path maxwidth">
@@ -73,7 +73,7 @@
 			{% endif %}
 		{% endif %}
 
-		<form id="filter-date" action="{% url 'ctacte' %}" method="post">
+		<!-- <form id="filter-date" action="{% url 'ctacte' %}" method="post">
 			{% csrf_token %}
 			<div class="input-el">
 				<div class="from">
@@ -110,7 +110,7 @@
 
 		{% if from_date and to_date %}
 			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
-		{% endif %}
+		{% endif %} -->
 
 		{% if ctacte %}
 
@@ -163,12 +163,12 @@
 					{% endfor %}
 					{% for i in ctacte %}
 						<tr>
-							<td class="center">{{i.obj.date_2|date:"d/m/Y"}}</td>
+							<td class="center">{{i.obj.date_1|date:"d/m/Y"}}</td>
 							{% voucher i.obj.voucher 'S' as voucher %}
 							<td>{{voucher}}</td>
 							{% truncate_chars i.obj.concept 40 as concept %}
 							<td class="observations">{{concept}}</td>
-							<td class="center date-e">{{i.obj.date_1|date:"d/m/Y"}}</td>
+							<td class="center date-e">{{i.obj.date_2|date:"d/m/Y"}}</td>
 							{% if i.obj.movement_type == "Debito" %}
 								<td class="center dh">D</td>
 								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
