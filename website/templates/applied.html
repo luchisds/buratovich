@@ -74,7 +74,7 @@
 			{% endif %}
 		{% endif %}
 
-		<form id="filter-date" action="{% url 'applied' %}" method="post">
+		<!-- <form id="filter-date" action="{% url 'applied' %}" method="post">
 			{% csrf_token %}
 			<div class="input-el">
 				<div class="from">
@@ -111,7 +111,7 @@
 		
 		{% if from_date and to_date %}
 			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
-		{% endif %}
+		{% endif %} -->
 
 		{% if applied %}
 
