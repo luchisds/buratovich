@@ -14,9 +14,6 @@ new_accounts.txt
 lluvias.csv
 FTP/bash.script
 
-# Sqlite
-*.sqlite3
-
 # Secret Key
 secret_key.txt
 
