@@ -520,39 +520,40 @@ def notifications(request):
 @login_required
 def ctacte(request):
 
+	#Initialize variables
+
 	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC']
+	# Dates for print on template
+	from_date_print = None
+	to_date_print = None
+	# Initial balance
+	ib = 0
+	data = None
 
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		if request.POST:
-			# Get dates from POST
-			from_date = request.POST.get('from')
-			to_date = request.POST.get('to')
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+
+		if from_date and to_date:
 			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
 			try:
 				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
 			except ValueError:
 				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
 				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
-			# Save dates in session to use in defaul input value
-			request.session['from_date'] = request.POST.get('from')
-			request.session['to_date'] = request.POST.get('to')
+			# Format dates for template
+			from_date_print = str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4]
+			to_date_print = str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]
 			# Request data
 			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
-			ib = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
-			print "SALDO INCIALLLLL: ", ib['amount_sign__sum']
-			if ib['amount_sign__sum']:
-				ib = ib['amount_sign__sum']
-			else:
-				ib = 0
-			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))
-		else:
-			# Queryset with cta cte data
-			from_date = False
-			to_date = False
+			ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
+			if ib_sum['amount_sign__sum']:
+				ib = ib_sum['amount_sign__sum']
+			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))			
+		elif not from_date and not to_date:
 			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
-			ib = 0
-			# Total amount
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
 		# If exist data
@@ -618,15 +619,13 @@ def ctacte(request):
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
-			if from_date and to_date:
-				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
-			else:
-				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+
+			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print})
 		else:
-			if from_date and to_date:
-				return render(request, 'ctacte.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			if (from_date and to_date and from_date < to_date) or (not from_date and not to_date):
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print})
 			else:
-				return render(request, 'ctacte.html')
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas'})
 	else:
 		return render(request, 'ctacte.html')
 
@@ -634,34 +633,42 @@ def ctacte(request):
 @login_required
 def applied(request):
 
+	#Initialize variables
+
+	# Dates for print on template
+	from_date_print = None
+	to_date_print = None
+	# Initial balance
+	ib = 0
+	data = None
+
+	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		if request.POST:
-			from_date = request.POST.get('from')
-			to_date = request.POST.get('to')
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+
+		if from_date and to_date:
+			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
 			try:
 				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
 			except ValueError:
 				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
 				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
-			request.session['from_date'] = request.POST.get('from')
-			request.session['to_date'] = request.POST.get('to')
+			# Format dates for template
+			from_date_print = str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4]
+			to_date_print = str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]
+			# Request data
 			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__range=[from_date, to_date]).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-			ib = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
-			if ib['amount_sign__sum']:
-				ib = ib['amount_sign__sum']
-			else:
-				ib = 0
+			ib_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
+			if ib_sum['amount_sign__sum']:
+				ib = ib_sum['amount_sign__sum']
 			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=to_date).aggregate(Sum('amount_sign'))
-		else:
-			# Queryset with cta cte data
-			from_date = False
-			to_date = False
+		elif not from_date and not to_date:
 			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-			ib = 0
-			# Total amount
 			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
-		# If no data
+		# If exist data
 		if data:
 
 			#### Add balance for every record in "data" queryset
@@ -719,15 +726,12 @@ def applied(request):
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
-			if from_date and to_date:
-				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
-			else:
-				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+			return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print})
 		else:
-			if from_date and to_date:
-				return render(request, 'applied.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			if (from_date and to_date and from_date < to_date) or (not from_date and not to_date):
+				return render(request, 'applied.html', {'from_date': from_date_print, 'to_date': to_date_print})
 			else:
-				return render(request, 'applied.html')
+				return render(request, 'applied.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas'})
 	else:
 		return render(request, 'applied.html')
 
@@ -736,8 +740,8 @@ def applied(request):
 def deliveries(request):
 	if 'algoritmo_code' in request.session:
 
-		if request.POST:
-			current_species = request.POST.getlist('checks')
+		if request.GET.get('checks'):
+			current_species = request.GET.getlist('checks')
 			request.session['current_species'] = current_species
 		else:
 			current_species = ''
@@ -760,8 +764,7 @@ def deliveries(request):
 					species_by_harvest[s['harvest']][s['species']]['checked'] = False
 				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-
-			if request.POST:
+			if current_species:
 				# Create a filter by species / harvest using Q function and OR statement (|)
 				speciesharvest_filter = Q()
 				for item in current_species:
@@ -816,7 +819,6 @@ def deliveries(request):
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
 				# Get ticket analysis
-				# remittances = Remittances.objects.filter(ticket__in = tickets_for_analysis).values('ticket', 'analysis')
 				remittances = TicketsAnalysis.objects.filter(ticket__in = tickets_for_analysis).values('ticket').distinct()
 				# dict [Ticket] --> [Analysis]
 				ticket_analysis = {}
@@ -825,9 +827,8 @@ def deliveries(request):
 					ticket_analysis[i['ticket']] = analysis
 
 				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis})
-
 			else:
-				# If request is GET
+				# If no species selected
 				return render(request, 'deliveries.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'deliveries.html')
@@ -839,8 +840,8 @@ def deliveries(request):
 def sales(request):
 	if 'algoritmo_code' in request.session:
 
-		if request.POST:
-			current_species = request.POST.getlist('checks')
+		if request.GET.get('checks'):
+			current_species = request.GET.getlist('checks')
 			request.session['current_species'] = current_species
 		else:
 			current_species = ''
@@ -864,12 +865,11 @@ def sales(request):
 					species_by_harvest[s['harvest']][s['species']]['checked'] = False
 				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-			if request.POST:
+			if current_species:
 				# Create a filter by species / harvest using Q function and OR statement (|)
 				speciesharvest_filter = Q()
 				for item in current_species:
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
-
 
 				## Total kg for selected species_description
 				total_kg = {}
@@ -877,10 +877,8 @@ def sales(request):
 				total_kg['to_set'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['other'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 
-
 				# Dict with [species description]-->[sales]
 				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('id', 'date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
-
 
 				sales = {}
 				for s in species_description:
@@ -945,9 +943,8 @@ def sales(request):
 										sales[sd]['others']['count_others'] = count_others
 
 				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
-
 			else:
-				# If request is GET
+				# Ifno species selected
 				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'sales.html')

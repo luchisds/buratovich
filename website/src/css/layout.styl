@@ -1578,6 +1578,11 @@ footer
 					display inline-block
 					&.to
 						margin-left .2em
+			.error-description
+				border-left 2px solid red
+				color red
+				margin-top .5em
+				padding-left .3em
 			button, .input
 				display inline-block
 				margin 0 .2em
@@ -1587,7 +1592,6 @@ footer
 			margin 1em 0 0 0
 		.pagination
 			font-size .9em
-			margin 0 0 5em 0
 			text-align center
 			.wrapper
 				border 1px solid $midGrey
@@ -1613,6 +1617,10 @@ footer
 				.endless_separator
 					background-color $lightGrey
 					color $midGrey
+			&.top
+				margin 1em 0 1.5em 0
+			&.bottom
+				margin 0 0 5em 0
 	&.kilos, &.sales
 		padding-bottom 2em
 		table

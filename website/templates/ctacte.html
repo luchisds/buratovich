@@ -73,14 +73,14 @@
 			{% endif %}
 		{% endif %}
 
-		<!-- <form id="filter-date" action="{% url 'ctacte' %}" method="post">
-			{% csrf_token %}
+		<form id="filter-date" action="{% url 'ctacte' %}" method="get">
+			<!-- {% csrf_token %} -->
 			<div class="input-el">
 				<div class="from">
 					Desde 
 					<div class="input">
 						{% if from_date %}
-							<input id="from" name="from" type="date" value="{{request.session.from_date}}" placeholder="dd/mm/aaaa">
+							<input id="from" name="from" type="date" value="{{request.GET.from}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="from" name="from" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -93,7 +93,7 @@
 					Hasta 
 					<div class="input">
 						{% if to_date %}
-							<input id="to" name="to" type="date" value="{{request.session.to_date}}" placeholder="dd/mm/aaaa">
+							<input id="to" name="to" type="date" value="{{request.GET.to}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="to" name="to" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -106,11 +106,12 @@
 			<button type="submit" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
+			<p class="error-description">{{error}}</p>
 		</form>
 
 		{% if from_date and to_date %}
 			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
-		{% endif %} -->
+		{% endif %}
 
 		{% if ctacte %}
 
@@ -124,6 +125,12 @@
 				<!--<button>
 					<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
 				</button>-->
+			</div>
+
+			<div class="pagination top">
+				<span class="wrapper">
+					{% show_pages %}
+				</span>
 			</div>
 
 			<table>
@@ -247,7 +254,7 @@
 				</tbody>
 			</table>
 
-			<div class="pagination">
+			<div class="pagination bottom">
 				<span class="wrapper">
 					{% show_pages %}
 				</span>
