@@ -78,8 +78,8 @@
 		{% if species %}
 
 			<div class="harvest-selector">
-				<form action="{% url 'deliveries' %}" method="post">
-				{% csrf_token %}
+				<form action="{% url 'deliveries' %}" method="get">
+				<!-- {% csrf_token %} -->
 					<div class="harvest-detail">
 					{% for harvest, values in species.items %}
 						<div>
