@@ -599,14 +599,15 @@ def ctacte(request):
 			initial_balance.append(ib)
 			page_balance = []
 			while ib_records < total_records:
-				if ib_records == 0:
+				if ib_records == 0 and remainder > 0:
 					tmp = records[0:remainder]
 					ib_records += remainder
 				else:
 					tmp = records[0:ib_records+limit]
 					ib_records += limit
 
-				partial_balance = 0
+				# Assign inicial balance to partial_balance (if there is no date filter will be 0, otherwise will be the initial balance at from date)
+				partial_balance = ib
 				for obj in tmp:
 					partial_balance += obj['obj']['amount_sign']
 
