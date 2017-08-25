@@ -360,8 +360,18 @@
 					{% endif %}
 				{% endfor %}
 
+				<table>
+					<tbody>
+						<tr class="total-received">
+							<td class="center kg"><span>Total Ventas: {% if not total.sales.net_weight__sum %} 0 {% else %} {{total.sales.net_weight__sum|intcomma}} {% endif %}</span></td>
+							<td class="center kg"><span>Total A Fijar: {% if not total.to_set.net_weight__sum %} 0 {% else %} {{total.to_set.net_weight__sum|intcomma}} {% endif %}</span></td>
+							<td class="center kg"><span>Total Otros: {% if not total.other.net_weight__sum %} 0 {% else %} {{total.other.net_weight__sum|intcomma}} {% endif %}</span></td>
+							<td class="center kg"><span>Total Kg. Liquidados: {% if not total.settled.number_1116A__sum %} 0 {% else %} {{total.settled.number_1116A__sum|intcomma}} {% endif %}</span></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<div class="total-received">
+				<!-- <div class="total-received">
 					<p>Total Ventas: <span>{% if not total.sales.net_weight__sum %} 0 {% else %} {{total.sales.net_weight__sum|intcomma}} {% endif %}</span></p>
 				</div>
 				<div class="total-received">
@@ -370,6 +380,10 @@
 				<div class="total-received">
 					<p>Total Otros: <span>{% if not total.other.net_weight__sum %} 0 {% else %} {{total.other.net_weight__sum|intcomma}} {% endif %}</span></p>
 				</div>
+
+				<div class="total-received">
+					<p>Total Kg. Liquidados: <span>{% if not total.settled.number_1116A__sum %} 0 {% else %} {{total.settled.number_1116A__sum|intcomma}} {% endif %}</span></p>
+				</div> -->
 
 			{% else %}
 				<div class="no-species">
