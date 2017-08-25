@@ -256,9 +256,27 @@
 					</table>
 				{% endfor %}
 
-				<div class="total-received">
+				<table>
+					<tbody>
+						<tr class="total-received">
+							<td class="center date"><span>Cant. Entregas: {{total.voucher__count|intcomma}}</span></td>
+							<td class="right hum kg"><span>Total Kg. Hum.: {{total.humidity_kg__sum|intcomma}}</span></td>
+							<td class="right zar"><span>Total Kg. Zar.: {{total.shaking_kg__sum|intcomma}}</span></td>
+							<td class="right vol"><span>Total Kg. Vol.: {{total.volatile_kg__sum|intcomma}}</span></td>
+							<td class="right gross"><span>Total Kg. Brutos: {{total.gross_kg__sum|intcomma}}</span></td>
+							<td class="right net"><span>Total Kg. Netos: {{total.net_weight__sum|intcomma}}</span></td>
+						</tr>
+					</tbody>
+				</table>
+
+			<!-- <div class="total-received">
 					<p>Total Entregado: <span>{{total.net_weight__sum|intcomma}}</span></p>
-				</div>
+					<p>Cantidad Entregas: <span>{{total.voucher__count|intcomma}}</span></p>
+					<p>Kg. Humedad: <span>{{total.humidity_kg__sum|intcomma}}</span></p>
+					<p>Kg. Zarandeo: <span>{{total.shaking_kg__sum|intcomma}}</span></p>
+					<p>Kg. Volatil: <span>{{total.volatile_kg__sum|intcomma}}</span></p>
+					<p>Total Brutos: <span>{{total.gross_kg__sum|intcomma}}</span></p>
+				</div> -->
 
 			{% else %}
 

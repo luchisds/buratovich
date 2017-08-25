@@ -22,7 +22,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.db.models import Q
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -772,7 +772,7 @@ def deliveries(request):
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
 
 				## Total kg for selected species_description
-				total_kg = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('net_weight'), Count('voucher'), Sum('humidity_kg'), Sum('shaking_kg'), Sum('volatile_kg'), Sum('gross_kg'))
 
 				# Dict with [species description]-->[field]-->[tickets]
 				fields = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
@@ -877,6 +877,8 @@ def sales(request):
 				total_kg['sales'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['to_set'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['other'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['settled'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('number_1116A'))
+
 
 				# Dict with [species description]-->[sales]
 				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('id', 'date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
