@@ -193,7 +193,7 @@
 							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
 							{% if i.file %}
 								<td class="center voucher">
-									<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
+									<a href="{% url 'downloadPDF' %}?f={{i.file}}&d={{i.obj.date_2|date:'Ymd'}}" target="_blank">
 										<img src="{% static "img/pdf2.png" %}" alt="">
 									</a>
 								</td>
