@@ -522,7 +522,7 @@ def ctacte(request):
 
 	#Initialize variables
 
-	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC']
+	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC', 'PC', 'OP', 'RE']
 	# Dates for print on template
 	from_date_print = None
 	to_date_print = None
@@ -1022,29 +1022,71 @@ def downloadPDFExtranet(request):
 		'ND': {'codigo': ['HNDCER','HNDE','NDE','NDECAJ','NDECER','NDEPER',], 'separator': '_', 'url':'ventas/'},
 		'NC': {'codigo': ['HNCCER','HNCR','NCR','NCRCER','NCRDEV','NCSCER',], 'separator': '_', 'url':'ventas/'},
 		'FC': {'codigo': ['FAC','FACCER','FACD','FACSER','FASCER','HFAC','HFACER',], 'separator': '_', 'url':'ventas/'},
+		'PC': {'codigo': ['PC',], 'separator': '_', 'url':'tesoreria/'},
+		'OP': {'codigo': ['OP',], 'separator': '_', 'url':'tesoreria/'},
+		'RE': {'codigo': ['RE',], 'separator': '_', 'url':'tesoreria/'},
 	}
 
-	def search_file(voucher):
+	def merge_pdf(file1, file2):
+		
+		def append_pdf(input,output):
+			[output.addPage(input.getPage(page_num)) for page_num in range(input.numPages)]
+
+		# Create instance por Write new PDF
+		output = PdfFileWriter()
+		pdf1 = PdfFileReader(cStringIO.StringIO(file1))
+		pdf2 = PdfFileReader(cStringIO.StringIO(file2))
+		append_pdf(pdf1,output)
+		append_pdf(pdf2,output)
+		# Init InMemory PDF file
+		new_file = cStringIO.StringIO()
+
+		# Write PDF to buffer
+		output.write(new_file)
+
+		# Return buffer stream
+		return new_file.getvalue()
+
+	def search_file(voucher, voucher_date):
 		voucher = voucher.split(' ')
 		if vouchers.get(voucher[0], None) is None:
 			return None
 		else:
 			separator = vouchers[voucher[0]]['separator']
 			url = vouchers[voucher[0]]['url']
+
 			for c in vouchers[voucher[0]]['codigo']:
-				file_name = c + separator + voucher[1] + separator + voucher[2] + '.pdf'
-				r = requests.get('http://190.92.102.226:1500/'+url+file_name, auth=HTTPBasicAuth(RS_USER, RS_PASS))
+				file_name = c+separator+voucher[1]+separator+voucher[2]+'.pdf'
+
+				if 'tesoreria' in url:
+					file_url = 'http://190.92.102.226:1500/'+url+voucher_date+'/C'+str(request.session['algoritmo_code'])+separator+file_name
+				else:
+					file_url = 'http://190.92.102.226:1500/'+url+file_name
+				
+				r = requests.get(file_url, auth=HTTPBasicAuth(RS_USER, RS_PASS))
 				if r.status_code == 200:
-					return {'file':r, 'filename':file_name}
+					##### FASCER Tickets Detail
+					if c == 'FASCER':
+						tickets_file_url = 'http://190.92.102.226:1500/'+'DETTK'+separator+voucher[1]+separator+voucher[2]+'.pdf'
+						rtk = requests.get(tickets_file_url, auth=HTTPBasicAuth(RS_USER, RS_PASS))
+						if rtk.status_code == 200:
+							r = merge_pdf(r.content, rtk.content)
+							# If DETTK exists then return the new file
+							return {'file':r, 'filename':file_name}
+					#####
+
+					# If voucher is not FASCER or there is no DETTK then return the response content (file)
+					return {'file':r.content, 'filename':file_name}
 
 	if 'algoritmo_code' in request.session:
 		f = request.GET['f']
-		file = search_file(f)
+		d = request.GET['d']
+		file = search_file(f, d)
 
 		if file:
-			length = file['file'].headers['Content-Length']
-			response = StreamingHttpResponse(file['file'].content, content_type="application/pdf")
-			response['Content-Length'] = length
+			#length = file['file'].headers['Content-Length']
+			response = StreamingHttpResponse(file['file'], content_type='application/pdf')
+			#response['Content-Length'] = length
 			response['Content-Disposition'] = "attachment; filename='%s'" % file['filename']
 			return response
 		else:
