@@ -886,7 +886,7 @@
 				&.sales
 					tr
 						th, td
-							&.from-to-date, &.ex, &.settled
+							&.from-to-date, &.ex, &.settled, &.file
 								display none
 						th.currency
 							display none
@@ -894,16 +894,16 @@
 							display table-cell
 						&.detail
 							th, td
-								&.from-to-date, &.ex, &.settled
+								&.from-to-date, &.ex, &.settled, &.file
 									display table-cell
 				&.to-fix
 					tr
 						th, td
-							&.from-to-date
+							&.from-to-date, &.file
 								display none
 						&.detail
 							th, td
-								&.from-to-date
+								&.from-to-date, &.file
 									display table-cell
 				&.others
 					tr
@@ -920,11 +920,6 @@
 		&.pesos, &.applied
 			table
 				font-size .7em
-				// &.responsive
-				// 	tr
-				// 		th, td
-				// 			&.dh
-				// 				display table-cell
 			.pagination
 				.wrapper
 					span, a
@@ -958,6 +953,18 @@
 							th, td
 								&.factor, &.grade
 									display none
+		&.sales
+			table
+				&.sales, &.to-fix
+					tr
+						th, td
+							&.file
+								display table-cell
+						&.detail
+							th, td
+								&.file
+									display none
+				
 
 @media screen and (min-width: 550px)
 	#ctacte
