@@ -522,7 +522,7 @@ def ctacte(request):
 
 	#Initialize variables
 
-	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC', 'PC', 'OP', 'RE']
+	vouchers_pdf = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC', 'PC', 'OP', 'RE']
 	# Dates for print on template
 	from_date_print = None
 	to_date_print = None
@@ -566,7 +566,7 @@ def ctacte(request):
 				balance += d['amount_sign']
 				tmp_dict = {}
 				tmp_dict['obj'] = d
-				if d['voucher'].split(' ')[0] in vouchers:
+				if d['voucher'].split(' ')[0] in vouchers_pdf:
 					tmp_dict['file'] = d['voucher']
 				else:
 					tmp_dict['file'] = None
@@ -839,7 +839,11 @@ def deliveries(request):
 
 @login_required
 def sales(request):
+
 	if 'algoritmo_code' in request.session:
+
+		# PDF files
+		vouchers_pdf = ['VT', 'VF']
 
 		if request.GET.get('checks'):
 			current_species = request.GET.getlist('checks')
@@ -907,7 +911,12 @@ def sales(request):
 										if sales[sd].get('sales', None) is None:
 											sales[sd]['sales'] = OrderedDict()
 											sales[sd]['sales']['vouchers'] = OrderedDict()
-										sales[sd]['sales']['vouchers'][v['id']] = v
+										sales[sd]['sales']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['sales']['vouchers'][v['id']]['obj'] = v
+										if v['voucher'].split(' ')[0] in vouchers_pdf:
+											sales[sd]['sales']['vouchers'][v['id']]['file'] = v['voucher']
+										else:
+											sales[sd]['sales']['vouchers'][v['id']]['file'] = None
 										total_g_sales += v['gross_kg']
 										total_p_sales += v['service_billing_number']
 										total_l_sales += v['number_1116A']
@@ -916,14 +925,22 @@ def sales(request):
 										if sales[sd].get('to_set', None) is None:
 											sales[sd]['to_set'] = OrderedDict()
 											sales[sd]['to_set']['vouchers'] = OrderedDict()
-										sales[sd]['to_set']['vouchers'][v['voucher']] = v
+										# sales[sd]['to_set']['vouchers'][v['voucher']] = v
+										sales[sd]['to_set']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['to_set']['vouchers'][v['id']]['obj'] = v
+										if v['voucher'].split(' ')[0] in vouchers_pdf:
+											sales[sd]['to_set']['vouchers'][v['id']]['file'] = v['voucher']
+										else:
+											sales[sd]['to_set']['vouchers'][v['id']]['file'] = None
 										total_g_to_set += v['gross_kg']
 										count_to_set += 1
 									else:
 										if sales[sd].get('others', None) is None:
 											sales[sd]['others'] = OrderedDict()
 											sales[sd]['others']['vouchers'] = OrderedDict()
-										sales[sd]['others']['vouchers'][v['voucher']] = v
+										# sales[sd]['others']['vouchers'][v['voucher']] = v
+										sales[sd]['others']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['others']['vouchers'][v['id']]['obj'] = v
 										if v['gross_kg'] > 0:
 											total_i_others += v['gross_kg']
 										else:
@@ -945,6 +962,7 @@ def sales(request):
 										sales[sd]['others']['total_o_others'] = total_o_others
 										sales[sd]['others']['count_others'] = count_others
 
+				print sales
 				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
 			else:
 				# Ifno species selected
@@ -1025,6 +1043,8 @@ def downloadPDFExtranet(request):
 		'PC': {'codigo': ['PC',], 'separator': '_', 'url':'tesoreria/'},
 		'OP': {'codigo': ['OP',], 'separator': '_', 'url':'tesoreria/'},
 		'RE': {'codigo': ['RE',], 'separator': '_', 'url':'tesoreria/'},
+		'VT': {'codigo': ['VT',], 'separator': '_', 'url':'cnv/'},
+		'VF': {'codigo': ['VF',], 'separator': '_', 'url':'cnv/'},
 	}
 
 	def merge_pdf(file1, file2):
