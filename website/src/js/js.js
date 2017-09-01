@@ -298,6 +298,18 @@ function init() {
 		}
 	}
 
+	/// EXTRANET /////////////////////////////////////////////////////////////////////////////////////////////
+
+	var extranet = document.getElementById('extranet');
+	if(extranet) {
+		var ctacteBtn = extranet.getElementsByClassName('ctacte-btn')[0];
+		ctacteBtn.addEventListener('click', function(event) {
+			event.preventDefault();
+			toggleClass(ctacteBtn.querySelector('.front-btn'), 'hide-btn');
+			toggleClass(ctacteBtn.querySelector('.back-btn'), 'hide-btn');
+		});
+	}
+
 	/// Cta. Cte. Pesos / Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////
 
 	var ctaCte = document.getElementById('ctacte');
