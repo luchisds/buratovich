@@ -18,15 +18,15 @@
 
 {% block content %}
 <section id="extranet" class="maxwidth">
-
 	{% if notifications|length > 0 %}
 		{% for n in notifications %}
 			<article class="notification">
 				<p class="date">{{n.date|date:"l, d F Y"}}</p>
 				<div class="notification-content">
 					<p class="title">{{n.title}}</p>
-					<p class="text">{{n.notification}}</p>
+					<p class="text">{{n.notification|safe}}</p>
 				</div>
+				<div class="separator"></div>
 			</article>
 		{% endfor %}
 		<p class="viewed">
@@ -65,17 +65,24 @@
 			<ul class="h-list">
 				<div class="row">
 					<li class="ctacte-btn">
-						<!-- <a href="{% url 'ctacte' %}"> -->
-						<a href="#">
+						<div class="action-btn">
 							<div class="back-btn hide-btn">
-								<span>Vencimiento</span>
-								<span>Emisión</span>
+								<div>
+									<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
+										<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
+									</a>
+									<a href="{% url 'ctacte' ctacte_type='emision' %}">
+										<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
+									</a>
+								</div>
 							</div>
 							<div class="front-btn">
-								<span>Cuenta Corriente</span>
-								<span>$</span>
+								<div>
+									<span>Cuenta Corriente</span>
+									<span>$</span>
+								</div>
 							</div>
-						</a>
+						</div>
 					</li><!--
 					--><li>
 						<a href="{% url 'applied' %}">

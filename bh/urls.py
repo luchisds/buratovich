@@ -12,7 +12,9 @@ urlpatterns = [
 	# url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 
 	# Grappelli URLS
-	url(r'^grappelli/', include('grappelli.urls')), 
+	url(r'^grappelli/', include('grappelli.urls')),
+	# django-tinymce URLS
+	url(r'^tinymce/', include('tinymce.urls')),
 
 	url(r'^admin/', admin.site.urls, name='admin'),
 
@@ -38,7 +40,7 @@ urlpatterns = [
 
 	url(r'^extranet/$', views.extranet, name='extranet'),
 	url(r'^extranet/notificaciones/$', views.notifications, name='notifications'),
-	url(r'^extranet/ctacte/pesos/$', views.ctacte, name='ctacte'),
+	url(r'^extranet/ctacte/pesos/(?P<ctacte_type>[a-z]+)/$', views.ctacte, name='ctacte'),
 	url(r'^extranet/ctacte/aplicada/$', views.applied, name='applied'),
 	url(r'^extranet/entregas/$', views.deliveries, name='deliveries'),
 	url(r'^extranet/ventas/$', views.sales, name='sales'),

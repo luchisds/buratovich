@@ -18,6 +18,7 @@ from website.models import City
 from website.models import Rain
 from website.models import RainDetail
 
+from tinymce.widgets import TinyMCE
 
 # Unregister models
 admin.site.unregister(User)
@@ -167,8 +168,24 @@ class CityAdmin(admin.ModelAdmin):
 	empty_value_display = ''
 
 
+class NotificationCreateForm(ModelForm):
+
+	class Meta:
+		model = Notifications
+		fields = ('title', 'notification', 'active', 'date_from', 'date_to',)
+		widgets = {
+			'notification': TinyMCE(attrs={'cols': 80, 'rows': 30}),
+		}
+
+
 class NotificationsAdmin(admin.ModelAdmin):
-	list_display = ('date', 'title', 'date_from', 'date_to', 'active', 'notification')
+	form = NotificationCreateForm
+	list_display = ('title', 'notifications_html', 'active', 'date_from', 'date_to',)
+
+	def notifications_html(self, obj):
+		return obj.notification
+
+	notifications_html.allow_tags = True
 
 
 class ViewedNotificationsAdmin(admin.ModelAdmin):
