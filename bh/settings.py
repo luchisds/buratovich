@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 	# WhiteNoise in dev environment need manage.py runserver --nostatic option. This app do it for us.
 	'whitenoise.runserver_nostatic',
 	'django.contrib.staticfiles',
+	'tinymce',
 	'website',
 	'el_pagination',
 	'mathfilters',
@@ -172,6 +173,20 @@ EL_PAGINATION_PER_PAGE = 50
 # Grappelli Settings
 GRAPPELLI_ADMIN_TITLE = 'BURATOVICH HNOS.'
 GRAPPELLI_INDEX_DASHBOARD = 'website.dashboard.CustomIndexDashboard'
+
+# Django-tinymce Settings
+TINYMCE_DEFAULT_CONFIG = {
+	'theme': 'advanced',
+	'theme_advanced_buttons1': 'bold,italic,underline,separator,bullist,numlist,separator,link,unlink',
+	'theme_advanced_buttons2': '',
+	'theme_advanced_buttons3': '',
+	'theme_advanced_toolbar_location': 'top',
+	'theme_advanced_toolbar_align': 'left',
+	#'paste_text_sticky': True,
+	#'paste_text_sticky_default': True,
+	#'valid_styles': 'font-weight,font-style,text-decoration',
+}
+TINYMCE_COMPRESSOR = True
 
 # HTMLMin Settings
 HTML_MINIFY = True  #To minify with DEBUG = True

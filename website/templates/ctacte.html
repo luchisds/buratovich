@@ -65,7 +65,7 @@
 			</ul>
 		</nav>
 
-		<h3>Cuenta Corriente en Pesos</h3>
+		<h3>Cuenta Corriente en Pesos {% if ctacte_type == 'vencimiento' %} por Fecha de Vencimiento{% else %} por Fecha de Emisión{% endif %}</h3>
 		
 		{% if user.userinfo.is_commercial %}
 			{% if request.session.algoritmo_code %}
@@ -73,7 +73,7 @@
 			{% endif %}
 		{% endif %}
 
-		<form id="filter-date" action="{% url 'ctacte' %}" method="get">
+		<form id="filter-date" action="{% url 'ctacte' ctacte_type=ctacte_type %}" method="get">
 			<!-- {% csrf_token %} -->
 			<div class="input-el">
 				<div class="from">
@@ -136,10 +136,22 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Fecha Vto.</th>
+						<th>
+							{% if ctacte_type == 'vencimiento' %}
+								Fecha Vto.
+							{% else %}
+								Fecha Emi.
+							{% endif %}
+						</th>
 						<th>Comprobante</th>
 						<th class="observations">Observaciones</th>
-						<th class="date-e">Fecha Emi.</th>
+						<th class="date-e">
+							{% if ctacte_type == 'vencimiento' %}
+								Fecha Emi.
+							{% else %}
+								Fecha Vto.
+							{% endif %}
+						</th>
 						<th class="dh">D/H</th>
 						<th class="amount">Importe</th>
 						<th class="debe">Debe</th>
@@ -170,12 +182,24 @@
 					{% endfor %}
 					{% for i in ctacte %}
 						<tr>
-							<td class="center">{{i.obj.date_1|date:"d/m/Y"}}</td>
+							<td class="center">
+								{% if ctacte_type == 'vencimiento' %}
+									{{i.obj.date_1|date:"d/m/Y"}}
+								{% else %}
+									{{i.obj.date_2|date:"d/m/Y"}}
+								{% endif %}
+							</td>
 							{% voucher i.obj.voucher 'S' as voucher %}
 							<td>{{voucher}}</td>
 							{% truncate_chars i.obj.concept 40 as concept %}
 							<td class="observations">{{concept}}</td>
-							<td class="center date-e">{{i.obj.date_2|date:"d/m/Y"}}</td>
+							<td class="center date-e">
+								{% if ctacte_type == 'vencimiento' %}
+									{{i.obj.date_2|date:"d/m/Y"}}
+								{% else %}
+									{{i.obj.date_1|date:"d/m/Y"}}
+								{% endif %}
+							</td>
 							{% if i.obj.movement_type == "Debito" %}
 								<td class="center dh">D</td>
 								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>

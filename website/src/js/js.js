@@ -300,13 +300,16 @@ function init() {
 
 	/// EXTRANET /////////////////////////////////////////////////////////////////////////////////////////////
 
-	var extranet = document.getElementById('extranet');
-	if(extranet) {
-		var ctacteBtn = extranet.getElementsByClassName('ctacte-btn')[0];
+	// var extranet = document.getElementById('extranet');
+	// if(extranet) {
+	var ctacteBtn = document.getElementsByClassName('ctacte-btn')[0];
+	if(ctacteBtn) {
 		ctacteBtn.addEventListener('click', function(event) {
 			event.preventDefault();
-			toggleClass(ctacteBtn.querySelector('.front-btn'), 'hide-btn');
-			toggleClass(ctacteBtn.querySelector('.back-btn'), 'hide-btn');
+			toggleClass(ctacteBtn.querySelector('.action-btn'), 'hide-btn');
+			toggleClass(ctacteBtn, 'opened');
+			// Remove event after clicking
+			this.removeEventListener('click', arguments.callee);
 		});
 	}
 

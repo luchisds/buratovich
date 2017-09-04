@@ -518,7 +518,11 @@ def notifications(request):
 
 
 @login_required
-def ctacte(request):
+def ctacte(request, ctacte_type):
+
+	if ctacte_type <> 'vencimiento' and ctacte_type <> 'emision':
+		raise Http404
+
 
 	#Initialize variables
 
@@ -547,13 +551,24 @@ def ctacte(request):
 			from_date_print = str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4]
 			to_date_print = str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]
 			# Request data
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
-			ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
-			if ib_sum['amount_sign__sum']:
-				ib = ib_sum['amount_sign__sum']
-			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))			
+
+			if ctacte_type == 'vencimiento':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib = ib_sum['amount_sign__sum']
+				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))
+			elif ctacte_type == 'emision':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib = ib_sum['amount_sign__sum']
+				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
 		elif not from_date and not to_date:
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+			if ctacte_type == 'vencimiento':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+			elif ctacte_type == 'emision':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
 		# If exist data
@@ -621,14 +636,14 @@ def ctacte(request):
 				page_balance.append(tmp_dict)
 
 
-			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print})
+			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print, 'ctacte_type':ctacte_type})
 		else:
 			if (from_date and to_date and from_date < to_date) or (not from_date and not to_date):
-				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print})
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'ctacte_type':ctacte_type})
 			else:
-				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas'})
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas', 'ctacte_type':ctacte_type})
 	else:
-		return render(request, 'ctacte.html')
+		return render(request, 'ctacte.html', {'ctacte_type':ctacte_type})
 
 
 @login_required
