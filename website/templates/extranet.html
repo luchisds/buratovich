@@ -65,24 +65,13 @@
 			<ul class="h-list">
 				<div class="row">
 					<li class="ctacte-btn">
-						<div class="action-btn">
-							<div class="back-btn hide-btn">
-								<div>
-									<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
-										<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
-									</a>
-									<a href="{% url 'ctacte' ctacte_type='emision' %}">
-										<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
-									</a>
-								</div>
+						<a href="#">
+							<div>
+								<span>Cuenta Corriente</span>
+								<span>$</span>
 							</div>
-							<div class="front-btn">
-								<div>
-									<span>Cuenta Corriente</span>
-									<span>$</span>
-								</div>
-							</div>
-						</div>
+						</a>
+						<div class="triangle"></div>
 					</li><!--
 					--><li>
 						<a href="{% url 'applied' %}">
@@ -93,7 +82,15 @@
 						</a>
 					</li>
 				</div>
-				<div class="row">
+				<div class="ctacte-type">
+					<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
+					</a>
+					<a href="{% url 'ctacte' ctacte_type='emision' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
+					</a>
+				</div>
+				<div class="row first">
 					<li>
 						<a href="{% url 'deliveries' %}">
 							<div>
@@ -111,7 +108,7 @@
 						</a>
 					</li>
 				</div>
-				<div class="row">
+				<div class="row second">
 					<li>
 						<a href="{% url 'change_password' %}">
 							<div>

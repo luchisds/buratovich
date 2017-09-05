@@ -195,6 +195,17 @@
 					h3
 						margin-top 0
 
+@media screen and (max-width: 912px)
+	#extranet
+		.extranet-nav
+			ul
+				.row
+					display block
+				.ctacte-type
+					padding-left 0
+					text-align center
+					width 80%
+
 @media screen and (max-width: 900px)
 	footer
 		.nav
@@ -681,6 +692,14 @@
 					width 140px
 					a
 						font-size .8em
+				.ctacte-type
+					margin-top .5em
+					padding-top .3em
+					width 95%
+					a
+						width 140px
+						&:first-child
+							margin-right .8em
 
 @media screen and (max-width: 460px)
 	header
@@ -740,6 +759,21 @@
 			.unit-title
 				font-size 1.9em
 
+@media screen and (max-width: 430px)
+	#ctacte
+		.extranet-nav
+			ul
+				.row, .row:nth-child(1)
+					display block
+					li
+						&.back
+							max-width 87px
+				.row:nth-child(1)
+					li
+						margin-bottom 0
+				.ctacte-type
+					margin-top .5em
+
 @media screen and (max-width: 420px)
 	#bussines-units
 		.unit
@@ -760,17 +794,6 @@
 					.boxes
 						div:last-child
 							display none
-	#ctacte
-		.extranet-nav
-			ul
-				.row, .row:nth-child(1)
-					display block
-					li
-						&.back
-							max-width 87px
-				.row:nth-child(1)
-					li
-						margin-bottom 0
 
 @media screen and (max-width: 380px)
 	#home
@@ -823,11 +846,16 @@
 @media screen and (min-width: 320px)
 	#ctacte
 		h3
+			font-size 1.5em
 			margin-left 0
 			margin-right 0
 			text-align center
 		.export-data
 			text-align center
+		.extranet-nav
+			ul
+				.ctacte-type
+					padding-left 0
 		&.pesos, &.applied
 			table
 				font-size .62em

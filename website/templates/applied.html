@@ -36,37 +36,25 @@
 						</a>
 					</li><!--
 					-->
-					<!--<li class="ctacte-pesos">
-						<a href="">
+					<li class="ctacte-btn ctacte-pesos">
+						<a href="#">
 							<div>
 								<span class="full">Cuenta Corriente</span>
 								<span class="short">Cta. Cte.</span>
 								<span>$</span>
 							</div>
 						</a>
-					</li>-->
-					<li class="ctacte-btn">
-						<div class="action-btn">
-							<div class="back-btn hide-btn">
-								<div>
-									<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
-										<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
-									</a>
-									<a href="{% url 'ctacte' ctacte_type='emision' %}">
-										<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
-									</a>
-								</div>
-							</div>
-							<div class="front-btn">
-								<div>
-									<span>Cuenta Corriente</span>
-									<span>$</span>
-								</div>
-							</div>
-						</div>
 					</li>
 				</div>
-				<div class="row">
+				<div class="ctacte-type">
+					<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
+					</a>
+					<a href="{% url 'ctacte' ctacte_type='emision' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
+					</a>
+				</div>
+				<div class="row first">
 					<li>
 						<a href="{% url 'deliveries' %}">
 							<div>
@@ -84,6 +72,7 @@
 						</a>
 					</li>
 				</div>
+				<div class="row second" style="display:block;"></div>
 			</ul>
 		</nav>
 
