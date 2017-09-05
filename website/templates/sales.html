@@ -138,7 +138,7 @@
 									<th rowspan="2" class="price">Precio</th>
 									<th rowspan="2" class="currency responsive">$</th>
 									<th rowspan="2" class="currency">Moneda</th>
-									<th rowspan="2" class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th>
+									<!-- <th rowspan="2" class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th> -->
 									<th colspan="3" rowspan="2" class="detail"></th>
 								</tr>
 								<tr>
@@ -183,7 +183,7 @@
 												{% endif %}
 											{% endif %}
 										{% endif %}
-										{% if j.file %}
+										<!-- {% if j.file %}
 											<td class="center file">
 												<a href="{% url 'downloadPDF' %}?f={{j.file}}&d=" target="_blank">
 													<img src="{% static "img/pdf2.png" %}" alt="">
@@ -191,7 +191,7 @@
 											</td>
 										{% else %}
 											<td class="file"></td>
-										{% endif %}
+										{% endif %} -->
 										<td class="center detail">
 											<a href="#" class="show-detail">
 												<i class="fa fa-search-plus" aria-hidden="true"></i>
@@ -210,7 +210,7 @@
 														<th class="from-to-date">Entrega Hasta</th>
 														<th class="ex">Pend. TC</th>
 														<th class="settled">Liquidados</th>
-														<th class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th>
+														<!-- <th class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th> -->
 													</tr>
 												</thead>
 												<tbody>
@@ -225,7 +225,7 @@
 																{{j.obj.number_1116A|intcomma}}
 															{% endif %}
 														</td>
-														{% if j.file %}
+														<!-- {% if j.file %}
 															<td class="center file">
 																<a href="{% url 'downloadPDF' %}?f={{j.file}}&d=" target="_blank">
 																	<img src="{% static "img/pdf2.png" %}" alt="">
@@ -233,7 +233,7 @@
 															</td>
 														{% else %}
 															<td class="file"></td>
-														{% endif %}
+														{% endif %} -->
 													</tr>
 												</tbody>
 											</table>
@@ -251,7 +251,7 @@
 									<td class="center settled"><span>{{v.sales.total_l_sales|intcomma}}</span></td>
 									<td class="price"></td>
 									<td class="currency"></td>
-									<td class="file"></td>
+									<!-- <td class="file"></td> -->
 									<td class="detail"></td>
 								</tr>
 							</tbody>
@@ -269,7 +269,7 @@
 									<th rowspan="2" class="field">Destino</th>
 									<th colspan="2" class="from-to-date">Fecha de Entrega</th>
 									<th rowspan="2" class="gross">Kilos</th>
-									<th rowspan="2" class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th>
+									<!-- <th rowspan="2" class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th> -->
 									<th colspan="3" rowspan="2" class="detail"></th>
 								</tr>
 								<tr>
@@ -294,7 +294,7 @@
 												{{j.obj.gross_kg|intcomma}}
 											{% endif %}
 										</td>
-										{% if j.file %}
+										<!-- {% if j.file %}
 											<td class="center file">
 												<a href="{% url 'downloadPDF' %}?f={{j.file}}&d=" target="_blank">
 													<img src="{% static "img/pdf2.png" %}" alt="">
@@ -302,7 +302,7 @@
 											</td>
 										{% else %}
 											<td class="file"></td>
-										{% endif %}
+										{% endif %} -->
 										<td class="center detail">
 											<a href="#" class="show-detail">
 												<i class="fa fa-search-plus" aria-hidden="true"></i>
@@ -319,14 +319,14 @@
 													<tr>
 														<th class="from-to-date">Entrega Desde</th>
 														<th class="from-to-date">Entrega Hasta</th>
-														<th class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th>
+														<!-- <th class="file"><i class="fa fa-file-text" aria-hidden="true"></i></th> -->
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td class="center from-to-date">{{j.obj.service_billing_date|date:"d/m/Y"}}</td>
 														<td class="center from-to-date">{{j.obj.to_date|date:"d/m/Y"}}</td>
-														{% if j.file %}
+														<!-- {% if j.file %}
 															<td class="center file">
 																<a href="{% url 'downloadPDF' %}?f={{j.file}}&d=" target="_blank">
 																	<img src="{% static "img/pdf2.png" %}" alt="">
@@ -334,7 +334,7 @@
 															</td>
 														{% else %}
 															<td class="file"></td>
-														{% endif %}
+														{% endif %} -->
 													</tr>
 												</tbody>
 											</table>
@@ -348,7 +348,7 @@
 									<td class="from-to-date"></td>
 									<td class="from-to-date"></td>
 									<td class="center gross"><span>{{v.to_set.total_g_to_set|intcomma}}</span></td>
-									<td class="file"></td>
+									<!-- <td class="file"></td> -->
 									<td class="detail"></td>
 								</tr>
 							</tbody>

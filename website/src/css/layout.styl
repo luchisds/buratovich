@@ -1644,8 +1644,6 @@ footer
 				color white
 				font-size 1.2em
 				padding .4em .2em
-				&:first-child
-					background-color $accentColor
 	.no-data, .no-species
 			text-align center
 			p
@@ -1660,6 +1658,12 @@ footer
 		color $baseColor
 		font-size 1em
 		margin 2em 0 -1.5em .5em
+	&.pesos
+		table
+			thead
+				th
+					&:first-child
+						background-color $accentColor
 	&.pesos, &.applied
 		table
 			tbody
