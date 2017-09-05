@@ -977,7 +977,6 @@ def sales(request):
 										sales[sd]['others']['total_o_others'] = total_o_others
 										sales[sd]['others']['count_others'] = count_others
 
-				print sales
 				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
 			else:
 				# Ifno species selected
