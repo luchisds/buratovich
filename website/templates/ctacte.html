@@ -64,8 +64,14 @@
 				</div>
 			</ul>
 		</nav>
-
-		<h3>Cuenta Corriente en Pesos {% if ctacte_type == 'vencimiento' %} por Fecha de Vencimiento{% else %} por Fecha de Emisión{% endif %}</h3>
+		<div class="change-ctacte">
+			{% if ctacte_type == 'vencimiento' %}
+				<p>Ir a Cta. Cte. por <a href="{% url 'ctacte' ctacte_type='emision' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de Emisión</a></p>
+			{% else %}
+				<p>Ir a Cta. Cte. por <a href="{% url 'ctacte' ctacte_type='vencimiento' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de Vencimiento</a></p>
+			{% endif %}
+		</div>
+		<h3>Cta. Cte. en Pesos {% if ctacte_type == 'vencimiento' %} por Fecha de Vencimiento{% else %} por Fecha de Emisión{% endif %}</h3>
 		
 		{% if user.userinfo.is_commercial %}
 			{% if request.session.algoritmo_code %}
