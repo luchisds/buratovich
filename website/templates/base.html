@@ -1,7 +1,8 @@
 {% load static from staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -39,6 +40,20 @@
 <body>
 	<header>
 		<div class="maxwidth">
+			<form action="{% url 'set_language' %}" method="post">
+				{% csrf_token %}
+				<input name="next" type="hidden" value="{{ redirect_to }}" />
+				<select name="language">
+					{% get_current_language as LANGUAGE_CODE %}
+					{% get_available_languages as LANGUAGES %}
+					{% for lang in LANGUAGES %}
+						<option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+							{{ lang.1 }}
+						</option>
+					{% endfor %}
+				</select>
+				<input type="submit" value="Go" />
+			</form>
 			<a href="/">
 				<div class="logo">
 					<img src="{% static "img/logo_bh_2.png" %}" alt="Buratovich Hnos. S.A.">
@@ -57,11 +72,11 @@
 							<a href="{% url 'extranet' %}" class="extranet-btn active"><i class="fa fa-th-large" aria-hidden="true"></i> Extranet</a>
 						</li><!--
 						--><li>
-							<a href="{% url 'logout' %}" class="extranet-btn logout active"><i class="fa fa-sign-out" aria-hidden="true"></i> <span class="logout-text">Salir</span></a>
+							<a href="{% url 'logout' %}" class="extranet-btn logout active"><i class="fa fa-sign-out" aria-hidden="true"></i> <span class="logout-text">{% trans "Salir" %}</span></a>
 						</li>
 					{% else %}
 						<li>
-							<a href="{% url 'login' %}" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> Clientes</a>
+							<a href="{% url 'login' %}" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> {% trans "Clientes" %}</a>
 						</li>
 					{% endif %}
 				</ul>
@@ -72,24 +87,24 @@
 						<a href="/" class="home-btn"><span class="home-text">Home</span><span class="home-icon"><i class="fa fa-home" aria-hidden="true"></i></span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 					</li><!--
 					--><li>
-						<a href="{% url 'company' %}"><span>Institucional</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+						<a href="{% url 'company' %}"><span>{% trans "Institucional" %}</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 					</li><!--
 					--><li>
-						<a href="{% url 'units' %}"><span>Unidades de Negocio</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+						<a href="{% url 'units' %}"><span>{% trans "Unidades de Negocio" %}</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 					</li><!--
 					--><li>
-						<a href="{% url 'contact' %}"><span>Contacto</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+						<a href="{% url 'contact' %}"><span>{% trans "Contacto" %}</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 					</li>
 					{% if user.is_authenticated %}
 						<li class="extranet">
 							<a href="{% url 'extranet' %}" class="extranet-btn active"><i class="fa fa-th-large" aria-hidden="true"></i> Extranet</a>
 						</li><!--
 						--><li class="extranet">
-							<a href="{% url 'logout' %}" class="extranet-btn logout active"><i class="fa fa-sign-out" aria-hidden="true"></i> <span class="logout-text">Salir</span></a>
+							<a href="{% url 'logout' %}" class="extranet-btn logout active"><i class="fa fa-sign-out" aria-hidden="true"></i> <span class="logout-text">{% trans "Salir" %}</span></a>
 						</li>
 					{% else %}
 						<li class="extranet">
-							<a href="{% url 'login' %}" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> Clientes</a>
+							<a href="{% url 'login' %}" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i> {% trans "Clientes" %}</a>
 						</li>
 					{% endif %}
 				</ul>
@@ -107,9 +122,9 @@
 				<nav>
 					<ul class="h-list">
 						<li><a href="/">Home</a></li><!--
-						--><li><a href="{% url 'company' %}">Institucional</a></li><!--
-						--><li><a href="{% url 'units' %}">Unidades de Negocio</a></li><!--
-						--><li><a href="{% url 'contact' %}">Contacto</a></li>
+						--><li><a href="{% url 'company' %}">{% trans "Institucional" %}</a></li><!--
+						--><li><a href="{% url 'units' %}">{% trans "Unidades de Negocio" %}</a></li><!--
+						--><li><a href="{% url 'contact' %}">{% trans "Contacto" %}</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -120,31 +135,31 @@
 			<div class="contact">
 				<p><a href="tel:542478451500"><i class="fa fa-phone" aria-hidden="true"></i>+54 02478 451500</a></p>
 				<p><a href="mailto:buratovich@buratovich.com"><i class="fa fa-paper-plane" aria-hidden="true"></i>buratovich@buratovich.com</a></p>
-				<p><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>Ruta 8 Km 176.5 - Arrecifes, Bs. As.</a></p>
+				<p><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>{% trans "Ruta" %} 8 Km 176.5 - Arrecifes, Bs. As.</a></p>
 			</div>
 			<div class="nav">
 				<nav>
 					<ul class="h-list">
 						<li><a href="/">Home</a></li><!--
-						--><li><a href="{% url 'company' %}">Institucional</a></li><!--
-						--><li><a href="{% url 'units' %}">Unidades de Negocio</a></li><!--
-						--><li><a href="{% url 'contact' %}">Contacto</a></li>
+						--><li><a href="{% url 'company' %}">{% trans "Institucional" %}</a></li><!--
+						--><li><a href="{% url 'units' %}">{% trans "Unidades de Negocio" %}</a></li><!--
+						--><li><a href="{% url 'contact' %}">{% trans "Contacto" %}</a></li>
 					</ul>
 				</nav>
 				<div class="cv">
 					<div>
 						<i class="fa fa-cogs" aria-hidden="true"></i>
 						<span>
-							<a href="{% url 'cv' %}" class="work">Trabajá con nosotros</a>
-							<a href="{% url 'cv' %}" class="send-cv">Envíanos tu CV</a>
+							<a href="{% url 'cv' %}" class="work">{% trans "Trabajá con nosotros" %}</a>
+							<a href="{% url 'cv' %}" class="send-cv">{% trans "Envíanos tu CV" %}</a>
 						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="foot">
-			<p class="maxwidth"><span>OFICINA CENTRAL:</span> Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)</p>
-			<p class="maxwidth" style="margin-top:1em;font-style:italic;">Desarrollado por <a href="http://www.luciano.im" style="border-right:4px dotted white;color:white;font-weight:bold;padding-right:.5em;" target="_blank">Luciano Muñoz</a></p>
+			<p class="maxwidth"><span>{% trans "OFICINA CENTRAL:" %}</span> {% trans "Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)" %}</p>
+			<p class="maxwidth" style="margin-top:1em;font-style:italic;">{% trans "Desarrollado por" %} <a href="http://www.luciano.im" style="border-right:4px dotted white;color:white;font-weight:bold;padding-right:.5em;" target="_blank">Luciano Muñoz</a></p>
 		</div>
 	</footer>
 	<!-- Init - ScrollingElement/classList compatibility for Internet Explorer -->

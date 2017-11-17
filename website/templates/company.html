@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
+{% load i18n %}
 
-{% block title %}Buratovich Hnos. - Empresa{% endblock %}
+{% block title %}Buratovich Hnos. - {% trans "Empresa" %}{% endblock %}
 
 {% block head %}
 	<link rel="stylesheet" href="{% static "assets/js/jsOnlyLightbox/css/lightbox.min.css" %}">
@@ -15,7 +16,7 @@
 		{% endif %}
 	</div>
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Institucional</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">{% trans "Institucional" %}</span></div>
 	</div>
 </div>
 {% endblock %}
@@ -31,22 +32,22 @@
 	<div class="history-info">
 		<div class="first-col">
 			<article class="featured">
-				<h2>Nuestra empresa</h2>
+				<h2>{% trans "Nuestra empresa" %}</h2>
 				<ul>
-					<li>Nuestro grupo empresario desarrolla su actividad comercial y agropecuaria principalmente en las provincias de Buenos Aires y Chaco.</li>
-					<li>Contamos con dos plantas de acopio en la localidad de Arrecifes (Bs. As.) y una tercera en la localidad de General Pinedo (Chaco) para la recepción y acondicionamiento de la mercadería, con una capacidad total aproximada de 150 mil toneladas.</li>
-					<li>Satisfacemos las necesidades comerciales de mas de 400 clientes desde nuestra casa central en Arrecifes, y los atendemos en la zona centro-este de la provincia de Bs. As. desde una oficina comercial ubicada en la localidad de Lobos.</li>
-					<li>La producción agrícola en la provincia de Chaco se extiende desde el sudoeste hacia la región norte. En Charata se encuentran las oficinas que administra esta actividad en esa provincia. En Bs. As. la producción se encuentra centralizada en la zona norte y en la cuenca del Salado.</li>
-					<li>Actualmente nos encontramos desarrollando nuevas alternativas comerciales que nos permitan continuar ampliando nuestros horizontes, como la exportación de cereales, oleaginosas, otros productos derivados, y la importación de insumos agropecuarios.</li>
+					<li>{% blocktrans %}Nuestro grupo empresario desarrolla su actividad comercial y agropecuaria principalmente en las provincias de Buenos Aires y Chaco.{% endblocktrans %}</li>
+					<li>{% blocktrans %}Contamos con dos plantas de acopio en la localidad de Arrecifes (Bs. As.) y una tercera en la localidad de General Pinedo (Chaco) para la recepción y acondicionamiento de la mercadería, con una capacidad total aproximada de 150 mil toneladas.{% endblocktrans %}</li>
+					<li>{% blocktrans %}Satisfacemos las necesidades comerciales de mas de 400 clientes desde nuestra casa central en Arrecifes, y los atendemos en la zona centro-este de la provincia de Bs. As. desde una oficina comercial ubicada en la localidad de Lobos.{% endblocktrans %}</li>
+					<li>{% blocktrans %}La producción agrícola en la provincia de Chaco se extiende desde el sudoeste hacia la región norte. En Charata se encuentran las oficinas que administra esta actividad en esa provincia. En Bs. As. la producción se encuentra centralizada en la zona norte y en la cuenca del Salado.{% endblocktrans %}</li>
+					<li>{% blocktrans %}Actualmente nos encontramos desarrollando nuevas alternativas comerciales que nos permitan continuar ampliando nuestros horizontes, como la exportación de cereales, oleaginosas, otros productos derivados, y la importación de insumos agropecuarios.{% endblocktrans %}</li>
 				</ul>
 			</article>
 			<article class="history">
-				<h2>Una empresa centenaria</h2>
-				<p>La empresa fue fundada en el año 1915 por Esteban Buratovich, inmigrante de origen croata, que se radicó en el país a fines del siglo XIX.</p>
-				<p>Hombre de un espíritu innovador, fue precursor del acarreo y acondicionamiento de cereal a granel.</p>
-				<p>Sus hijos varones continuaron la tarea y actualmente, después de más de 100 años, miembros de la tercera y cuarta generación de una rama de la familia, siguen identificados con una línea de trabajo y responsabilidad que les fue legada.</p>
-				<p>Hoy atendemos a nuestros clientes de muy variadas características en una amplia región, privilegiando el trato personalizado y las diferentes necesidades individuales.</p>
-				<p>El personal técnico y administrativo debidamente capacitado y los modernos equipamientos, hacen posible un trato y un servicio eficiente. Gracias a ello podemos brindar una amplia y oportuna información que contribuye a la claridad y transparencia de nuestras operaciones comerciales.</p>
+				<h2>{% trans "Una empresa centenaria" %}</h2>
+				<p>{% blocktrans %}La empresa fue fundada en el año 1915 por Esteban Buratovich, inmigrante de origen croata, que se radicó en el país a fines del siglo XIX.{% endblocktrans %}</p>
+				<p>{% blocktrans %}Hombre de un espíritu innovador, fue precursor del acarreo y acondicionamiento de cereal a granel.{% endblocktrans %}</p>
+				<p>{% blocktrans %}Sus hijos varones continuaron la tarea y actualmente, después de más de 100 años, miembros de la tercera y cuarta generación de una rama de la familia, siguen identificados con una línea de trabajo y responsabilidad que les fue legada.{% endblocktrans %}</p>
+				<p>{% blocktrans %}Hoy atendemos a nuestros clientes de muy variadas características en una amplia región, privilegiando el trato personalizado y las diferentes necesidades individuales.{% endblocktrans %}</p>
+				<p>{% blocktrans %}El personal técnico y administrativo debidamente capacitado y los modernos equipamientos, hacen posible un trato y un servicio eficiente. Gracias a ello podemos brindar una amplia y oportuna información que contribuye a la claridad y transparencia de nuestras operaciones comerciales.{% endblocktrans %}</p>
 			</article>
 		</div>
 		<!--<div class="second-col">
@@ -84,7 +85,7 @@
 		<div style="clear:both;"></div>
 	</div>
 	<article class="gallery">
-		<h2>Galería de Imágenes</h2>
+		<h2>{% trans "Galería de Imágenes" %}</h2>
 		<figure>
 			<a href="{% static "img/gallery/01.jpg" %}" data-jslghtbx="{% static "img/gallery/01.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/01.jpg" %}" alt=""></a>
 		</figure><!--
@@ -110,12 +111,12 @@
 			<a href="{% static "img/gallery/20.jpg" %}" data-jslghtbx="{% static "img/gallery/20.jpg" %}" data-jslghtbx-group="mygroup1"><img src="{% static "img/gallery/mini/20.jpg" %}" alt=""></a>
 		</figure>
 		<div class="more">
-			<a href="{% url 'gallery' %}" class="input">VER MAS IMÁGENES</a>
+			<a href="{% url 'gallery' %}" class="input">{% trans "VER MAS IMÁGENES" %}</a>
 		</div>
 	</article>
 	<article class="video-company module">
 		<div>
-			<p>Si es de vuestro interes, conozca la historia de la empresa a través de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generación de la familia Buratovich:</p>
+			<p>{% blocktrans %}Si es de vuestro interes, conozca la historia de la empresa a través de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generación de la familia Buratovich:{% endblocktrans %}</p>
 			<video width="720" controls poster="{% static "img/video_poster.jpg" %}">
 				<source src="{% static "video/bh_100_institucional.mp4" %}" type="video/mp4">
 				Your browser does not support HTML5 video.

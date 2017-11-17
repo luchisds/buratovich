@@ -8,7 +8,6 @@ To activate your index dashboard add the following to your settings.py::
 
 from django.core.urlresolvers import reverse
 
-from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 from grappelli.dashboard import modules, Dashboard
@@ -23,10 +22,10 @@ class CustomIndexDashboard(Dashboard):
                 'css/dashboard.css',
             ),
         }
-    
+
     def init_with_context(self, context):
         site_name = get_admin_site_name(context)
-        
+
         # append a group for "Administration" & "Applications"
         # self.children.append(modules.Group(
         #     _('Group: Administration & Applications'),
@@ -50,7 +49,7 @@ class CustomIndexDashboard(Dashboard):
 
         # Alta de Usuarios
         self.children.append(modules.ModelList(
-            _('Alta de Usuarios'),
+            'Alta de Usuarios',
             column=1,
             collapsible=False,
             models=('django.contrib.*',),
@@ -58,7 +57,7 @@ class CustomIndexDashboard(Dashboard):
 
         # Moneda y Pizarras
         self.children.append(modules.ModelList(
-            _('Moneda y Pizarras'),
+            'Moneda y Pizarras',
             column=1,
             collapsible=False,
             models=('website.models.Currencies', 'website.models.Board'),
@@ -66,7 +65,7 @@ class CustomIndexDashboard(Dashboard):
 
         # Lluvias
         self.children.append(modules.ModelList(
-            _('Lluvias'),
+            'Lluvias',
             column=1,
             collapsible=False,
             models=('website.models.Rain', 'website.models.City'),
@@ -74,39 +73,39 @@ class CustomIndexDashboard(Dashboard):
 
         # Notificaciones
         self.children.append(modules.ModelList(
-            _('Notificaciones'),
+            'Notificaciones',
             column=1,
             collapsible=False,
             models=('website.models.Notifications', 'website.models.ViewedNotifications'),
         ))
-        
+
         # Link list module
         self.children.append(modules.LinkList(
-            _('Acciones'),
+            'Acciones',
             column=2,
             children=[
                 {
-                    'title': _('ACTUALIZAR EXTRANET'),
+                    'title': 'ACTUALIZAR EXTRANET',
                     'url': reverse('importdata', args=['all']),
                     'external': False,
                 },
                 {
-                    'title': _('Actualizar Cta. Cte. en Pesos'),
+                    'title': 'Actualizar Cta. Cte. en Pesos',
                     'url': reverse('importdata', args=['ctacte']),
                     'external': False,
                 },
                 {
-                    'title': _('Actualizar Cta. Cte. Aplicada'),
+                    'title': 'Actualizar Cta. Cte. Aplicada',
                     'url': reverse('importdata', args=['applied']),
                     'external': False,
                 },
                 {
-                    'title': _('Actualizar Entregas y Ventas'),
+                    'title': 'Actualizar Entregas y Ventas',
                     'url': reverse('importdata', args=['kilos']),
                     'external': False,
                 },
                 {
-                    'title': _('Actualizar Analisis de Calidad'),
+                    'title': 'Actualizar Analisis de Calidad',
                     'url': reverse('importdata', args=['analysis']),
                     'external': False,
                 },
@@ -115,10 +114,8 @@ class CustomIndexDashboard(Dashboard):
 
         # Recent actions module
         self.children.append(modules.RecentActions(
-            _('Recent Actions'),
+            'Acciones Recientes',
             limit=10,
             collapsible=False,
             column=3,
         ))
-
-

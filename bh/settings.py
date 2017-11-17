@@ -48,6 +48,8 @@ MIDDLEWARE_CLASSES = [
 	# HTMLMin middlewares
 	'htmlmin.middleware.HtmlMinifyMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+	# Translations middleware
+	'django.middleware.locale.LocaleMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -120,7 +122,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'es-ar'
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = [
+	('es', _(u'Español')),
+	('en', _('English')),
+	('pt', _('Portugues')),
+]
+
+LOCALE_PATHS = [
+	os.path.join(BASE_DIR, 'website')
+]
+
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Buenos_Aires'
 
