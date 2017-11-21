@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-17 17:55-0300\n"
+"POT-Creation-Date: 2017-11-18 11:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -239,7 +239,7 @@ msgstr "Escritório LOBOS"
 
 #: .\templates\contact.html:42
 msgid "Ruta 205 e Int.Miguel A.Turdó"
-msgstr "Estrada 205 e Int.Miguel A.Turdó"
+msgstr "Estrada 205 e Miguel Turdó"
 
 #: .\templates\contact.html:55
 msgid "Oficina GRAL. PINEDO"
@@ -539,7 +539,7 @@ msgstr "Ver registro histórico"
 
 #: .\templates\index.html:394
 msgid "Carta de Porte Online"
-msgstr "Documentação de transporte online"
+msgstr "Documentação de Transporte"
 
 #: .\templates\index.html:404
 msgid "Información Impositiva"
@@ -578,7 +578,7 @@ msgstr ""
 
 #: .\templates\units.html:43
 msgid "Planta Gral. Pinedo"
-msgstr "Estabelecimento Gral. Pinedo"
+msgstr "Estab. Gral. Pinedo"
 
 #: .\templates\units.html:46 .\templates\units.html:61
 #: .\templates\units.html:71
@@ -587,11 +587,11 @@ msgstr "Ver mapa"
 
 #: .\templates\units.html:58
 msgid "Planta Ruta 8"
-msgstr "Estabelecimento Ruta 8"
+msgstr "Estab. Ruta 8"
 
 #: .\templates\units.html:68
 msgid "Planta Ruta 51"
-msgstr "Estabelecimento Ruta 51"
+msgstr "Estab. Ruta 51"
 
 #: .\templates\units.html:84
 msgid ""

@@ -40,19 +40,33 @@
 <body>
 	<header>
 		<div class="maxwidth">
-			<form action="{% url 'set_language' %}" method="post">
+			<!-- <form action="{% url "set_language" %}" method="post">
 				{% csrf_token %}
-				<input name="next" type="hidden" value="{{ redirect_to }}" />
-				<select name="language">
-					{% get_current_language as LANGUAGE_CODE %}
-					{% get_available_languages as LANGUAGES %}
-					{% for lang in LANGUAGES %}
-						<option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
-							{{ lang.1 }}
-						</option>
-					{% endfor %}
-				</select>
-				<input type="submit" value="Go" />
+				<div>
+						<input name="next" type="hidden" value="{{ redirect_to }}" />
+				    <select name="language" onchange="this.form.submit()">
+							{% get_current_language as LANGUAGE_CODE %}
+							{% get_available_languages as LANGUAGES %}
+							{% for lang in LANGUAGES %}
+								<option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+									{{ lang.1 }}
+								</option>
+							{% endfor %}
+				    </select>
+				</div>
+			</form> -->
+			<form action="{% url "set_language" %}" method="post">
+				{% csrf_token %}
+				<div>
+						<input name="next" type="hidden" value="{{ redirect_to }}" />
+						{% get_current_language as LANGUAGE_CODE %}
+						{% get_available_languages as LANGUAGES %}
+						{% for lang in LANGUAGES %}
+							<button type="submit" name="language" value="{{ lang.0 }}" class="{% if lang.0 == LANGUAGE_CODE %}selected{% endif %}">
+								{{ lang.1 }}
+							</button>
+						{% endfor %}
+				</div>
 			</form>
 			<a href="/">
 				<div class="logo">

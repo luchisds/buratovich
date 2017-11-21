@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-17 17:55-0300\n"
+"POT-Creation-Date: 2017-11-18 11:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,7 +237,7 @@ msgstr "Office in LOBOS"
 
 #: .\templates\contact.html:42
 msgid "Ruta 205 e Int.Miguel A.Turdó"
-msgstr "Route 205 and Int.Miguel A.Turdó"
+msgstr "Route 205 and Miguel Turdó"
 
 #: .\templates\contact.html:55
 msgid "Oficina GRAL. PINEDO"
@@ -535,7 +535,7 @@ msgstr "See historic register"
 
 #: .\templates\index.html:394
 msgid "Carta de Porte Online"
-msgstr "Online transport document"
+msgstr "Transport Documentation"
 
 #: .\templates\index.html:404
 msgid "Información Impositiva"

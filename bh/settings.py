@@ -125,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 from django.utils.translation import ugettext_lazy as _
 
 LANGUAGES = [
-	('es', _(u'Español')),
-	('en', _('English')),
-	('pt', _('Portugues')),
+	('es', 'ESP'),
+	('en', 'ENG'),
+	('pt', 'POR'),
 ]
 
 LOCALE_PATHS = [

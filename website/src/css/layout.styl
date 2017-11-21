@@ -399,13 +399,11 @@ footer
 				.utils-title
 					background-color rgba(255,255,255,.6)
 					border-radius 3px 3px 0 0
-					// margin-bottom .5em
 					padding-bottom .3em
 					position relative
 					text-align center
 					.title
 						font-size 1.5em
-						padding 0 .7em
 						vertical-align middle
 						span
 							display inline-block
@@ -485,34 +483,40 @@ footer
 				position absolute
 				text-align right
 				top 0
-				width 250px
 				&:hover
 					box-shadow 2px 2px 3px rgba(0,0,0,.7)
-					i
-						color $baseColor
-				i
-					color $accentColor
-					font-size 2em
-					left 5%
-					position absolute
-					transition 0.5s ease-out
-					top 22%
+					.misc-icon
+						i
+							color $baseColor
 				span
 					display inline-block
-					height 100%
-					margin-left 20%
-					text-align left
-					transition 0.3s ease-out
-					width 80%
-					a
-						display block
-						color $darkGreyGreen
+					position relative
+					vertical-align top
+					&.misc-icon
 						height 100%
-						line-height 3.5em
 						padding-left .5em
-						transition 0.5s ease-out
-						&.send-cv
-							opacity 0
+						i
+							display block
+							position relative
+							top 50%
+							transform translateY(-50%)
+							color $accentColor
+							font-size 2em
+							transition 0.5s ease-out
+					&.misc-link
+						margin-left .5em
+						padding-right .5em
+						position relative
+						text-align left
+						transition 0.3s ease-out
+						a
+							display block
+							color $darkGreyGreen
+							height 100%
+							line-height 3.5em
+							transition 0.5s ease-out
+							&.send-cv
+								opacity 0
 
 
 /*#### HISTORIC RAIN ################################################################*/
@@ -729,9 +733,9 @@ footer
 
 /*#### CONTACT / INFORMACION IMPOSITIVA / CV ###########################################*/
 
-#contact .offices, 
-#contact .data-contact, 
-#contact .areas, 
+#contact .offices,
+#contact .data-contact,
+#contact .areas,
 #contact .maps,
 #taxes .data-contact,
 #taxes .tax-data,
@@ -763,7 +767,7 @@ footer
 		margin-right .3em
 		vertical-align middle
 
-#contact .offices, 
+#contact .offices,
 #contact .areas,
 #taxes .tax-data,
 #cv
@@ -1055,7 +1059,7 @@ footer
 		.main
 			&::after
 				background-image url('../img/units/unit_acopio_xlarge.jpg')
-				background-repeat no-repeat 
+				background-repeat no-repeat
 				background-attachment fixed
 				background-position top right
 				background-size cover

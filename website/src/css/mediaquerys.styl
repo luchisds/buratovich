@@ -159,7 +159,7 @@
 					div
 						p
 							font-size 1.2em
-	#company .gallery, 
+	#company .gallery,
 	#gallery
 		figure
 			width 33.33%
@@ -290,6 +290,25 @@
 						margin 0 auto
 				&.currencies
 					margin-bottom 2em
+		.misc
+			padding 1.7em
+			& > div
+				stack()
+				margin 0 auto
+				text-align center
+				&:first-child
+					margin-bottom 1.3em
+				.cponline
+					border 0
+				.cponline, .tax
+					margin 0 auto
+					font-size .9em
+					div
+						left 0
+						margin 0 auto
+						right 0
+						text-align center
+						width 80%
 	#company
 		.imgs
 			img
@@ -456,25 +475,6 @@
 			article
 				margin-top 1.5em
 				width 100%
-		.misc
-			padding 1.7em
-			& > div
-				stack()
-				margin 0 auto
-				text-align center
-				&:first-child
-					margin-bottom 1.3em
-			.cponline
-				border 0
-			.cponline, .tax
-				font-size .9em
-				margin 0 auto
-				min-height 0
-				div
-					left 0
-					margin 0 auto
-					position relative
-					right 0
 	#company
 		.first-col
 			.featured, .history
@@ -775,6 +775,12 @@
 					margin-top .5em
 
 @media screen and (max-width: 420px)
+	#home
+		.misc
+			& > div
+				.cponline, .tax
+					div
+						width 100%
 	#bussines-units
 		.unit
 			&.commer
@@ -994,7 +1000,7 @@
 							th, td
 								&.file
 									display none
-				
+
 
 @media screen and (min-width: 550px)
 	#ctacte
