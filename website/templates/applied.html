@@ -35,8 +35,9 @@
 							</div>
 						</a>
 					</li><!--
-					--><li class="ctacte-pesos">
-						<a href="{% url 'ctacte' %}">
+					-->
+					<li class="ctacte-btn ctacte-pesos">
+						<a href="#">
 							<div>
 								<span class="full">Cuenta Corriente</span>
 								<span class="short">Cta. Cte.</span>
@@ -45,7 +46,15 @@
 						</a>
 					</li>
 				</div>
-				<div class="row">
+				<div class="ctacte-type">
+					<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
+					</a>
+					<a href="{% url 'ctacte' ctacte_type='emision' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
+					</a>
+				</div>
+				<div class="row first">
 					<li>
 						<a href="{% url 'deliveries' %}">
 							<div>
@@ -63,6 +72,7 @@
 						</a>
 					</li>
 				</div>
+				<div class="row second" style="display:block;"></div>
 			</ul>
 		</nav>
 
@@ -74,14 +84,14 @@
 			{% endif %}
 		{% endif %}
 
-		<form id="filter-date" action="{% url 'applied' %}" method="post">
-			{% csrf_token %}
+		<form id="filter-date" action="{% url 'applied' %}" method="get">
+			<!-- {% csrf_token %} -->
 			<div class="input-el">
 				<div class="from">
 					Desde
 					<div class="input">
 						{% if from_date %}
-							<input id="from" name="from" type="date" value="{{request.session.from_date}}" placeholder="dd/mm/aaaa">
+							<input id="from" name="from" type="date" value="{{request.GET.from}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="from" name="from" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -94,7 +104,7 @@
 					Hasta
 					<div class="input">
 						{% if to_date %}
-							<input id="to" name="to" type="date" value="{{request.session.to_date}}" placeholder="dd/mm/aaaa">
+							<input id="to" name="to" type="date" value="{{request.GET.to}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="to" name="to" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -107,6 +117,7 @@
 			<button type="submit" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
+			<p class="error-description">{{error}}</p>
 		</form>
 		
 		{% if from_date and to_date %}
@@ -125,6 +136,12 @@
 				<!--<button>
 					<a href="/downloadtxt/applied/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
 				</button>-->
+			</div>
+
+			<div class="pagination top">
+				<span class="wrapper">
+					{% show_pages %}
+				</span>
 			</div>
 
 			<table>
@@ -226,7 +243,7 @@
 				</tbody>
 			</table>
 
-			<div class="pagination">
+			<div class="pagination bottom">
 				<span class="wrapper">
 					{% show_pages %}
 				</span>

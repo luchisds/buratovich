@@ -159,7 +159,7 @@
 					div
 						p
 							font-size 1.2em
-	#company .gallery, 
+	#company .gallery,
 	#gallery
 		figure
 			width 33.33%
@@ -194,6 +194,17 @@
 						text-align left
 					h3
 						margin-top 0
+
+@media screen and (max-width: 912px)
+	#extranet
+		.extranet-nav
+			ul
+				.row
+					display block
+				.ctacte-type
+					padding-left 0
+					text-align center
+					width 80%
 
 @media screen and (max-width: 900px)
 	footer
@@ -279,6 +290,25 @@
 						margin 0 auto
 				&.currencies
 					margin-bottom 2em
+		.misc
+			padding 1.7em
+			& > div
+				stack()
+				margin 0 auto
+				text-align center
+				&:first-child
+					margin-bottom 1.3em
+				.cponline
+					border 0
+				.cponline, .tax
+					margin 0 auto
+					font-size .9em
+					div
+						left 0
+						margin 0 auto
+						right 0
+						text-align center
+						width 80%
 	#company
 		.imgs
 			img
@@ -445,25 +475,6 @@
 			article
 				margin-top 1.5em
 				width 100%
-		.misc
-			padding 1.7em
-			& > div
-				stack()
-				margin 0 auto
-				text-align center
-				&:first-child
-					margin-bottom 1.3em
-			.cponline
-				border 0
-			.cponline, .tax
-				font-size .9em
-				margin 0 auto
-				min-height 0
-				div
-					left 0
-					margin 0 auto
-					position relative
-					right 0
 	#company
 		.first-col
 			.featured, .history
@@ -681,6 +692,14 @@
 					width 140px
 					a
 						font-size .8em
+				.ctacte-type
+					margin-top .5em
+					padding-top .3em
+					width 95%
+					a
+						width 140px
+						&:first-child
+							margin-right .8em
 
 @media screen and (max-width: 460px)
 	header
@@ -740,7 +759,28 @@
 			.unit-title
 				font-size 1.9em
 
+@media screen and (max-width: 430px)
+	#ctacte
+		.extranet-nav
+			ul
+				.row, .row:nth-child(1)
+					display block
+					li
+						&.back
+							max-width 87px
+				.row:nth-child(1)
+					li
+						margin-bottom 0
+				.ctacte-type
+					margin-top .5em
+
 @media screen and (max-width: 420px)
+	#home
+		.misc
+			& > div
+				.cponline, .tax
+					div
+						width 100%
 	#bussines-units
 		.unit
 			&.commer
@@ -760,17 +800,6 @@
 					.boxes
 						div:last-child
 							display none
-	#ctacte
-		.extranet-nav
-			ul
-				.row, .row:nth-child(1)
-					display block
-					li
-						&.back
-							max-width 87px
-				.row:nth-child(1)
-					li
-						margin-bottom 0
 
 @media screen and (max-width: 380px)
 	#home
@@ -823,11 +852,16 @@
 @media screen and (min-width: 320px)
 	#ctacte
 		h3
+			font-size 1.5em
 			margin-left 0
 			margin-right 0
 			text-align center
 		.export-data
 			text-align center
+		.extranet-nav
+			ul
+				.ctacte-type
+					padding-left 0
 		&.pesos, &.applied
 			table
 				font-size .62em
@@ -881,12 +915,14 @@
 							th, td
 								&.factor, &.grade, &.driver
 									display table-cell
+					&.total-received.header
+						text-align center
 		&.sales
 			table
 				&.sales
 					tr
 						th, td
-							&.from-to-date, &.ex, &.settled
+							&.from-to-date, &.ex, &.settled, &.file
 								display none
 						th.currency
 							display none
@@ -894,16 +930,16 @@
 							display table-cell
 						&.detail
 							th, td
-								&.from-to-date, &.ex, &.settled
+								&.from-to-date, &.ex, &.settled, &.file
 									display table-cell
 				&.to-fix
 					tr
 						th, td
-							&.from-to-date
+							&.from-to-date, &.file
 								display none
 						&.detail
 							th, td
-								&.from-to-date
+								&.from-to-date, &.file
 									display table-cell
 				&.others
 					tr
@@ -920,11 +956,6 @@
 		&.pesos, &.applied
 			table
 				font-size .7em
-				// &.responsive
-				// 	tr
-				// 		th, td
-				// 			&.dh
-				// 				display table-cell
 			.pagination
 				.wrapper
 					span, a
@@ -958,6 +989,18 @@
 							th, td
 								&.factor, &.grade
 									display none
+		&.sales
+			table
+				&.sales, &.to-fix
+					tr
+						th, td
+							&.file
+								display table-cell
+						&.detail
+							th, td
+								&.file
+									display none
+
 
 @media screen and (min-width: 550px)
 	#ctacte
@@ -1068,6 +1111,8 @@
 					th, td
 						&.voucher
 							display table-cell
+					&.total-received.header
+						text-align left
 		&.sales
 			table
 				&.sales

@@ -399,13 +399,11 @@ footer
 				.utils-title
 					background-color rgba(255,255,255,.6)
 					border-radius 3px 3px 0 0
-					// margin-bottom .5em
 					padding-bottom .3em
 					position relative
 					text-align center
 					.title
 						font-size 1.5em
-						padding 0 .7em
 						vertical-align middle
 						span
 							display inline-block
@@ -485,34 +483,40 @@ footer
 				position absolute
 				text-align right
 				top 0
-				width 250px
 				&:hover
 					box-shadow 2px 2px 3px rgba(0,0,0,.7)
-					i
-						color $baseColor
-				i
-					color $accentColor
-					font-size 2em
-					left 5%
-					position absolute
-					transition 0.5s ease-out
-					top 22%
+					.misc-icon
+						i
+							color $baseColor
 				span
 					display inline-block
-					height 100%
-					margin-left 20%
-					text-align left
-					transition 0.3s ease-out
-					width 80%
-					a
-						display block
-						color $darkGreyGreen
+					position relative
+					vertical-align top
+					&.misc-icon
 						height 100%
-						line-height 3.5em
 						padding-left .5em
-						transition 0.5s ease-out
-						&.send-cv
-							opacity 0
+						i
+							display block
+							position relative
+							top 50%
+							transform translateY(-50%)
+							color $accentColor
+							font-size 2em
+							transition 0.5s ease-out
+					&.misc-link
+						margin-left .5em
+						padding-right .5em
+						position relative
+						text-align left
+						transition 0.3s ease-out
+						a
+							display block
+							color $darkGreyGreen
+							height 100%
+							line-height 3.5em
+							transition 0.5s ease-out
+							&.send-cv
+								opacity 0
 
 
 /*#### HISTORIC RAIN ################################################################*/
@@ -729,9 +733,9 @@ footer
 
 /*#### CONTACT / INFORMACION IMPOSITIVA / CV ###########################################*/
 
-#contact .offices, 
-#contact .data-contact, 
-#contact .areas, 
+#contact .offices,
+#contact .data-contact,
+#contact .areas,
 #contact .maps,
 #taxes .data-contact,
 #taxes .tax-data,
@@ -763,7 +767,7 @@ footer
 		margin-right .3em
 		vertical-align middle
 
-#contact .offices, 
+#contact .offices,
 #contact .areas,
 #taxes .tax-data,
 #cv
@@ -795,6 +799,29 @@ footer
 			height auto
 			max-width 500px
 			width 100%
+	.oportunities
+		margin 3.5em 0 1.5em 0
+		h2
+			margin-bottom 1em
+		.box
+			.title
+				font-size 1.4em
+			.alted
+				color $accentOrange
+				margin .5em 0
+			.email
+				a
+					border-bottom 1px dashed transparent
+					color $accentOrange
+					margin-left .3em
+					padding-bottom .2em
+					&:hover
+						border-bottom 1px dashed $accentOrange
+			ul
+				padding-left 2em
+				li
+					list-style disc
+					margin .2em 0
 
 #taxes
 	background url('../img/units/back.jpg') no-repeat top center
@@ -1032,7 +1059,7 @@ footer
 		.main
 			&::after
 				background-image url('../img/units/unit_acopio_xlarge.jpg')
-				background-repeat no-repeat 
+				background-repeat no-repeat
 				background-attachment fixed
 				background-position top right
 				background-size cover
@@ -1320,12 +1347,18 @@ footer
 				opacity .5
 				top 50%
 				z-index 1
-			.title, .text
+			.title, p
 				padding-left 2em
 			.title
 				font-weight bold
 				margin-bottom .5em
 				text-transform uppercase
+		.separator
+			border-bottom 1px solid $midGrey
+			height 1px
+			margin 0 auto
+			padding-top 2em
+			width 50%
 		.date
 			color $baseColor
 			font-weight bold
@@ -1381,6 +1414,7 @@ footer
 				border 1px solid $baseColor
 				border-radius 3px
 				padding 2px
+				width 83%
 			span
 				color red
 				font-size .9em
@@ -1402,18 +1436,22 @@ footer
 #extranet, #ctacte
 	.extranet-nav
 		padding-top 2em
-		.row:nth-child(1), .row:nth-child(2)
+		//.row:nth-child(1), .row:nth-child(2)
+		.row
 			display inline-block
 			vertical-align middle
 		ul
 			text-align center
+			position relative
 			li
 				background-color $baseColor
 				border-radius 3px
 				height 100px
 				margin 1em
+				position relative
 				text-align center
 				transition 0.3s ease-out
+				vertical-align middle
 				width 180px
 				&:hover
 					background-color $accentColor
@@ -1433,6 +1471,57 @@ footer
 							&:last-child
 								font-size 2em
 								margin-top .2em
+				&.ctacte-btn
+					&.opened
+						background-color $accentColor
+						.triangle
+							opacity 1
+					.triangle
+						triangle('bottom', $darkGreyGreen, 5px, 5px, 7px, 5px)
+						bottom -.85em
+						left 50%
+						margin-left -5px
+						opacity 0
+						position absolute
+						transition 0.3s ease-out
+			.ctacte-type
+				border-top 1px solid $midGrey
+				left 0
+				margin 0 auto
+				max-width 815px
+				opacity 0
+				padding .5em 0 0 1em
+				position absolute
+				right 0
+				text-align left
+				transition all 0.3s ease-out
+				width 100%
+				&.opened
+					opacity 1
+					a
+						transform translateY(0px)
+						visibility visible
+				a
+					background-color $accentColor
+					border-radius 3px
+					color white
+					display inline-block
+					padding .5em
+					text-align center
+					transition all 0.3s ease-out
+					transform translateY(-20px)
+					visibility hidden
+					width 150px
+					&:first-child
+						margin-right 1em
+					&:hover
+						opacity .8
+					i
+						margin-right .5em
+			.first, .second
+				transition 0.3s ease-out
+				&.opened
+					margin-top 3.5em
 
 #ctacte
 	.extranet-nav
@@ -1456,8 +1545,8 @@ footer
 						span
 							margin 0 !important
 							img
-								width 24px
-								Fix img inline
+								width 18px
+								//Fix img inline
 								vertical-align middle
 				&.ctacte-pesos
 					.full
@@ -1474,11 +1563,31 @@ footer
 								font-size 1.5em
 								margin-top 0
 								margin-left .2em
+			.ctacte-type
+				text-align center
+				a
+					font-size 1.1em
+					width auto
 
 
 /*#### CTA CTE $ / KG ################################################################*/
 
 #ctacte
+	.change-ctacte
+		margin-top 1em
+		text-align center
+		a
+			border 1px dashed $baseColor
+			border-radius 3px
+			color $baseColor
+			//font-weight bold
+			margin-left .5em
+			padding .2em .3em
+			i
+				transition all 0.3s ease-out
+			&:hover
+				i
+					transform rotate(15deg)
 	h3
 		font-size 1.5em
 		margin 1.2em 0 .5em 1.5em
@@ -1553,6 +1662,12 @@ footer
 		color $baseColor
 		font-size 1em
 		margin 2em 0 -1.5em .5em
+	&.pesos
+		table
+			thead
+				th
+					&:first-child
+						background-color $accentColor
 	&.pesos, &.applied
 		table
 			tbody
@@ -1578,6 +1693,11 @@ footer
 					display inline-block
 					&.to
 						margin-left .2em
+			.error-description
+				border-left 2px solid red
+				color red
+				margin-top .5em
+				padding-left .3em
 			button, .input
 				display inline-block
 				margin 0 .2em
@@ -1587,7 +1707,6 @@ footer
 			margin 1em 0 0 0
 		.pagination
 			font-size .9em
-			margin 0 0 5em 0
 			text-align center
 			.wrapper
 				border 1px solid $midGrey
@@ -1613,6 +1732,10 @@ footer
 				.endless_separator
 					background-color $lightGrey
 					color $midGrey
+			&.top
+				margin 1em 0 1.5em 0
+			&.bottom
+				margin 0 0 5em 0
 	&.kilos, &.sales
 		padding-bottom 2em
 		table
@@ -1678,15 +1801,22 @@ footer
 			background-color #d5d5d5
 			border-radius 3px
 			margin-top 1em
-			padding .5em 1em
-			p
+			p, td
 				font-weight bold
+				padding .3em
 				span
+					background-color white
 					color $baseColor
-					margin-left .5em
+					display block
+					font-size 1.2em
+					line-height 2em
+					padding 0 .3em
 	&.sales
 		table
 			margin-bottom 1em
+		// Aplica el estilo a las ultimas dos tablas
+		table:nth-last-child(-n+2)
+			margin-bottom 2.5em
 
 
 /*#### ERROR PAGE ################################################################*/

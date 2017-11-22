@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 	# WhiteNoise in dev environment need manage.py runserver --nostatic option. This app do it for us.
 	'whitenoise.runserver_nostatic',
 	'django.contrib.staticfiles',
+	'tinymce',
 	'website',
 	'el_pagination',
 	'mathfilters',
@@ -47,6 +48,8 @@ MIDDLEWARE_CLASSES = [
 	# HTMLMin middlewares
 	'htmlmin.middleware.HtmlMinifyMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+	# Translations middleware
+	'django.middleware.locale.LocaleMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -119,7 +122,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'es-ar'
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = [
+	('es', 'ESP'),
+	('en', 'ENG'),
+	('pt', 'POR'),
+]
+
+LOCALE_PATHS = [
+	os.path.join(BASE_DIR, 'website')
+]
+
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Buenos_Aires'
 
@@ -172,6 +187,20 @@ EL_PAGINATION_PER_PAGE = 50
 # Grappelli Settings
 GRAPPELLI_ADMIN_TITLE = 'BURATOVICH HNOS.'
 GRAPPELLI_INDEX_DASHBOARD = 'website.dashboard.CustomIndexDashboard'
+
+# Django-tinymce Settings
+TINYMCE_DEFAULT_CONFIG = {
+	'theme': 'advanced',
+	'theme_advanced_buttons1': 'bold,italic,underline,separator,bullist,numlist,separator,link,unlink',
+	'theme_advanced_buttons2': '',
+	'theme_advanced_buttons3': '',
+	'theme_advanced_toolbar_location': 'top',
+	'theme_advanced_toolbar_align': 'left',
+	#'paste_text_sticky': True,
+	#'paste_text_sticky_default': True,
+	#'valid_styles': 'font-weight,font-style,text-decoration',
+}
+TINYMCE_COMPRESSOR = True
 
 # HTMLMin Settings
 HTML_MINIFY = True  #To minify with DEBUG = True

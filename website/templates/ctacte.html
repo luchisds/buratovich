@@ -5,7 +5,7 @@
 {% load truncatechars %}
 {% load voucher %}
 
-{% block title %}Buratovich Hnos. - Cuenta Corriente en Peso{% endblock %}
+{% block title %}Buratovich Hnos. - Cuenta Corriente en Pesos{% endblock %}
 
 {% block path %}
 <div class="path maxwidth">
@@ -64,8 +64,14 @@
 				</div>
 			</ul>
 		</nav>
-
-		<h3>Cuenta Corriente en Pesos</h3>
+		<div class="change-ctacte">
+			{% if ctacte_type == 'vencimiento' %}
+				<p>Ir a Cta. Cte. por <a href="{% url 'ctacte' ctacte_type='emision' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de Emisión</a></p>
+			{% else %}
+				<p>Ir a Cta. Cte. por <a href="{% url 'ctacte' ctacte_type='vencimiento' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de Vencimiento</a></p>
+			{% endif %}
+		</div>
+		<h3>Cta. Cte. en Pesos {% if ctacte_type == 'vencimiento' %} por Fecha de Vencimiento{% else %} por Fecha de Emisión{% endif %}</h3>
 		
 		{% if user.userinfo.is_commercial %}
 			{% if request.session.algoritmo_code %}
@@ -73,14 +79,14 @@
 			{% endif %}
 		{% endif %}
 
-		<form id="filter-date" action="{% url 'ctacte' %}" method="post">
-			{% csrf_token %}
+		<form id="filter-date" action="{% url 'ctacte' ctacte_type=ctacte_type %}" method="get">
+			<!-- {% csrf_token %} -->
 			<div class="input-el">
 				<div class="from">
 					Desde 
 					<div class="input">
 						{% if from_date %}
-							<input id="from" name="from" type="date" value="{{request.session.from_date}}" placeholder="dd/mm/aaaa">
+							<input id="from" name="from" type="date" value="{{request.GET.from}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="from" name="from" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -93,7 +99,7 @@
 					Hasta 
 					<div class="input">
 						{% if to_date %}
-							<input id="to" name="to" type="date" value="{{request.session.to_date}}" placeholder="dd/mm/aaaa">
+							<input id="to" name="to" type="date" value="{{request.GET.to}}" placeholder="dd/mm/aaaa">
 						{% else %}
 							<input id="to" name="to" type="date" placeholder="dd/mm/aaaa">
 						{% endif %}
@@ -106,6 +112,7 @@
 			<button type="submit" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
+			<p class="error-description">{{error}}</p>
 		</form>
 
 		{% if from_date and to_date %}
@@ -126,13 +133,31 @@
 				</button>-->
 			</div>
 
+			<div class="pagination top">
+				<span class="wrapper">
+					{% show_pages %}
+				</span>
+			</div>
+
 			<table>
 				<thead>
 					<tr>
-						<th>Fecha Vto.</th>
+						<th>
+							{% if ctacte_type == 'vencimiento' %}
+								Fecha Vto.
+							{% else %}
+								Fecha Emi.
+							{% endif %}
+						</th>
 						<th>Comprobante</th>
 						<th class="observations">Observaciones</th>
-						<th class="date-e">Fecha Emi.</th>
+						<th class="date-e">
+							{% if ctacte_type == 'vencimiento' %}
+								Fecha Emi.
+							{% else %}
+								Fecha Vto.
+							{% endif %}
+						</th>
 						<th class="dh">D/H</th>
 						<th class="amount">Importe</th>
 						<th class="debe">Debe</th>
@@ -163,12 +188,24 @@
 					{% endfor %}
 					{% for i in ctacte %}
 						<tr>
-							<td class="center">{{i.obj.date_2|date:"d/m/Y"}}</td>
+							<td class="center">
+								{% if ctacte_type == 'vencimiento' %}
+									{{i.obj.date_1|date:"d/m/Y"}}
+								{% else %}
+									{{i.obj.date_2|date:"d/m/Y"}}
+								{% endif %}
+							</td>
 							{% voucher i.obj.voucher 'S' as voucher %}
 							<td>{{voucher}}</td>
 							{% truncate_chars i.obj.concept 40 as concept %}
 							<td class="observations">{{concept}}</td>
-							<td class="center date-e">{{i.obj.date_1|date:"d/m/Y"}}</td>
+							<td class="center date-e">
+								{% if ctacte_type == 'vencimiento' %}
+									{{i.obj.date_2|date:"d/m/Y"}}
+								{% else %}
+									{{i.obj.date_1|date:"d/m/Y"}}
+								{% endif %}
+							</td>
 							{% if i.obj.movement_type == "Debito" %}
 								<td class="center dh">D</td>
 								<td class="right amount">{{i.obj.amount_sign|floatformat:2|intcomma}}</td>
@@ -186,7 +223,7 @@
 							<td class="right">{{i.balance|floatformat:2|intcomma}}</td>
 							{% if i.file %}
 								<td class="center voucher">
-									<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
+									<a href="{% url 'downloadPDF' %}?f={{i.file}}&d={{i.obj.date_2|date:'Ymd'}}" target="_blank">
 										<img src="{% static "img/pdf2.png" %}" alt="">
 									</a>
 								</td>
@@ -247,7 +284,7 @@
 				</tbody>
 			</table>
 
-			<div class="pagination">
+			<div class="pagination bottom">
 				<span class="wrapper">
 					{% show_pages %}
 				</span>

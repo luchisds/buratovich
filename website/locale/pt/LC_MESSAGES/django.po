@@ -1,0 +1,813 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-18 11:34-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\base.html:75 .\templates\base.html:103
+msgid "Salir"
+msgstr "Sair"
+
+#: .\templates\base.html:79 .\templates\base.html:107
+msgid "Clientes"
+msgstr "Clientes"
+
+#: .\templates\base.html:90 .\templates\base.html:125 .\templates\base.html:144
+#: .\templates\company.html:19
+msgid "Institucional"
+msgstr "Institucional"
+
+#: .\templates\base.html:93 .\templates\base.html:126 .\templates\base.html:145
+#: .\templates\index.html:138 .\templates\units.html:6
+#: .\templates\units.html:16
+msgid "Unidades de Negocio"
+msgstr "Unidades de Negócios"
+
+#: .\templates\base.html:96 .\templates\base.html:127 .\templates\base.html:146
+#: .\templates\contact.html:5 .\templates\contact.html:15
+msgid "Contacto"
+msgstr "Contato"
+
+#: .\templates\base.html:138
+msgid "Ruta"
+msgstr "Estrada"
+
+#: .\templates\base.html:153
+msgid "Trabajá con nosotros"
+msgstr "Trabalhe conosco"
+
+#: .\templates\base.html:154
+msgid "Envíanos tu CV"
+msgstr "Deixe seu currículo"
+
+#: .\templates\base.html:161
+msgid "OFICINA CENTRAL:"
+msgstr "Escritório Central na Argentina"
+
+#: .\templates\base.html:161
+msgid "Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)"
+msgstr "Estrada 8 Km 176.5 – Arrecifes, Buenos Aires (2740)"
+
+#: .\templates\base.html:162
+msgid "Desarrollado por"
+msgstr "Desenvolvido por"
+
+#: .\templates\company.html:5
+msgid "Empresa"
+msgstr "Empresa"
+
+#: .\templates\company.html:35
+msgid "Nuestra empresa"
+msgstr "Nossa Empresa"
+
+#: .\templates\company.html:37
+msgid ""
+"Nuestro grupo empresario desarrolla su actividad comercial y agropecuaria "
+"principalmente en las provincias de Buenos Aires y Chaco."
+msgstr ""
+"Nosso grupo empresário desenvolve sua atividade comercial e agropecuária "
+"principalmente nas províncias de Buenos Aires e Chaco."
+
+#: .\templates\company.html:38
+msgid ""
+"Contamos con dos plantas de acopio en la localidad de Arrecifes (Bs. As.) y "
+"una tercera en la localidad de General Pinedo (Chaco) para la recepción y "
+"acondicionamiento de la mercadería, con una capacidad total aproximada de "
+"150 mil toneladas."
+msgstr ""
+"Dispõe-se de dois estabelecimentos para armazenagem de grãos na cidade de "
+"Arrecifes (Bs. As.) e um terceiro na cidade de General Pinedo (Chaco) para a "
+"recepção e acondicionamento da mercadoria, com uma capacidade total "
+"aproximada de 150 mil toneladas."
+
+#: .\templates\company.html:39
+msgid ""
+"Satisfacemos las necesidades comerciales de mas de 400 clientes desde "
+"nuestra casa central en Arrecifes, y los atendemos en la zona centro-este de "
+"la provincia de Bs. As. desde una oficina comercial ubicada en la localidad "
+"de Lobos."
+msgstr ""
+"A Buratovich Hnos. satisfaz as necessidades comerciais de mais de 400 "
+"clientes desde seu escritório central em Arrecifes, e são atendidos na zona "
+"centro-oeste da província de Bs. As. desde seu escritório comercial "
+"localizado na cidade de Lobos."
+
+#: .\templates\company.html:40
+msgid ""
+"La producción agrícola en la provincia de Chaco se extiende desde el "
+"sudoeste hacia la región norte. En Charata se encuentran las oficinas que "
+"administra esta actividad en esa provincia. En Bs. As. la producción se "
+"encuentra centralizada en la zona norte y en la cuenca del Salado."
+msgstr ""
+"A produção agrícola na província do Chaco estende-se desde o sudoeste até a "
+"região norte; em Charata encontram-se os escritórios que administram a "
+"produção nessa província."
+
+#: .\templates\company.html:41
+msgid ""
+"Actualmente nos encontramos desarrollando nuevas alternativas comerciales "
+"que nos permitan continuar ampliando nuestros horizontes, como la "
+"exportación de cereales, oleaginosas, otros productos derivados, y la "
+"importación de insumos agropecuarios."
+msgstr ""
+"Atualmente estamos desenvolvendo novas alternativas comerciais que permitam "
+"ampliar nossos horizontes, como a exportação de cereais, oleaginosas, outros "
+"produtos derivados, e a importação de insumos agropecuários."
+
+#: .\templates\company.html:45 .\templates\index.html:122
+msgid "Una empresa centenaria"
+msgstr "Uma empresa centenária"
+
+#: .\templates\company.html:46
+msgid ""
+"La empresa fue fundada en el año 1915 por Esteban Buratovich, inmigrante de "
+"origen croata, que se radicó en el país a fines del siglo XIX."
+msgstr ""
+"A empresa foi fundada no ano 1915 por Esteban Buratovich, imigrante de "
+"origem croata, que se radicou no país no fim do século XIX."
+
+#: .\templates\company.html:47
+msgid ""
+"Hombre de un espíritu innovador, fue precursor del acarreo y "
+"acondicionamiento de cereal a granel."
+msgstr ""
+"Homem de espírito inovador foi precursor do transporte e acondicionamento de "
+"cereal a granel."
+
+#: .\templates\company.html:48
+msgid ""
+"Sus hijos varones continuaron la tarea y actualmente, después de más de 100 "
+"años, miembros de la tercera y cuarta generación de una rama de la familia, "
+"siguen identificados con una línea de trabajo y responsabilidad que les fue "
+"legada."
+msgstr ""
+"Seus filhos homens continuaram a tarefa e atualmente, após mais de 100 anos, "
+"membros da terceira e quarta geração de uma parte da família, seguem "
+"identificados com aquele jeito de trabalhar e responsabilidade que herdaram."
+
+#: .\templates\company.html:49
+msgid ""
+"Hoy atendemos a nuestros clientes de muy variadas características en una "
+"amplia región, privilegiando el trato personalizado y las diferentes "
+"necesidades individuales."
+msgstr ""
+"Hoje atendemos a nossos clientes de variadas características em uma ampla "
+"região, privilegiando as relações interpessoais e as diferentes necessidades "
+"individuais."
+
+#: .\templates\company.html:50
+msgid ""
+"El personal técnico y administrativo debidamente capacitado y los modernos "
+"equipamientos, hacen posible un trato y un servicio eficiente. Gracias a "
+"ello podemos brindar una amplia y oportuna información que contribuye a la "
+"claridad y transparencia de nuestras operaciones comerciales."
+msgstr ""
+"O pessoal técnico e administrativo devidamente capacitado somado aos "
+"modernos equipamentos faz com que consigamos um tratamento diferenciado e um "
+"serviço eficiente. Tudo isto possibilita oferecer uma ampla e oportuna "
+"informação que contribui à clareza e transparência de nossas operações "
+"comerciais."
+
+#: .\templates\company.html:88
+msgid "Galería de Imágenes"
+msgstr "Galeria de Imagens"
+
+#: .\templates\company.html:114
+msgid "VER MAS IMÁGENES"
+msgstr "VER MAIS IMAGENS"
+
+#: .\templates\company.html:119
+msgid ""
+"Si es de vuestro interes, conozca la historia de la empresa a través de las "
+"palabras de <span style=\"border-bottom: 1px dotted grey;\">José Antonio</"
+"span>, integrante de la tercera generación de la familia Buratovich:"
+msgstr ""
+"Se for de vosso interesse, conheça a história da empresa através das "
+"palavras de <span style=\"border-bottom: 1px dotted grey;\">José Antonio</"
+"span>, membro da terceira geração da família Buratovich:"
+
+#: .\templates\contact.html:22
+msgid ""
+"Ante cualquier consulta o sugerencia puede comunicarse via correo "
+"electrónico a la dirección: <a href=\"mailto:buratovich@buratovich.com?"
+"subject=Contacto\"><i class=\"fa fa-paper-plane\" aria-hidden=\"true\"></i> "
+"buratovich@buratovich.com</a>"
+msgstr ""
+"Perante qualquer consulta ou sugestão pode-se comunicar por e-mail: <a href="
+"\"mailto:buratovich@buratovich.com?subject=Contacto\"><i class=\"fa fa-paper-"
+"plane\" aria-hidden=\"true\"></i> buratovich@buratovich.com</a>"
+
+#: .\templates\contact.html:24
+msgid "OFICINAS COMERCIALES"
+msgstr "SEDES COMERCIAIS"
+
+#: .\templates\contact.html:29
+msgid "Oficina ARRECIFES"
+msgstr "Escritório ARRECIFES"
+
+#: .\templates\contact.html:30
+msgid "Ruta 8 y Leandro N. Alem"
+msgstr "Estrada 8 e Leandro N. Alem"
+
+#: .\templates\contact.html:32 .\templates\contact.html:44
+#: .\templates\contact.html:58 .\templates\contact.html:70
+msgid "Tel."
+msgstr "Tel."
+
+#: .\templates\contact.html:34 .\templates\contact.html:46
+#: .\templates\contact.html:60 .\templates\contact.html:72
+msgid "Ver en el mapa"
+msgstr "Veja no mapa"
+
+#: .\templates\contact.html:41
+msgid "Oficina LOBOS"
+msgstr "Escritório LOBOS"
+
+#: .\templates\contact.html:42
+msgid "Ruta 205 e Int.Miguel A.Turdó"
+msgstr "Estrada 205 e Miguel Turdó"
+
+#: .\templates\contact.html:55
+msgid "Oficina GRAL. PINEDO"
+msgstr "Escritório GRAL. PINEDO"
+
+#: .\templates\contact.html:56
+msgid "Ruta Prov. 94 Km 65"
+msgstr "Estrada 94 Km 65"
+
+#: .\templates\contact.html:67
+msgid "Oficina CHARATA"
+msgstr "Escritório CHARATA"
+
+#: .\templates\contact.html:83
+msgid "CONTACTOS POR UNIDAD DE NEGOCIOS"
+msgstr "CONTATOS SEGUNDO A UNIDADE DE NEGÓCIOS"
+
+#: .\templates\contact.html:86 .\templates\contact.html:96
+msgid "Acopio de granos"
+msgstr "Armazenage de grãos"
+
+#: .\templates\contact.html:87 .\templates\contact.html:121
+msgid "Comercialización de cereales"
+msgstr "Comercialização de cereais"
+
+#: .\templates\contact.html:88 .\templates\contact.html:150
+#: .\templates\index.html:104
+msgid "Exportación"
+msgstr "Exportação"
+
+#: .\templates\contact.html:89 .\templates\contact.html:158
+msgid "Agricultura y Ganadería"
+msgstr "Agricultura e Pecuária"
+
+#: .\templates\contact.html:90 .\templates\contact.html:170
+msgid "Administración General"
+msgstr "Administração Geral"
+
+#: .\templates\contact.html:97
+msgid "Liquidación de Cereales"
+msgstr "Liquidação de cereais"
+
+#: .\templates\contact.html:102
+msgid "Logística"
+msgstr "Logística"
+
+#: .\templates\contact.html:109
+msgid "Balanza"
+msgstr "Escala"
+
+#: .\templates\contact.html:122
+msgid "Área Comercial"
+msgstr "Área Comercial"
+
+#: .\templates\contact.html:151
+msgid "Contacto Comercial"
+msgstr "Contato Comercial"
+
+#: .\templates\contact.html:159
+msgid "Ing. Producción Agropecuaria"
+msgstr "Eng. Produção Agropecuária"
+
+#: .\templates\contact.html:171
+msgid "Contador"
+msgstr "Contador"
+
+#: .\templates\index.html:41
+msgid ""
+"Tres plantas de silos altamente calificadas para el <span class=\"highlight"
+"\">acopio</span> y <span class=\"highlight\">acondicionamiento</span> de "
+"granos al servicio de nuestros clientes."
+msgstr ""
+"Três plantas de silos altamente qualificadas para <span class=\"highlight"
+"\">armazenagem</span> e <span class=\"highlight\">acondicionamento</span> de "
+"grãos para benefício de nossos clientes."
+
+#: .\templates\index.html:54
+msgid ""
+"Mas de <span class=\"highlight\">100 años</span> de experiencia en la "
+"comercialización de granos y oleaginosas para ofrecerle diferentes "
+"alternativas de <span class=\"highlight\">negocios</span>: acopio, "
+"corretaje, asesoramiento, canjes, contratos forward y disponible."
+msgstr ""
+"Mais de <span class=\"highlight\">100 anos</span> de experiência na "
+"comercialização de grãos e oleaginosas para oferecer-lhe diferentes opções "
+"de <span class=\"highlight\">negócios</span>: armazenagem, corretagem, "
+"assessoramento, trocas, contratos forward e disponível."
+
+#: .\templates\index.html:67
+msgid ""
+"Desarrollamos la producción agrícola en distintas regiones de las provincias "
+"de Buenos Aires y Chaco. Nuestros principales cultivos son el <span class="
+"\"highlight\">Maíz</span>, <span class=\"highlight\">Girasol</span>, <span "
+"class=\"highlight\">Trigo</span>, <span class=\"highlight\">Cebada</span>, "
+"<span class=\"highlight\">Arveja</span>, <span class=\"highlight\">Lenteja</"
+"span>, <span class=\"highlight\">Soja</span>,\n"
+"\t\t\t\t\t<span class=\"highlight\">Sorgo</span> y <span class=\"highlight"
+"\">Algodón</span>."
+msgstr ""
+"Desenvolvemos a produção agrícola em diversas regiões das províncias de "
+"Buenos Aires e Chaco. As principais culturas com as que trabalhamos são "
+"<span class=\"highlight\">Milho</span>, <span class=\"highlight\">Girassol</"
+"span>, <span class=\"highlight\">Trigo</span>, <span class=\"highlight"
+"\">Cevada</span>, <span class=\"highlight\">Ervilha</span>, <span class="
+"\"highlight\">Lentilha</span>, <span class=\"highlight\">Soja</span>,\n"
+"\t\t\t\t\t<span class=\"highlight\">Sorgo</span> e <span class=\"highlight"
+"\">Algodão</span>."
+
+#: .\templates\index.html:81
+msgid ""
+"Desde hace años practicamos la actividad ganadera en la cuenca del Salado en "
+"la provincia de <span class=\"highlight\">Buenos Aires</span>, y en el <span "
+"class=\"highlight\">Chaco</span>."
+msgstr ""
+"Faz tempo dedicamo-nos à pecuária na bacia do Rio Salado na província de "
+"<span class=\"highlight\">Buenos Aires</span>, e no <span class=\"highlight"
+"\">Chaco</span>."
+
+#: .\templates\index.html:94
+msgid ""
+"Una actividad en constante crecimiento que nos ha permitido conformar una "
+"fuerte red de contactos <span class=\"highlight\">internacionales</span> a "
+"través de la exportación de <span class=\"highlight\">cereales</span>, <span "
+"class=\"highlight\">oleaginosas</span> y <span class=\"highlight\">productos "
+"derivados</span>."
+msgstr ""
+"Uma atividade em constante crescimento na qual estabelecemos uma sólida rede "
+"de contatos <span class=\"highlight\">internacionais</span> através da "
+"exportação de <span class=\"highlight\">cereais</span>, <span class="
+"\"highlight\">oleaginosas</span> e <span class=\"highlight\">produtos "
+"derivados</span>."
+
+#: .\templates\index.html:100
+msgid "Acopio"
+msgstr "Armazenagem"
+
+#: .\templates\index.html:101
+msgid "Comercialización"
+msgstr "Comercialização"
+
+#: .\templates\index.html:102
+msgid "Agricultura"
+msgstr "Agricultura"
+
+#: .\templates\index.html:103
+msgid "Ganadería"
+msgstr "Pecuária"
+
+#: .\templates\index.html:109 .\templates\units.html:28
+#: .\templates\units.html:103
+msgid "ACOPIO"
+msgstr "ARMAZENAGEM"
+
+#: .\templates\index.html:110 .\templates\units.html:97
+msgid "COMERCIALIZACIÓN"
+msgstr "COMERCIALIZAÇÃO"
+
+#: .\templates\index.html:111
+msgid "AGRICULTURA"
+msgstr "AGRICULTURA"
+
+#: .\templates\index.html:112
+msgid "GANADERÍA"
+msgstr "PECUÁRIA"
+
+#: .\templates\index.html:113 .\templates\units.html:143
+msgid "EXPORTACIÓN"
+msgstr "EXPORTAÇÃO"
+
+#: .\templates\index.html:123
+msgid ""
+"Conoce los valores que nos mantiene en constante crecimiento luego de un "
+"siglo de actividad."
+msgstr ""
+"Conheça os valores que nos mantém em constante crescimento após um século de "
+"atividade."
+
+#: .\templates\index.html:130
+msgid "Contacto y Zonas de Influencia"
+msgstr "Contato e Zonas de Influência"
+
+#: .\templates\index.html:131
+msgid ""
+"Operamos en las provincias de Buenos Aires y Chaco. Conoce como podes "
+"contactarnos."
+msgstr ""
+"Operamos nas províncias de Buenos Aires e Chaco. Conheça como pode entrar em "
+"contato conosco."
+
+#: .\templates\index.html:139
+msgid ""
+"Acopio y Acondicionamiento, Comercialización, Producción Agrícola, "
+"Exportación, entre otros."
+msgstr ""
+"Armazenagem e Acondicionamento. Comercialização. Produção Agrícola. "
+"Exportação, entre outros."
+
+#: .\templates\index.html:146
+msgid ""
+"\"Nuestro primer <span>objetivo</span> es la realización de un negocio y "
+"nuestro mejor resultado, <span>un buen cliente por muchos años.</span>\""
+msgstr ""
+"\"Nosso primeiro <span>objetivo</span> é a realização de um negócio e nosso "
+"melhor resultado, <span>um bom cliente por muitos anos.</span>\""
+
+#: .\templates\index.html:154
+msgid "Pizarra"
+msgstr "Cotações"
+
+#: .\templates\index.html:171 .\templates\units.html:206
+msgid "Trigo"
+msgstr "Trigo"
+
+#: .\templates\index.html:178
+msgid "Trigo Art. 12"
+msgstr "Trigo Art. 12"
+
+#: .\templates\index.html:185
+msgid "Maíz"
+msgstr "Milho"
+
+#: .\templates\index.html:192
+msgid "Girasol"
+msgstr "Girassol"
+
+#: .\templates\index.html:199 .\templates\units.html:170
+msgid "Soja"
+msgstr "Soja"
+
+#: .\templates\index.html:206
+msgid "Sorgo"
+msgstr "Sorgo"
+
+#: .\templates\index.html:223
+msgid "Sin Pizarra"
+msgstr "Sem Cotações"
+
+#: .\templates\index.html:226
+msgid "Precios del día"
+msgstr "Preços do dia"
+
+#: .\templates\index.html:231
+msgid "Ver pizarra del:"
+msgstr "Ver cotações de:"
+
+#: .\templates\index.html:249
+msgid "Monedas"
+msgstr "Moedas"
+
+#: .\templates\index.html:257 .\templates\index.html:274
+msgid "Compra"
+msgstr "Compra"
+
+#: .\templates\index.html:258 .\templates\index.html:275
+msgid "Venta"
+msgstr "Venda"
+
+#: .\templates\index.html:278
+msgid "Sin Cotización"
+msgstr "Sem Cotações"
+
+#: .\templates\index.html:281
+msgid "Cotización del día"
+msgstr "Cotação do dia"
+
+#: .\templates\index.html:286
+msgid "Ver dolar del:"
+msgstr "Ver dólar de:"
+
+#: .\templates\index.html:307
+msgid "Lluvias"
+msgstr "Chuvas"
+
+#: .\templates\index.html:317
+msgid "Clima"
+msgstr "Clima"
+
+#: .\templates\index.html:328 .\templates\index.html:340
+msgid "Milímetros"
+msgstr "Milímetros"
+
+#: .\templates\index.html:343
+msgid "Sin Lluvias"
+msgstr "Sem Chuvas"
+
+#: .\templates\index.html:346
+msgid "Lluvias del día"
+msgstr "Chuvas do dia"
+
+#: .\templates\index.html:350
+msgid "Ver lluvias del:"
+msgstr "Ver chuvas de:"
+
+#: .\templates\index.html:363
+msgid "Ver registro histórico"
+msgstr "Ver registro histórico"
+
+#: .\templates\index.html:394
+msgid "Carta de Porte Online"
+msgstr "Documentação de Transporte"
+
+#: .\templates\index.html:404
+msgid "Información Impositiva"
+msgstr "Informação Impositiva"
+
+#: .\templates\units.html:24
+msgid ""
+"Creamos servicios de calidad que agregan valor a cada parte interviniente de "
+"la actividad agropecuaria."
+msgstr ""
+"Criamos serviços de qualidade que agregam valor em cada elo da atividade "
+"agropecuária."
+
+#: .\templates\units.html:25
+msgid ""
+"Contamos con una amplia experiencia en la comercialización de granos y "
+"oleaginosas que nos permite asesorar a nuestros clientes con las mejores "
+"alternativas de negocios y ofrecerle servicios de logística y acopio que "
+"garantizan el traslado, la calidad y conservación de su cereal."
+msgstr ""
+"Por termos uma ampla experiência na comercialização de grãos e oleaginosas "
+"podemos acompanhar nossos clientes e lhes oferecer as melhores alternativas "
+"de negócios, junto com serviços de logística e armazenagem garantindo "
+"transporte, qualidade e conservação de seu cereal."
+
+#: .\templates\units.html:30
+msgid ""
+"Acompañamos la gestión operativa de nuestros clientes desde su campo hasta "
+"nuestras plantas de acopio, brindando un eficiente servicio de logística y "
+"acarreo, y garantizando la calidad y conservación de su mercadería."
+msgstr ""
+"Acompanhamos a gestão operativa dos nossos clientes desde sua propriedade "
+"até nossas unidades de armazenagem, oferecendo um eficiente serviço de "
+"logística e transporte, garantindo a qualidade e conservação de sua "
+"mercadoria."
+
+#: .\templates\units.html:43
+msgid "Planta Gral. Pinedo"
+msgstr "Estab. Gral. Pinedo"
+
+#: .\templates\units.html:46 .\templates\units.html:61
+#: .\templates\units.html:71
+msgid "Ver mapa"
+msgstr "Ver mapa"
+
+#: .\templates\units.html:58
+msgid "Planta Ruta 8"
+msgstr "Estab. Ruta 8"
+
+#: .\templates\units.html:68
+msgid "Planta Ruta 51"
+msgstr "Estab. Ruta 51"
+
+#: .\templates\units.html:84
+msgid ""
+"A través de una importante flota de camiones contratados brindamos servicio "
+"de logística a nuestros clientes a lo largo de todo el año."
+msgstr ""
+"Através de uma importante frota de caminhões contratados providenciamos "
+"serviço de logística a nossos clientes durante todo o ano."
+
+#: .\templates\units.html:90
+msgid ""
+"La estratégica ubicación de nuestras plantas de acopio nos permite operar "
+"con los principales puertos del país."
+msgstr ""
+"A estratégica localização de nossas unidades de armazenamento permite-nos "
+"operar com os principais portos do país."
+
+#: .\templates\units.html:99
+msgid ""
+"Mas de 100 años de experiencia en la comercialización de granos, oleaginosas "
+"y otros productos agropecuarios para ofrecerle diferentes alternativas de "
+"negocios: acopio, corretaje, asesoramiento, canjes, contratos forward y "
+"disponible."
+msgstr ""
+"Mais de 100 anos de experiência na comercialização de grãos, oleaginosas e "
+"outros produtos agropecuários para oferecer-lhe diferentes opções de "
+"negócios: armazenagem, corretagem, assessoramento, trocas, contratos forward "
+"e disponível."
+
+#: .\templates\units.html:104
+msgid "CORRETAJE"
+msgstr "CORRETAGEM"
+
+#: .\templates\units.html:105
+msgid "ASESORAMIENTO"
+msgstr "ASSESSORAMENTO"
+
+#: .\templates\units.html:108
+msgid "CANJES"
+msgstr "TROCAS"
+
+#: .\templates\units.html:109
+msgid "CONTRATOS FORWARD"
+msgstr "CONTRATOS FORWARD"
+
+#: .\templates\units.html:110
+msgid "DISPONIBLE"
+msgstr "DISPONÍVEL"
+
+#: .\templates\units.html:113
+msgid "FUTUROS Y OPCIONES"
+msgstr "FUTUROS E OPÇÕES"
+
+#: .\templates\units.html:119
+msgid "AGRICULTURA Y GANADERÍA"
+msgstr "AGRICULTURA E PECUÁRIA"
+
+#: .\templates\units.html:121
+msgid ""
+"Realizamos una amplia explotación intensiva sembrando mayormente sobre "
+"campos del grupo. Nuestros principales cultivos son el maíz, girasol, trigo, "
+"cebada, arveja, lenteja, soja, sorgo y algodón.\n"
+"\t\tRealizamos una agricultura sustentable y de precisión que nos permite "
+"obtener una mayor protección sobre el suelo y el medio ambiente. "
+"Certificamos nuestros procesos productivos para poder desarrollar las buenas "
+"prácticas agrícolas y mecanismos que promuevan la responsabilidad compartida "
+"entre los distintos actores de la cadena de valor."
+msgstr ""
+"Desenvolvemos uma ampla produção intensiva plantando principalmente em "
+"propriedades do grupo. As principais culturas são: milho, girassol, trigo, "
+"cevada, ervilha, lentilha, soja, sorgo e algodão.\n"
+"\t\tNosso desempenho empresarial é compatível como uma agricultura "
+"sustentável e de precisão, o que resulta na maior proteção do solo e do meio "
+"ambiente. Os processos produtivos são certificados com foco nas boas "
+"práticas agrícolas e mecanismos que promovem a responsabilidade social "
+"compartilhada por todos os atores da cadeia de valor."
+
+#: .\templates\units.html:127
+msgid ""
+"Nuestras actividades se desenvuelven en su mayoría en tierras propias, pero "
+"también trabajamos campos arrendados localizados <strong>estratégicamente</"
+"strong> y con suelos de <strong>alta productividad</strong>.<br>Nos ubicamos "
+"en distintas regiones de las provincias de <strong>Buenos Aires y Chaco</"
+"strong>."
+msgstr ""
+"Realizamos nossas atividades principalmente em terras próprias, mas também "
+"trabalhamos em campos arrendados localizados <strong>estrategicamente</"
+"strong> e com solos de <strong>alta produtividade</strong>.<br>As lavouras "
+"localizam-se em diferentes regiões das províncias de <strong>Buenos Aires e "
+"Chaco</strong>."
+
+#: .\templates\units.html:130
+msgid ""
+"Con foco en la <strong>producción sustentable</strong> utilizamos el sistema "
+"de <strong>siembra directa, cultivos de cobertura y alta rotación de los "
+"mismos</strong> para lograr una optima <strong>explotación</strong> y "
+"<strong>rentabilidad</strong> de las tierras."
+msgstr ""
+"Com foco na <strong>produção sustentável</strong> utilizamos o sistema de "
+"<strong>plantio direto, culturas de cobertura e alta rotação das mesmas</"
+"strong> para conseguir uma ótima <strong>produtividade</strong> e "
+"<strong>rentabilidade</strong> da terra."
+
+#: .\templates\units.html:133
+msgid ""
+"Contamos con un equipo de profesionales <strong>altamente capacitado</"
+"strong> que tiene como objetivo lograr la excelencia en la producción de "
+"nuestros cultivos, empleando el uso de las <strong>últimas tecnologías</"
+"strong> para tal fin."
+msgstr ""
+"Contamos com um time de profissionais <strong>altamente capacitados</strong> "
+"que visa atingir a excelência na nossa produção de cultivos, fazendo uso das "
+"mais <strong>inovadoras tecnologias</strong> para consegui-lo."
+
+#: .\templates\units.html:145
+msgid ""
+"Disponemos de una red de compradores del exterior para realizar negocios FOB "
+"a casi todo el mundo. Contamos con puerto seco en nuestras plantas de silo "
+"que nos permite consolidar la carga de los distintos productos "
+"agropecuarios, a granel o en contenedores, en su lugar de origen."
+msgstr ""
+"Dispomos de uma rede de compradores do exterior para realizar negócios FOB a "
+"quase todo o mundo. Contamos com porto seco em nossos estabelecimentos de "
+"armazenagem que nos permite consolidar a carga dos diferentes produtos "
+"agropecuários, a granel ou em contêineres, em seu local de origem."
+
+#: .\templates\units.html:150
+msgid "COMMODITIES"
+msgstr "COMMODITIES"
+
+#: .\templates\units.html:151
+msgid ""
+"En la búsqueda de expandir nuestro rango de acción y continuar creciendo "
+"como empresa, decidimos comenzar a gestionar nuestras propias "
+"<strong>operaciones de agro exportación</strong>, llegando así a ser activos "
+"protagonistas en cada una de las actividades intervinientes de la cadena "
+"agropecuaria al producir, acopiar, comercializar y exportar nuestros "
+"productos."
+msgstr ""
+"Na busca de ampliar o leque de possibilidades e continuar crescendo como "
+"empresa, decidimos desenvolver a gestão de nossas próprias <strong>operações "
+"de agro exportação</strong>, atingindo um papel de destaque como "
+"protagonistas em cada uma das atividades da cadeia agropecuária, por "
+"produzir, armazenar, comercializar e exportar nossos produtos."
+
+#: .\templates\units.html:158
+msgid "Algodón"
+msgstr "Algodão"
+
+#: .\templates\units.html:164
+msgid "Arveja"
+msgstr "Ervilha"
+
+#: .\templates\units.html:176
+msgid "Semilla de Algodón"
+msgstr "Semente de Algodão"
+
+#: .\templates\units.html:182
+msgid "Maiz"
+msgstr "Milho"
+
+#: .\templates\units.html:188
+msgid "Harina de Soja"
+msgstr "Farelo de Soja"
+
+#: .\templates\units.html:194
+msgid "Cebada"
+msgstr "Cevada"
+
+#: .\templates\units.html:200
+msgid "Poroto Mung"
+msgstr "Feijão Mung"
+
+#: .\templates\units.html:210
+msgid "Entre los productos exportados podemos citar:"
+msgstr "Entre os produtos exportados podemos citar:"
+
+#: .\templates\units.html:211
+msgid ""
+"<strong>Algodón</strong>, <strong>Semilla de Algodón</strong>, "
+"<strong>Arveja</strong>, <strong>Soja</strong>, <strong>Balanced Soybean "
+"Meal</strong>, <strong>Maíz</strong>, <strong>Maíz Quebrado</strong>, "
+"<strong>Cebada</strong> y <strong>Trigo</strong>."
+msgstr ""
+"<strong>Algodão</strong>, <strong>Semente de Algodão</strong>, "
+"<strong>Ervilha</strong>, <strong>Soja</strong>, <strong>Balanced Soybean "
+"Meal</strong>, <strong>Milho</strong>, <strong>Milho Quebrado</strong>, "
+"<strong>Cevada</strong> y <strong>Trigo</strong>."
+
+#: .\templates\units.html:220
+msgid ""
+"Hemos creado vínculos comerciales con clientes de <strong>mas de 20 países</"
+"strong> alrededor de todo el mundo."
+msgstr ""
+"Criamos laços comerciais com clientes de <strong>mais de 20 países</strong> "
+"pelo mundo afora."
+
+#: .\templates\units.html:226
+msgid ""
+"Exportamos una variedad de commodities agrícolas como <strong>Arveja, "
+"Algodón, Semilla de Algodón, Maíz, Maíz Quebrado, Soja, Harina de Soja "
+"Balanceada, Trigo y Cebada</strong>."
+msgstr ""
+"Exportamos uma variedade de commodities agrícolas tais como: "
+"<strong>Ervilha, Algodão, Semente de Algodão, Milho, Milho Quebrado, Soja, "
+"Farelo de Soja Balanceada, Trigo e Cevada</strong>."
+
+#: .\templates\units.html:232
+msgid ""
+"Estamos presentes en cada eslabón de la actividad agropecuaria, para "
+"controlar y asegurar la calidad de los productos que exportamos."
+msgstr ""
+"Estamos presentes em cada elo da atividade agropecuária para conferir e "
+"garantir a qualidade dos produtos que exportamos."
+
+#, fuzzy
+#~| msgid "Ruta 8 Km 176.5 - Arrecifes, Buenos Aires (2740)"
+#~ msgid "Ruta 8 Km 176.5 - Arrecifes, Bs. As."
+#~ msgstr "Estrada 8 Km 176.5 – Arrecifes, Buenos Aires (2740)"

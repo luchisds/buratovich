@@ -5,7 +5,6 @@ from django import forms
 from django.conf import settings
 from django.core import validators
 from django.template.defaultfilters import filesizeformat
-from django.utils.translation import ugettext_lazy as _
 
 # Widget for input type date
 class DateInput(forms.DateInput):
@@ -20,7 +19,7 @@ class CP(forms.Form):
 
 	SPECIES = (
 			('0000', '------'),
-			('ALGO', 'Algodón'), 
+			('ALGO', 'Algodón'),
 			('AVEN', 'Avena'),
 			('CART', 'Cártamo'),
 			('CEBA', 'Cebada'),
@@ -107,7 +106,7 @@ class CP(forms.Form):
 		content_type = content.content_type
 		if content_type in settings.CP_CONTENT_TYPES:
 			if content._size > settings.CP_MAX_UPLOAD_SIZE:
-				raise forms.ValidationError(_('El archivo es demasiado grande. El limite es %s, y el archivo subido pesa %s.') % (filesizeformat(settings.CP_MAX_UPLOAD_SIZE), filesizeformat(content._size)))
+				raise forms.ValidationError('El archivo es demasiado grande. El limite es %s, y el archivo subido pesa %s.' % (filesizeformat(settings.CP_MAX_UPLOAD_SIZE), filesizeformat(content._size)))
 		else:
-			raise forms.ValidationError(_('Solo se permiten subir archivos PDF.'))
+			raise forms.ValidationError('Solo se permiten subir archivos PDF.')
 		return content

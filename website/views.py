@@ -22,7 +22,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.db.models import Q
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -518,40 +518,57 @@ def notifications(request):
 
 
 @login_required
-def ctacte(request):
+def ctacte(request, ctacte_type):
 
-	vouchers = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC']
+	if ctacte_type <> 'vencimiento' and ctacte_type <> 'emision':
+		raise Http404
+
+
+	#Initialize variables
+
+	vouchers_pdf = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC', 'PC', 'OP', 'RE']
+	# Dates for print on template
+	from_date_print = None
+	to_date_print = None
+	# Initial balance
+	ib = 0
+	data = None
 
 	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		if request.POST:
-			# Get dates from POST
-			from_date = request.POST.get('from')
-			to_date = request.POST.get('to')
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+
+		if from_date and to_date:
 			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
 			try:
 				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
 			except ValueError:
 				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
 				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
-			# Save dates in session to use in defaul input value
-			request.session['from_date'] = request.POST.get('from')
-			request.session['to_date'] = request.POST.get('to')
+			# Format dates for template
+			from_date_print = str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4]
+			to_date_print = str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]
 			# Request data
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-			ib = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=from_date).aggregate(Sum('amount_sign'))
-			if ib['amount_sign__sum']:
-				ib = ib['amount_sign__sum']
-			else:
-				ib = 0
-			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
-		else:
-			# Queryset with cta cte data
-			from_date = False
-			to_date = False
-			data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
-			ib = 0
-			# Total amount
+
+			if ctacte_type == 'vencimiento':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib = ib_sum['amount_sign__sum']
+				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))
+			elif ctacte_type == 'emision':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib = ib_sum['amount_sign__sum']
+				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
+		elif not from_date and not to_date:
+			if ctacte_type == 'vencimiento':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+			elif ctacte_type == 'emision':
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
 		# If exist data
@@ -564,7 +581,7 @@ def ctacte(request):
 				balance += d['amount_sign']
 				tmp_dict = {}
 				tmp_dict['obj'] = d
-				if d['voucher'].split(' ')[0] in vouchers:
+				if d['voucher'].split(' ')[0] in vouchers_pdf:
 					tmp_dict['file'] = d['voucher']
 				else:
 					tmp_dict['file'] = None
@@ -597,14 +614,15 @@ def ctacte(request):
 			initial_balance.append(ib)
 			page_balance = []
 			while ib_records < total_records:
-				if ib_records == 0:
+				if ib_records == 0 and remainder > 0:
 					tmp = records[0:remainder]
 					ib_records += remainder
 				else:
 					tmp = records[0:ib_records+limit]
 					ib_records += limit
 
-				partial_balance = 0
+				# Assign inicial balance to partial_balance (if there is no date filter will be 0, otherwise will be the initial balance at from date)
+				partial_balance = ib
 				for obj in tmp:
 					partial_balance += obj['obj']['amount_sign']
 
@@ -617,50 +635,56 @@ def ctacte(request):
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
-			if from_date and to_date:
-				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
-			else:
-				return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+
+			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print, 'ctacte_type':ctacte_type})
 		else:
-			if from_date and to_date:
-				return render(request, 'ctacte.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			if (from_date and to_date and from_date < to_date) or (not from_date and not to_date):
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'ctacte_type':ctacte_type})
 			else:
-				return render(request, 'ctacte.html')
+				return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas', 'ctacte_type':ctacte_type})
 	else:
-		return render(request, 'ctacte.html')
+		return render(request, 'ctacte.html', {'ctacte_type':ctacte_type})
 
 
 @login_required
 def applied(request):
 
+	#Initialize variables
+
+	# Dates for print on template
+	from_date_print = None
+	to_date_print = None
+	# Initial balance
+	ib = 0
+	data = None
+
+	# If exists 'algoritmo_code' variable in session
 	if 'algoritmo_code' in request.session:
-		if request.POST:
-			from_date = request.POST.get('from')
-			to_date = request.POST.get('to')
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+
+		if from_date and to_date:
+			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
 			try:
 				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
 			except ValueError:
 				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
 				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
-			request.session['from_date'] = request.POST.get('from')
-			request.session['to_date'] = request.POST.get('to')
+			# Format dates for template
+			from_date_print = str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4]
+			to_date_print = str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]
+			# Request data
 			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__range=[from_date, to_date]).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-			ib = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
-			if ib['amount_sign__sum']:
-				ib = ib['amount_sign__sum']
-			else:
-				ib = 0
+			ib_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
+			if ib_sum['amount_sign__sum']:
+				ib = ib_sum['amount_sign__sum']
 			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=to_date).aggregate(Sum('amount_sign'))
-		else:
-			# Queryset with cta cte data
-			from_date = False
-			to_date = False
+		elif not from_date and not to_date:
 			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-			ib = 0
-			# Total amount
 			total_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
-		# If no data
+		# If exist data
 		if data:
 
 			#### Add balance for every record in "data" queryset
@@ -718,15 +742,12 @@ def applied(request):
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
-			if from_date and to_date:
-				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
-			else:
-				return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance})
+			return render(request, 'applied.html', {'applied': applied_ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print})
 		else:
-			if from_date and to_date:
-				return render(request, 'applied.html', {'from_date': str(from_date)[-2:]+'/'+str(from_date)[5:7]+'/'+str(from_date)[0:4], 'to_date': str(to_date)[-2:]+'/'+str(to_date)[5:7]+'/'+str(to_date)[0:4]})
+			if (from_date and to_date and from_date < to_date) or (not from_date and not to_date):
+				return render(request, 'applied.html', {'from_date': from_date_print, 'to_date': to_date_print})
 			else:
-				return render(request, 'applied.html')
+				return render(request, 'applied.html', {'from_date': from_date_print, 'to_date': to_date_print, 'error': 'Rango inválido de fechas'})
 	else:
 		return render(request, 'applied.html')
 
@@ -735,8 +756,8 @@ def applied(request):
 def deliveries(request):
 	if 'algoritmo_code' in request.session:
 
-		if request.POST:
-			current_species = request.POST.getlist('checks')
+		if request.GET.get('checks'):
+			current_species = request.GET.getlist('checks')
 			request.session['current_species'] = current_species
 		else:
 			current_species = ''
@@ -759,15 +780,14 @@ def deliveries(request):
 					species_by_harvest[s['harvest']][s['species']]['checked'] = False
 				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-
-			if request.POST:
+			if current_species:
 				# Create a filter by species / harvest using Q function and OR statement (|)
 				speciesharvest_filter = Q()
 				for item in current_species:
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
 
 				## Total kg for selected species_description
-				total_kg = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('net_weight'), Count('voucher'), Sum('humidity_kg'), Sum('shaking_kg'), Sum('volatile_kg'), Sum('gross_kg'))
 
 				# Dict with [species description]-->[field]-->[tickets]
 				fields = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('field', 'field_description', 'species_description').distinct()
@@ -815,7 +835,6 @@ def deliveries(request):
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
 				# Get ticket analysis
-				# remittances = Remittances.objects.filter(ticket__in = tickets_for_analysis).values('ticket', 'analysis')
 				remittances = TicketsAnalysis.objects.filter(ticket__in = tickets_for_analysis).values('ticket').distinct()
 				# dict [Ticket] --> [Analysis]
 				ticket_analysis = {}
@@ -824,9 +843,8 @@ def deliveries(request):
 					ticket_analysis[i['ticket']] = analysis
 
 				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis})
-
 			else:
-				# If request is GET
+				# If no species selected
 				return render(request, 'deliveries.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'deliveries.html')
@@ -836,10 +854,14 @@ def deliveries(request):
 
 @login_required
 def sales(request):
+
 	if 'algoritmo_code' in request.session:
 
-		if request.POST:
-			current_species = request.POST.getlist('checks')
+		# PDF files
+		vouchers_pdf = ['VT', 'VF']
+
+		if request.GET.get('checks'):
+			current_species = request.GET.getlist('checks')
 			request.session['current_species'] = current_species
 		else:
 			current_species = ''
@@ -863,23 +885,22 @@ def sales(request):
 					species_by_harvest[s['harvest']][s['species']]['checked'] = False
 				species_description.append((s['species_description'].replace('COSECHA ', ''), s['species']+s['harvest']))
 
-			if request.POST:
+			if current_species:
 				# Create a filter by species / harvest using Q function and OR statement (|)
 				speciesharvest_filter = Q()
 				for item in current_species:
 					speciesharvest_filter = speciesharvest_filter | Q(speciesharvest=item)
-
 
 				## Total kg for selected species_description
 				total_kg = {}
 				total_kg['sales'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['to_set'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='2B').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
 				total_kg['other'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code'], indicator='3').filter(speciesharvest_filter).aggregate(Sum('net_weight'))
+				total_kg['settled'] = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).aggregate(Sum('number_1116A'))
 
 
 				# Dict with [species description]-->[sales]
 				voucher = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('id', 'date', 'voucher', 'field_description', 'service_billing_date', 'to_date', 'gross_kg', 'service_billing_number', 'number_1116A', 'price_per_yard', 'grade', 'driver_name', 'observations', 'species_description', 'indicator').order_by('date')
-
 
 				sales = {}
 				for s in species_description:
@@ -905,7 +926,12 @@ def sales(request):
 										if sales[sd].get('sales', None) is None:
 											sales[sd]['sales'] = OrderedDict()
 											sales[sd]['sales']['vouchers'] = OrderedDict()
-										sales[sd]['sales']['vouchers'][v['id']] = v
+										sales[sd]['sales']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['sales']['vouchers'][v['id']]['obj'] = v
+										if v['voucher'].split(' ')[0] in vouchers_pdf:
+											sales[sd]['sales']['vouchers'][v['id']]['file'] = v['voucher']
+										else:
+											sales[sd]['sales']['vouchers'][v['id']]['file'] = None
 										total_g_sales += v['gross_kg']
 										total_p_sales += v['service_billing_number']
 										total_l_sales += v['number_1116A']
@@ -914,14 +940,22 @@ def sales(request):
 										if sales[sd].get('to_set', None) is None:
 											sales[sd]['to_set'] = OrderedDict()
 											sales[sd]['to_set']['vouchers'] = OrderedDict()
-										sales[sd]['to_set']['vouchers'][v['voucher']] = v
+										# sales[sd]['to_set']['vouchers'][v['voucher']] = v
+										sales[sd]['to_set']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['to_set']['vouchers'][v['id']]['obj'] = v
+										if v['voucher'].split(' ')[0] in vouchers_pdf:
+											sales[sd]['to_set']['vouchers'][v['id']]['file'] = v['voucher']
+										else:
+											sales[sd]['to_set']['vouchers'][v['id']]['file'] = None
 										total_g_to_set += v['gross_kg']
 										count_to_set += 1
 									else:
 										if sales[sd].get('others', None) is None:
 											sales[sd]['others'] = OrderedDict()
 											sales[sd]['others']['vouchers'] = OrderedDict()
-										sales[sd]['others']['vouchers'][v['voucher']] = v
+										# sales[sd]['others']['vouchers'][v['voucher']] = v
+										sales[sd]['others']['vouchers'][v['id']] = OrderedDict()
+										sales[sd]['others']['vouchers'][v['id']]['obj'] = v
 										if v['gross_kg'] > 0:
 											total_i_others += v['gross_kg']
 										else:
@@ -944,9 +978,8 @@ def sales(request):
 										sales[sd]['others']['count_others'] = count_others
 
 				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
-
 			else:
-				# If request is GET
+				# Ifno species selected
 				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'sales.html')
@@ -1021,29 +1054,73 @@ def downloadPDFExtranet(request):
 		'ND': {'codigo': ['HNDCER','HNDE','NDE','NDECAJ','NDECER','NDEPER',], 'separator': '_', 'url':'ventas/'},
 		'NC': {'codigo': ['HNCCER','HNCR','NCR','NCRCER','NCRDEV','NCSCER',], 'separator': '_', 'url':'ventas/'},
 		'FC': {'codigo': ['FAC','FACCER','FACD','FACSER','FASCER','HFAC','HFACER',], 'separator': '_', 'url':'ventas/'},
+		'PC': {'codigo': ['PC',], 'separator': '_', 'url':'tesoreria/'},
+		'OP': {'codigo': ['OP',], 'separator': '_', 'url':'tesoreria/'},
+		'RE': {'codigo': ['RE',], 'separator': '_', 'url':'tesoreria/'},
+		'VT': {'codigo': ['VT',], 'separator': '_', 'url':'cnv/'},
+		'VF': {'codigo': ['VF',], 'separator': '_', 'url':'cnv/'},
 	}
 
-	def search_file(voucher):
+	def merge_pdf(file1, file2):
+		
+		def append_pdf(input,output):
+			[output.addPage(input.getPage(page_num)) for page_num in range(input.numPages)]
+
+		# Create instance por Write new PDF
+		output = PdfFileWriter()
+		pdf1 = PdfFileReader(cStringIO.StringIO(file1))
+		pdf2 = PdfFileReader(cStringIO.StringIO(file2))
+		append_pdf(pdf1,output)
+		append_pdf(pdf2,output)
+		# Init InMemory PDF file
+		new_file = cStringIO.StringIO()
+
+		# Write PDF to buffer
+		output.write(new_file)
+
+		# Return buffer stream
+		return new_file.getvalue()
+
+	def search_file(voucher, voucher_date):
 		voucher = voucher.split(' ')
 		if vouchers.get(voucher[0], None) is None:
 			return None
 		else:
 			separator = vouchers[voucher[0]]['separator']
 			url = vouchers[voucher[0]]['url']
+
 			for c in vouchers[voucher[0]]['codigo']:
-				file_name = c + separator + voucher[1] + separator + voucher[2] + '.pdf'
-				r = requests.get('http://190.92.102.226:1500/'+url+file_name, auth=HTTPBasicAuth(RS_USER, RS_PASS))
+				file_name = c+separator+voucher[1]+separator+voucher[2]+'.pdf'
+
+				if 'tesoreria' in url:
+					file_url = 'http://190.92.102.226:1500/'+url+voucher_date+'/C'+str(request.session['algoritmo_code'])+separator+file_name
+				else:
+					file_url = 'http://190.92.102.226:1500/'+url+file_name
+				
+				r = requests.get(file_url, auth=HTTPBasicAuth(RS_USER, RS_PASS))
 				if r.status_code == 200:
-					return {'file':r, 'filename':file_name}
+					##### FASCER Tickets Detail
+					if c == 'FASCER':
+						tickets_file_url = 'http://190.92.102.226:1500/'+'DETTK'+separator+voucher[1]+separator+voucher[2]+'.pdf'
+						rtk = requests.get(tickets_file_url, auth=HTTPBasicAuth(RS_USER, RS_PASS))
+						if rtk.status_code == 200:
+							r = merge_pdf(r.content, rtk.content)
+							# If DETTK exists then return the new file
+							return {'file':r, 'filename':file_name}
+					#####
+
+					# If voucher is not FASCER or there is no DETTK then return the response content (file)
+					return {'file':r.content, 'filename':file_name}
 
 	if 'algoritmo_code' in request.session:
 		f = request.GET['f']
-		file = search_file(f)
+		d = request.GET['d']
+		file = search_file(f, d)
 
 		if file:
-			length = file['file'].headers['Content-Length']
-			response = StreamingHttpResponse(file['file'].content, content_type="application/pdf")
-			response['Content-Length'] = length
+			#length = file['file'].headers['Content-Length']
+			response = StreamingHttpResponse(file['file'], content_type='application/pdf')
+			#response['Content-Length'] = length
 			response['Content-Disposition'] = "attachment; filename='%s'" % file['filename']
 			return response
 		else:
@@ -1054,17 +1131,17 @@ def downloadPDFExtranet(request):
 def downloadexcel(request, module):
 
 	def getPesosExcel():
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2')
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
 
 		balance = 0
 		records = []
 		for d in data:
 			balance += d['amount_sign']
 			tmp_dict = OrderedDict()
-			tmp_dict['Fecha Vencimiento'] = d['date_1']
+			tmp_dict['Fecha Vencimiento'] = d['date_2']
 			tmp_dict['Comprobante'] = d['voucher']
 			tmp_dict['Observaciones'] = d['concept']
-			tmp_dict['Fecha Emision'] = d['date_2']
+			tmp_dict['Fecha Emision'] = d['date_1']
 			if d['movement_type'] == 'Debito':
 				tmp_dict['Debe'] = d['amount_sign']
 				tmp_dict['Haber'] = 0

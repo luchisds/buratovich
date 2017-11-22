@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
 {% load humanize %}
+{% load i18n %}
 
-{% block title %}Buratovich Hnos. - Unidades de Negocio{% endblock %}
+{% block title %}Buratovich Hnos. - {% trans "Unidades de Negocio" %}{% endblock %}
 
 {% block path %}
 <div class="path maxwidth">
@@ -12,7 +13,7 @@
 		{% endif %}
 	</div>
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Unidades de Negocio</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">{% trans "Unidades de Negocio" %}</span></div>
 	</div>
 </div>
 {% endblock %}
@@ -20,13 +21,13 @@
 {% block content %}
 <section id="bussines-units">
 	<article class="units-description module maxwidth">
-		<p>Creamos servicios de calidad que agregan valor a cada parte interviniente de la actividad agropecuaria.</p>
-		<p>Contamos con una amplia experiencia en la comercialización de granos y oleaginosas que nos permite asesorar a nuestros clientes con las mejores alternativas de negocios y ofrecerle servicios de logística y acopio que garantizan el traslado, la calidad y conservación de su cereal.</p>
+		<p>{% blocktrans %}Creamos servicios de calidad que agregan valor a cada parte interviniente de la actividad agropecuaria.{% endblocktrans %}</p>
+		<p>{% blocktrans %}Contamos con una amplia experiencia en la comercialización de granos y oleaginosas que nos permite asesorar a nuestros clientes con las mejores alternativas de negocios y ofrecerle servicios de logística y acopio que garantizan el traslado, la calidad y conservación de su cereal.{% endblocktrans %}</p>
 	</article>
 	<article class="unit acopio module">
-		<h2 class="unit-title">ACOPIO</h2>
+		<h2 class="unit-title">{% trans "ACOPIO" %}</h2>
 		<div class="separator"></div>
-		<p class="quote maxwidth">Acompañamos la gestión operativa de nuestros clientes desde su campo hasta nuestras plantas de acopio, brindando un eficiente servicio de logística y acarreo, y garantizando la calidad y conservación de su mercadería.</p>
+		<p class="quote maxwidth">{% blocktrans %}Acompañamos la gestión operativa de nuestros clientes desde su campo hasta nuestras plantas de acopio, brindando un eficiente servicio de logística y acarreo, y garantizando la calidad y conservación de su mercadería.{% endblocktrans %}</p>
 		<div class="main">
 			<div class="content maxwidth">
 				<div class="map-container col-2">
@@ -39,10 +40,10 @@
 								<div class="detail">
 									<img src="{% static "img/mini_chaco.jpg" %}" alt="">
 									<div>
-										<h3>Planta Gral. Pinedo</h3>
+										<h3>{% trans "Planta Gral. Pinedo" %}</h3>
 										<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta Prov. 94 Km 65</p>
 										<p><i class="fa fa-globe" aria-hidden="true"></i> Gral. Pinedo, Chaco</p>
-										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/T1Anp7VF4X72" target="_blank">Ver mapa</a></p>
+										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/T1Anp7VF4X72" target="_blank">{% trans "Ver mapa" %}</a></p>
 									</div>
 								</div>
 							</div>
@@ -54,20 +55,20 @@
 								<div class="detail">
 									<img src="{% static "img/mini_silos.jpg" %}" alt="">
 									<div>
-										<h3>Planta Ruta 8</h3>
+										<h3>{% trans "Planta Ruta 8" %}</h3>
 										<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 8 y L. N. Alem</p>
 										<p><i class="fa fa-globe" aria-hidden="true"></i> Arrecifes, Bs. As.</p>
-										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/qhGsaHRs35D2" target="_blank">Ver mapa</a></p>
+										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/qhGsaHRs35D2" target="_blank">{% trans "Ver mapa" %}</a></p>
 									</div>
 								</div>
 								<div class="line-v"></div>
 								<div class="detail">
 									<img src="{% static "img/mini_ruta51.jpg" %}" alt="">
 									<div>
-										<h3>Planta Ruta 51</h3>
+										<h3>{% trans "Planta Ruta 51" %}</h3>
 										<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 51 Km 66</p>
 										<p><i class="fa fa-globe" aria-hidden="true"></i> Arrecifes, Bs. As.</p>
-										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/52qmKcfdyA72" target="_blank">Ver mapa</a></p>
+										<p><i class="fa fa-map-o" aria-hidden="true"></i> <a href="https://goo.gl/maps/52qmKcfdyA72" target="_blank">{% trans "Ver mapa" %}</a></p>
 									</div>
 								</div>
 							</div>
@@ -80,56 +81,56 @@
 			<article class="col-2">
 				<img src="{% static "img/units/acopio/logistic.jpg" %}" alt=""><!--
 				--><div>
-					<p>A través de una importante flota de camiones contratados brindamos servicio de logística a nuestros clientes a lo largo de todo el año.</p>
+					<p>{% blocktrans %}A través de una importante flota de camiones contratados brindamos servicio de logística a nuestros clientes a lo largo de todo el año.{% endblocktrans %}</p>
 				</div>
 			</article>
 			<article class="col-2">
 				<img src="{% static "img/units/acopio/plants.jpg" %}" alt=""><!--
 				--><div>
-					<p>La estratégica ubicación de nuestras plantas de acopio nos permite operar con los principales puertos del país.</p>
+					<p>{% blocktrans %}La estratégica ubicación de nuestras plantas de acopio nos permite operar con los principales puertos del país.{% endblocktrans %}</p>
 				</div>
 			</article>
 			<div style="clear:both;"></div>
 		</div>
 	</article>
 	<article class="unit commer module">
-		<h2 class="unit-title">COMERCIALIZACIÓN</h2>
+		<h2 class="unit-title">{% trans "COMERCIALIZACIÓN" %}</h2>
 		<div class="separator"></div>
-		<p class="quote maxwidth">Mas de 100 años de experiencia en la comercialización de granos, oleaginosas y otros productos agropecuarios para ofrecerle diferentes alternativas de negocios: acopio, corretaje, asesoramiento, canjes, contratos forward y disponible.</p>
+		<p class="quote maxwidth">{% blocktrans %}Mas de 100 años de experiencia en la comercialización de granos, oleaginosas y otros productos agropecuarios para ofrecerle diferentes alternativas de negocios: acopio, corretaje, asesoramiento, canjes, contratos forward y disponible.{% endblocktrans %}</p>
 		<div class="main">
 			<div class="content maxwidth">
 				<div class="row">
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> ACOPIO</p></div>
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> CORRETAJE</p></div>
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> ASESORAMIENTO</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "ACOPIO" %}</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "CORRETAJE" %}</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "ASESORAMIENTO" %}</p></div>
 				</div>
 				<div class="row">
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> CANJES</p></div>
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> CONTRATOS FORWARD</p></div>
-					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> DISPONIBLE</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "CANJES" %}</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "CONTRATOS FORWARD" %}</p></div>
+					<div class="col-3"><p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "DISPONIBLE" %}</p></div>
 				</div>
 				<div class="row">
-					<p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> FUTUROS Y OPCIONES</p>
+					<p class="box"><span class="sign"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span> {% trans "FUTUROS Y OPCIONES" %}</p>
 				</div>
 			</div>
 		</div>
 	</article>
 	<article class="unit agro module">
-		<h2 class="unit-title">AGRICULTURA Y GANADERÍA</h2>
+		<h2 class="unit-title">{% trans "AGRICULTURA Y GANADERÍA" %}</h2>
 		<div class="separator"></div>
-		<p class="quote maxwidth">Realizamos una amplia explotación intensiva sembrando mayormente sobre campos del grupo. Nuestros principales cultivos son el maíz, girasol, trigo, cebada, arveja, lenteja, soja, sorgo y algodón. 
-		Realizamos una agricultura sustentable y de presición que nos permite obtener una mayor protección sobre el suelo y el medio ambiente. Certificamos nuestros procesos productivos para poder desarrollar las buenas prácticas agrícolas y mecanismos que promuevan la responsabilidad compartida entre los distintos actores de la cadena de valor.</p>
+		<p class="quote maxwidth">{% blocktrans %}Realizamos una amplia explotación intensiva sembrando mayormente sobre campos del grupo. Nuestros principales cultivos son el maíz, girasol, trigo, cebada, arveja, lenteja, soja, sorgo y algodón.
+		Realizamos una agricultura sustentable y de precisión que nos permite obtener una mayor protección sobre el suelo y el medio ambiente. Certificamos nuestros procesos productivos para poder desarrollar las buenas prácticas agrícolas y mecanismos que promuevan la responsabilidad compartida entre los distintos actores de la cadena de valor.{% endblocktrans %}</p>
 		<div class="main">
 			<div class="content maxwidth">
 				<div class="boxes">
 					<div class="col-3">
-						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>Nuestras actividades se desenvuelven en su mayoría en tierras propias, pero también trabajamos campos arrendados localizados <strong>estratégicamente</strong> y con suelos de <strong>alta productividad</strong>.<br>Nos ubicamos en distintas regiones de las provincias de <strong>Buenos Aires y Chaco</strong>.</p>
+						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>{% blocktrans %}Nuestras actividades se desenvuelven en su mayoría en tierras propias, pero también trabajamos campos arrendados localizados <strong>estratégicamente</strong> y con suelos de <strong>alta productividad</strong>.<br>Nos ubicamos en distintas regiones de las provincias de <strong>Buenos Aires y Chaco</strong>.{% endblocktrans %}</p>
 					</div>
 					<div class="col-3">
-						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>Con foco en la <strong>producción sustentable</strong> utilizamos el sistema de <strong>siembra directa, cultivos de cobertura y alta rotación de los mismos</strong> para lograr una optima <strong>explotación</strong> y <strong>rentabilidad</strong> de las tierras.</p>
+						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>{% blocktrans %}Con foco en la <strong>producción sustentable</strong> utilizamos el sistema de <strong>siembra directa, cultivos de cobertura y alta rotación de los mismos</strong> para lograr una optima <strong>explotación</strong> y <strong>rentabilidad</strong> de las tierras.{% endblocktrans %}</p>
 					</div>
 					<div class="col-3">
-						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>Contamos con un equipo de profesionales <strong>altamente capacitado</strong> que tiene como objetivo lograr la excelencia en la producción de nuestros cultivos, empleando el uso de las <strong>últimas tecnologías</strong> para tal fin.</p>
+						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>{% blocktrans %}Contamos con un equipo de profesionales <strong>altamente capacitado</strong> que tiene como objetivo lograr la excelencia en la producción de nuestros cultivos, empleando el uso de las <strong>últimas tecnologías</strong> para tal fin.{% endblocktrans %}</p>
 					</div>
 					<!--<div class="col-3">
 						<p class="box"><i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>Realizamos con nuestros equipos terrestres y aereos, la fumigación de los cultivos, a efectos de un mayor y mejor <strong>control de las malezas e insectos</strong>.</p>
@@ -139,75 +140,75 @@
 		</div>
 	</article>
 	<article class="unit export module">
-		<h2 class="unit-title">EXPORTACIÓN</h2>
+		<h2 class="unit-title">{% trans "EXPORTACIÓN" %}</h2>
 		<div class="separator"></div>
-		<p class="quote maxwidth">Disponemos de una red de compradores del exterior para realizar negocios FOB a casi todo el mundo. Contamos con puerto seco en nuestras plantas de silo que nos permite consolidar la carga de los distintos productos agropecuarios, a granel o en contenedores, en su lugar de origen.</p>
+		<p class="quote maxwidth">{% blocktrans %}Disponemos de una red de compradores del exterior para realizar negocios FOB a casi todo el mundo. Contamos con puerto seco en nuestras plantas de silo que nos permite consolidar la carga de los distintos productos agropecuarios, a granel o en contenedores, en su lugar de origen.{% endblocktrans %}</p>
 		<div class="main">
 			<div class="content maxwidth">
 				<div class="description col-3">
 					<div class="box">
-						<h3>COMMODITIES</h3>
-						<p>En la búsqueda de expandir nuestro rango de acción y continuar creciendo como empresa, decidimos comenzar a gestionar nuestras propias <strong>operaciones de agro exportación</strong>, llegando así a ser activos protagonistas en cada una de las actividades intervinientes de la cadena agropecuaria al producir, acopiar, comercializar y exportar nuestros productos.</p>
+						<h3>{% trans "COMMODITIES" %}</h3>
+						<p>{% blocktrans %}En la búsqueda de expandir nuestro rango de acción y continuar creciendo como empresa, decidimos comenzar a gestionar nuestras propias <strong>operaciones de agro exportación</strong>, llegando así a ser activos protagonistas en cada una de las actividades intervinientes de la cadena agropecuaria al producir, acopiar, comercializar y exportar nuestros productos.{% endblocktrans %}</p>
 					</div>
 				</div>
 				<div class="commodities col-23">
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/algodon.jpg" %}" alt=""><!--
 						--><p>
-							<span>Algodón</span>
+							<span>{% trans "Algodón" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/arveja.jpg" %}" alt=""><!--
 						--><p>
-							<span>Arveja</span>
+							<span>{% trans "Arveja" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/soja.jpg" %}" alt=""><!--
 						--><p>
-							<span>Soja</span>
+							<span>{% trans "Soja" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/semilla_algodon.jpg" %}" alt=""><!--
 						--><p>
-							<span>Semilla de Algodón</span>
+							<span>{% trans "Semilla de Algodón" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/maiz.jpg" %}" alt=""><!--
 						--><p>
-							<span>Maiz</span>
+							<span>{% trans "Maiz" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/haso.jpg" %}" alt=""><!--
 						--><p>
-							<span>Harina de Soja</span>
+							<span>{% trans "Harina de Soja" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/cebada.jpg" %}" alt=""><!--
 						--><p>
-							<span>Cebada</span>
+							<span>{% trans "Cebada" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/poroto_mung.jpg" %}" alt=""><!--
 						--><p>
-							<span>Poroto Mung</span>
+							<span>{% trans "Poroto Mung" %}</span>
 						</p>
 					</div>
 					<div class="product col-3">
 						<img src="{% static "img/units/expo/trigo.jpg" %}" alt=""><!--
 						--><p>
-							<span>Trigo</span>
+							<span>{% trans "Trigo" %}</span>
 						</p>
 					</div>
 					<div class="box">
-						<p>Entre los productos exportados podemos citar:</p>
-						<p><strong>Algodón</strong>, <strong>Semilla de Algodón</strong>, <strong>Arveja</strong>, <strong>Soja</strong>, <strong>Balanced Soybean Meal</strong>, <strong>Maíz</strong>, <strong>Maíz Quebrado</strong>, <strong>Cebada</strong> y <strong>Trigo</strong>.</p>
+						<p>{% trans "Entre los productos exportados podemos citar:" %}</p>
+						<p>{% blocktrans %}<strong>Algodón</strong>, <strong>Semilla de Algodón</strong>, <strong>Arveja</strong>, <strong>Soja</strong>, <strong>Balanced Soybean Meal</strong>, <strong>Maíz</strong>, <strong>Maíz Quebrado</strong>, <strong>Cebada</strong> y <strong>Trigo</strong>.{% endblocktrans %}</p>
 					</div>
 				</div>
 			</div>
@@ -216,19 +217,19 @@
 			<article class="col-3">
 				<img src="{% static "img/units/expo/container.jpg" %}" alt=""><!--
 				--><div>
-					<p>Hemos creado vínculos comerciales con clientes de <strong>mas de 20 países</strong> alrededor de todo el mundo.</p>
+					<p>{% blocktrans %}Hemos creado vínculos comerciales con clientes de <strong>mas de 20 países</strong> alrededor de todo el mundo.{% endblocktrans %}</p>
 				</div>
 			</article>
 			<article class="col-3">
 				<img src="{% static "img/units/expo/container2.jpg" %}" alt=""><!--
 				--><div>
-					<p>Exportamos una variedad de commodities agrícolas como <strong>Arveja, Algodón, Semilla de Algodón, Maíz, Maíz Quebrado, Soja, Harina de Soja Balanceada, Trigo y Cebada</strong>.</p>
+					<p>{% blocktrans %}Exportamos una variedad de commodities agrícolas como <strong>Arveja, Algodón, Semilla de Algodón, Maíz, Maíz Quebrado, Soja, Harina de Soja Balanceada, Trigo y Cebada</strong>.{% endblocktrans %}</p>
 				</div>
 			</article>
 			<article class="col-3">
 				<img src="{% static "img/units/expo/container3.jpg" %}" alt=""><!--
 				--><div>
-					<p>Estamos presentes en cada eslabón de la actividad agropecuaria, para controlar y asegurar la calidad de los productos que exportamos.</p>
+					<p>{% blocktrans %}Estamos presentes en cada eslabón de la actividad agropecuaria, para controlar y asegurar la calidad de los productos que exportamos.{% endblocktrans %}</p>
 				</div>
 			</article>
 			<div style="clear:both;"></div>

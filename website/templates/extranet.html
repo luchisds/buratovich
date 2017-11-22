@@ -18,15 +18,15 @@
 
 {% block content %}
 <section id="extranet" class="maxwidth">
-
 	{% if notifications|length > 0 %}
 		{% for n in notifications %}
 			<article class="notification">
 				<p class="date">{{n.date|date:"l, d F Y"}}</p>
 				<div class="notification-content">
 					<p class="title">{{n.title}}</p>
-					<p class="text">{{n.notification}}</p>
+					<p class="text">{{n.notification|safe}}</p>
 				</div>
+				<div class="separator"></div>
 			</article>
 		{% endfor %}
 		<p class="viewed">
@@ -45,7 +45,9 @@
 				<select name="client" id="client">
 					<option value="">- - - - - -</option>
 					{% for client in clients %}
-						<option value="{{client.userinfo__algoritmo_code|slugify}}" {% if client.userinfo__algoritmo_code = request.session.algoritmo_code %}selected{% endif %}>{{client.userinfo__company_name|upper}}</option>
+						<option value="{{client.userinfo__algoritmo_code|slugify}}" 
+							{% if client.userinfo__algoritmo_code == request.session.algoritmo_code %}selected{% endif %}>{{client.userinfo__company_name|upper}}
+						</option>
 					{% endfor %}
 				</select>
 				<button type="submit" class="submit">
@@ -64,13 +66,14 @@
 		<nav class="extranet-nav">
 			<ul class="h-list">
 				<div class="row">
-					<li>
-						<a href="{% url 'ctacte' %}">
+					<li class="ctacte-btn">
+						<a href="#">
 							<div>
 								<span>Cuenta Corriente</span>
 								<span>$</span>
 							</div>
 						</a>
+						<div class="triangle"></div>
 					</li><!--
 					--><li>
 						<a href="{% url 'applied' %}">
@@ -81,7 +84,15 @@
 						</a>
 					</li>
 				</div>
-				<div class="row">
+				<div class="ctacte-type">
+					<a href="{% url 'ctacte' ctacte_type='vencimiento' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Vencimiento
+					</a>
+					<a href="{% url 'ctacte' ctacte_type='emision' %}">
+						<i class="fa fa-calendar" aria-hidden="true"></i> Emisión
+					</a>
+				</div>
+				<div class="row first">
 					<li>
 						<a href="{% url 'deliveries' %}">
 							<div>
@@ -99,7 +110,7 @@
 						</a>
 					</li>
 				</div>
-				<div class="row">
+				<div class="row second">
 					<li>
 						<a href="{% url 'change_password' %}">
 							<div>

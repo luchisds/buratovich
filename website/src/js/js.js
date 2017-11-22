@@ -24,7 +24,7 @@ function init() {
 	var body = document.body;
 	var html = document.documentElement;
 	var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-	var viewportHeight = Math.max(html.clientHeight, window.innerHeight || 0);
+	var viewporth = vh();
 	var HEIGHT_FOR_TOP = 1000;
 
 	//Create array from HTMLCollection for manipulation
@@ -36,7 +36,7 @@ function init() {
 		showModules();
 
 		// Show top btn
-		if(height > HEIGHT_FOR_TOP && height > viewportHeight) {
+		if(height > HEIGHT_FOR_TOP && height > viewporth) {
 			if (visibleEl(top)) {
 				if(!hasClass(top, 'top-show')) {
 					addClass(top, 'top-show');
@@ -298,9 +298,44 @@ function init() {
 		}
 	}
 
-	/// Cta. Cte. Pesos / Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////
+	/// EXTRANET Nav //////////////////////////////////////////////////////////////////////////////////////////
 
 	var ctaCte = document.getElementById('ctacte');
+	var extranet = document.getElementById('extranet');
+	if(extranet || ctaCte) {
+		var extranetNav = document.getElementsByClassName('extranet-nav')[0];
+		var ctacteBtn = extranetNav.getElementsByClassName('ctacte-btn')[0];
+		var ctacteType = extranetNav.getElementsByClassName('ctacte-type')[0];
+		if(ctacteBtn) {
+			ctacteBtn.addEventListener('click', function(event) {
+				event.preventDefault();
+				var viewportw = vw();
+				if(extranet) {
+					var breakPoint = 912;
+				} else {
+					var breakPoint = 430;
+				}
+				if(viewportw > breakPoint) {
+					moveRow(extranetNav.querySelector('.second'));
+				} else {
+					moveRow(extranetNav.querySelector('.first'));
+				}
+				openCtaCteType(ctacteBtn, ctacteType);
+			});
+		}
+	}
+
+	function moveRow(el) {
+		toggleClass(el, 'opened');
+	}
+
+	function openCtaCteType(btn, bar) {
+		toggleClass(btn, 'opened');
+		toggleClass(bar, 'opened');
+	}
+
+	/// Cta. Cte. Pesos / Cta. Cte. Kilos ////////////////////////////////////////////////////////////////////
+
 	var ctaCteKg = document.getElementById('ctacte');
 	if((ctaCte && (hasClass(ctaCte, 'pesos') || hasClass(ctaCte, 'applied'))) || (ctaCteKg && (hasClass(ctaCteKg, 'kilos') || hasClass(ctaCteKg, 'sales')))) {
 		var showDetail = ctaCte.getElementsByClassName('show-detail');
@@ -356,5 +391,15 @@ function init() {
 		} else {
 			elem.className += ' ' + className;
 		}
+	}
+
+	// VIEWPORT Functions /////////////////////////////////////////////////////////////////////////////////
+
+	function vh() {
+		return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+	}
+
+	function vw() {
+		return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	}
 }
