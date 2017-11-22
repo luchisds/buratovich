@@ -1,10 +1,11 @@
 #Node Modules
 node_modules/
 
-# Staticfiles & mediafiles
+# Staticfiles & mediafiles & database
 staticfiles/
 mediafiles/
 static/
+db.sqlite3
 
 # Fixtures and initial data
 data.json
