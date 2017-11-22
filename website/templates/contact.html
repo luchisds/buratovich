@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
+{% load i18n %}
 
-{% block title %}Buratovich Hnos. - Contacto{% endblock %}
+{% block title %}Buratovich Hnos. - {% trans "Contacto" %}{% endblock %}
 
 {% block path %}
 <div class="path maxwidth">
@@ -11,38 +12,38 @@
 		{% endif %}
 	</div>
 	<div class="path-container">
-		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">Contacto</span></div>
+		<div class="route"><a href="/">Home</a> <span class="chevron">></span> <span class="current">{% trans "Contacto" %}</span></div>
 	</div>
 </div>
 {% endblock %}
 
 {% block content %}
 <section id="contact" class="maxwidth">
-	<p class="data-contact"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> Ante cualquier consulta o sugerencia puede comunicarse via correo electrónico a la dirección: <a href="mailto:buratovich@buratovich.com?subject=Contacto"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a></p>
+	<p class="data-contact"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> {% blocktrans %}Ante cualquier consulta o sugerencia puede comunicarse via correo electrónico a la dirección: <a href="mailto:buratovich@buratovich.com?subject=Contacto"><i class="fa fa-paper-plane" aria-hidden="true"></i> buratovich@buratovich.com</a>{% endblocktrans %}</p>
 	<article class="offices">
-		<h2>OFICINAS COMERCIALES</h2>
+		<h2>{% trans "OFICINAS COMERCIALES" %}</h2>
 		<div class="offices-bas">
 			<div>
 				<img src="{% static "img/office_arrecifes.jpg" %}" alt=""><!--
 				--><div class="office-info">
-					<h3>Oficina ARRECIFES</h3>
-					<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 8 y Leandro N. Alem</p>
+					<h3>{% trans "Oficina ARRECIFES" %}</h3>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i> {% trans "Ruta 8 y Leandro N. Alem" %}</p>
 					<p><i class="fa fa-globe" aria-hidden="true"></i> Buenos Aires</p>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 02478-451500 LR</p>
+					<p><i class="fa fa-phone" aria-hidden="true"></i> {% trans "Tel." %} 02478-451500 LR</p>
 					<div class="map-link">
-						<a href="https://goo.gl/maps/RoBKJEWb2jp" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> Ver en el mapa</a>
+						<a href="https://goo.gl/maps/RoBKJEWb2jp" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> {% trans "Ver en el mapa" %}</a>
 					</div>
 				</div>
 			</div>
 			<div>
 				<img src="{% static "img/office_lobos.jpg" %}" alt=""><!--
 				--><div class="office-info">
-					<h3>Oficina LOBOS</h3>
-					<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta 205 e Int.Miguel A.Turdó</p>
+					<h3>{% trans "Oficina LOBOS" %}</h3>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i> {% trans "Ruta 205 e Int.Miguel A.Turdó" %}</p>
 					<p><i class="fa fa-globe" aria-hidden="true"></i> Buenos Aires</p>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 02227-15-442040</p>
+					<p><i class="fa fa-phone" aria-hidden="true"></i> {% trans "Tel." %} 02227-15-442040</p>
 					<div class="map-link">
-						<a href="https://goo.gl/maps/mdMVHv2Aboo" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> Ver en el mapa</a>
+						<a href="https://goo.gl/maps/mdMVHv2Aboo" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> {% trans "Ver en el mapa" %}</a>
 					</div>
 				</div>
 			</div>
@@ -51,24 +52,24 @@
 			<div>
 				<img src="{% static "img/office_pinedo.jpg" %}" alt=""><!--
 				--><div class="office-info">
-					<h3>Oficina GRAL. PINEDO</h3>
-					<p><i class="fa fa-map-marker" aria-hidden="true"></i> Ruta Prov. 94 Km 65</p>
+					<h3>{% trans "Oficina GRAL. PINEDO" %}</h3>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i> {% trans "Ruta Prov. 94 Km 65" %}</p>
 					<p><i class="fa fa-globe" aria-hidden="true"></i> Chaco</p>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 03731-480600</p>
+					<p><i class="fa fa-phone" aria-hidden="true"></i> {% trans "Tel." %} 03731-480600</p>
 					<div class="map-link">
-						<a href="https://goo.gl/maps/zD7aMrANW4m" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> Ver en el mapa</a>
+						<a href="https://goo.gl/maps/zD7aMrANW4m" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> {% trans "Ver en el mapa" %}</a>
 					</div>
 				</div>
 			</div>
 			<div>
 				<img src="{% static "img/office_charata.jpg" %}" alt=""><!--
 				--><div class="office-info">
-					<h3>Oficina CHARATA</h3>
+					<h3>{% trans "Oficina CHARATA" %}</h3>
 					<p><i class="fa fa-map-marker" aria-hidden="true"></i> Corrientes Continuación s/n</p>
 					<p><i class="fa fa-globe" aria-hidden="true"></i> Chaco</p>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> Tel. 03731-420274</p>
+					<p><i class="fa fa-phone" aria-hidden="true"></i> {% trans "Tel." %} 03731-420274</p>
 					<div class="map-link">
-						<a href="https://goo.gl/maps/92cDcWqrieT2" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> Ver en el mapa</a>
+						<a href="https://goo.gl/maps/92cDcWqrieT2" target="_blank"><i class="fa fa-street-view" aria-hidden="true"></i> {% trans "Ver en el mapa" %}</a>
 					</div>
 				</div>
 			</div>
@@ -79,33 +80,33 @@
 		<div id="chacoMap" class="module" style="height: 400px;"></div>
 	</article>
 	<article class="areas module">
-		<h2>CONTACTOS POR UNIDAD DE NEGOCIOS</h2>
+		<h2>{% trans "CONTACTOS POR UNIDAD DE NEGOCIOS" %}</h2>
 		<div class="contact-buttons">
 			<ul>
-				<li><a href="#" class="contact-btn acopio active">Acopio de granos</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
-				<li><a href="#" class="contact-btn comer">Comercialización de cereales</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
-				<li><a href="#" class="contact-btn expo">Exportación</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
-				<li><a href="#" class="contact-btn agro">Agricultura y Ganadería</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
-				<li><a href="#" class="contact-btn admin">Administración General</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+				<li><a href="#" class="contact-btn acopio active">{% trans "Acopio de granos" %}</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+				<li><a href="#" class="contact-btn comer">{% trans "Comercialización de cereales" %}</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+				<li><a href="#" class="contact-btn expo">{% trans "Exportación" %}</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+				<li><a href="#" class="contact-btn agro">{% trans "Agricultura y Ganadería" %}</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+				<li><a href="#" class="contact-btn admin">{% trans "Administración General" %}</a><i class="fa fa-caret-right" aria-hidden="true"></i></li>
 			</ul>
 		</div><!--
 		--><div class="contact-columns">
 			<div class="column">
 				<div id="contact-acopio" class="unit active">
-					<h3>Acopio de granos</h3>
-					<h4>Liquidación de Cereales</h4>
+					<h3>{% trans "Acopio de granos" %}</h3>
+					<h4>{% trans "Liquidación de Cereales" %}</h4>
 					<div>
 						<p>Gustavo A. Quiroga</p>
 						<p><a href="mailto:gquiroga@buratovich.com">gquiroga@buratovich.com</a></p>
 					</div>
-					<h4>Logística</h4>
+					<h4>{% trans "Logística" %}</h4>
 					<h5><i class="fa fa-map-marker" aria-hidden="true"></i> Arrecifes</h5>
 					<div>
 						<p>Enzo Lolo</p>
 						<p><a href="mailto:elolo@buratovich.com">elolo@buratovich.com</a></p>
 					</div>
 					<div>
-						<p>Balanza</p>
+						<p>{% trans "Balanza" %}</p>
 						<p><a href="mailto:balanza@buratovich.com">balanza@buratovich.com</a></p>
 					</div>
 					<h5><i class="fa fa-map-marker" aria-hidden="true"></i> Gral. Pinedo</h5>
@@ -117,8 +118,8 @@
 			</div>
 			<div class="column">
 				<div id="contact-comer" class="unit">
-					<h3>Comercialización de cereales</h3>
-					<h4>Área Comercial</h4>
+					<h3>{% trans "Comercialización de cereales" %}</h3>
+					<h4>{% trans "Área Comercial" %}</h4>
 					<h5><i class="fa fa-map-marker" aria-hidden="true"></i> Arrecifes</h5>
 					<div>
 						<p>Ana Inés Buratovich</p>
@@ -146,16 +147,16 @@
 			</div>
 			<div class="column">
 				<div id="contact-expo" class="unit">
-					<h3>Exportación</h3>
-					<h4>Contacto Comercial</h4>
+					<h3>{% trans "Exportación" %}</h3>
+					<h4>{% trans "Contacto Comercial" %}</h4>
 					<div>
 						<p>Adolfo Buratovich</p>
 						<p><a href="mailto:adolfo@buratovich.com">adolfo@buratovich.com</a></p>
 					</div>
 				</div>
 				<div id="contact-agro" class="unit">
-					<h3>Agricultura y Ganadería</h3>
-					<h4>Ing. Producción Agropecuaria</h4>
+					<h3>{% trans "Agricultura y Ganadería" %}</h3>
+					<h4>{% trans "Ing. Producción Agropecuaria" %}</h4>
 					<div>
 						<p>Eduardo Buratovich</p>
 						<p><a href="mailto:eduardo@buratovich.com">eduardo@buratovich.com</a></p>
@@ -166,8 +167,8 @@
 					</div>
 				</div>
 				<div id="contact-admin" class="unit">
-					<h3>Administración General</h3>
-					<h4>Contador</h4>
+					<h3>{% trans "Administración General" %}</h3>
+					<h4>{% trans "Contador" %}</h4>
 					<div>
 						<p>Gerardo Casadei</p>
 						<p><a href="mailto:gcasadei@buratovich.com">gcasadei@buratovich.com</a></p>
@@ -212,7 +213,7 @@
 			var gpLatLng = {lat: -27.321000, lng: -61.262627};
 			var arLatLng = {lat: -34.0619369, lng: -60.1060231};
 			var loLatLng = {lat: -35.175489, lng: -59.061557};
-		
+
 			// Mapa Bs. As.
 			var basMap = new google.maps.Map(document.getElementById('basMap'), {
 				zoom: 8,

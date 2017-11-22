@@ -1,10 +1,11 @@
 #Node Modules
 node_modules/
 
-# Staticfiles & mediafiles
+# Staticfiles & mediafiles & database
 staticfiles/
 mediafiles/
 static/
+db.sqlite3
 
 # Fixtures and initial data
 data.json
@@ -116,4 +117,8 @@ ENV/
 .spyderproject
 
 # Rope project settings
+<<<<<<< HEAD
 .ropeproject
+=======
+.ropeproject
+>>>>>>> 5ffba44338731d5e94e908b5fb511dad6d5b05d4

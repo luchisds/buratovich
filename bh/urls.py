@@ -59,6 +59,9 @@ urlpatterns = [
 	url(r'^404/$', views.handler404, name='handler404'),
 	url(r'^500/$', views.handler500, name='handler500'),
 
+	# Internazionalization
+	url(r'^i18n/', include('django.conf.urls.i18n')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler400 = 'website.views.handler404'
