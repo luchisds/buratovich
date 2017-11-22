@@ -2,9 +2,30 @@
 
 header
 	overflow hidden
-	padding 1em 0
+	padding 0 0 1em 0
 	& > div
 		overflow hidden
+	.form-language
+		margin-bottom .8em
+		padding-right 1em
+		text-align right
+		button
+			border none
+			background-color white
+			border-left 1px solid #ccc
+			cursor pointer
+			outline 0
+			padding .5em 1em
+			transition 0.3s ease-out
+			&.selected
+				background #eee
+				color $accentColor
+				font-weight bold
+			&:last-child
+				border-right 1px solid #ccc
+			&:hover
+				background-color #bbb
+				color white
 	.logo
 		padding 0 0 0 1em
 		img, h1
