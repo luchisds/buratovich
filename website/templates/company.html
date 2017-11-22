@@ -118,7 +118,15 @@
 		<div>
 			<p>{% blocktrans %}Si es de vuestro interes, conozca la historia de la empresa a través de las palabras de <span style="border-bottom: 1px dotted grey;">José Antonio</span>, integrante de la tercera generación de la familia Buratovich:{% endblocktrans %}</p>
 			<video width="720" controls poster="{% static "img/video_poster.jpg" %}">
-				<source src="{% static "video/bh_100_institucional.mp4" %}" type="video/mp4">
+				{% if LANGUAGE_CODE == 'en' %}
+					<source src="{% static "video/bh_100_institucional_eng.mp4" %}" type="video/mp4">
+				{% else %}
+					{% if LANGUAGE_CODE == 'pt' %}
+						<source src="{% static "video/bh_100_institucional_por.mp4" %}" type="video/mp4">
+					{% else %}
+						<source src="{% static "video/bh_100_institucional.mp4" %}" type="video/mp4">
+					{% endif %}
+				{% endif %}
 				Your browser does not support HTML5 video.
 			</video>
 		</div>
