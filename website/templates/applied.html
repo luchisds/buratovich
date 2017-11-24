@@ -119,7 +119,7 @@
 			</button>
 			<p class="error-description">{{error}}</p>
 		</form>
-		
+
 		{% if from_date and to_date %}
 			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
 		{% endif %}
@@ -128,6 +128,7 @@
 
 			{% load el_pagination_tags %}
 			{% paginate applied %}
+			{% get_pages %}
 
 			<div class="export-data">
 				<button>
@@ -226,7 +227,7 @@
 							</td>
 						</tr>
 					{% endfor %}
-					{% if page_number == 1 %}
+					{% if page_number == pages|length %}
 						<tr class="total">
 							<td></td>
 							<td></td>

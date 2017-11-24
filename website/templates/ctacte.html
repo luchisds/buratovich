@@ -72,7 +72,7 @@
 			{% endif %}
 		</div>
 		<h3>Cta. Cte. en Pesos {% if ctacte_type == 'vencimiento' %} por Fecha de Vencimiento{% else %} por Fecha de Emisión{% endif %}</h3>
-		
+
 		{% if user.userinfo.is_commercial %}
 			{% if request.session.algoritmo_code %}
 				<h4 class="client-selected">{{request.session.algoritmo_code|slugify}} - {{request.session.company_name|upper}}</h4>
@@ -83,7 +83,7 @@
 			<!-- {% csrf_token %} -->
 			<div class="input-el">
 				<div class="from">
-					Desde 
+					Desde
 					<div class="input">
 						{% if from_date %}
 							<input id="from" name="from" type="date" value="{{request.GET.from}}" placeholder="dd/mm/aaaa">
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				<div class="to">
-					Hasta 
+					Hasta
 					<div class="input">
 						{% if to_date %}
 							<input id="to" name="to" type="date" value="{{request.GET.to}}" placeholder="dd/mm/aaaa">
@@ -123,6 +123,7 @@
 
 			{% load el_pagination_tags %}
 			{% paginate ctacte %}
+			{% get_pages %}
 
 			<div class="export-data">
 				<button>
@@ -266,7 +267,7 @@
 							</td>
 						</tr>
 					{% endfor %}
-					{% if page_number == 1 %}
+					{% if page_number == pages|length %}
 						<tr class="total">
 							<td></td>
 							<td></td>

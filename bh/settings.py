@@ -181,7 +181,7 @@ LOGIN_URL = '/login/requerido/'
 LOGIN_REDIRECT_URL = '/extranet/'
 
 # Django El Pagination
-EL_PAGINATION_PER_PAGE = 50
+EL_PAGINATION_PER_PAGE = 100
 #EL_PAGINATION_PAGE_LIST_CALLABLE = 'el_pagination.utils.get_elastic_page_numbers'
 
 # Grappelli Settings

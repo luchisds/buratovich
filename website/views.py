@@ -38,6 +38,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 import requests
 from requests.auth import HTTPBasicAuth
+from monthdelta import monthdelta
 
 from forms import CP
 from models import CtaCte
@@ -76,7 +77,7 @@ def cp(request):
 		#CONST
 		species_dict = {
 			'0000': '------',
-			'ALGO': 'Algodón', 
+			'ALGO': 'Algodón',
 			'AVEN': 'Avena',
 			'CART': 'Cártamo',
 			'CEBA': 'Cebada',
@@ -523,7 +524,6 @@ def ctacte(request, ctacte_type):
 	if ctacte_type <> 'vencimiento' and ctacte_type <> 'emision':
 		raise Http404
 
-
 	#Initialize variables
 
 	vouchers_pdf = ['LC', 'IC', 'LB', 'IB', 'ND', 'NC', 'FC', 'PC', 'OP', 'RE']
@@ -565,10 +565,17 @@ def ctacte(request, ctacte_type):
 					ib = ib_sum['amount_sign__sum']
 				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
 		elif not from_date and not to_date:
+			# Filter last month with [prev_date,today_date]
+			# today_date = datetime.datetime.today().strftime('%Y-%m-%d')
+			prev_date = (datetime.datetime.today() - monthdelta(1)).strftime('%Y-%m-%d')
 			if ctacte_type == 'vencimiento':
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
-			elif ctacte_type == 'emision':
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__gt=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+			else:
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__gt=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+
+			ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=prev_date).aggregate(Sum('amount_sign'))
+			if ib_sum['amount_sign__sum']:
+				ib = ib_sum['amount_sign__sum']
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
 
 		# If exist data
@@ -586,25 +593,28 @@ def ctacte(request, ctacte_type):
 				else:
 					tmp_dict['file'] = None
 				tmp_dict['balance'] = balance
-
 				records.append(tmp_dict)
 
 			#### Create a new sorted queryset/list
 			limit = settings.EL_PAGINATION_PER_PAGE
 			total_records = len(records)
-			ctacte = []
 
-			page_records = total_records
-			while page_records >= 0:
-				if page_records - limit < 0:
-					tmp = records[0:page_records]
-				else:
-					tmp = records[page_records-limit:page_records]
+			## SORT SET OF RECORDS FROM NEW TO OLD LIKE [180:280, 80:180, 0:80]
+			# ctacte = []
+            #
+			# page_records = total_records
+			# while page_records >= 0:
+			# 	if page_records - limit < 0:
+			# 		tmp = records[0:page_records]
+			# 	else:
+			# 		tmp = records[page_records-limit:page_records]
+            #
+			# 	for obj in tmp:
+			# 		ctacte.append(obj)
+            #
+			# 	page_records -= limit
 
-				for obj in tmp:
-					ctacte.append(obj)
-
-				page_records -= limit
+			ctacte = records
 
 			#### Initial balance
 			ib_records = 0
@@ -613,28 +623,41 @@ def ctacte(request, ctacte_type):
 			# Add initial balance
 			initial_balance.append(ib)
 			page_balance = []
-			while ib_records < total_records:
-				if ib_records == 0 and remainder > 0:
-					tmp = records[0:remainder]
-					ib_records += remainder
-				else:
-					tmp = records[0:ib_records+limit]
-					ib_records += limit
 
-				# Assign inicial balance to partial_balance (if there is no date filter will be 0, otherwise will be the initial balance at from date)
-				partial_balance = ib
+			# CALC INITIAL BALANCE FOR EVERY PAGE (FIRST PAGE IS THE REMAINDER)
+			# while ib_records < total_records:
+			# 	if ib_records == 0 and remainder > 0:
+			# 		tmp = records[0:remainder]
+			# 		ib_records += remainder
+			# 	else:
+			# 		tmp = records[0:ib_records+limit]
+			# 		ib_records += limit
+
+			# Assign inicial balance to partial_balance (if there is no date filter will be 0, otherwise will be the initial balance at from date)
+			partial_balance = ib
+
+			while ib_records < total_records:
+				tmp = records[ib_records:limit+ib_records]
+				ib_records += limit
+
 				for obj in tmp:
 					partial_balance += obj['obj']['amount_sign']
 
 				initial_balance.append(partial_balance)
 
 			# Scroll the list from first item to last-1 (is the cta cte total amount)
-			for n in range(0,len(initial_balance)-1):
+			# for n in range(0,len(initial_balance)-1):
+			# 	tmp_dict = {}
+			# 	tmp_dict['page'] = len(initial_balance)-1-n
+			# 	tmp_dict['balance'] = initial_balance[n]
+			# 	page_balance.append(tmp_dict)
+
+			# Create dict with initial balance by page from older records to newest
+			for n in range(0, len(initial_balance)-1):
 				tmp_dict = {}
-				tmp_dict['page'] = len(initial_balance)-1-n
+				tmp_dict['page'] = n + 1
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
-
 
 			return render(request, 'ctacte.html', {'ctacte': ctacte, 'total_sum': total_sum, 'page_balance': page_balance, 'from_date': from_date_print, 'to_date': to_date_print, 'ctacte_type':ctacte_type})
 		else:
@@ -700,19 +723,23 @@ def applied(request):
 			#### Create a new sorted queryset/list
 			limit = settings.EL_PAGINATION_PER_PAGE
 			total_records = len(records)
-			applied_ctacte = []
 
-			page_records = total_records
-			while page_records >= 0:
-				if page_records - limit < 0:
-					tmp = records[0:page_records]
-				else:
-					tmp = records[page_records-limit:page_records]
+			## SORT SET OF RECORDS FROM NEW TO OLD LIKE [180:280, 80:180, 0:80]
+			# applied_ctacte = []
+            #
+			# page_records = total_records
+			# while page_records >= 0:
+			# 	if page_records - limit < 0:
+			# 		tmp = records[0:page_records]
+			# 	else:
+			# 		tmp = records[page_records-limit:page_records]
+            #
+			# 	for obj in tmp:
+			# 		applied_ctacte.append(obj)
+            #
+			# 	page_records -= limit
 
-				for obj in tmp:
-					applied_ctacte.append(obj)
-
-				page_records -= limit
+			applied_ctacte = records
 
 			#### Initial balance
 			ib_records = 0
@@ -721,24 +748,39 @@ def applied(request):
 			# Add initial balance
 			initial_balance.append(ib)
 			page_balance = []
-			while ib_records < total_records:
-				if ib_records == 0:
-					tmp = records[0:remainder]
-					ib_records += remainder
-				else:
-					tmp = records[0:ib_records+limit]
-					ib_records += limit
 
-				partial_balance = 0
+			# CALC INITIAL BALANCE FOR EVERY PAGE (FIRST PAGE IS THE REMAINDER)
+			# while ib_records < total_records:
+			# 	if ib_records == 0:
+			# 		tmp = records[0:remainder]
+			# 		ib_records += remainder
+			# 	else:
+			# 		tmp = records[0:ib_records+limit]
+			# 		ib_records += limit
+
+			# Assign inicial balance to partial_balance (if there is no date filter will be 0, otherwise will be the initial balance at from date)
+			partial_balance = ib
+
+			while ib_records < total_records:
+				tmp = records[ib_records:limit+ib_records]
+				ib_records += limit
+
 				for obj in tmp:
 					partial_balance += obj['obj']['amount_sign']
 
 				initial_balance.append(partial_balance)
 
 			# Scroll the list from first item to last-1 (is the cta cte total amount)
-			for n in range(0,len(initial_balance)-1):
+			# for n in range(0,len(initial_balance)-1):
+			# 	tmp_dict = {}
+			# 	tmp_dict['page'] = len(initial_balance)-1-n
+			# 	tmp_dict['balance'] = initial_balance[n]
+			# 	page_balance.append(tmp_dict)
+
+			# Create dict with initial balance by page from older records to newest
+			for n in range(0, len(initial_balance)-1):
 				tmp_dict = {}
-				tmp_dict['page'] = len(initial_balance)-1-n
+				tmp_dict['page'] = n + 1
 				tmp_dict['balance'] = initial_balance[n]
 				page_balance.append(tmp_dict)
 
@@ -1062,7 +1104,7 @@ def downloadPDFExtranet(request):
 	}
 
 	def merge_pdf(file1, file2):
-		
+
 		def append_pdf(input,output):
 			[output.addPage(input.getPage(page_num)) for page_num in range(input.numPages)]
 
@@ -1096,7 +1138,7 @@ def downloadPDFExtranet(request):
 					file_url = 'http://190.92.102.226:1500/'+url+voucher_date+'/C'+str(request.session['algoritmo_code'])+separator+file_name
 				else:
 					file_url = 'http://190.92.102.226:1500/'+url+file_name
-				
+
 				r = requests.get(file_url, auth=HTTPBasicAuth(RS_USER, RS_PASS))
 				if r.status_code == 200:
 					##### FASCER Tickets Detail
@@ -1156,7 +1198,7 @@ def downloadexcel(request, module):
 
 	def getAppliedExcel():
 		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
-		
+
 		balance = 0
 		records = []
 		for d in data:
