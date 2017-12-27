@@ -117,6 +117,8 @@
 
 		{% if from_date and to_date %}
 			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
+		{% else %}
+			<h4 class="filter-date-title">Ultimos 30 días de Cuenta Corriente</h4>
 		{% endif %}
 
 		{% if ctacte %}
@@ -254,7 +256,7 @@
 											<td class="observations">{{i.obj.concept}}</td>
 											{% if i.file %}
 												<td class="center voucher">
-													<a href="{% url 'downloadPDF' %}?f={{i.file}}" target="_blank">
+													<a href="{% url 'downloadPDF' %}?f={{i.file}}&d={{i.obj.date_2|date:'Ymd'}}" target="_blank">
 														<img src="{% static "img/pdf2.png" %}" alt="">
 													</a>
 												</td>
