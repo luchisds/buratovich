@@ -569,10 +569,10 @@ def ctacte(request, ctacte_type):
 			# today_date = datetime.datetime.today().strftime('%Y-%m-%d')
 			prev_date = (datetime.datetime.today() - monthdelta(1)).strftime('%Y-%m-%d')
 			if ctacte_type == 'vencimiento':
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__gt=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__gte=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=prev_date).aggregate(Sum('amount_sign'))
 			else:
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__gt=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__gte=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=prev_date).aggregate(Sum('amount_sign'))
 
 			if ib_sum['amount_sign__sum']:
