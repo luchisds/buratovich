@@ -531,7 +531,11 @@ def ctacte(request, ctacte_type):
 	from_date_print = None
 	to_date_print = None
 	# Initial balance
-	ib = 0
+	# ib = 0
+	initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).earliest('date_1')
+	initial_balance_countable = initial_balance_countable.__dict__['initial_balance_countable']
+	ib = initial_balance_countable
+
 	data = None
 
 	# If exists 'algoritmo_code' variable in session
@@ -556,14 +560,16 @@ def ctacte(request, ctacte_type):
 				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
 				if ib_sum['amount_sign__sum']:
-					ib = ib_sum['amount_sign__sum']
+					ib += ib_sum['amount_sign__sum']
 				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lte=to_date).aggregate(Sum('amount_sign'))
+				total_sum = total_sum['amount_sign__sum'] + initial_balance_countable
 			elif ctacte_type == 'emision':
 				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=from_date).aggregate(Sum('amount_sign'))
 				if ib_sum['amount_sign__sum']:
-					ib = ib_sum['amount_sign__sum']
+					ib += ib_sum['amount_sign__sum']
 				total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lte=to_date).aggregate(Sum('amount_sign'))
+				total_sum = total_sum['amount_sign__sum'] + initial_balance_countable
 		elif not from_date and not to_date:
 			# Filter last month with [prev_date,today_date]
 			# today_date = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -576,8 +582,9 @@ def ctacte(request, ctacte_type):
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=prev_date).aggregate(Sum('amount_sign'))
 
 			if ib_sum['amount_sign__sum']:
-				ib = ib_sum['amount_sign__sum']
+				ib += ib_sum['amount_sign__sum']
 			total_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).aggregate(Sum('amount_sign'))
+			total_sum = total_sum['amount_sign__sum'] + initial_balance_countable
 
 		# If exist data
 		if data:
