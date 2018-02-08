@@ -39,12 +39,15 @@ INSTALLED_APPS = [
 	'website',
 	'el_pagination',
 	'mathfilters',
+	'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
 	'django.middleware.security.SecurityMiddleware',
 	# WhiteNoise middleware to serve static files
 	'whitenoise.middleware.WhiteNoiseMiddleware',
+	# Debug Toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 	# HTMLMin middlewares
 	'htmlmin.middleware.HtmlMinifyMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
@@ -205,6 +208,9 @@ TINYMCE_COMPRESSOR = True
 # HTMLMin Settings
 HTML_MINIFY = True  #To minify with DEBUG = True
 KEEP_COMMENTS_ON_MINIFYING = True
+
+# Debug Toolbar Settings
+INTERNAL_IPS = '127.0.0.1'
 
 # CP Online settings
 CP_CONTENT_TYPES = ['application/pdf',]

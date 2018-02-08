@@ -6,8 +6,13 @@ from django.contrib import admin
 
 from website import views
 
+import debug_toolbar
+
 
 urlpatterns = [
+	# Debug Toolbar
+	url(r'^__debug__/', include(debug_toolbar.urls)),
+
 	# static.serve debe ser usado solo en dev environment Fuck!
 	# url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 
