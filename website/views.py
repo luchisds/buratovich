@@ -44,6 +44,7 @@ from forms import CP
 from models import CtaCte
 from models import Deliveries
 from models import Sales
+from models import SpeciesHarvest
 from models import Applied
 from models import UserInfo
 from models import Notifications
@@ -532,8 +533,8 @@ def ctacte(request, ctacte_type):
 	to_date_print = None
 	# Initial balance
 	# ib = 0
-	initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).earliest('date_1')
-	initial_balance_countable = initial_balance_countable.__dict__['initial_balance_countable']
+	initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('initial_balance_countable').earliest('id')
+	initial_balance_countable = initial_balance_countable['initial_balance_countable']
 	ib = initial_balance_countable
 
 	data = None
@@ -557,7 +558,7 @@ def ctacte(request, ctacte_type):
 			# Request data
 
 			if ctacte_type == 'vencimiento':
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
 				if ib_sum['amount_sign__sum']:
 					ib += ib_sum['amount_sign__sum']
@@ -575,7 +576,7 @@ def ctacte(request, ctacte_type):
 			# today_date = datetime.datetime.today().strftime('%Y-%m-%d')
 			prev_date = (datetime.datetime.today() - monthdelta(1)).strftime('%Y-%m-%d')
 			if ctacte_type == 'vencimiento':
-				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__gte=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__gte=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
 				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=prev_date).aggregate(Sum('amount_sign'))
 			else:
 				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__gte=prev_date).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
@@ -813,7 +814,7 @@ def deliveries(request):
 			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		species = SpeciesHarvest.objects.filter(algoritmo_code=request.session['algoritmo_code'], movement_type='D').values('species', 'harvest', 'speciesharvest', 'species_description')
 		# If exist species
 		if species:
 			species_description = []
@@ -844,7 +845,6 @@ def deliveries(request):
 				tickets = Deliveries.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('date', 'voucher', 'gross_kg', 'humidity_percentage', 'humidity_kg', 'shaking_reduction', 'shaking_kg', 'volatile_reduction', 'volatile_kg', 'net_weight', 'factor', 'grade', 'number_1116A', 'external_voucher_number', 'driver_name', 'field', 'species_description').order_by('date')
 
 				tickets_by_field = {}
-				tickets_for_analysis = []
 				for s in species_description:
 					# Description
 					sd = s[0]
@@ -875,8 +875,6 @@ def deliveries(request):
 										total_vol += t['volatile_kg']
 										total_net += t['net_weight']
 										tickets_count += 1
-										# Ticket number (voucher) for Analysis filter
-										tickets_for_analysis.append(t['voucher'])
 									tickets_by_field[sd][f['field']]['total_gross'] = total_gross
 									tickets_by_field[sd][f['field']]['total_hum'] = total_hum
 									tickets_by_field[sd][f['field']]['total_sha'] = total_sha
@@ -884,13 +882,8 @@ def deliveries(request):
 									tickets_by_field[sd][f['field']]['total_net'] = total_net
 									tickets_by_field[sd][f['field']]['tickets_count'] = tickets_count
 
-				# Get ticket analysis
-				remittances = TicketsAnalysis.objects.filter(ticket__in = tickets_for_analysis).values('ticket').distinct()
-				# dict [Ticket] --> [Analysis]
-				ticket_analysis = {}
-				for i in remittances:
-					analysis = TicketsAnalysis.objects.filter(ticket = i['ticket']).values('analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('item_descripcion')
-					ticket_analysis[i['ticket']] = analysis
+				# Use list() to evaluate QuerySet only once and send the data to the template, otherwise QuerySet will evaluate every time i search a ticket
+				ticket_analysis = list(TicketsAnalysis.objects.filter(algoritmo_code=request.session['algoritmo_code']).filter(speciesharvest_filter).values('ticket', 'analysis_costs', 'gluten', 'analysis_item', 'percentage', 'bonus', 'reduction', 'item_descripcion').order_by('item_descripcion'))
 
 				return render(request, 'deliveries.html', {'species':species_by_harvest, 'tickets':tickets_by_field, 'total': total_kg, 'ticket_analysis': ticket_analysis})
 			else:
@@ -917,7 +910,7 @@ def sales(request):
 			current_species = ''
 
 		# Dict with [harvest]-->[species]-->[species description]
-		species = Sales.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('species', 'harvest', 'speciesharvest', 'species_description').order_by('-harvest','species').distinct()
+		species = SpeciesHarvest.objects.filter(algoritmo_code=request.session['algoritmo_code'], movement_type='S').values('species', 'harvest', 'speciesharvest', 'species_description')
 		# If exist species
 		if species:
 
@@ -1029,7 +1022,7 @@ def sales(request):
 
 				return render(request, 'sales.html', {'species':species_by_harvest, 'total':total_kg, 'sales':sales})
 			else:
-				# Ifno species selected
+				# If no species selected
 				return render(request, 'sales.html', {'species':species_by_harvest})
 		else:
 			return render(request, 'sales.html')
@@ -1181,7 +1174,7 @@ def downloadPDFExtranet(request):
 def downloadexcel(request, module):
 
 	def getPesosExcel():
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
 
 		balance = 0
 		records = []
