@@ -17,7 +17,7 @@ with open(BASE_DIR+'/bh/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'buratovich.herokuapp.com', 'buratovich.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'buratovich.herokuapp.com', 'buratovich.com', 'sd-1352471-h00001.ferozo.net', 'www.buratovich.com', '138.36.238.189']
 
 ADMINS = [('Luciano Muñoz', 'hola@luciano.im'),]
 MANAGERS = [('Luciano Muñoz', 'hola@luciano.im'),]
