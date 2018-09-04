@@ -18,6 +18,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -532,8 +533,11 @@ def ctacte(request, ctacte_type):
 	from_date_print = None
 	to_date_print = None
 	# Initial balance
-	# ib = 0
-	initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('initial_balance_countable').earliest('id')
+	try:
+		initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('initial_balance_countable').earliest('id')
+	except ObjectDoesNotExist:
+		return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'no_data': 'Sin movimientos', 'ctacte_type':ctacte_type})	
+
 	initial_balance_countable = initial_balance_countable['initial_balance_countable']
 	ib = initial_balance_countable
 

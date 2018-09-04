@@ -115,10 +115,14 @@
 			<p class="error-description">{{error}}</p>
 		</form>
 
-		{% if from_date and to_date %}
-			<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
+		{% if no_data %}
+			<h4 class="filter-date-title" style="text-align:center;margin-top:2em;font-size:1.3em;color:#3c433e;"><!-- Detalle de Cuenta Corriente --></h4>
 		{% else %}
-			<h4 class="filter-date-title" style="text-align:center;margin-top:2em;font-size:1.3em;color:#3c433e;">Últimos 30 días de Cuenta Corriente</h4>
+			{% if from_date and to_date %}
+				<h4 class="filter-date-title">Cuenta Corriente desde {{from_date}} hasta {{to_date}}</h4>
+			{% else %}
+				<h4 class="filter-date-title" style="text-align:center;margin-top:2em;font-size:1.3em;color:#3c433e;">Últimos 30 días de Cuenta Corriente</h4>
+			{% endif %}
 		{% endif %}
 
 		{% if ctacte %}
@@ -297,7 +301,11 @@
 
 			<div class="no-data">
 				{% if request.session.algoritmo_code %}
-					<p>No se encontraron movimientos.</p>
+					{% if no_data %}
+						<p>Esta cuenta corriente no posee movimientos.</p>
+					{% else %}
+						<p>No se encontraron movimientos.</p>
+					{% endif %}
 				{% else %}
 					<p>Debe seleccionar un Cliente.</p>
 				{% endif %}
