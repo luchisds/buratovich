@@ -536,7 +536,7 @@ def ctacte(request, ctacte_type):
 	try:
 		initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('initial_balance_countable').earliest('id')
 	except ObjectDoesNotExist:
-		return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'no_data': 'Sin movimientos', 'ctacte_type':ctacte_type})	
+		return render(request, 'ctacte.html', {'from_date': from_date_print, 'to_date': to_date_print, 'no_data': 'Sin movimientos', 'ctacte_type':ctacte_type})
 
 	initial_balance_countable = initial_balance_countable['initial_balance_countable']
 	ib = initial_balance_countable
@@ -1175,20 +1175,64 @@ def downloadPDFExtranet(request):
 
 
 @login_required
-def downloadexcel(request, module):
+def downloadexcel(request, module, type_module=None):
 
-	def getPesosExcel():
-		data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
+	def getPesosExcel(type_module):
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+		# Initial balance
+		try:
+			initial_balance_countable = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('initial_balance_countable').earliest('id')
+		except ObjectDoesNotExist:
+			raise Http404
+		initial_balance_countable = initial_balance_countable['initial_balance_countable']
+		ib = initial_balance_countable
 
-		balance = 0
+		if from_date and to_date:
+			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
+			try:
+				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
+			except ValueError:
+				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
+				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
+
+
+		if type_module == 'vencimiento':
+			if from_date and to_date:
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_1')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_1__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib += ib_sum['amount_sign__sum']
+			else:
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign')
+		elif type_module == 'emision':
+			if from_date and to_date:
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__range=[from_date, to_date]).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+				ib_sum = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code'], date_2__lt=from_date).aggregate(Sum('amount_sign'))
+				if ib_sum['amount_sign__sum']:
+					ib += ib_sum['amount_sign__sum']
+			else:
+				data = CtaCte.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('date_1', 'date_2', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('date_2', 'voucher')
+		else:
+			raise Http404
+
+		balance = ib
 		records = []
+
 		for d in data:
 			balance += d['amount_sign']
 			tmp_dict = OrderedDict()
-			tmp_dict['Fecha Vencimiento'] = d['date_2']
+			if type_module == 'vencimiento':
+				tmp_dict['Fecha Vencimiento'] = d['date_1']
+			else:
+				tmp_dict['Fecha Emision'] = d['date_2']
 			tmp_dict['Comprobante'] = d['voucher']
 			tmp_dict['Observaciones'] = d['concept']
-			tmp_dict['Fecha Emision'] = d['date_1']
+			if type_module == 'vencimiento':
+				tmp_dict['Fecha Emision'] = d['date_2']
+			else:
+				tmp_dict['Fecha Vencimiento'] = d['date_1']
 			if d['movement_type'] == 'Debito':
 				tmp_dict['Debe'] = d['amount_sign']
 				tmp_dict['Haber'] = 0
@@ -1201,10 +1245,32 @@ def downloadexcel(request, module):
 		filename = 'CtaCte Pesos'
 		return records, filename
 
-	def getAppliedExcel():
-		data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
 
-		balance = 0
+	def getAppliedExcel():
+		# Get dates from request
+		from_date = request.GET.get('from')
+		to_date = request.GET.get('to')
+
+		if from_date and to_date:
+			# Convert date if Firefox or IE --> Input Type="Text" = 'dd/mm/yyyy' --> Input Type="Date" = 'yyyy-mm-dd'
+			try:
+				d = datetime.datetime.strptime(from_date, '%Y-%m-%d').date()
+			except ValueError:
+				from_date = datetime.datetime.strptime(from_date, '%d/%m/%Y').date()
+				to_date = datetime.datetime.strptime(to_date, '%d/%m/%Y').date()
+
+			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__range=[from_date, to_date]).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+			ib_sum = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code'], expiration_date__lte=from_date).aggregate(Sum('amount_sign'))
+			if ib_sum['amount_sign__sum']:
+				ib = ib_sum['amount_sign__sum']
+		elif not from_date and not to_date:
+			data = Applied.objects.filter(algoritmo_code=request.session['algoritmo_code']).values('expiration_date', 'issue_date', 'voucher', 'concept', 'movement_type', 'amount_sign').order_by('expiration_date')
+			ib = 0
+		else:
+			raise Http404
+
+
+		balance = ib
 		records = []
 		for d in data:
 			balance += d['amount_sign']
@@ -1225,6 +1291,7 @@ def downloadexcel(request, module):
 		filename = 'CtaCte Aplicada'
 		return records, filename
 
+
 	def getDeliveriesExcel(species):
 		speciesharvest_filter = Q()
 		for s in species:
@@ -1237,7 +1304,7 @@ def downloadexcel(request, module):
 			tmp_dict = OrderedDict()
 			tmp_dict['Especie y Cosecha'] = t['species_description']
 			tmp_dict['Campo'] = t['field']
-			tmp_dict['Nombre del Campo'] = t['field']
+			tmp_dict['Nombre del Campo'] = t['field_description']
 			tmp_dict['Fecha'] = t['date']
 			tmp_dict['Comprobante'] = t['voucher']
 			tmp_dict['Kg. Brutos'] = t['gross_kg']
@@ -1286,7 +1353,7 @@ def downloadexcel(request, module):
 
 	if 'algoritmo_code' in request.session:
 		if module == 'pesos':
-			records, filename = getPesosExcel()
+			records, filename = getPesosExcel(type_module)
 		elif module == 'applied':
 			records, filename = getAppliedExcel()
 		elif module == 'deliveries':

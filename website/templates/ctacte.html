@@ -133,11 +133,8 @@
 
 			<div class="export-data">
 				<button>
-					<a href="{% url 'downloadexcel' 'pesos' %}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+					<a href="{% url 'downloadexcel' 'pesos' %}{{ctacte_type}}/?{{request.GET.urlencode}}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 				</button>
-				<!--<button>
-					<a href="/extranet/ctacte/downloadtxt/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
-				</button>-->
 			</div>
 
 			<div class="pagination top">

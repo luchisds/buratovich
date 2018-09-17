@@ -52,6 +52,7 @@ urlpatterns = [
 
 	url(r'^downloadexcel/rain/$', views.downloadRainExcel, name='download_rain'),
 	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)/$', views.downloadexcel, name='downloadexcel'),
+	url(r'^downloadexcel/(?P<module>[0-9A-Za-z_\-]+)(?:/(?P<type_module>[0-9A-Za-z_\-]+))/$', views.downloadexcel, name='downloadexcel'),
 	url(r'^download/$', views.downloadPDFExtranet, name='downloadPDF'),
 
 	url(r'^monedas/$', views.get_currency, name='currency'),

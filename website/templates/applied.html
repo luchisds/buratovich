@@ -132,7 +132,7 @@
 
 			<div class="export-data">
 				<button>
-					<a href="{% url 'downloadexcel' 'applied' %}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
+					<a href="{% url 'downloadexcel' 'applied' %}?{{request.GET.urlencode}}"><i class="fa fa-table" aria-hidden="true"></i> Exportar a Excel</a>
 				</button>
 				<!--<button>
 					<a href="/downloadtxt/applied/"><i class="fa fa-file-text-o" aria-hidden="true"></i> Exportar a TXT</a>
