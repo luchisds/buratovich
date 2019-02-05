@@ -208,9 +208,10 @@
 			];
 
 			var basLatLng = {lat: -34.552769, lng: -59.488081};
-			var chacoLatLng = {lat: -27.2530632, lng: -61.292384};
+			var chacoLatLng = {lat: -26.9563554, lng: -60.9762648};
 			var chLatLng = {lat: -27.224199, lng: -61.190521};
 			var gpLatLng = {lat: -27.321000, lng: -61.262627};
+			var bjLatLng = {lat: -26.5996348, lng: -60.9634821};
 			var arLatLng = {lat: -34.0619369, lng: -60.1060231};
 			var loLatLng = {lat: -35.175489, lng: -59.061557};
 
@@ -247,6 +248,13 @@
 				map: chacoMap,
 				title: 'GRAL. PINEDO',
 				icon: '{% static "img/gp_marker.png" %}',
+			});
+
+			var bermejo = new google.maps.Marker({
+				position: bjLatLng,
+				map: chacoMap,
+				title: 'BERMEJO',
+				icon: '{% static "img/bj_marker.png" %}',
 			});
 
 			var arrecifes = new google.maps.Marker({
