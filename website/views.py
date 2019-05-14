@@ -1168,7 +1168,7 @@ def downloadPDFExtranet(request):
 			#length = file['file'].headers['Content-Length']
 			response = StreamingHttpResponse(file['file'], content_type='application/pdf')
 			#response['Content-Length'] = length
-			response['Content-Disposition'] = "attachment; filename='%s'" % file['filename']
+			response['Content-Disposition'] = 'attachment; filename="%s"' % file['filename']
 			return response
 		else:
 			raise Http404
