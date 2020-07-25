@@ -14,6 +14,9 @@ cuentas.txt
 new_accounts.txt
 lluvias.csv
 FTP/bash.script
+FTP/*.txt
+FTP/*.TXT
+FTP/*.ZIP
 
 # Secret Key
 secret_key.txt
