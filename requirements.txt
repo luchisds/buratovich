@@ -16,7 +16,7 @@ jdcal==1.3
 MonthDelta==0.9.1
 olefile==0.44
 openpyxl==2.4.1
-Pillow==4.0.0
+Pillow==8.1.1
 psycopg2==2.6.2
 pyexcel==0.4.2
 pyexcel-io==0.3.0
